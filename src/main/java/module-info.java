@@ -2,6 +2,7 @@ module org.example.javafx {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.net.http;
+    requires gson;
 
 
     opens org.example.javafx to javafx.fxml;

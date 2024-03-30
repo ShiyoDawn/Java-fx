@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
     private static boolean canClose=true;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("base/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
@@ -34,7 +34,6 @@ public class HelloApplication extends Application {
             mainStage.setHeight(stageHeight);
             mainStage.setX(0);
             mainStage.setY(0);
-
         }
         mainStage.setTitle(name);
         mainStage.setScene(scene);
@@ -44,6 +43,4 @@ public class HelloApplication extends Application {
     public static void setCanClose(boolean canClose) {
         HelloApplication.canClose = canClose;
     }
-
-
 }
