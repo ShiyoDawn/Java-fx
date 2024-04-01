@@ -6,21 +6,21 @@ package org.example.javafx.request;
  */
 
 public class LoginRequest {
-    private String username;
+    public String userName;
 
-    private String password;
+    public String password;
 
     public LoginRequest(String username, String password) {
-        this.username = username;
+        this.userName = username;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

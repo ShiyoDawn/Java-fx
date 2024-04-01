@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
    <top>
       <HBox prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button" mnemonicParsing="false" onAction="#onClick" text="Button" />
+            <Label fx:id="userLabel" prefHeight="33.0" prefWidth="153.0" text="ADMIN/admin" />
+            <Label prefHeight="101.0" prefWidth="289.0" text="快捷查询" />
          </children>
       </HBox>
    </top>
+   <left>
+      <TreeView prefHeight="367.0" prefWidth="153.0" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <Label prefHeight="15.0" prefWidth="690.0" text="加载完成" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

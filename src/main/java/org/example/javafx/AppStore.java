@@ -3,6 +3,7 @@ package org.example.javafx;
 
 import org.example.javafx.controller.DashboardController;
 import org.example.javafx.controller.MainFrameController;
+import org.example.javafx.pojo.User;
 import org.example.javafx.request.JwtResponse;
 
 /**
@@ -11,12 +12,26 @@ import org.example.javafx.request.JwtResponse;
  */
 public class AppStore {
     private static JwtResponse jwt;
+
+
     private static MainFrameController mainFrameController;
+
+    //未使用SpringSecurity时暂时使用的user
+    //使用后将用户数据存入jwt
+    private static User user;
     private AppStore(){
     }
 
     public static JwtResponse getJwt() {
         return jwt;
+    }
+
+    public static User getUser() {
+        return AppStore.user;
+    }
+
+    public static void setUser(User user) {
+        AppStore.user = user;
     }
 
     public static void setJwt(JwtResponse jwt) {
@@ -29,5 +44,14 @@ public class AppStore {
 
     public static void setMainFrameController(MainFrameController mainFrameController) {
         AppStore.mainFrameController = mainFrameController;
+    }
+
+    public static String confirmType(User user) {
+        Integer type = AppStore.user.getUser_type_id();
+        if(type == 1)
+            return "ADMIN";
+        else if (type == 2)
+            return "TEACHER";
+        else return "STUDENT";
     }
 }
