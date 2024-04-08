@@ -17,6 +17,6 @@ public class DashboardController {
     MenuBar menuBar;
     @FXML
     public void initialize() {
-        menuBar.getMenus().add(new Menu("Test"));
     }
+
 }

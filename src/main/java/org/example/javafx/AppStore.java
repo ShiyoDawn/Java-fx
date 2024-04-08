@@ -49,9 +49,9 @@ public class AppStore {
     public static String confirmType(User user) {
         Integer type = AppStore.user.getUser_type_id();
         if(type == 1)
-            return "ADMIN";
+            return "管理员";
         else if (type == 2)
-            return "TEACHER";
-        else return "STUDENT";
+            return "教师";
+        else return "学生";
     }
 }
