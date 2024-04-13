@@ -46,14 +46,5 @@ public class LoginController {
 
     }
 
-    protected void showText() {
-        System.out.println(user.getText() + passwordField.getText());
-    }
-
-    public void initialize() throws IOException, InterruptedException {
-        HttpRequestUtils httpRequestUtils = new HttpRequestUtils();
-        System.out.println(httpRequestUtils.loginAgain(13));
-    }
-
 
 }
