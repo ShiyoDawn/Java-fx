@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
 public class StudentTableController {
-//    @FXML
-//    BorderPane;
+    @FXML
+    BorderPane borderPane;
 
     public void initialize() {
 

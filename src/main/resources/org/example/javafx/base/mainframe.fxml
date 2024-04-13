@@ -2,20 +2,20 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/menu.css" BorderPane.alignment="CENTER">
          <items>
             <Label fx:id="userLabel" prefHeight="33.0" prefWidth="86.0" text="ADMIN/admin" />
-            <Label prefHeight="15.0" prefWidth="216.0" text="                                           快捷查询" />
-            <TextField />
-            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Button" />
+            <Label prefHeight="15.0" prefWidth="216.0" text="                                           快捷跳转" />
+            <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
+            <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Button" />
          </items>
       </ToolBar>
    </top>
@@ -30,9 +30,9 @@
          <children>
             <Button fx:id="dashBoardButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="仪表盘" />
             <Button fx:id="courseCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="课程管理" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="学生管理" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="实践活动" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="用户中心" />
+            <Button fx:id="studentCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="学生管理" />
+            <Button fx:id="activityCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="实践活动" />
+            <Button fx:id="userCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="用户中心" />
             <VBox alignment="BOTTOM_CENTER" prefHeight="170.0" prefWidth="100.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="设置" />
