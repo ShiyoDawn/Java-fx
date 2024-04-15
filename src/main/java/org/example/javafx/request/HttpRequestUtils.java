@@ -5,9 +5,13 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 
 import com.google.gson.Gson;
+import org.example.javafx.pojo.Course;
 import org.example.javafx.pojo.Result;
 
 import static java.net.http.HttpRequest.newBuilder;
@@ -49,6 +53,24 @@ public class HttpRequestUtils {
         HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         Integer id0 = new Gson().fromJson(response.body(),Integer.class);
         return id0;
+    }
+    public Result getCourse(DataRequest request) throws IOException, InterruptedException {
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(serverUrl + "/course/selectAll"))
+                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(request)))
+                .headers("Content-Type", "application/json")
+                .build();
+        HttpResponse<String> httpResponse = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        Result result = new Gson().fromJson(httpResponse.body(),Result.class);
+        System.out.println(result.getData().toString());
+//        System.out.println();
+//        Iterator<String> it = course.keySet().iterator();
+//        while (it.hasNext()){
+//            String str = it.next();
+//            System.out.println(str);
+//        }
+        return result;
+
     }
 
 
