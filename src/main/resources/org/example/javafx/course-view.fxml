@@ -3,9 +3,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="44.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="75.0" text="周/节次" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="75.0" text="星期一" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="75.0" text="星期二" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="75.0" text="星期三" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="75.0" text="星期四" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="75.0" text="星期五" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="75.0" text="星期六" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="75.0" text="星期日" textAlignment="CENTER" />
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <Label text="课程中心" BorderPane.alignment="CENTER" />
-   </center>
-</BorderPane>
+         </children>
+      </HBox>
+      <VBox layoutY="35.0" prefHeight="365.0" prefWidth="75.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="73.0" prefWidth="76.0" text="第一节" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="73.0" prefWidth="76.0" text="第二节" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="73.0" prefWidth="76.0" text="第三节" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="73.0" prefWidth="76.0" text="第四节" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="73.0" prefWidth="76.0" text="第五节" textAlignment="CENTER" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
