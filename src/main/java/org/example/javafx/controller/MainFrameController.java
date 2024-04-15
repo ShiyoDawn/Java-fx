@@ -8,6 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
+import org.example.javafx.pojo.Course;
+import org.example.javafx.request.DataRequest;
+import org.example.javafx.request.HttpRequestUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,13 +52,18 @@ public class MainFrameController {
     Button searchButton;
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, InterruptedException {
         //加载仪表盘界面为初始界面
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         BorderPane dashboard = new BorderPane(fxmlLoader.load());
         borderPane.setCenter(dashboard);
         userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
+        HttpRequestUtils httpRequestUtils = new HttpRequestUtils();
+        Course course = new Course("1");
+        DataRequest dataRequest = new DataRequest();
+        httpRequestUtils.getCourse(dataRequest);
+
 
 
 
@@ -133,6 +141,7 @@ public class MainFrameController {
         //TODO 模糊查找根据target请求目标
         searchBox.getItems().addAll();
     }
+
 
 
 
