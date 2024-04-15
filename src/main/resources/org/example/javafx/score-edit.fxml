@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="259.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="71.0" layoutY="34.0" text="      学生：" />
+            <Label layoutX="83.0" layoutY="78.0" text="   课程：" />
+            <ComboBox fx:id="studentComboBox" layoutX="130.0" layoutY="30.0" prefHeight="23.0" prefWidth="109.0" promptText="请选择学生" />
+            <ComboBox fx:id="courseComboBox" layoutX="130.0" layoutY="74.0" prefHeight="23.0" prefWidth="111.0" promptText="请选择课程" />
+            <Label layoutX="84.0" layoutY="119.0" prefHeight="26.0" prefWidth="43.0" text="  分数：" />
+            <TextField fx:id="markField" layoutX="130.0" layoutY="120.0" prefHeight="24.0" prefWidth="122.0" />
+            <Button layoutX="84.0" layoutY="178.0" mnemonicParsing="false" onAction="#okButtonClick" prefHeight="28.0" prefWidth="57.0" text="确认" />
+            <Button layoutX="202.0" layoutY="179.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="28.0" prefWidth="59.0" text="取消" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
