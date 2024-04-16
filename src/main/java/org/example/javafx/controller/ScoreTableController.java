@@ -94,8 +94,9 @@ public class ScoreTableController {
     @FXML
     private void onAddButtonClick(ActionEvent event) {
 
-        //Result r=HttpRequestUtils.request("/hello",new DataRequest());
-        //text.setTextContent(r.getMsg());
+        Result r=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
+        //text.setText(r.getData().toString());
+        System.out.println(r.getData().toString());
     }
 
     @FXML

@@ -76,7 +76,7 @@ public class MainFrameController {
         setTabChange(studentCenterButton, "student-view.fxml");
         setTabChange(activityCenterButton, "activity-view.fxml");
         setTabChange(userCenterButton, "user-view.fxml");
-        //setTabChange(scoreCenterButton,"score-view.fxml");
+        setTabChange(scoreCenterButton,"score-view.fxml");
 
         searchBox.setEditable(true);
         List list = new ArrayList<>();
