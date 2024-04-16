@@ -46,6 +46,9 @@ public class MainFrameController {
     Button userCenterButton = new Button();
 
     @FXML
+    Button scoreCenterButton = new Button();
+
+    @FXML
     Label statueLabel;
 
     @FXML
@@ -65,16 +68,15 @@ public class MainFrameController {
         httpRequestUtils.getCourse(dataRequest);
 
 
-
-
         //TODO 发送请求，根据用户type获取tab
 
         //初始化页面切换
-        setTabChange(dashBoardButton,"dashboard-view.fxml");
-        setTabChange(courseCenterButton,"course-view.fxml");
-        setTabChange(studentCenterButton,"student-view.fxml");
-        setTabChange(activityCenterButton,"activity-view.fxml");
-        setTabChange(userCenterButton,"user-view.fxml");
+        setTabChange(dashBoardButton, "dashboard-view.fxml");
+        setTabChange(courseCenterButton, "course-view.fxml");
+        setTabChange(studentCenterButton, "student-view.fxml");
+        setTabChange(activityCenterButton, "activity-view.fxml");
+        setTabChange(userCenterButton, "user-view.fxml");
+        //setTabChange(scoreCenterButton,"score-view.fxml");
 
         searchBox.setEditable(true);
         List list = new ArrayList<>();
@@ -83,8 +85,9 @@ public class MainFrameController {
         list.add("学生管理");
         list.add("实践活动");
         list.add("用户中心");
+        //list.add("分数管理");
         searchBox.getItems().addAll(list);
-        searchButton.setOnAction(e->
+        searchButton.setOnAction(e ->
         {
             try {
                 setSearchBox();
@@ -98,7 +101,7 @@ public class MainFrameController {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 try {
-                    if (newValue.equals("学生管理")){
+                    if (newValue.equals("学生管理")) {
                         tabChange("student-view.fxml");
                     }
                 } catch (IOException e) {
@@ -132,7 +135,7 @@ public class MainFrameController {
         String target = searchBox.getEditor().getText();
         if (target != "") {
             searchBox.getItems().clear();
-        }else if (target.equals("学生管理")) {
+        } else if (target.equals("学生管理")) {
             tabChange("student-view.fxml");
             return;
         }
@@ -141,9 +144,6 @@ public class MainFrameController {
         //TODO 模糊查找根据target请求目标
         searchBox.getItems().addAll();
     }
-
-
-
 
 
 }

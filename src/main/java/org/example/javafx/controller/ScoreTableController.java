@@ -16,10 +16,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.javafx.MainApplication;
+import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
+import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.OptionItem;
 import org.example.javafx.response.DataResponse;
 import org.example.javafx.util.CommonMethod;
+import org.w3c.dom.Text;
 
 import javax.sql.CommonDataSource;
 import java.io.IOException;
@@ -34,6 +37,7 @@ public class ScoreTableController {
 
     @FXML
     private ComboBox<OptionItem> courseComboBox;
+
 
     @FXML
     private TableColumn<Map,String> courseNameColumn;
@@ -55,6 +59,8 @@ public class ScoreTableController {
 
     @FXML
     private BorderPane myBorderPane;
+    @FXML
+    private Button text;
 
     @FXML
     private TableColumn<Map,String> rankingColumn;
@@ -88,6 +94,8 @@ public class ScoreTableController {
     @FXML
     private void onAddButtonClick(ActionEvent event) {
 
+        //Result r=HttpRequestUtils.request("/hello",new DataRequest());
+        //text.setTextContent(r.getMsg());
     }
 
     @FXML
