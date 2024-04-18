@@ -9,11 +9,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="myBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreTableController">
+<BorderPane fx:id="scoreBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreTableController">
     <bottom>
-        <AnchorPane fx:id="myAnchorPane" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="scoreAnchorPane" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
@@ -33,11 +32,10 @@
                                                 <TableColumn fx:id="rankingColumn" minWidth="0.0" prefWidth="91.3333740234375" text="排名" />
                                             </columns>
                                         </TableView>
-                                        <Button fx:id="text" layoutX="358.0" layoutY="35.0"  text="Text" />
-                                        <Button layoutX="74.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="53.0" text="添加" />
-                                        <Button layoutX="146.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="29.0" prefWidth="51.0" text="删除" />
-                                        <Button layoutX="213.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="52.0" text="修改" />
-                                        <Button layoutX="902.0" layoutY="14.0" mnemonicParsing="false"  prefHeight="32.0" prefWidth="55.0" text="查询" />
+                                        <Button fx:id="addButton" layoutX="74.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="53.0" text="添加" />
+                                        <Button fx:id="deleteButton" layoutX="146.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="29.0" prefWidth="51.0" text="删除" />
+                                        <Button fx:id="editButton" layoutX="213.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="52.0" text="修改" />
+                                        <Button fx:id="queryButton" layoutX="902.0" layoutY="14.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="32.0" prefWidth="55.0" text="查询" />
                                         <Label layoutX="551.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
                                         <Label layoutX="735.0" layoutY="22.0" text="课程：" />
                               <ComboBox fx:id="studentComboBox" layoutX="590.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />

@@ -2,8 +2,11 @@ package org.example.javafx.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import org.example.javafx.request.OptionItem;
 import org.example.javafx.request.OptionItemList;
 
@@ -22,6 +25,18 @@ public class ScoreEditController {
     @FXML
     private ComboBox<OptionItem> studentComboBox;
 
+    @FXML
+    private AnchorPane editAnchorPane;
+
+    @FXML
+    private BorderPane editBorderPane;
+
+    @FXML
+    private Button cancelButton;
+
+    @FXML
+    private Button okButton;
+
     private ScoreTableController scoreTableController;
 
     private List<OptionItem> studentList;
@@ -31,13 +46,13 @@ public class ScoreEditController {
         this.scoreTableController = scoreTableController;
     }
     @FXML
-    private void cancelButtonClick(ActionEvent event) {
+    private void cancelButtonClick(ActionEvent actionEvent) {
 
     }
 
     private Integer scoreId;
-    /*@FXML
-    private void okButtonClick(){
+    @FXML
+    private void okButtonClick(ActionEvent actionEvent){
         Map data = new HashMap();
         OptionItem op=studentComboBox.getSelectionModel().getSelectedItem();
         if(op != null) {
@@ -49,8 +64,7 @@ public class ScoreEditController {
         }
         data.put("scoreId",scoreId);
         data.put("mark",markField.getText());
-        scoreTableController.doClose("ok",data);
-    }*/
+    }
 
 
     public void init(){

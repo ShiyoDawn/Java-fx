@@ -13,8 +13,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -26,6 +28,7 @@ import org.w3c.dom.Text;
 
 import javax.sql.CommonDataSource;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,14 +58,6 @@ public class ScoreTableController {
     private TableColumn<Map,String> markColumn;
 
     @FXML
-    private AnchorPane myAnchorPane;
-
-    @FXML
-    private BorderPane myBorderPane;
-    @FXML
-    private Button text;
-
-    @FXML
     private TableColumn<Map,String> rankingColumn;
 
     @FXML
@@ -73,6 +68,21 @@ public class ScoreTableController {
 
     @FXML
     private TableColumn<Map,String> studentNumColumn;
+
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button editButton;
+    @FXML
+    private Button queryButton;
+
+    @FXML
+    private AnchorPane scoreAnchorPane;
+
+    @FXML
+    private BorderPane scoreBorderPane;
 
     private List<OptionItem> courseList;
     private List<OptionItem> studentList;
@@ -93,20 +103,56 @@ public class ScoreTableController {
 
     @FXML
     private void onAddButtonClick(ActionEvent event) {
-
-        Result r=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
-        //text.setText(r.getData().toString());
-        System.out.println(r.getData().toString());
+        Stage editStage=new Stage();
+        //取消放大（全屏）按钮
+        editStage.setResizable(false);
+        try{
+            FXMLLoader fxmlLoader=new FXMLLoader();
+            URL url=getClass().getResource("/org/example/javafx/score-edit.fxml");
+            fxmlLoader.setLocation(url);
+            Parent parent=fxmlLoader.load();
+            editStage.setScene(new Scene(parent));
+            editStage.setTitle("增添学生分数");
+            editStage.show();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     private void onDeleteButtonClick(ActionEvent event) {
-
+        Stage editStage=new Stage();
+        //取消放大（全屏）按钮
+        editStage.setResizable(false);
+        try{
+            FXMLLoader fxmlLoader=new FXMLLoader();
+            URL url=getClass().getResource("/org/example/javafx/score-edit.fxml");
+            fxmlLoader.setLocation(url);
+            Parent parent=fxmlLoader.load();
+            editStage.setScene(new Scene(parent));
+            editStage.setTitle("删除学生分数");
+            editStage.show();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     private void onEditButtonClick(ActionEvent event) {
-
+        Stage editStage=new Stage();
+        //取消放大（全屏）按钮
+        editStage.setResizable(false);
+        try{
+            FXMLLoader fxmlLoader=new FXMLLoader();
+            URL url=getClass().getResource("/org/example/javafx/score-edit.fxml");
+            fxmlLoader.setLocation(url);
+            Parent parent=fxmlLoader.load();
+            editStage.setScene(new Scene(parent));
+            editStage.setTitle("修改学生分数");
+            editStage.show();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /*@FXML
@@ -190,7 +236,7 @@ public class ScoreTableController {
     public void showEditStage() {
         try {
             FXMLLoader fxmlLoader=new FXMLLoader();
-            fxmlLoader = new FXMLLoader(MainApplication.class.getResource("score-edit-dialog.fxml"));
+            fxmlLoader = new FXMLLoader(MainApplication.class.getResource("score-edit.fxml"));
             Stage stage=new Stage();
             Scene scene=null;
 
@@ -211,5 +257,8 @@ public class ScoreTableController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void onQueryButtonClick(ActionEvent actionEvent) {
     }
 }
