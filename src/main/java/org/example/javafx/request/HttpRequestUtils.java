@@ -8,10 +8,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 
 import com.google.gson.Gson;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Course;
 import org.example.javafx.pojo.Result;
 
@@ -90,6 +92,28 @@ public class HttpRequestUtils {
                 //                System.out.println(response.body());
                 Result result = gson.fromJson(response.body(),Result.class);
                 return result;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<OptionItem> requestOptionItemList(String url, DataRequest request){
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(serverUrl + url))
+                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(request)))
+                .headers("Content-Type", "application/json")
+                .build();
+        HttpClient client = HttpClient.newHttpClient();
+        try {
+            HttpResponse<String>  response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if(response.statusCode() == 200) {
+                OptionItemList o = gson.fromJson(response.body(), OptionItemList.class);
+                if(o != null)
+                    return o.getItemList();
             }
         } catch (IOException e) {
             e.printStackTrace();

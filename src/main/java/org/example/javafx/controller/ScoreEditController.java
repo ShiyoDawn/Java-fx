@@ -2,11 +2,19 @@ package org.example.javafx.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.example.javafx.pojo.Result;
+import org.example.javafx.request.DataRequest;
+import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.OptionItem;
 import org.example.javafx.request.OptionItemList;
 
@@ -47,6 +55,7 @@ public class ScoreEditController {
     }
     @FXML
     private void cancelButtonClick(ActionEvent actionEvent) {
+        Result r=HttpRequestUtils.request("/hello",new DataRequest());
 
     }
 
@@ -70,7 +79,7 @@ public class ScoreEditController {
     public void init(){
         studentList =scoreTableController.getStudentList();
         courseList = scoreTableController.getCourseList();
-        studentComboBox.getItems().addAll(studentList );
+        studentComboBox.getItems().addAll(studentList);
         courseComboBox.getItems().addAll(courseList);
     }
 
