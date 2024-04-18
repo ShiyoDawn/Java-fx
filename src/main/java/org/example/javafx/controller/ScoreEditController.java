@@ -7,12 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.javafx.pojo.Course;
 import org.example.javafx.pojo.Result;
+import org.example.javafx.pojo.Student;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.OptionItem;
@@ -45,6 +48,8 @@ public class ScoreEditController {
     @FXML
     private Button okButton;
 
+    //-----------------------------------------------------
+
     private ScoreTableController scoreTableController;
 
     private List<OptionItem> studentList;
@@ -53,9 +58,10 @@ public class ScoreEditController {
     public void setScoreTableController(ScoreTableController scoreTableController) {
         this.scoreTableController = scoreTableController;
     }
+
+    //-----------------------------------------------------
     @FXML
     private void cancelButtonClick(ActionEvent actionEvent) {
-        Result r=HttpRequestUtils.request("/hello",new DataRequest());
 
     }
 
@@ -77,10 +83,15 @@ public class ScoreEditController {
 
 
     public void init(){
-        studentList =scoreTableController.getStudentList();
+        studentList = scoreTableController.getStudentList();
         courseList = scoreTableController.getCourseList();
-        studentComboBox.getItems().addAll(studentList);
-        courseComboBox.getItems().addAll(courseList);
+
+        //有问题，显示不出来
+        DataRequest req =new DataRequest();
+        Result studentResult = HttpRequestUtils.request("/student/getStudentList",req); //从后台获取所有学生信息列表集合
+        Result courseResult = HttpRequestUtils.request("/course/selectAll",req); //从后台获取所有学生信息列表集合
+        studentComboBox.getItems().addAll((List)studentResult.getData());
+        courseComboBox.getItems().addAll((List)courseResult.getData());
     }
 
 }

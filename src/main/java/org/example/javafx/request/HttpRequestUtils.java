@@ -13,6 +13,7 @@ import java.util.Map;
 
 
 import com.google.gson.Gson;
+import lombok.Data;
 import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Course;
 import org.example.javafx.pojo.Result;
@@ -77,8 +78,7 @@ public class HttpRequestUtils {
 
     }
 
-    public static Result request(String url, Object request) {
-
+    public static Result request(String url, DataRequest request) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(serverUrl + url))
                 .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(request)))
@@ -90,7 +90,7 @@ public class HttpRequestUtils {
             System.out.println("url=" + url + "    response.statusCode=" + response.statusCode());
             if (response.statusCode() == 200) {
                 //                System.out.println(response.body());
-                Result result = gson.fromJson(response.body(),Result.class);
+                Result result = gson.fromJson(response.body(), Result.class);
                 return result;
             }
         } catch (IOException e) {
@@ -100,28 +100,5 @@ public class HttpRequestUtils {
         }
         return null;
     }
-
-    public static List<OptionItem> requestOptionItemList(String url, DataRequest request){
-        HttpRequest httpRequest = HttpRequest.newBuilder()
-                .uri(URI.create(serverUrl + url))
-                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(request)))
-                .headers("Content-Type", "application/json")
-                .build();
-        HttpClient client = HttpClient.newHttpClient();
-        try {
-            HttpResponse<String>  response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            if(response.statusCode() == 200) {
-                OptionItemList o = gson.fromJson(response.body(), OptionItemList.class);
-                if(o != null)
-                    return o.getItemList();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
 }
