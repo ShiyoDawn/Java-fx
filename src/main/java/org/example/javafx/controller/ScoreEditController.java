@@ -21,6 +21,7 @@ import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.OptionItem;
 import org.example.javafx.request.OptionItemList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,29 +70,45 @@ public class ScoreEditController {
     @FXML
     private void okButtonClick(ActionEvent actionEvent){
         Map data = new HashMap();
-        OptionItem op=studentComboBox.getSelectionModel().getSelectedItem();
-        if(op != null) {
-            data.put("studentId",Integer.parseInt(op.getValue()));
+        Object student=studentComboBox.getSelectionModel().getSelectedItem();
+        if(student != null) {
+            data.put("studentName",student.toString());
         }
-        op = courseComboBox.getSelectionModel().getSelectedItem();
-        if(op != null) {
-            data.put("courseId", Integer.parseInt(op.getValue()));
+        Object course = courseComboBox.getSelectionModel().getSelectedItem();
+        if(course != null) {
+            data.put("courseName",course.toString());
         }
-        data.put("scoreId",scoreId);
+        data.put("id",scoreId);
         data.put("mark",markField.getText());
     }
 
 
-    public void init(){
-        studentList = scoreTableController.getStudentList();
-        courseList = scoreTableController.getCourseList();
+    public void initialize(){
 
         //有问题，显示不出来
-        DataRequest req =new DataRequest();
+        DataRequest req=new DataRequest();
+        List studentList=new ArrayList();
+        List courseList=new ArrayList();
         Result studentResult = HttpRequestUtils.request("/student/getStudentList",req); //从后台获取所有学生信息列表集合
         Result courseResult = HttpRequestUtils.request("/course/selectAll",req); //从后台获取所有学生信息列表集合
-        studentComboBox.getItems().addAll((List)studentResult.getData());
-        courseComboBox.getItems().addAll((List)courseResult.getData());
+
+        Map cancelStudent=new HashMap();
+        cancelStudent.put("cancelStudent","请选择学生");
+        studentList.add(cancelStudent);
+        Map cancelCourse=new HashMap();
+        cancelCourse.put("cancelCourse","请选择课程");
+        courseList.add(cancelCourse);
+
+        List<Map> studentMap=(List<Map>) studentResult.getData();
+        List<Map> courseMap=(List<Map>) courseResult.getData();
+        for(Map student:studentMap){
+            studentList.add(student.get("student_name"));
+        }
+        for(Map course:courseMap){
+            courseList.add(course.get("course_name"));
+        }
+        studentComboBox.getItems().addAll(studentList);
+        courseComboBox.getItems().addAll(courseList);
     }
 
 }

@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="scoreBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreTableController">
     <bottom>
@@ -30,7 +29,7 @@
                                                 <TableColumn fx:id="courseNameColumn" minWidth="0.0" prefWidth="147.33340454101562" text="课程名称" />
                                                 <TableColumn fx:id="creditColumn" minWidth="0.0" prefWidth="104.0" text="学分" />
                                                 <TableColumn fx:id="markColumn" minWidth="0.0" prefWidth="108.0" text="成绩" />
-                                                <TableColumn fx:id="rankingColumn" minWidth="0.0" prefWidth="91.3333740234375" text="排名" />
+                                    <TableColumn fx:id="operateColumn" minWidth="0.0" prefWidth="108.0" text="操作" />
                                             </columns>
                                         </TableView>
                                         <Button fx:id="addButton" layoutX="74.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="53.0" text="添加" />
@@ -41,6 +40,7 @@
                                         <Label layoutX="735.0" layoutY="22.0" text="课程：" />
                               <ComboBox fx:id="studentComboBox" layoutX="590.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
                               <ComboBox fx:id="courseComboBox" layoutX="771.0" layoutY="18.0" prefHeight="23.0" prefWidth="105.0" promptText="请选择课程" />
+                              <Button fx:id="resetButton" layoutX="980.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="重置" />
                                     </children>
                                 </AnchorPane>
                             </content>
