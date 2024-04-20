@@ -1,8 +1,12 @@
 package org.example.javafx.controller;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -28,8 +32,22 @@ public class CourseController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         DataRequest dataRequest1 = new DataRequest();
         Result data = HttpRequestUtils.courseField("/lesson/selectLesson",dataRequest1);
-        String[] course1 = data.getData().toString().split(",");
-        System.out.println(course1[4]);
+        List<String> dataList = (List<String>) data.getData();
+        int row = 0;
+        int col = 0;
+        for (String a : dataList) {
+            Label label = new Label(a);
+            course.add(label, col, row);
+
+            col++;
+            if (col == 8) {
+                col = 0;
+                row++;
+            }
+        }
+//        ListView<String> listView = new ListView<>();
+//        ObservableList<String> items = FXCollections.observableArrayList((List)data.getData());
+//        listView.setItems(items);
 //        List cou = new ArrayList();
 //        for (Object course : courseList){
 //            String[] courseL = course.toString().split(",");
