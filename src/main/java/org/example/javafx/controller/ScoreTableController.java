@@ -116,6 +116,7 @@ public class ScoreTableController {
             editStage.setScene(new Scene(parent));
             editStage.setTitle("增添学生分数");
             editStage.show();
+            //scoreEditController.initialize();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
