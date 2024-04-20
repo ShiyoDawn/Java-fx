@@ -3,6 +3,8 @@ package org.example.javafx.controller;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -62,9 +64,6 @@ public class MainFrameController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         DataRequest dataRequest1 = new DataRequest();
-        Result data = HttpRequestUtils.courseField("/lesson/selectLesson",dataRequest1);
-        String[] course1 = data.getData().toString().split(",");
-        System.out.println(course1[4]);
         BorderPane dashboard = new BorderPane(fxmlLoader.load());
         borderPane.setCenter(dashboard);
         userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
