@@ -92,7 +92,7 @@ public class MainFrameController {
         list.add("学生管理");
         list.add("实践活动");
         list.add("用户中心");
-        //list.add("分数管理");
+        list.add("分数管理");
         searchBox.getItems().addAll(list);
         searchButton.setOnAction(e ->
         {
