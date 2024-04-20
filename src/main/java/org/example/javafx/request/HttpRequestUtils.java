@@ -77,6 +77,28 @@ public class HttpRequestUtils {
         return result;
 
     }
+    public static Result courseField(String url, DataRequest request) throws IOException, InterruptedException{
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(serverUrl + url))
+                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(request)))
+                .headers("Content-Type", "application/json")
+                .build();
+        HttpClient client = HttpClient.newHttpClient();
+        try {
+            HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            System.out.println("url=" + "/selectAll" + "    response.statusCode=" + response.statusCode());
+            if (response.statusCode() == 200) {
+                //                System.out.println(response.body());
+                Result result = gson.fromJson(response.body(), Result.class);
+                return result;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Result(400 ,null, "未获取到信息");
+    }
 
     public static Result request(String url, DataRequest request) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
