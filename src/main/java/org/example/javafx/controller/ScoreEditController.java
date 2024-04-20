@@ -7,10 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -84,14 +81,14 @@ public class ScoreEditController {
 
     //-----------------------------------------------------
 
-    //public ScoreTableController scoreTableController;
+    public ScoreTableController scoreTableController;
 
     private List studentList;
     private List courseList;
 
-    /*public void setScoreTableController(ScoreTableController scoreTableController) {
+    public void setScoreTableController(ScoreTableController scoreTableController) {
         this.scoreTableController = scoreTableController;
-    }*/
+    }
 
 
     //-----------------------------------------------------
@@ -205,16 +202,6 @@ public class ScoreEditController {
             Scene scene = new Scene(hBox);
             confirmStage.setScene(scene);
             confirmStage.show();
-        }
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("score-view.fxml");
-            fxmlLoader.setLocation(url);
-            fxmlLoader.setController(new ScoreTableController());
-            Parent parent = fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
         Stage stage = (Stage) cancelAddButton.getScene().getWindow();
         stage.close();

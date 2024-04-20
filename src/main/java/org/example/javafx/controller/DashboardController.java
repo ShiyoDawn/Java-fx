@@ -113,9 +113,9 @@ public class DashboardController {
         Result data = HttpRequestUtils.courseField("/course/selectLessonByStudent",dataRequest);
         List<Map<String,String>> dataList = new Gson().fromJson(data.getData().toString(),List.class);
         for (Map<String,String> a: dataList) {
-            String week = a.get("week");
+            //String week = a.get("week");
             String course_name = a.get("course_name");
-            String terms = a.get("terms");
+            //String terms = a.get("terms");
             String week_time = a.get("week_time");
             String room = a.get("room");
             String time_sort = a.get("time_sort");
