@@ -99,7 +99,8 @@ public class ScoreTableController {
 
     private ScoreEditController scoreEditController = null;
 
-    private ScoreTableController scoreTableController = null;
+    public static ScoreTableController scoreTableController;
+
     private Stage stage = null;
 
     //------------------------------------------------------------
@@ -110,7 +111,7 @@ public class ScoreTableController {
         editStage.setResizable(false);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("/org/example/javafx/score-edit.fxml");
+            URL url = getClass().getResource("/org/example/javafx/score-edit-add.fxml");
             fxmlLoader.setLocation(url);
             Parent parent = fxmlLoader.load();
             editStage.setScene(new Scene(parent));
@@ -130,7 +131,7 @@ public class ScoreTableController {
         editStage.setResizable(false);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("/org/example/javafx/score-edit.fxml");
+            URL url = getClass().getResource("/org/example/javafx/score-edit-delete.fxml");
             fxmlLoader.setLocation(url);
             Parent parent = fxmlLoader.load();
             editStage.setScene(new Scene(parent));
@@ -149,7 +150,7 @@ public class ScoreTableController {
         editStage.setResizable(false);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("/org/example/javafx/score-edit.fxml");
+            URL url = getClass().getResource("/org/example/javafx/score-edit-update.fxml");
             fxmlLoader.setLocation(url);
             Parent parent = fxmlLoader.load();
             editStage.setScene(new Scene(parent));
@@ -255,7 +256,7 @@ public class ScoreTableController {
     }
 
     //显示成绩总表
-    private void setTableViewData(Result result) {
+    public void setTableViewData(Result result) {
         observableList.clear();
         if (result.getData() instanceof Map) {
             Map scoreMap = (Map) result.getData();
@@ -327,7 +328,7 @@ public class ScoreTableController {
     public void showEditStage() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader = new FXMLLoader(MainApplication.class.getResource("score-edit.fxml"));
+            fxmlLoader = new FXMLLoader(MainApplication.class.getResource("score-edit-add.fxml"));
             Stage stage = new Stage();
             Scene scene = null;
 
@@ -342,7 +343,6 @@ public class ScoreTableController {
                 MainApplication.setCanClose(true);
             });
             scoreEditController = (ScoreEditController) fxmlLoader.getController();
-            scoreEditController.setScoreTableController(this);
             scoreEditController.initialize();
 
         } catch (IOException e) {

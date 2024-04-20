@@ -90,6 +90,42 @@
                           <Label text="第五、六节" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                           <Label text="第七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                           <Label text="第九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                          <Label fx:id="course11" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course12" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course13" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course14" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course15" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course21" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course22" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course23" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course24" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course25" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course31" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course32" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course33" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course34" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course35" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course41" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course42" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course43" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course44" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course45" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course51" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course52" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course53" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course54" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course55" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course61" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course62" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course63" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course64" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course65" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course71" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course72" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course73" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course74" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                          <Label fx:id="course75" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
              </GridPane>
          </children>
       </AnchorPane>
