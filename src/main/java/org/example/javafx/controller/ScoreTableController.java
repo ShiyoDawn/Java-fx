@@ -31,7 +31,7 @@ public class ScoreTableController {
     //显示元素
 
     @FXML
-    private static TableView<Map> dataTableView;
+    private TableView<Map> dataTableView;
 
     @FXML
     private ComboBox courseComboBox;
@@ -121,7 +121,7 @@ public class ScoreTableController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        onResetButtonClick();
+        //onResetButtonClick();
         showEditStage();
     }
 
@@ -141,7 +141,7 @@ public class ScoreTableController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        onResetButtonClick();
+        //onResetButtonClick();
         showEditStage();
     }
 
@@ -161,7 +161,7 @@ public class ScoreTableController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        onResetButtonClick();
+        //onResetButtonClick();
         showEditStage();
     }
 
