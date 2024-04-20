@@ -111,7 +111,7 @@ public class DashboardController {
         DataRequest dataRequest = new DataRequest();
         dataRequest.setData(student);
         Result data = HttpRequestUtils.courseField("/course/selectLessonByStudent",dataRequest);
-        List<Map<String,String>> dataList = new Gson().fromJson(data.getData().toString(),List.class);
+        /*List<Map<String,String>> dataList = new Gson().fromJson(data.getData().toString(),List.class);
         for (Map<String,String> a: dataList) {
             String week = a.get("week");
             String course_name = a.get("course_name");
@@ -121,7 +121,7 @@ public class DashboardController {
             String time_sort = a.get("time_sort");
             String teacher_name = a.get("teacher_name");
             addLabel(week_time,time_sort,course_name,room,teacher_name);
-        }
+        }*/
     }
     private void addLabel(String week_time, String time_sort,String course_name,String room,String teacher_name){
         int weekNum = Integer.parseInt(week_time);

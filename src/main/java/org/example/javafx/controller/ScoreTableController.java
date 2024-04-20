@@ -389,4 +389,5 @@ public class ScoreTableController {
         setTableViewData(result);
     }
 
+
 }
