@@ -5,12 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.javafx.MainApplication;
@@ -27,11 +29,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class ScoreTableController {
+public class ScoreTableController  {
     //显示元素
 
     @FXML
-    private TableView<Map> dataTableView;
+    private TableView<Map> dataTableView ;
 
     @FXML
     private ComboBox courseComboBox;
@@ -53,7 +55,7 @@ public class ScoreTableController {
     private TableColumn<Map, String> markColumn;
 
     @FXML
-    private TableColumn<Map, String> operateColumn;
+    private TableColumn<Map, Button> operateColumn;
 
     @FXML
     private ComboBox studentComboBox;
@@ -127,42 +129,64 @@ public class ScoreTableController {
 
     @FXML
     private void onDeleteButtonClick(ActionEvent event) {
-        Stage editStage = new Stage();
-        //取消放大（全屏）按钮
-        editStage.setResizable(false);
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("/org/example/javafx/score-edit-delete.fxml");
-            fxmlLoader.setLocation(url);
-            Parent parent = fxmlLoader.load();
-            editStage.setScene(new Scene(parent));
-            editStage.setTitle("删除学生分数");
-            editStage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        Map selected=dataTableView.getSelectionModel().getSelectedItem();
+        if(selected==null){
+            Stage editStage = new Stage();
+            //取消放大（全屏）按钮
+            editStage.setResizable(false);
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                URL url = getClass().getResource("/org/example/javafx/score-edit-delete.fxml");
+                fxmlLoader.setLocation(url);
+                Parent parent = fxmlLoader.load();
+                editStage.setScene(new Scene(parent));
+                editStage.setTitle("删除学生分数");
+                editStage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            showEditStage();
+            return;
         }
+        //System.out.println(selected);
         //onResetButtonClick();
-        showEditStage();
+        Integer student_id=CommonMethod.getInteger(selected,"student_id");
+        Integer course_id=CommonMethod.getInteger(selected,"course_id");
+        System.out.println(student_id+" "+course_id);
+        DataRequest dataRequest=new DataRequest();
+        dataRequest.add("student_id",student_id);
+        dataRequest.add("course_id",course_id);
+        CommonMethod.alertButton("/score/deleteAllById",dataRequest,"删除");
+        onQueryButtonClick();
     }
 
     @FXML
     private void onEditButtonClick(ActionEvent event) {
-        Stage editStage = new Stage();
-        //取消放大（全屏）按钮
-        editStage.setResizable(false);
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = getClass().getResource("/org/example/javafx/score-edit-update.fxml");
-            fxmlLoader.setLocation(url);
-            Parent parent = fxmlLoader.load();
-            editStage.setScene(new Scene(parent));
-            editStage.setTitle("修改学生分数");
-            editStage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        Map selected=dataTableView.getSelectionModel().getSelectedItem();
+        if(selected==null){
+            Stage editStage = new Stage();
+            //取消放大（全屏）按钮
+            editStage.setResizable(false);
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                URL url = getClass().getResource("/org/example/javafx/score-edit-update.fxml");
+                fxmlLoader.setLocation(url);
+                Parent parent = fxmlLoader.load();
+                editStage.setScene(new Scene(parent));
+                editStage.setTitle("修改学生分数");
+                editStage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            //onResetButtonClick();
+            showEditStage();
+            return;
         }
-        //onResetButtonClick();
-        showEditStage();
+        DataRequest dataRequest=new DataRequest();
+        Integer student_id=CommonMethod.getInteger(selected,"student_id");
+        Integer course_id=CommonMethod.getInteger(selected,"course_id");
+        dataRequest.add("student_id",student_id);
+        dataRequest.add("course_id",course_id);
     }
 
     @FXML
@@ -198,7 +222,7 @@ public class ScoreTableController {
                 return;
             }
             Map map = (Map) result.getData();
-            Double student_id = Double.parseDouble(map.get("id").toString());
+            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             DataRequest courDataRequest = new DataRequest();
             courDataRequest.add("course_name", course_name);
@@ -208,7 +232,7 @@ public class ScoreTableController {
                 return;
             }
             map = (Map) result.getData();
-            Double course_id = Double.parseDouble(map.get("id").toString());
+            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             DataRequest dataRequest = new DataRequest();
             dataRequest.add("student_id", student_id);
@@ -264,27 +288,23 @@ public class ScoreTableController {
         if (result.getData() instanceof Map) {
             Map scoreMap = (Map) result.getData();
             Button editButton;
-            Integer index = 1;
             editButton = new Button("编辑");
-            editButton.setId("edit" + index);
             editButton.setOnAction(e -> {
                 editItem(((Button) e.getSource()).getId());
             });
-            scoreMap.put("edit", editButton);
-            observableList.addAll(FXCollections.observableArrayList(scoreMap));
+            scoreMap.put("operateColumn", editButton);
+            observableList.add(scoreMap);
         } else if (result.getData() instanceof ArrayList) {
             Button editButton;
-            Integer index = 1;
             scoreList = (ArrayList) result.getData();
             for (Map scoremap : (ArrayList<Map>) scoreList) {
-                index++;
+                System.out.println(scoremap);
                 editButton = new Button("编辑");
-                editButton.setId("edit" + index);
                 editButton.setOnAction(e -> {
                     editItem(((Button) e.getSource()).getId());
                 });
-                scoremap.put("edit", editButton);
-                observableList.addAll(FXCollections.observableArrayList(scoremap));
+                scoremap.put("operateColumn", editButton);
+                observableList.add(scoremap);
             }
         }
         dataTableView.setItems(observableList);
@@ -353,8 +373,13 @@ public class ScoreTableController {
         }
     }
 
+
     @FXML
     public void initialize() {
+        System.out.println("check");
+        Result result;
+        result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());//从后台获取所有学生信息列表集合
+        setTableViewData(result);
         id.setCellValueFactory(new MapValueFactory<>("id"));
         studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
@@ -362,6 +387,7 @@ public class ScoreTableController {
         courseNameColumn.setCellValueFactory(new MapValueFactory<>("course_name"));
         creditColumn.setCellValueFactory(new MapValueFactory<>("credit"));
         markColumn.setCellValueFactory(new MapValueFactory<>("mark"));
+
 
         DataRequest req = new DataRequest();
         List studentList = new ArrayList();
@@ -387,10 +413,5 @@ public class ScoreTableController {
         studentComboBox.getItems().addAll(studentList);
         courseComboBox.getItems().addAll(courseList);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        Result result;
-        result = HttpRequestUtils.request("/score/getScoreList", new DataRequest()); //从后台获取所有学生信息列表集合
-        setTableViewData(result);
     }
-
-
 }

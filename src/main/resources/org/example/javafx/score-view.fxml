@@ -40,7 +40,7 @@
                                         <Label layoutX="735.0" layoutY="22.0" text="课程：" />
                               <ComboBox fx:id="studentComboBox" layoutX="590.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
                               <ComboBox fx:id="courseComboBox" layoutX="771.0" layoutY="18.0" prefHeight="23.0" prefWidth="105.0" promptText="请选择课程" />
-                              <Button fx:id="resetButton" layoutX="980.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="重置" />
+                              <Button fx:id="resetButton" layoutX="980.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="刷新" />
                                     </children>
                                 </AnchorPane>
                             </content>

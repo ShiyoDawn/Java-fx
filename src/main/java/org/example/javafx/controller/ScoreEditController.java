@@ -20,13 +20,11 @@ import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.OptionItem;
 import org.example.javafx.request.OptionItemList;
+import org.example.javafx.util.CommonMethod;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ScoreEditController {
 
@@ -81,14 +79,10 @@ public class ScoreEditController {
 
     //-----------------------------------------------------
 
-    public ScoreTableController scoreTableController;
+    //public ScoreTableController scoreTableController=new ScoreTableController();
 
     private List studentList;
     private List courseList;
-
-    public void setScoreTableController(ScoreTableController scoreTableController) {
-        this.scoreTableController = scoreTableController;
-    }
 
 
     //-----------------------------------------------------
@@ -154,18 +148,19 @@ public class ScoreEditController {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            Double student_id = Double.parseDouble(map.get("id").toString());
+            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             DataRequest courDataRequest = new DataRequest();
             courDataRequest.add("course_name", course_name);
             result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
             map = (Map) result.getData();
-            Double course_id = Double.parseDouble(map.get("id").toString());
+            System.out.println(map);
+            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
             dataRequest.add("mark", addMarkField.getText());
-            HttpRequestUtils.request("/score/insertScore", dataRequest);
+            CommonMethod.alertButton("/score/insertScore",dataRequest,"添加");
         } else if (student_name == null && course_name != null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
@@ -203,8 +198,10 @@ public class ScoreEditController {
             confirmStage.setScene(scene);
             confirmStage.show();
         }
+        //scoreTableController.initialize();
         Stage stage = (Stage) cancelAddButton.getScene().getWindow();
         stage.close();
+
     }
 
     @FXML
@@ -234,17 +231,17 @@ public class ScoreEditController {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            Double student_id = Double.parseDouble(map.get("id").toString());
+            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             DataRequest courDataRequest = new DataRequest();
             courDataRequest.add("course_name", course_name);
             result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
             map = (Map) result.getData();
-            Double course_id = Double.parseDouble(map.get("id").toString());
+            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
-            HttpRequestUtils.request("/score/deleteAllById", dataRequest);
+            CommonMethod.alertButton("/score/deleteAllById",dataRequest,"删除");
         } else if (student_name == null && course_name != null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
@@ -283,7 +280,7 @@ public class ScoreEditController {
             confirmStage.show();
         }
 
-        try {
+       /* try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL url = getClass().getResource("score-view.fxml");
             fxmlLoader.setLocation(url);
@@ -291,7 +288,7 @@ public class ScoreEditController {
             Parent parent = fxmlLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         Stage stage = (Stage) cancelDeleteButton.getScene().getWindow();
         stage.close();
@@ -338,18 +335,18 @@ public class ScoreEditController {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            Double student_id = Double.parseDouble(map.get("id").toString());
+            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             DataRequest courDataRequest = new DataRequest();
             courDataRequest.add("course_name", course_name);
             result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
             map = (Map) result.getData();
-            Double course_id = Double.parseDouble(map.get("id").toString());
+            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
             dataRequest.add("mark", updateMarkField.getText());
-            HttpRequestUtils.request("/score/updateScore", dataRequest);
+            CommonMethod.alertButton("/score/updateScore",dataRequest,"修改");
         } else if (student_name == null && course_name != null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
@@ -387,7 +384,7 @@ public class ScoreEditController {
             confirmStage.setScene(scene);
             confirmStage.show();
         }
-        try {
+        /*try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL url = getClass().getResource("score-view.fxml");
             fxmlLoader.setLocation(url);
@@ -395,8 +392,8 @@ public class ScoreEditController {
             Parent parent = fxmlLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        Stage stage = (Stage) cancelAddButton.getScene().getWindow();
+        }*/
+        Stage stage = (Stage) cancelUpdateButton.getScene().getWindow();
         stage.close();
     }
 
