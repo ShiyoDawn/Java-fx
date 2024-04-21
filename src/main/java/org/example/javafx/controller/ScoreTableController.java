@@ -85,19 +85,10 @@ public class ScoreTableController  {
 
 
     //------------------------------------------------------------
-    private List courseList;
-    private List studentList;
 
-    private List scoreList = new ArrayList<>(); // 学生信息列表数据
+    private List<Map> scoreList = new ArrayList<>(); // 学生信息列表数据
     private ObservableList<Map> observableList = FXCollections.observableArrayList();  // TableView渲染列表
 
-    public List getStudentList() {
-        return studentList;
-    }
-
-    public List getCourseList() {
-        return courseList;
-    }
 
     private ScoreEditController scoreEditController = null;
 
@@ -145,7 +136,7 @@ public class ScoreTableController  {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            showEditStage();
+            //showEditStage();
             return;
         }
         //System.out.println(selected);
@@ -157,6 +148,7 @@ public class ScoreTableController  {
         dataRequest.add("student_id",student_id);
         dataRequest.add("course_id",course_id);
         CommonMethod.alertButton("/score/deleteAllById",dataRequest,"删除");
+        onQueryButtonClick();
         onQueryButtonClick();
     }
 
@@ -274,7 +266,7 @@ public class ScoreTableController  {
     }
 
     @FXML
-    private void onResetButtonClick(){
+    public void onResetButtonClick(){
         Result result=null;
         studentComboBox.setValue("请选择学生");
         courseComboBox.setValue("请选择课程");
@@ -285,13 +277,16 @@ public class ScoreTableController  {
     //显示成绩总表
     public void setTableViewData(Result result) {
         observableList.clear();
+        int index=1;
         if (result.getData() instanceof Map) {
             Map scoreMap = (Map) result.getData();
             Button editButton;
             editButton = new Button("编辑");
+            editButton.setId("edit"+index);
             editButton.setOnAction(e -> {
                 editItem(((Button) e.getSource()).getId());
             });
+            index++;
             scoreMap.put("operateColumn", editButton);
             observableList.add(scoreMap);
         } else if (result.getData() instanceof ArrayList) {
@@ -300,11 +295,13 @@ public class ScoreTableController  {
             for (Map scoremap : (ArrayList<Map>) scoreList) {
                 System.out.println(scoremap);
                 editButton = new Button("编辑");
+                editButton.setId("edit"+index);
                 editButton.setOnAction(e -> {
                     editItem(((Button) e.getSource()).getId());
                 });
                 scoremap.put("operateColumn", editButton);
                 observableList.add(scoremap);
+                index++;
             }
         }
         dataTableView.setItems(observableList);
@@ -314,17 +311,17 @@ public class ScoreTableController  {
     public void editItem(String name) {
         if (name == null)
             return;
-        int j = Integer.parseInt(name.substring(4, name.length()));
-        //Map data = scoreList.get();
+        int index = Integer.parseInt(name.substring(4, name.length()));
+        Map data = scoreList.get(index);
         showEditStage();
-        //scoreEditController.showDialog(data);
+        scoreEditController.showDialog(data);
         MainApplication.setCanClose(false);
         stage.showAndWait();
     }
 
     public void doClose(String cmd, Map data) {
         MainApplication.setCanClose(true);
-        stage.close();
+        //stage.close();
         if (!"ok".equals(cmd))
             return;
         Result res;
@@ -339,10 +336,10 @@ public class ScoreTableController  {
         DataRequest req = new DataRequest();
         req.add("student_id", studentId);
         req.add("course_id", courseId);
-        req.add("score_id", CommonMethod.getInteger(data, "score_id"));
+        req.add("id", CommonMethod.getInteger(data, "id"));
         req.add("mark", CommonMethod.getInteger(data, "mark"));
         System.out.println(req.getData());
-        res = HttpRequestUtils.request("/score/scoreSave", req); //从后台获取所有学生信息列表集合
+        res = HttpRequestUtils.request("/score/getScoreList", req); //从后台获取所有学生信息列表集合
         if (res != null && res.getCode() == 0) {
             onQueryButtonClick();
         }
@@ -377,9 +374,6 @@ public class ScoreTableController  {
     @FXML
     public void initialize() {
         System.out.println("check");
-        Result result;
-        result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());//从后台获取所有学生信息列表集合
-        setTableViewData(result);
         id.setCellValueFactory(new MapValueFactory<>("id"));
         studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
@@ -413,5 +407,6 @@ public class ScoreTableController  {
         studentComboBox.getItems().addAll(studentList);
         courseComboBox.getItems().addAll(courseList);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        onQueryButtonClick();
     }
 }

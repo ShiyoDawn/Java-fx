@@ -79,7 +79,7 @@ public class ScoreEditController {
 
     //-----------------------------------------------------
 
-    //public ScoreTableController scoreTableController=new ScoreTableController();
+    public ScoreTableController scoreTableController=new ScoreTableController();
 
     private List studentList;
     private List courseList;
@@ -199,9 +199,9 @@ public class ScoreEditController {
             confirmStage.show();
         }
         //scoreTableController.initialize();
+        //scoreTableController.doClose("ok",(Map) result.getData());
         Stage stage = (Stage) cancelAddButton.getScene().getWindow();
         stage.close();
-
     }
 
     @FXML
@@ -289,7 +289,6 @@ public class ScoreEditController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }*/
-
         Stage stage = (Stage) cancelDeleteButton.getScene().getWindow();
         stage.close();
     }
@@ -397,9 +396,26 @@ public class ScoreEditController {
         stage.close();
     }
 
+    public void showDialog(Map data){
+        if(data == null) {
+            scoreId = null;
+            studentComboBox.getSelectionModel().select(-1);
+            courseComboBox.getSelectionModel().select(-1);
+            studentComboBox.setDisable(false);
+            courseComboBox.setDisable(false);
+            updateMarkField.setText("");
+        }else {
+            scoreId = CommonMethod.getInteger(data,"score_id");
+            studentComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(studentList, CommonMethod.getString(data, "student_id")));
+            courseComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(courseList, CommonMethod.getString(data, "course_id")));
+            studentComboBox.setDisable(true);
+            courseComboBox.setDisable(true);
+            updateMarkField.setText(CommonMethod.getString(data, "mark"));
+        }
+    }
+
     public void initialize() {
 
-        //有问题，显示不出来
         DataRequest req = new DataRequest();
         List studentList = new ArrayList();
         List courseList = new ArrayList();
