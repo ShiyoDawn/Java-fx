@@ -1,3 +1,4 @@
+
 package org.example.javafx.controller;
 
 import com.google.gson.Gson;
@@ -44,6 +45,7 @@ public class DashboardController {
     }
 
     //添加课程表上的课程
+
     private void addlabel(int week, Integer student_id, String terms) throws IOException, InterruptedException {
         Map<String, String> student = new HashMap();
         student.put("student_id", String.valueOf(student_id));
@@ -76,8 +78,8 @@ public class DashboardController {
             gridPane.add(label, (int) week_time, (int) (time_sort + 1));
         }
 
-        Result data = HttpRequestUtils.courseField("/course/selectLessonByStudent",dataRequest);
-        /*List<Map<String,String>> dataList = new Gson().fromJson(data.getData().toString(),List.class);
+        /*Result data = HttpRequestUtils.courseField("/course/selectLessonByStudent",dataRequest);
+        List<Map<String,String>> dataList = new Gson().fromJson(data.getData().toString(),List.class);
         for (Map<String,String> a: dataList) {
             //String week = a.get("week");
             String course_name = a.get("course_name");
@@ -87,7 +89,7 @@ public class DashboardController {
             String time_sort = a.get("time_sort");
             String teacher_name = a.get("teacher_name");
             addLabel(week_time,time_sort,course_name,room,teacher_name);
-        }
+        }*/
     }
 
     private Map<String, String> selectData() {
@@ -220,3 +222,4 @@ public class DashboardController {
 
 
 }
+

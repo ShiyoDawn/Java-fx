@@ -6,12 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -61,10 +63,19 @@ public class ScoreTableController  {
     private ComboBox studentComboBox;
 
     @FXML
-    private TableColumn<Map, String> studentNameColumn;
+    private ComboBox studentEditComboBox;
 
     @FXML
-    private TableColumn<Map, String> studentNumColumn;
+    private TableColumn studentNameColumn;
+
+    @FXML
+    private TableColumn studentNumColumn;
+
+    @FXML
+    private ComboBox courseEditComboBox;
+
+    @FXML
+    private TextField markUpdateTextField;
 
     @FXML
     private Button addButton;
@@ -76,12 +87,20 @@ public class ScoreTableController  {
     private Button queryButton;
     @FXML
     private Button resetButton;
+    @FXML
+    private Button editCancelButton;
+    @FXML
+    private Button editComfirmButton;
 
     @FXML
     private AnchorPane scoreAnchorPane;
 
     @FXML
     private BorderPane scoreBorderPane;
+    @FXML
+    private AnchorPane editAnchorPane;
+    @FXML
+    private TabPane editTabPane;
 
 
     //------------------------------------------------------------
@@ -158,29 +177,22 @@ public class ScoreTableController  {
     @FXML
     private void onEditButtonClick(ActionEvent event) {
         Map selected=dataTableView.getSelectionModel().getSelectedItem();
-        if(selected==null){
-            Stage editStage = new Stage();
-            //取消放大（全屏）按钮
-            editStage.setResizable(false);
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                URL url = getClass().getResource("/org/example/javafx/score-edit-update.fxml");
-                fxmlLoader.setLocation(url);
-                Parent parent = fxmlLoader.load();
-                editStage.setScene(new Scene(parent));
-                editStage.setTitle("修改学生分数");
-                editStage.showAndWait();
-                onQueryButtonClick();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            return;
+        editTabPane.setVisible(true);
+        if(selected!=null){
+            DataRequest dataRequest=new DataRequest();
+            Integer student_id=CommonMethod.getInteger(selected,"student_id");
+            Integer course_id=CommonMethod.getInteger(selected,"course_id");
+            dataRequest.add("student_id",student_id);
+            dataRequest.add("course_id",course_id);
+            Result result=new Result();
+            result=HttpRequestUtils.request("/score/selectByStudentAndCourse",dataRequest);
+            Map map=(Map) result.getData();
+            studentEditComboBox.setValue(map.get("student_name").toString());
+            courseEditComboBox.setValue(map.get("course_name").toString());
+            studentEditComboBox.setEditable(false);
+            courseEditComboBox.setEditable(false);
+            markUpdateTextField.setText(map.get("mark").toString());
         }
-        DataRequest dataRequest=new DataRequest();
-        Integer student_id=CommonMethod.getInteger(selected,"student_id");
-        Integer course_id=CommonMethod.getInteger(selected,"course_id");
-        dataRequest.add("student_id",student_id);
-        dataRequest.add("course_id",course_id);
     }
 
     @FXML
@@ -384,6 +396,106 @@ public class ScoreTableController  {
 
 
     @FXML
+    private void onCancelClick(ActionEvent event) {
+        studentEditComboBox.setValue("请选择学生");
+        courseEditComboBox.setValue("请选择课程");
+        markUpdateTextField.setText("");
+    }
+
+    @FXML
+    private void onConfirmClick(ActionEvent event) {
+        DataRequest dataRequest = new DataRequest();
+        String student_name = null;
+        String course_name = null;
+        Object student = studentEditComboBox.getSelectionModel().getSelectedItem();
+        Object course = courseEditComboBox.getSelectionModel().getSelectedItem();
+        Result result = null;
+        if (student != null)
+            student_name = student.toString();
+
+        if (course != null)
+            course_name = course.toString();
+
+        if (student_name == "请选择学生") {
+            studentEditComboBox.setValue("请选择学生");
+            student_name = null;
+        }
+        if (course_name == "请选择课程") {
+            courseEditComboBox.setValue("请选择课程");
+            course_name = null;
+        }
+        if (markUpdateTextField.getText() == null) {
+            Stage confirmStage = new Stage();
+            confirmStage.setWidth(250);
+            confirmStage.setHeight(150);
+            //取消放大（全屏）按钮
+            confirmStage.setResizable(false);
+            Text text = new Text("请输入分数");
+            HBox hBox = new HBox(text);
+            hBox.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(hBox);
+            confirmStage.setScene(scene);
+            confirmStage.show();
+            return;
+        }
+        if (student_name != null && course_name != null) {
+            DataRequest stuDataRequest = new DataRequest();
+            stuDataRequest.add("student_name", student_name);
+            result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
+            Map map = (Map) result.getData();
+            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+
+            DataRequest courDataRequest = new DataRequest();
+            courDataRequest.add("course_name", course_name);
+            result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
+            map = (Map) result.getData();
+            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+
+            dataRequest.add("student_id", student_id);
+            dataRequest.add("course_id", course_id);
+            dataRequest.add("mark", markUpdateTextField.getText());
+            CommonMethod.alertButton("/score/updateScore",dataRequest,"修改");
+            onQueryButtonClick();
+        } else if (student_name == null && course_name != null) {
+            Stage confirmStage = new Stage();
+            confirmStage.setWidth(250);
+            confirmStage.setHeight(150);
+            //取消放大（全屏）按钮
+            confirmStage.setResizable(false);
+            Text text = new Text("请输入学生");
+            HBox hBox = new HBox(text);
+            hBox.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(hBox);
+            confirmStage.setScene(scene);
+            confirmStage.show();
+        } else if (student_name != null && course_name == null) {
+            Stage confirmStage = new Stage();
+            confirmStage.setWidth(250);
+            confirmStage.setHeight(150);
+            //取消放大（全屏）按钮
+            confirmStage.setResizable(false);
+            Text text = new Text("请输入课程");
+            HBox hBox = new HBox(text);
+            hBox.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(hBox);
+            confirmStage.setScene(scene);
+            confirmStage.show();
+        } else {
+            Stage confirmStage = new Stage();
+            confirmStage.setWidth(250);
+            confirmStage.setHeight(150);
+            //取消放大（全屏）按钮
+            confirmStage.setResizable(false);
+            Text text = new Text("请输入学生和课程");
+            HBox hBox = new HBox(text);
+            hBox.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(hBox);
+            confirmStage.setScene(scene);
+            confirmStage.show();
+        }
+    }
+
+    @FXML
     public void initialize() {
         System.out.println("check");
         id.setCellValueFactory(new MapValueFactory<>("id"));
@@ -393,6 +505,9 @@ public class ScoreTableController  {
         courseNameColumn.setCellValueFactory(new MapValueFactory<>("course_name"));
         creditColumn.setCellValueFactory(new MapValueFactory<>("credit"));
         markColumn.setCellValueFactory(new MapValueFactory<>("mark"));
+
+        editTabPane.setVisible(false);
+
 
         DataRequest req = new DataRequest();
         List studentList = new ArrayList();
@@ -417,6 +532,8 @@ public class ScoreTableController  {
         }
         studentComboBox.getItems().addAll(studentList);
         courseComboBox.getItems().addAll(courseList);
+        studentEditComboBox.getItems().addAll(studentList);
+        courseEditComboBox.getItems().addAll(courseList);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         onResetButtonClick();
     }

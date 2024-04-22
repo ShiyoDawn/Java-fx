@@ -3,15 +3,19 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="scoreBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreTableController">
-    <bottom>
+   <left>
         <AnchorPane fx:id="scoreAnchorPane" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -20,18 +24,6 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
                                     <children>
-                                        <TableView fx:id="dataTableView" layoutY="54.0" prefHeight="608.0" prefWidth="1080.0">
-                                            <columns>
-                                                <TableColumn fx:id="id" prefWidth="67.33337020874023" text="id" />
-                                                <TableColumn fx:id="studentNameColumn" prefWidth="115.3333511352539" text="学生姓名" />
-                                                <TableColumn fx:id="studentNumColumn" prefWidth="113.99998474121094" text="学号" />
-                                                <TableColumn fx:id="courseNumColumn" minWidth="0.0" prefWidth="123.33331298828125" text="课程号" />
-                                                <TableColumn fx:id="courseNameColumn" minWidth="0.0" prefWidth="147.33340454101562" text="课程名称" />
-                                                <TableColumn fx:id="creditColumn" minWidth="0.0" prefWidth="104.0" text="学分" />
-                                                <TableColumn fx:id="markColumn" minWidth="0.0" prefWidth="108.0" text="成绩" />
-                                    <TableColumn fx:id="operateColumn" minWidth="0.0" prefWidth="108.0" text="操作" />
-                                            </columns>
-                                        </TableView>
                                         <Button fx:id="addButton" layoutX="74.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="53.0" text="添加" />
                                         <Button fx:id="deleteButton" layoutX="146.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="29.0" prefWidth="51.0" text="删除" />
                                         <Button fx:id="editButton" layoutX="213.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="52.0" text="修改" />
@@ -41,6 +33,51 @@
                               <ComboBox fx:id="studentComboBox" layoutX="590.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
                               <ComboBox fx:id="courseComboBox" layoutX="771.0" layoutY="18.0" prefHeight="23.0" prefWidth="105.0" promptText="请选择课程" />
                               <Button fx:id="resetButton" layoutX="980.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="刷新" />
+                              <AnchorPane layoutX="874.0" layoutY="78.0" prefHeight="607.0" prefWidth="207.0">
+                                 <children>
+                                    <TabPane fx:id="editTabPane" layoutY="-24.0" prefHeight="631.0" prefWidth="198.0" tabClosingPolicy="UNAVAILABLE">
+                                      <tabs>
+                                        <Tab text="编辑窗口">
+                                          <content>
+                                            <AnchorPane fx:id="editAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TextField fx:id="markUpdateTextField" layoutX="80.0" layoutY="187.0" prefHeight="23.0" prefWidth="96.0" />
+                                                      <Text layoutX="42.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" wrappingWidth="56.666748046875" />
+                                                      <Text layoutX="42.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程：" />
+                                                      <Text layoutX="42.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="分数：" />
+                                                      <ComboBox fx:id="studentEditComboBox" layoutX="78.0" layoutY="92.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
+                                                      <ComboBox fx:id="courseEditComboBox" layoutX="78.0" layoutY="135.0" prefHeight="23.0" prefWidth="102.0" promptText="请选择课程" />
+                                                      <Button fx:id="editComfirmButton" layoutX="50.0" layoutY="255.0" mnemonicParsing="false" onAction="#onConfirmClick" text="确认" />
+                                                      <Button fx:id="editCancelButton" layoutX="130.0" layoutY="255.0" mnemonicParsing="false" onAction="#onCancelClick" text="重置" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children>
+                              </AnchorPane>
+                              <SplitPane dividerPositions="0.5" layoutY="55.0" prefHeight="608.0" prefWidth="877.0">
+                                 <items>
+                                    <AnchorPane prefHeight="606.0" prefWidth="878.0">
+                                       <children>
+                                                    <TableView fx:id="dataTableView" prefHeight="605.0" prefWidth="859.0">
+                                                        <columns>
+                                                            <TableColumn fx:id="id" prefWidth="67.33337020874023" text="id" />
+                                                            <TableColumn fx:id="studentNameColumn" prefWidth="115.3333511352539" text="学生姓名" />
+                                                            <TableColumn fx:id="studentNumColumn" prefWidth="113.99998474121094" text="学号" />
+                                                            <TableColumn fx:id="courseNumColumn" minWidth="0.0" prefWidth="123.33331298828125" text="课程号" />
+                                                            <TableColumn fx:id="courseNameColumn" minWidth="0.0" prefWidth="147.33340454101562" text="课程名称" />
+                                                            <TableColumn fx:id="creditColumn" minWidth="0.0" prefWidth="104.0" text="学分" />
+                                                            <TableColumn fx:id="markColumn" minWidth="0.0" prefWidth="102.666748046875" text="成绩" />
+                                                <TableColumn fx:id="operateColumn" minWidth="0.0" prefWidth="99.333251953125" text="操作" />
+                                                        </columns>
+                                                    </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                    <ScrollBar orientation="VERTICAL" />
+                                 </items>
+                              </SplitPane>
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -49,5 +86,5 @@
                 </TabPane>
             </children>
         </AnchorPane>
-    </bottom>
+   </left>
 </BorderPane>
