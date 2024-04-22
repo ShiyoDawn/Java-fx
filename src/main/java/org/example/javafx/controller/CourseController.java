@@ -24,39 +24,7 @@ import java.util.Map;
 
 
 public class CourseController {
-    @FXML
-    private GridPane course;
-    @FXML
-    public void initialize() throws IOException, InterruptedException {
-        LocalDateTime currentTime = LocalDateTime.now();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        DataRequest dataRequest1 = new DataRequest();
-        Result data = HttpRequestUtils.courseField("/lesson/selectLesson",dataRequest1);
-        List<String> dataList = (List<String>) data.getData();
-        int row = 0;
-        int col = 0;
-        for (String a : dataList) {
-            Label label = new Label(a);
-            course.add(label, col, row);
 
-            col++;
-            if (col == 8) {
-                col = 0;
-                row++;
-            }
-        }
-//        ListView<String> listView = new ListView<>();
-//        ObservableList<String> items = FXCollections.observableArrayList((List)data.getData());
-//        listView.setItems(items);
-//        List cou = new ArrayList();
-//        for (Object course : courseList){
-//            String[] courseL = course.toString().split(",");
-//            System.out.println(courseL);
-//        }
-
-
-
-    }
 
 
 }

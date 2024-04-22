@@ -87,11 +87,8 @@ public class HttpRequestUtils {
         HttpClient client = HttpClient.newHttpClient();
         try {
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            System.out.println("url=" + "/selectAll" + "    response.statusCode=" + response.statusCode());
             if (response.statusCode() == 200) {
-                //                System.out.println(response.body());
                 Result result = gson.fromJson(response.body(), Result.class);
-                System.out.println("123"+result.toString());
                 return result;
             }
         } catch (IOException e) {

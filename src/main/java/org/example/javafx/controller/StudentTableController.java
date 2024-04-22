@@ -1,50 +1,42 @@
 package org.example.javafx.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import org.example.javafx.pojo.Result;
-import org.example.javafx.request.DataRequest;
-import org.example.javafx.request.HttpRequestUtils;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 
 public class StudentTableController {
 
     @FXML
-    private Button addButton;
+    private Button add;
+
+    @FXML
+    private Button cancel;
+
+    @FXML
+    private TextField classText;
 
     @FXML
     private TableColumn classesColumn;
 
     @FXML
-    private TableView dataTableView;
-
-    @FXML
-    private Button deleteButton;
+    private Button delete;
 
     @FXML
     private TableColumn departmentColumn;
 
     @FXML
-    private Button editButton;
+    private TextField departmentText;
+
+    @FXML
+    private CheckBox fuzzySearch;
 
     @FXML
     private TableColumn gradeColumn;
+
+    @FXML
+    private TextField gradeText;
 
     @FXML
     private TableColumn id;
@@ -53,72 +45,32 @@ public class StudentTableController {
     private TableColumn majorColumn;
 
     @FXML
-    private Button queryButton;
+    private TextField majorText;
 
     @FXML
-    private Button resetButton;
+    private TableColumn person_idColumn;
 
     @FXML
-    private AnchorPane scoreAnchorPane;
+    private TextField person_idText;
 
     @FXML
-    private BorderPane scoreBorderPane;
+    private Button save;
 
     @FXML
-    private ComboBox<?> studentComboBox;
-
-    @FXML
-    private TableColumn student_idColumn;
+    private TextField select;
 
     @FXML
     private TableColumn student_nameColumn;
-    private ObservableList<Map> observableList= FXCollections.observableArrayList();  // TableView渲染列表
-    private ArrayList<Map> studentList = new ArrayList();  // 学生信息列表数据
-    @FXML
-    void onAddButtonClick(ActionEvent event) {
-
-    }
 
     @FXML
-    void onDeleteButtonClick(ActionEvent event) {
-
-    }
+    private TextField student_nameText;
 
     @FXML
-    void onEditButtonClick(ActionEvent event) {
-
-    }
+    private Button update;
 
     @FXML
-    void onQueryButtonClick(ActionEvent event) {
+    public void initialize(){
 
     }
 
-    @FXML
-    void onResetButtonClick(ActionEvent event) {
-
-    }
-    public void initialize() {
-        id.setCellValueFactory(new MapValueFactory<>("id"));
-        student_idColumn.setCellValueFactory(new MapValueFactory("person_id"));
-        student_nameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
-        departmentColumn.setCellValueFactory(new MapValueFactory<>("department"));
-        classesColumn.setCellValueFactory(new MapValueFactory<>("classes"));
-        gradeColumn.setCellValueFactory(new MapValueFactory<>("grade"));
-        majorColumn.setCellValueFactory(new MapValueFactory<>("major"));
-        DataRequest req = new DataRequest();
-        List studentList = new ArrayList();
-        Result studentResult = HttpRequestUtils.request("/student/getStudentList", req); //从后台获取所有学生信息列表集合
-
-        dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        setTableViewData();
-    }
-
-    private void setTableViewData() {
-        observableList.clear();
-        for (int j = 0; j < studentList.size(); j++) {
-            observableList.addAll(FXCollections.observableArrayList(studentList.get(j)));
-        }
-        dataTableView.setItems(observableList);
-    }
 }
