@@ -97,6 +97,8 @@ public class ScoreTableController  {
     private Stage stage = null;
 
     //------------------------------------------------------------
+
+    //因为不知道出了啥bug，于是为了方便，以下部分“result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());”可为刷新数据库作用
     @FXML
     private void onAddButtonClick(ActionEvent event) {
         Stage editStage = new Stage();
@@ -109,13 +111,13 @@ public class ScoreTableController  {
             Parent parent = fxmlLoader.load();
             editStage.setScene(new Scene(parent));
             editStage.setTitle("增添学生分数");
-            editStage.show();
+            editStage.showAndWait();
             //scoreEditController.initialize();
+            onQueryButtonClick();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         //onResetButtonClick();
-        showEditStage();
     }
 
     @FXML
@@ -132,11 +134,12 @@ public class ScoreTableController  {
                 Parent parent = fxmlLoader.load();
                 editStage.setScene(new Scene(parent));
                 editStage.setTitle("删除学生分数");
-                editStage.show();
+                editStage.showAndWait();
+                onQueryButtonClick();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            //showEditStage();
+            initialize();
             return;
         }
         //System.out.println(selected);
@@ -166,12 +169,11 @@ public class ScoreTableController  {
                 Parent parent = fxmlLoader.load();
                 editStage.setScene(new Scene(parent));
                 editStage.setTitle("修改学生分数");
-                editStage.show();
+                editStage.showAndWait();
+                onQueryButtonClick();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            //onResetButtonClick();
-            showEditStage();
             return;
         }
         DataRequest dataRequest=new DataRequest();
@@ -227,9 +229,13 @@ public class ScoreTableController  {
             Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
 
             DataRequest dataRequest = new DataRequest();
+
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
+            result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
             result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
+            map=(Map) result.getData();
+            System.out.println(map.get("student_id")+" "+map.get("course_id")+" "+map.get("mark"));
             if(result==null){
                 observableList.clear();
                 return;
@@ -239,6 +245,7 @@ public class ScoreTableController  {
         {
             DataRequest dataRequest = new DataRequest();
             dataRequest.add("student_name",student_name);
+            result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
             result = HttpRequestUtils.request("/score/selectByStudentName",dataRequest);
             if(result==null){
                 observableList.clear();
@@ -249,6 +256,7 @@ public class ScoreTableController  {
         {
             DataRequest dataRequest = new DataRequest();
             dataRequest.add("course_name",course_name);
+            result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
             result = HttpRequestUtils.request("/score/selectByCourseName",dataRequest);
             if(result==null){
                 observableList.clear();
@@ -258,6 +266,7 @@ public class ScoreTableController  {
         else if(student_name == null && course_name == null)
         {
             result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
+            result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
         }
         if(result==null){
             return;
@@ -271,6 +280,7 @@ public class ScoreTableController  {
         studentComboBox.setValue("请选择学生");
         courseComboBox.setValue("请选择课程");
         result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
+        result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
         setTableViewData(result);
     }
 
@@ -280,6 +290,8 @@ public class ScoreTableController  {
         int index=1;
         if (result.getData() instanceof Map) {
             Map scoreMap = (Map) result.getData();
+            System.out.println(scoreMap);
+            //scoreMap.put("student_id",(Integer))
             Button editButton;
             editButton = new Button("编辑");
             editButton.setId("edit"+index);
@@ -292,15 +304,15 @@ public class ScoreTableController  {
         } else if (result.getData() instanceof ArrayList) {
             Button editButton;
             scoreList = (ArrayList) result.getData();
-            for (Map scoremap : (ArrayList<Map>) scoreList) {
-                System.out.println(scoremap);
+            for (Map scoreMap : (ArrayList<Map>) scoreList) {
+                System.out.println(scoreMap);
                 editButton = new Button("编辑");
                 editButton.setId("edit"+index);
                 editButton.setOnAction(e -> {
                     editItem(((Button) e.getSource()).getId());
                 });
-                scoremap.put("operateColumn", editButton);
-                observableList.add(scoremap);
+                scoreMap.put("operateColumn", editButton);
+                observableList.add(scoreMap);
                 index++;
             }
         }
@@ -382,7 +394,6 @@ public class ScoreTableController  {
         creditColumn.setCellValueFactory(new MapValueFactory<>("credit"));
         markColumn.setCellValueFactory(new MapValueFactory<>("mark"));
 
-
         DataRequest req = new DataRequest();
         List studentList = new ArrayList();
         List courseList = new ArrayList();
@@ -407,6 +418,6 @@ public class ScoreTableController  {
         studentComboBox.getItems().addAll(studentList);
         courseComboBox.getItems().addAll(courseList);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        onQueryButtonClick();
+        onResetButtonClick();
     }
 }

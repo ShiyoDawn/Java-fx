@@ -1,5 +1,6 @@
 package org.example.javafx.controller;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,7 +77,8 @@ public class ScoreEditController {
     @FXML
     private TextField updateMarkField;
 
-
+    @FXML
+    private BorderPane borderPane;
     //-----------------------------------------------------
 
     public ScoreTableController scoreTableController=new ScoreTableController();

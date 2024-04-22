@@ -89,7 +89,7 @@ public class CommonMethod {
             return (Integer)obj;
         String str = obj.toString();
         try {
-            return (int)Double.parseDouble(str);
+            return Integer.parseInt(str);
         }catch(Exception e) {
             return null;
         }
