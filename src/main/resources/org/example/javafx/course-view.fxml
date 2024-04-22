@@ -5,39 +5,24 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="courseField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="65" />
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints />
-      <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
-      <RowConstraints prefHeight="75.0" vgrow="SOMETIMES" />
-      <RowConstraints prefHeight="75.0" vgrow="SOMETIMES" />
-      <RowConstraints prefHeight="75.0" vgrow="SOMETIMES" />
-      <RowConstraints prefHeight="75.0" vgrow="SOMETIMES" />
-      <RowConstraints prefHeight="75.0" vgrow="SOMETIMES" />
-      <RowConstraints prefHeight="75.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-  <Label text="周/节次" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-  <Label text="星期一" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-  <Label text="星期二" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-  <Label text="星期三" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-  <Label text="星期四" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-  <Label text="星期五" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-  <Label text="星期六" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-  <Label text="星期日" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-  <Label text="第一、二节" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-  <Label text="第三、四节" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-  <Label text="第五、六节" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-  <Label text="第七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-  <Label text="第九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-  <Label text="备注" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-</GridPane>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<BorderPane fx:id="editBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreEditController">
+    <center>
+        <AnchorPane fx:id="editAnchorPane" prefHeight="260.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="71.0" layoutY="34.0" text="      学生：" />
+                <Label layoutX="83.0" layoutY="78.0" text="   课程：" />
+                <ComboBox fx:id="studentComboBox" layoutX="130.0" layoutY="30.0" prefHeight="23.0" prefWidth="109.0" promptText="请选择学生" />
+                <ComboBox fx:id="courseComboBox" layoutX="130.0" layoutY="74.0" prefHeight="23.0" prefWidth="111.0" promptText="请选择课程" />
+                <Label layoutX="84.0" layoutY="119.0" prefHeight="26.0" prefWidth="43.0" text="  分数：" />
+                <TextField fx:id="markField" layoutX="130.0" layoutY="120.0" prefHeight="24.0" prefWidth="122.0" />
+                <Button fx:id="okButton" layoutX="84.0" layoutY="178.0" mnemonicParsing="false" onAction="#okButtonClick" prefHeight="28.0" prefWidth="57.0" text="确认" />
+                <Button fx:id="cancelButton" layoutX="202.0" layoutY="179.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="28.0" prefWidth="59.0" text="取消" />
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
