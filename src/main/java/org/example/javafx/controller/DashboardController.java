@@ -76,7 +76,18 @@ public class DashboardController {
             gridPane.add(label, (int) week_time, (int) (time_sort + 1));
         }
 
-
+        Result data = HttpRequestUtils.courseField("/course/selectLessonByStudent",dataRequest);
+        /*List<Map<String,String>> dataList = new Gson().fromJson(data.getData().toString(),List.class);
+        for (Map<String,String> a: dataList) {
+            //String week = a.get("week");
+            String course_name = a.get("course_name");
+            //String terms = a.get("terms");
+            String week_time = a.get("week_time");
+            String room = a.get("room");
+            String time_sort = a.get("time_sort");
+            String teacher_name = a.get("teacher_name");
+            addLabel(week_time,time_sort,course_name,room,teacher_name);
+        }
     }
 
     private Map<String, String> selectData() {
