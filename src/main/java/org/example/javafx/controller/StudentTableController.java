@@ -153,12 +153,7 @@ public class StudentTableController {
     public void deleteStudentButtonClick() {
         Map<String, String> selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            String personId = selectedItem.get("person_id");
-            int dotIndex = personId.indexOf(".");
-            if (dotIndex != -1) {
-                personId = personId.substring(0, dotIndex);
-            }
-            Integer person_id = Integer.parseInt(personId);
+            String person_id=selectedItem.get("person_id");
             String student_name = selectedItem.get("student_name");
             DataRequest req = new DataRequest();
             req.add("person_id", person_id); // 将 person_id 转换为字符串
