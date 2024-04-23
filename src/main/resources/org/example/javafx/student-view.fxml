@@ -27,12 +27,12 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #8B8989;">
                      <children>
-                        <Button fx:id="add" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="新增" textFill="#fff300">
+                        <Button fx:id="add" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="新增" textFill="#fff300">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="delete" layoutX="200.0" layoutY="22.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="删除" textFill="#fff300">
+                        <Button fx:id="delete" layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#deleteStudentButtonClick" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="删除" textFill="#fff300">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -56,7 +56,7 @@
                                        <children>
                                           <TableView fx:id="tableView" prefHeight="720.0" prefWidth="848.0" style="-fx-background-color: #BEBEBE;">
                                             <columns>
-                                              <TableColumn fx:id="id" prefWidth="33.333282589912415" text="序号" />
+                                              <TableColumn fx:id="idColumn" prefWidth="33.333282589912415" text="序号" />
                                               <TableColumn fx:id="person_idColumn" prefWidth="118.00006103515625" text="学号" />
                                                 <TableColumn fx:id="student_nameColumn" prefWidth="75.3333740234375" text="姓名" />
                                                 <TableColumn fx:id="departmentColumn" prefWidth="124.66668701171875" text="部门" />
@@ -130,7 +130,7 @@
                                     </GridPane>
                                     <FlowPane alignment="CENTER" prefHeight="105.0" prefWidth="378.0">
                                        <children>
-                                          <Button fx:id="save" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="114.0" text="保存">
+                                          <Button fx:id="save" layoutX="50.0" layoutY="50.0" mnemonicParsing="false"  prefHeight="43.0" prefWidth="114.0" text="保存">
                                              <font>
                                                 <Font size="21.0" />
                                              </font>
