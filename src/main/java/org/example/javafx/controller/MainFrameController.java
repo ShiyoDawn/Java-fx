@@ -53,6 +53,9 @@ public class MainFrameController {
     Button scoreCenterButton = new Button();
 
     @FXML
+    Button gloryCenterButton = new Button();
+
+    @FXML
     Label statueLabel;
 
     @FXML
@@ -77,11 +80,12 @@ public class MainFrameController {
 
         //初始化页面切换
         setTabChange(dashBoardButton, "dashboard-view.fxml");
-        setTabChange(courseCenterButton, "course-view.fxml");
+        //setTabChange(courseCenterButton, "course-view.fxml");
         setTabChange(studentCenterButton, "student-view.fxml");
         setTabChange(activityCenterButton, "activity-view.fxml");
         setTabChange(userCenterButton, "user-view.fxml");
         setTabChange(scoreCenterButton,"score-view.fxml");
+        setTabChange(gloryCenterButton,"student-glory.fxml");
 
 
         searchBox.setEditable(true);
@@ -92,6 +96,7 @@ public class MainFrameController {
         list.add("实践活动");
         list.add("用户中心");
         list.add("分数管理");
+        list.add("荣誉管理");
         searchBox.getItems().addAll(list);
         searchButton.setOnAction(e ->
         {
@@ -123,15 +128,11 @@ public class MainFrameController {
 
     protected void setTabChange(Button button, String url) throws IOException {
 
-        button.setOnAction(e -> {
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(url));
-                        BorderPane view = new BorderPane(fxmlLoader.load());
-                        borderPane.setCenter(view);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(MainApplication.class.getResource(url));
+        BorderPane newPane = new BorderPane(fxmlLoader.load());
+        button.setOnAction(e ->
+                borderPane.setCenter(newPane)
         );
     }
 
