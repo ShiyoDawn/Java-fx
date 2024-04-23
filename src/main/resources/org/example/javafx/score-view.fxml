@@ -20,7 +20,7 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
                                     <children>
-                                        <TableView fx:id="dataTableView" layoutY="54.0" prefHeight="608.0" prefWidth="1080.0">
+                                        <TableView stylesheets="@css/table.css" fx:id="dataTableView" layoutY="54.0" prefHeight="608.0" prefWidth="1080.0">
                                             <columns>
                                                 <TableColumn fx:id="id" prefWidth="67.33337020874023" text="id" />
                                                 <TableColumn fx:id="studentNameColumn" prefWidth="115.3333511352539" text="学生姓名" />
