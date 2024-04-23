@@ -1,0 +1,10 @@
+.table-view {
+    -fx-background-color: #33FF99;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-opacity: 1;
+}
+
+.column-header {
+}
+
