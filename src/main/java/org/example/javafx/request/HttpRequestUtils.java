@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -86,9 +87,7 @@ public class HttpRequestUtils {
         HttpClient client = HttpClient.newHttpClient();
         try {
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            System.out.println("url=" + "/selectAll" + "    response.statusCode=" + response.statusCode());
             if (response.statusCode() == 200) {
-                //                System.out.println(response.body());
                 Result result = gson.fromJson(response.body(), Result.class);
                 return result;
             }
@@ -122,5 +121,4 @@ public class HttpRequestUtils {
         }
         return null;
     }
-
 }

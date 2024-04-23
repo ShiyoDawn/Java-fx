@@ -2,6 +2,12 @@ package org.example.javafx.util;
 /**
  * CommonMethod 公共处理方法实例类
  */
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import org.example.javafx.pojo.Result;
+import org.example.javafx.request.DataRequest;
+import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.OptionItem;
 
 import java.util.*;
@@ -84,7 +90,7 @@ public class CommonMethod {
             return (Integer)obj;
         String str = obj.toString();
         try {
-            return (int)Double.parseDouble(str);
+            return Integer.parseInt(str);
         }catch(Exception e) {
             return null;
         }
@@ -238,5 +244,25 @@ public class CommonMethod {
             iList.add(new OptionItem(m));
         }
         return iList;
+    }
+
+    public static String alertButton(String url, DataRequest dataRequest,String type) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("确定要"+type+"吗？");
+        alert.setResizable(false);
+        ButtonType confirmButton = new ButtonType("确认", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("取消", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(confirmButton, cancelButton);
+        Optional<ButtonType> tempresult = alert.showAndWait();
+        if (tempresult.isPresent() && tempresult.get() == confirmButton) {
+            Result result=HttpRequestUtils.request(url, dataRequest);
+            if(result.getCode()==404){
+                return result.getMsg();
+            }
+            alert.close();
+        } else {
+            alert.close();
+        }
+        return null;
     }
 }
