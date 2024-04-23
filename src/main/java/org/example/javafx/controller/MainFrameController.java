@@ -120,14 +120,21 @@ public class MainFrameController {
         statueLabel.setText("加载完成");
     }
 
+
     protected void setTabChange(Button button, String url) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(MainApplication.class.getResource(url));
-        BorderPane newPane = new BorderPane(fxmlLoader.load());
-        button.setOnAction(e ->
-                borderPane.setCenter(newPane)
+
+        button.setOnAction(e -> {
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(url));
+                        BorderPane view = new BorderPane(fxmlLoader.load());
+                        borderPane.setCenter(view);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
         );
     }
+
 
     protected void tabChange(String url) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -143,6 +150,9 @@ public class MainFrameController {
             searchBox.getItems().clear();
         } else if (target.equals("学生管理")) {
             tabChange("student-view.fxml");
+            return;
+        } else if (target.equals("分数管理")) {
+            tabChange("score-view.fxml");
             return;
         }
         searchBox.show();

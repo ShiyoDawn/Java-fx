@@ -5,6 +5,7 @@ package org.example.javafx.util;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.OptionItem;
@@ -89,7 +90,7 @@ public class CommonMethod {
             return (Integer)obj;
         String str = obj.toString();
         try {
-            return (int)Double.parseDouble(str);
+            return Integer.parseInt(str);
         }catch(Exception e) {
             return null;
         }
@@ -245,7 +246,7 @@ public class CommonMethod {
         return iList;
     }
 
-    public static void alertButton(String url, DataRequest dataRequest,String type) {
+    public static String alertButton(String url, DataRequest dataRequest,String type) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("确定要"+type+"吗？");
         alert.setResizable(false);
@@ -254,10 +255,14 @@ public class CommonMethod {
         alert.getButtonTypes().setAll(confirmButton, cancelButton);
         Optional<ButtonType> tempresult = alert.showAndWait();
         if (tempresult.isPresent() && tempresult.get() == confirmButton) {
-            HttpRequestUtils.request(url, dataRequest);
+            Result result=HttpRequestUtils.request(url, dataRequest);
+            if(result.getCode()==404){
+                return result.getMsg();
+            }
             alert.close();
         } else {
             alert.close();
         }
+        return null;
     }
 }
