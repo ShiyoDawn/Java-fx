@@ -62,8 +62,8 @@ public class DashboardController {
             label.setId("1");
             label.setTextAlignment(TextAlignment.CENTER);
             label.setWrapText(true);
-            GridPane.setHgrow(label, Priority.ALWAYS);
-            GridPane.setVgrow(label, Priority.ALWAYS);
+            gridPane.setHgrow(label, Priority.ALWAYS);
+            gridPane.setVgrow(label, Priority.ALWAYS);
             label.setStyle("-fx-background-color: #00ff33; -fx-padding: 10;");
             label.setText(course_name + "\n" + "\n" + room);
             label.setOnMouseClicked(event -> {
@@ -76,18 +76,7 @@ public class DashboardController {
             gridPane.add(label, (int) week_time, (int) (time_sort + 1));
         }
 
-        Result data = HttpRequestUtils.courseField("/course/selectLessonByStudent",dataRequest);
-        /*List<Map<String,String>> dataList = new Gson().fromJson(data.getData().toString(),List.class);
-        for (Map<String,String> a: dataList) {
-            //String week = a.get("week");
-            String course_name = a.get("course_name");
-            //String terms = a.get("terms");
-            String week_time = a.get("week_time");
-            String room = a.get("room");
-            String time_sort = a.get("time_sort");
-            String teacher_name = a.get("teacher_name");
-            addLabel(week_time,time_sort,course_name,room,teacher_name);
-        }
+
     }
 
     private Map<String, String> selectData() {
