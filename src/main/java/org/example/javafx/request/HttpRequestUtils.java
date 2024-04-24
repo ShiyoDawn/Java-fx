@@ -68,7 +68,6 @@ public class HttpRequestUtils {
                 .build();
         HttpResponse<String> httpResponse = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         Result result = new Gson().fromJson(httpResponse.body(), Result.class);
-        System.out.println(result.getData().toString());
 //        System.out.println();
 //        Iterator<String> it = course.keySet().iterator();
 //        while (it.hasNext()){

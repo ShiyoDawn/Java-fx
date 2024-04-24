@@ -5,129 +5,112 @@
 
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<BorderPane stylesheets="@css/table.css" fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.DashboardController">
-   <left>
-      <AnchorPane fx:id="anchorpane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <TabPane layoutX="730.0" layoutY="40.0" prefHeight="122.0" prefWidth="251.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="公告">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-            <TabPane layoutX="730.0" layoutY="214.0" prefHeight="370.0" prefWidth="252.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="事务进度" />
-              </tabs>
-            </TabPane>
-             <ComboBox layoutX="450" layoutY="40" fx:id="comboBox" prefWidth="100">
-                 <items>
-                     <FXCollections fx:factory="observableArrayList">
-                         <String fx:value="第一周"/>
-                         <String fx:value="第二周"/>
-                         <String fx:value="第三周"/>
-                         <String fx:value="第四周"/>
-                         <String fx:value="第五周"/>
-                         <String fx:value="第六周"/>
-                         <String fx:value="第七周"/>
-                         <String fx:value="第八周"/>
-                         <String fx:value="第九周"/>
-                         <String fx:value="第十周"/>
-                         <String fx:value="第十一周"/>
-                         <String fx:value="第十二周"/>
-                         <String fx:value="第十三周"/>
-                         <String fx:value="第十四周"/>
-                         <String fx:value="第十五周"/>
-                         <String fx:value="第十六周"/>
-                         <String fx:value="第十七周"/>
-                         <String fx:value="第十八周"/>
-                         <String fx:value="第十九周"/>
-                     </FXCollections>
-                 </items>
-             </ComboBox>
-             <ComboBox layoutX="310" layoutY="40" fx:id="comboBoxTerm" prefWidth="100">
-                 <items>
-                     <FXCollections fx:factory="observableArrayList">
-                         <String fx:value="2023-2024-1"/>
-                         <String fx:value="2023-2024-2"/>
-                     </FXCollections>
-                 </items>
-             </ComboBox>
-             <Button layoutX="585" layoutY="40" fx:id="selectCourseSheet" text="查询" />
-             <GridPane stylesheets="@css/table.css" fx:id="gridPane" layoutX="20" layoutY="80"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-                 <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="65" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints />
-                              <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="90.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="90.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="90.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="90.0" vgrow="SOMETIMES" />
-                              <RowConstraints prefHeight="90.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                          <Label text="周/节次" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                          <Label text="星期一" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                          <Label text="星期二" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                          <Label text="星期三" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                          <Label text="星期四" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                          <Label text="星期五" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                          <Label text="星期六" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                          <Label text="星期日" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                          <Label text="第一、二节" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                          <Label text="第三、四节" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                          <Label text="第五、六节" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                          <Label text="第七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                          <Label text="第九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-                          <Label fx:id="course11" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course12" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course13" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course14" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course15" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course21" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course22" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course23" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course24" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course25" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course31" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course32" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course33" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course34" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course35" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course41" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course42" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course43" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course44" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course45" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course51" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course52" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course53" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course54" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course55" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course61" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course62" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course63" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course64" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course65" wrapText="true" GridPane.columnIndex="6" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course71" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course72" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course73" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course74" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                          <Label fx:id="course75" wrapText="true" GridPane.columnIndex="7" GridPane.rowIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-
-             </GridPane>
-         </children>
-      </AnchorPane>
-   </left>
+<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.javafx.controller.DashboardController">
+    <left>
+        <AnchorPane fx:id="anchorpane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <TabPane layoutX="730.0" layoutY="40.0" prefHeight="122.0" prefWidth="251.0"
+                         tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="公告">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <TabPane layoutX="730.0" layoutY="214.0" prefHeight="370.0" prefWidth="252.0"
+                         tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="事务进度"/>
+                    </tabs>
+                </TabPane>
+                <ComboBox promptText="请选择周数" layoutX="420" layoutY="40" fx:id="comboBoxWeek" prefWidth="130">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="第1周"/>
+                            <String fx:value="第2周"/>
+                            <String fx:value="第3周"/>
+                            <String fx:value="第4周"/>
+                            <String fx:value="第5周"/>
+                            <String fx:value="第6周"/>
+                            <String fx:value="第7周"/>
+                            <String fx:value="第8周"/>
+                            <String fx:value="第9周"/>
+                            <String fx:value="第10周"/>
+                            <String fx:value="第11周"/>
+                            <String fx:value="第12周"/>
+                            <String fx:value="第13周"/>
+                            <String fx:value="第14周"/>
+                            <String fx:value="第15周"/>
+                            <String fx:value="第16周"/>
+                            <String fx:value="第17周"/>
+                            <String fx:value="第18周"/>
+                            <String fx:value="第19周"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox promptText="请选择学期" layoutX="250" layoutY="40" fx:id="comboBoxTerm" prefWidth="130">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="2023-2024-1"/>
+                            <String fx:value="2023-2024-2"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <Button layoutX="585" layoutY="40" fx:id="selectCourseSheet" text="查询" onAction="#select"/>
+                <GridPane fx:id="gridPane" layoutX="20" layoutY="80" maxHeight="-Infinity" maxWidth="-Infinity"
+                          minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="625.0"
+                          xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="65"/>
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="80"/>
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="80"/>
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="80"/>
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="80"/>
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="80"/>
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="80"/>
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="80"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints prefHeight="25.0" vgrow="SOMETIMES"/>
+                        <RowConstraints prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints prefHeight="90.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <Label text="周/节次" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="星期一" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="星期二" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="星期三" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="星期四" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="星期五" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="星期六" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="星期日" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="第一、二节" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="第三、四节" GridPane.halignment="CENTER" GridPane.rowIndex="3"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="第五、六节" GridPane.halignment="CENTER" GridPane.rowIndex="4"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="第七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="5"
+                           GridPane.valignment="CENTER"/>
+                    <Label text="第九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="6"
+                           GridPane.valignment="CENTER"/>
+                </GridPane>
+            </children>
+        </AnchorPane>
+    </left>
 </BorderPane>

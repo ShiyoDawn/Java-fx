@@ -70,17 +70,13 @@ public class MainFrameController {
         BorderPane dashboard = new BorderPane(fxmlLoader.load());
         borderPane.setCenter(dashboard);
         userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
-        HttpRequestUtils httpRequestUtils = new HttpRequestUtils();
-        Course course = new Course("1");
-        DataRequest dataRequest = new DataRequest();
-        httpRequestUtils.getCourse(dataRequest);
 
 
         //TODO 发送请求，根据用户type获取tab
 
         //初始化页面切换
         setTabChange(dashBoardButton, "dashboard-view.fxml");
-        //setTabChange(courseCenterButton, "course-view.fxml");
+        setTabChange(courseCenterButton, "course-view.fxml");
         setTabChange(studentCenterButton, "student-view.fxml");
         setTabChange(activityCenterButton, "activity-view.fxml");
         setTabChange(userCenterButton, "user-view.fxml");
@@ -152,6 +148,10 @@ public class MainFrameController {
         } else if (target.equals("学生管理")) {
             tabChange("student-view.fxml");
             return;
+        }
+            else if (target.equals("课程管理")) {
+                tabChange("course-view.fxml");
+                return;
         } else if (target.equals("分数管理")) {
             tabChange("score-view.fxml");
             return;
