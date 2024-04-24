@@ -167,8 +167,9 @@ public class ScoreTableController  {
             DataRequest dataRequest=new DataRequest();
             dataRequest.add("student_id",student_id);
             dataRequest.add("course_id",course_id);
-            String msg=CommonMethod.alertButton("/score/deleteAllById",dataRequest,"删除");
+            HttpRequestUtils.request("/score/deleteAllById",dataRequest);
         }
+        String msg=CommonMethod.alertButton("/score/deleteAllById",new DataRequest(),"删除");
         onQueryButtonClick();
     }
 
