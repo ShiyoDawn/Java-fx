@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="gloryBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentGloryController">
+    <left>
+        <AnchorPane fx:id="gloryAnchorPane" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+            <children>
+                <TabPane layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <tabs>
+                        <Tab text="学生荣誉管理">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
+                                    <children>
+                                        <Button fx:id="addButton" layoutX="74.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="53.0" text="添加" />
+                                        <Button fx:id="deleteButton" layoutX="146.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="29.0" prefWidth="51.0" text="删除" />
+                                        <Button fx:id="editButton" layoutX="213.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="52.0" text="修改" />
+                                        <Button fx:id="queryButton" layoutX="902.0" layoutY="14.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="32.0" prefWidth="55.0" text="查询" />
+                                        <Label layoutX="710.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
+                                        <ComboBox fx:id="studentComboBox" layoutX="755.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
+                                        <Button fx:id="resetButton" layoutX="980.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="刷新" />
+                                        <SplitPane layoutY="55.0" prefHeight="608.0" prefWidth="877.0">
+                                            <items>
+                                                <AnchorPane prefHeight="606.0" prefWidth="849.0">
+                                                    <children>
+                                                        <TableView fx:id="dataTableView" prefHeight="605.0" prefWidth="1070.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="id" prefWidth="72.66665136814117" text="id" />
+                                                                <TableColumn fx:id="studentNameColumn" prefWidth="129.33335876464844" text="学生姓名" />
+                                                                <TableColumn fx:id="studentNumColumn" prefWidth="116.66665649414062" text="学号" />
+                                                                <TableColumn fx:id="gloryNameColumn" minWidth="0.0" prefWidth="158.0" text="所获荣誉" />
+                                                                <TableColumn fx:id="gloryTypeColumn" minWidth="0.0" prefWidth="138.666748046875" text="荣誉类型" />
+                                                <TableColumn fx:id="gloryTypeColumn1" minWidth="0.0" prefWidth="170.0" text="荣誉级别" />
+                                                            </columns>
+                                                        </TableView>
+                                                    </children>
+                                                </AnchorPane>
+                                            </items>
+                                        </SplitPane>
+                                        <AnchorPane layoutX="930.0" layoutY="56.0" prefHeight="609.0" prefWidth="177.0">
+                                            <children>
+                                                <TabPane fx:id="editTabPane" layoutX="-141.0" layoutY="-2.0" prefHeight="611.0" prefWidth="325.0" tabClosingPolicy="UNAVAILABLE">
+                                                    <tabs>
+                                                        <Tab text="编辑窗口">
+                                                            <content>
+                                                                <AnchorPane fx:id="editAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="582.0" prefWidth="442.0">
+                                                                    <children>
+                                                                        <TextArea fx:id="editTextArea" layoutX="-3.0" prefHeight="580.0" prefWidth="293.0" />
+                                                                        <TextField fx:id="gloryUpdateTextField" layoutX="77.0" layoutY="187.0" prefHeight="23.0" prefWidth="127.0" />
+                                                                        <Text layoutX="38.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" wrappingWidth="83.3333740234375" />
+                                                                        <Text layoutX="17.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="荣誉类型：" wrappingWidth="63.3333740234375" />
+                                                                        <Text layoutX="14.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所获荣誉：" wrappingWidth="69.9998779296875" />
+                                                                        <ComboBox fx:id="studentEditComboBox" layoutX="78.0" layoutY="92.0" prefHeight="29.0" prefWidth="131.0" promptText="请选择学生">
+                                                                            <opaqueInsets>
+                                                                                <Insets />
+                                                                            </opaqueInsets>
+                                                                        </ComboBox>
+                                                                        <ComboBox fx:id="gloryTypeEditComboBox" layoutX="78.0" layoutY="135.0" prefHeight="29.0" prefWidth="130.0" promptText="请选择荣誉类型" />
+                                                                        <Button fx:id="editComfirmButton" layoutX="44.0" layoutY="292.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="31.0" prefWidth="65.0" text="确认" />
+                                                                        <Button fx:id="editCancelButton" layoutX="144.0" layoutY="291.0" mnemonicParsing="false" onAction="#onCancelClick" prefHeight="34.0" prefWidth="65.0" text="重置" />
+                                                      <ComboBox fx:id="gloryLevelComboBox" layoutX="78.0" layoutY="227.0" prefHeight="29.0" prefWidth="129.0" promptText="请选择获奖级别" />
+                                                      <Text layoutX="19.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="获奖级别：" />
+                                                                    </children>
+                                                                </AnchorPane>
+                                                            </content>
+                                                        </Tab>
+                                                    </tabs>
+                                                </TabPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </AnchorPane>
+    </left>
+</BorderPane>

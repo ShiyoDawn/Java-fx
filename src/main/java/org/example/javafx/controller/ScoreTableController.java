@@ -138,8 +138,9 @@ public class ScoreTableController  {
     @FXML
     private void onDeleteButtonClick(ActionEvent event) {
         onCancelClick();
-        Map selected=dataTableView.getSelectionModel().getSelectedItem();
-        if(selected==null){
+        List<Map> selected=dataTableView.getSelectionModel().getSelectedItems();
+        System.out.println(selected);
+        if(selected.size()==0){
             Stage editStage = new Stage();
             //取消放大（全屏）按钮
             editStage.setResizable(false);
@@ -159,14 +160,16 @@ public class ScoreTableController  {
         }
         //System.out.println(selected);
         //onResetButtonClick();
-        Integer student_id=CommonMethod.getInteger(selected,"student_id");
-        Integer course_id=CommonMethod.getInteger(selected,"course_id");
-        System.out.println(student_id+" "+course_id);
-        DataRequest dataRequest=new DataRequest();
-        dataRequest.add("student_id",student_id);
-        dataRequest.add("course_id",course_id);
-        String msg=CommonMethod.alertButton("/score/deleteAllById",dataRequest,"删除");
-        onQueryButtonClick();
+        for(Map scoreMap:selected){
+            Integer student_id=CommonMethod.getInteger(scoreMap,"student_id");
+            Integer course_id=CommonMethod.getInteger(scoreMap,"course_id");
+            System.out.println(student_id+" "+course_id);
+            DataRequest dataRequest=new DataRequest();
+            dataRequest.add("student_id",student_id);
+            dataRequest.add("course_id",course_id);
+            HttpRequestUtils.request("/score/deleteAllById",dataRequest);
+        }
+        String msg=CommonMethod.alertButton("/score/deleteAllById",new DataRequest(),"删除");
         onQueryButtonClick();
     }
 
@@ -272,7 +275,9 @@ public class ScoreTableController  {
             DataRequest dataRequest = new DataRequest();
             dataRequest.add("course_name",course_name);
             result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
+
             result = HttpRequestUtils.request("/score/selectByCourseName",dataRequest);
+            System.out.println(dataTableView.getItems());
             if(result==null){
                 observableList.clear();
                 return;
@@ -341,7 +346,7 @@ public class ScoreTableController  {
         int index = Integer.parseInt(name.substring(4, name.length()));
         Map data = scoreList.get(index);
         //showEditStage();
-        scoreEditController.showDialog(data);
+        //scoreEditController.showDialog(data);
         MainApplication.setCanClose(false);
         stage.showAndWait();
     }
@@ -408,6 +413,24 @@ public class ScoreTableController  {
             dataRequest.add("course_id", course_id);
             String markstr=markUpdateTextField.getText();
             Integer cnt=0;
+            if(markstr.length()>1){
+                if(markstr.charAt(0)=='0'&&markstr.charAt(1)!='.'){
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setResizable(false);
+                    alert.setContentText("请输入正确的分数");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+            if(markstr.length()==2){
+                if(markstr.charAt(0)=='0'&&markstr.charAt(1)=='.'){
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setResizable(false);
+                    alert.setContentText("请输入正确的分数");
+                    alert.showAndWait();
+                    return;
+                }
+            }
             if(!Character.isDigit(markstr.charAt(0))){
                 Alert alert=new Alert(Alert.AlertType.INFORMATION);
                 alert.setResizable(false);
@@ -416,9 +439,16 @@ public class ScoreTableController  {
                 return;
             }
             for(int i=0;i<markstr.length();i++){
-                if(Character.isDigit(markstr.charAt(i))||markstr.charAt(i)=='.'&&cnt<=2){
+                if(Character.isDigit(markstr.charAt(i))||markstr.charAt(i)=='.'&&cnt<=1){
                     if(markstr.charAt(i)=='.'){
                         cnt++;
+                    }
+                    if(cnt>=2){
+                        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                        alert.setResizable(false);
+                        alert.setContentText("请输入正确的分数");
+                        alert.showAndWait();
+                        return;
                     }
                 }else{
                     Alert alert=new Alert(Alert.AlertType.INFORMATION);
@@ -429,17 +459,15 @@ public class ScoreTableController  {
                 }
             }
             Double mark=Double.parseDouble(markstr);
-            if(mark<0||markstr=="0.0"||mark>100||markstr.length()>2){
-                boolean ok=true;
-                if(mark.toString().split(".")[1].length()>=2){
-                    ok=false;
-                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
-                    alert.setResizable(false);
-                    alert.setContentText("请输入正确的分数");
-                    alert.showAndWait();
-                    return;
-                }
-                if(ok){
+            if(mark<0||markstr.equals("0.0")||mark>100){
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setResizable(false);
+                alert.setContentText("请输入正确的分数");
+                alert.showAndWait();
+                return;
+            }
+            if(markstr.length()>2&&mark!=100){
+                if(markstr.split("\\.")[1].length()>=2){
                     Alert alert=new Alert(Alert.AlertType.INFORMATION);
                     alert.setResizable(false);
                     alert.setContentText("请输入正确的分数");
