@@ -12,6 +12,9 @@ import javafx.scene.image.ImageView;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
+import javafx.collections.ObservableList;
+import org.example.javafx.response.DataResponse;
+import org.example.javafx.util.CommonMethod;
 
 import java.util.List;
 import java.util.Map;
@@ -46,7 +49,7 @@ public class StudentTableController {
     private TextField gradeText;
 
     @FXML
-    private TableColumn id;
+    private TableColumn idColumn;
 
     @FXML
     private ImageView image;
@@ -76,13 +79,15 @@ public class StudentTableController {
     private TextField student_nameText;
 
     @FXML
-    private TableView tableView;
+    private TableView<Map> tableView;
 
     @FXML
     private Button update;
+
+    private Integer id=null;
     @FXML
     public void initialize(){
-        id.setCellValueFactory(new MapValueFactory<>("id"));
+        idColumn.setCellValueFactory(new MapValueFactory<>("id"));
         person_idColumn.setCellValueFactory(new MapValueFactory<>("person_id"));
         student_nameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
         departmentColumn.setCellValueFactory(new MapValueFactory<>("department"));
@@ -93,5 +98,77 @@ public class StudentTableController {
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", req);
         List<Map> studentMap = (List<Map>) studentResult.getData();
         tableView.setItems(FXCollections.observableList(studentMap));
+        save.setVisible(false);
+    }
+    public void clearPanel(){
+        id=null;
+        person_idText=null;
+        student_nameText.setText("");
+        departmentText.setText("");
+        classText.setText("");
+        gradeText.setText("");
+        majorText.setText("");
+    }
+
+
+    public void addStudentButtonClick() {
+
+        if (validateInput()) {
+            DataRequest req = new DataRequest();
+            req.add("person_id", person_idText.getText().trim());
+            req.add("student_name", student_nameText.getText().trim());
+            req.add("department", departmentText.getText().trim());
+            req.add("classes", classText.getText().trim());
+            req.add("grade", gradeText.getText().trim());
+            req.add("major", majorText.getText().trim());
+
+            Result addResult = HttpRequestUtils.request("/student/insertStudent", req);
+
+            if (addResult.getCode() == 200) {
+                clearPanel();
+                refreshTable();
+            } else {
+                System.err.println("Failed to add student. Error: " + addResult.getMsg());
+            }
+        } else {
+            System.err.println("Invalid input. Please check the input fields.");
+        }
+    }
+
+    private boolean validateInput() {
+        return !person_idText.getText().trim().isEmpty() &&
+                !student_nameText.getText().trim().isEmpty() &&
+                !departmentText.getText().trim().isEmpty() &&
+                !classText.getText().trim().isEmpty() &&
+                !gradeText.getText().trim().isEmpty() &&
+                !majorText.getText().trim().isEmpty();
+    }
+
+    private void refreshTable() {
+        DataRequest req = new DataRequest();
+        Result studentResult = HttpRequestUtils.request("/student/getStudentList", req);
+        List<Map> studentMap = (List<Map>) studentResult.getData();
+        tableView.setItems(FXCollections.observableList(studentMap));
+    }
+    public void deleteStudentButtonClick() {
+        Map<String, String> selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            String person_id=selectedItem.get("person_id");
+            String student_name = selectedItem.get("student_name");
+            DataRequest req = new DataRequest();
+            req.add("person_id", person_id); // 将 person_id 转换为字符串
+            req.add("student_name", student_name);
+            Result deleteResult = HttpRequestUtils.request("/student/deleteStudent", req);
+            if (deleteResult.getCode() == 200) {
+                refreshTable();
+                // You can add a success message prompt here if needed
+            } else {
+                // Handle the error, e.g., show a message to the user
+                System.err.println("Failed to delete student. Error: " + deleteResult.getMsg());
+            }
+        } else {
+            System.err.println("Please select a student to delete.");
+        }
     }
 }
+
