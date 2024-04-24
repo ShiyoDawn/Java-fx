@@ -1,28 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
-<BorderPane fx:id="editBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreEditController">
-    <center>
-        <AnchorPane fx:id="editAnchorPane" prefHeight="260.0" prefWidth="350.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label layoutX="71.0" layoutY="34.0" text="      学生：" />
-                <Label layoutX="83.0" layoutY="78.0" text="   课程：" />
-                <ComboBox fx:id="studentComboBox" layoutX="130.0" layoutY="30.0" prefHeight="23.0" prefWidth="109.0" promptText="请选择学生" />
-                <ComboBox fx:id="courseComboBox" layoutX="130.0" layoutY="74.0" prefHeight="23.0" prefWidth="111.0" promptText="请选择课程" />
-                <Label layoutX="84.0" layoutY="119.0" prefHeight="26.0" prefWidth="43.0" text="  分数：" />
-                <TextField fx:id="markField" layoutX="130.0" layoutY="120.0" prefHeight="24.0" prefWidth="122.0" />
-                <Button fx:id="okButton" layoutX="84.0" layoutY="178.0" mnemonicParsing="false" onAction="#okButtonClick" prefHeight="28.0" prefWidth="57.0" text="确认" />
-                <Button fx:id="cancelButton" layoutX="202.0" layoutY="179.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="28.0" prefWidth="59.0" text="取消" />
-            </children>
-        </AnchorPane>
-    </center>
-</BorderPane>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="690.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.javafx.controller.CourseController">
+    <TabPane prefHeight="690.0" prefWidth="980.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="   课程管理            ">
+                <content>
+                    <AnchorPane fx:id="tabCenter" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TabPane layoutX="667.0" layoutY="84.0" prefHeight="445.0" prefWidth="298.0"
+                                     tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                    <Tab text="显示/编辑窗口">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                        prefWidth="200.0">
+                                                <Label layoutX="10.0" layoutY="99.0" prefHeight="39.0" prefWidth="62.0"
+                                                       style="-fx-text-alignment: CENTER;" text="课序号："/>
+                                                <Label layoutX="10.0" layoutY="261.0" prefHeight="39.0" prefWidth="62.0"
+                                                       style="-fx-text-alignment: CENTER;" text="授课教师："/>
+                                                <Label layoutX="10.0" layoutY="208.0" prefHeight="39.0" prefWidth="62.0"
+                                                       style="-fx-text-alignment: CENTER;" text="教材："/>
+                                                <Label layoutX="10.0" layoutY="155.0" prefHeight="39.0" prefWidth="62.0"
+                                                       style="-fx-text-alignment: CENTER;" text="课外书："/>
+                                                <Label layoutX="10.0" layoutY="40.0" prefHeight="50.0" prefWidth="76.0"
+                                                       text="课程名称："/>
+                                                <Label layoutX="10.0" layoutY="318.0" prefHeight="39.0" prefWidth="62.0"
+                                                       style="-fx-text-alignment: CENTER;" text="开课班级："/>
+                                            </AnchorPane>
+                                        </content>
+                                    </Tab>
+                                </tabs>
+                            </TabPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+    <ComboBox fx:id="selectTerms" layoutX="433.0" layoutY="60.0" prefHeight="30.0" prefWidth="140.0"
+              promptText="请选择学期">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="2023-2024-1"/>
+                <String fx:value="2023-2024-2"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <Button fx:id="selectCourse" layoutX="904.0" layoutY="60.0" mnemonicParsing="false" prefHeight="30.0"
+            prefWidth="62.0" text="查询"/>
+    <TextField fx:id="inputName" layoutX="759.0" layoutY="60.0" prefHeight="30.0" prefWidth="123.0"
+               promptText="请输入课程名称"/>
+    <ComboBox fx:id="selectType" layoutX="595.0" layoutY="60.0" prefHeight="30.0" prefWidth="140.0"
+              promptText="请选择课程性质">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="全部"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <Rectangle arcHeight="20" opacity="0.5" arcWidth="20" fill="lightgray" height="56.0" layoutX="24.0" layoutY="192.0"
+               width="629.0"/>
+    <Pagination layoutX="24.0" layoutY="595.0" pageCount="5" prefHeight="50.0" prefWidth="629.0"/>
+    <Rectangle opacity="0.5" arcHeight="20" arcWidth="20" fill="lightgray" height="56.0" layoutX="24.0" layoutY="272.0"
+               width="629.0"/>
+    <Rectangle arcHeight="20" opacity="0.5" arcWidth="20" fill="lightgray" height="56.0" layoutX="24.0" layoutY="352.0"
+               width="629.0"/>
+    <Rectangle arcHeight="20" opacity="0.5" arcWidth="20" fill="lightgray" height="56.0" layoutX="24.0" layoutY="432.0"
+               width="629.0"/>
+    <Rectangle arcHeight="20" opacity="0.5" arcWidth="20" fill="lightgray" height="56.0" layoutX="24.0" layoutY="512.0"
+               width="629.0"/>
+    <Rectangle arcHeight="20" opacity="0.5" arcWidth="20" fill="lightgray" height="56.0" layoutX="24.0" layoutY="112.0"
+               width="629.0"/>
+</AnchorPane>
