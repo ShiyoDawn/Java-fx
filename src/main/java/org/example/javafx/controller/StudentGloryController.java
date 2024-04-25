@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -57,7 +58,7 @@ public class StudentGloryController {
     private TableColumn<String,String> gloryTypeColumn;
 
     @FXML
-    private TableColumn<String,String> gloryTypeColumn1;
+    private TableColumn<String,String> gloryLevelColumn;
 
     @FXML
     private ComboBox gloryTypeEditComboBox;
@@ -87,38 +88,50 @@ public class StudentGloryController {
     private TableColumn<String,String> studentNumColumn;
 
     @FXML
-    void onAddButtonClick(ActionEvent event) {
+    private TextField gloryLevelUpdateTextField;
+
+    @FXML
+    private void onAddButtonClick(ActionEvent event) {
 
     }
 
     @FXML
-    void onCancelClick(ActionEvent event) {
+    private void onCancelClick(ActionEvent event) {
 
     }
 
     @FXML
-    void onConfirmClick(ActionEvent event) {
+    private void onConfirmClick(ActionEvent event) {
 
     }
 
     @FXML
-    void onDeleteButtonClick(ActionEvent event) {
+    private void onDeleteButtonClick(ActionEvent event) {
 
     }
 
     @FXML
-    void onEditButtonClick(ActionEvent event) {
+    private void onEditButtonClick(ActionEvent event) {
 
     }
 
     @FXML
-    void onQueryButtonClick(ActionEvent event) {
+    private void onQueryButtonClick(ActionEvent event) {
 
     }
 
     @FXML
-    void onResetButtonClick(ActionEvent event) {
+    private void onResetButtonClick(ActionEvent event) {
 
     }
 
+    @FXML
+    public void initialize(){
+        id.setCellValueFactory(new MapValueFactory<>("id"));
+        studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
+        studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
+        gloryNameColumn.setCellValueFactory(new MapValueFactory<>("glory_name"));
+        gloryTypeColumn.setCellFactory(new MapValueFactory<>("glory_type"));
+        gloryLevelColumn.setCellFactory(new MapValueFactory<>("glory_level"));
+    }
 }
