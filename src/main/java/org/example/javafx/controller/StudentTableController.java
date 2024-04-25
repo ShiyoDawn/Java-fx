@@ -1,6 +1,7 @@
 package org.example.javafx.controller;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.ImageView;
 import org.example.javafx.pojo.Result;
+import org.example.javafx.pojo.Student;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import javafx.collections.ObservableList;
@@ -216,6 +218,39 @@ public class StudentTableController {
             System.err.println("Please select a student to update.");
         }
     }
+    @FXML
+    private void onSelectAction(ActionEvent event) {
+        String searchText = select.getText().trim();
+        if (!searchText.isEmpty()) {
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("searchText", searchText);
+            Result res = HttpRequestUtils.request("/student/searchStudent", dataRequest);
 
+            // 清空表格
+            tableView.getItems().clear();
+
+            if (res != null && res.getData() != null) {
+                tableView.getItems().addAll((ObservableList) res.getData());
+            }
+        }
+    }
+    @FXML
+    private void onFuzzySearchStartAction(ActionEvent event) {
+        String searchText = select.getText().trim();
+        boolean isFuzzy = fuzzySearch.isSelected();
+        if (!searchText.isEmpty()) {
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("searchText", searchText);
+            dataRequest.add("isFuzzy", isFuzzy);
+            Result res = HttpRequestUtils.request("/student/fuzzySearchStudent", dataRequest);
+
+            // 清空表格
+            tableView.getItems().clear();
+
+            if (res != null && res.getData() != null) {
+                tableView.getItems().addAll((ObservableList) res.getData());
+            }
+        }
+    }
 }
 
