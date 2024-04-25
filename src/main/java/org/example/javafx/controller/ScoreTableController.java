@@ -307,39 +307,39 @@ public class ScoreTableController  {
     //显示成绩总表
     public void setTableViewData(Result result) {
         observableList.clear();
-        int index=1;
+        //int index=1;
         if (result.getData() instanceof Map) {
             Map scoreMap = (Map) result.getData();
             System.out.println(scoreMap);
             //scoreMap.put("student_id",(Integer))
-            Button editButton;
+            /*Button editButton;
             editButton = new Button("编辑");
             editButton.setId("edit"+index);
             editButton.setOnAction(e -> {
                 editItem(((Button) e.getSource()).getId());
             });
             index++;
-            scoreMap.put("operateColumn", editButton);
+            scoreMap.put("operateColumn", editButton);*/
             observableList.add(scoreMap);
         } else if (result.getData() instanceof ArrayList) {
             Button editButton;
             scoreList = (ArrayList) result.getData();
             for (Map scoreMap : (ArrayList<Map>) scoreList) {
                 System.out.println(scoreMap);
-                editButton = new Button("编辑");
+                /*editButton = new Button("编辑");
                 editButton.setId("edit"+index);
                 editButton.setOnAction(e -> {
                     editItem(((Button) e.getSource()).getId());
                 });
-                scoreMap.put("operateColumn", editButton);
+                scoreMap.put("operateColumn", editButton);*/
                 observableList.add(scoreMap);
-                index++;
+                //index++;
             }
         }
         dataTableView.setItems(observableList);
     }
 
-    //在每个“分数”后面加上编辑按钮
+    /*//在每个“分数”后面加上编辑按钮
     public void editItem(String name) {
         if (name == null)
             return;
@@ -349,7 +349,7 @@ public class ScoreTableController  {
         //scoreEditController.showDialog(data);
         MainApplication.setCanClose(false);
         stage.showAndWait();
-    }
+    }*/
 
     @FXML
     private void onCancelClick() {
@@ -401,13 +401,13 @@ public class ScoreTableController  {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer student_id = Integer.parseInt(map.get("id").toString());
 
             DataRequest courDataRequest = new DataRequest();
             courDataRequest.add("course_name", course_name);
             result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer course_id = Integer.parseInt(map.get("id").toString());
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
