@@ -401,13 +401,13 @@ public class ScoreTableController  {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer student_id = Integer.parseInt(map.get("id").toString());
 
             DataRequest courDataRequest = new DataRequest();
             courDataRequest.add("course_name", course_name);
             result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer course_id = Integer.parseInt(map.get("id").toString());
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
