@@ -44,12 +44,12 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Label alignment="CENTER" layoutX="505.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询" textFill="#fff300">
+                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：" textFill="#fff300">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="select" layoutX="559.0" layoutY="24.0" onAction="#onSelectAction" promptText="请输入学生准确信息" />
+                        <TextField fx:id="select" layoutX="641.0" layoutY="24.0" onAction="#onSelectAction" promptText="请选择查询类别" />
                         <SplitPane dividerPositions="0.6463490099009901" layoutY="72.0" prefHeight="585.0" prefWidth="1080.0">
                           <items>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0">
@@ -148,8 +148,8 @@
                               </VBox>
                           </items>
                         </SplitPane>
-                        <CheckBox fx:id="fuzzySearch" layoutX="833.0" layoutY="25.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" textFill="#fff300" />
-                        <ComboBox fx:id="selectChoiceComboBox" layoutX="724.0" layoutY="22.0" onAction="#onSelectChoiceComboBoxAction" prefHeight="23.0" prefWidth="106.0" />
+                        <CheckBox fx:id="fuzzySearch" layoutX="810.0" layoutY="28.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" textFill="#fff300" />
+                        <ComboBox fx:id="selectChoiceComboBox" layoutX="543.0" layoutY="24.0" onAction="#onSelectChoiceComboBoxAction" prefHeight="23.0" prefWidth="91.0" promptText="查询类别" />
                      </children>
                   </AnchorPane>
             </content>
