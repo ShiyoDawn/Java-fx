@@ -1,13 +1,15 @@
 package org.example.javafx.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.ImageView;
 import org.example.javafx.pojo.Result;
@@ -18,6 +20,7 @@ import javafx.collections.ObservableList;
 import org.example.javafx.response.DataResponse;
 import org.example.javafx.util.CommonMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +89,11 @@ public class StudentTableController {
     @FXML
     private Button update;
 
+    @FXML
+    private ComboBox selectChoiceComboBox;
+
     private Integer id=null;
+    // 原始学生数据列表
     @FXML
     public void initialize(){
         idColumn.setCellValueFactory(new MapValueFactory<>("id"));
@@ -96,6 +103,7 @@ public class StudentTableController {
         classesColumn.setCellValueFactory(new MapValueFactory<>("classes"));
         gradeColumn.setCellValueFactory(new MapValueFactory<>("grade"));
         majorColumn.setCellValueFactory(new MapValueFactory<>("major"));
+        selectChoiceComboBox.getItems().addAll("学号","姓名","部门","班级","年级","专业");
         DataRequest req = new DataRequest();
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", req);
         List<Map> studentMap = (List<Map>) studentResult.getData();
@@ -219,38 +227,104 @@ public class StudentTableController {
         }
     }
     @FXML
-    private void onSelectAction(ActionEvent event) {
+    public void onSelectAction() {
+        // 获取用户选择的搜索类型和输入的内容
+        String selectedOption = translate((String) selectChoiceComboBox.getSelectionModel().getSelectedItem());
         String searchText = select.getText().trim();
-        if (!searchText.isEmpty()) {
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("searchText", searchText);
-            Result res = HttpRequestUtils.request("/student/searchStudent", dataRequest);
 
-            // 清空表格
-            tableView.getItems().clear();
+        // 发起请求，获取所有学生数据
+        DataRequest req = new DataRequest();
+        Result studentResult = HttpRequestUtils.request("/student/getStudentList", req);
 
-            if (res != null && res.getData() != null) {
-                tableView.getItems().addAll((ObservableList) res.getData());
-            }
+
+        if (studentResult.getCode() == 200) {
+            List<Map> studentMap = (List<Map>) studentResult.getData();
+
+            // 根据选择的搜索类型和输入的内容进行过滤
+            List<Map> filteredStudents = filterStudents(studentMap, selectedOption, searchText);
+            // 更新表格显示
+            updateTableView(filteredStudents);
+        } else {
+            System.err.println("Failed to fetch student data. Error: " + studentResult.getMsg());
         }
     }
-    @FXML
-    private void onFuzzySearchStartAction(ActionEvent event) {
-        String searchText = select.getText().trim();
-        boolean isFuzzy = fuzzySearch.isSelected();
-        if (!searchText.isEmpty()) {
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("searchText", searchText);
-            dataRequest.add("isFuzzy", isFuzzy);
-            Result res = HttpRequestUtils.request("/student/fuzzySearchStudent", dataRequest);
 
-            // 清空表格
-            tableView.getItems().clear();
+    private List<Map> filterStudents(List<Map> studentMap, String selectedOption, String searchText) {
+        List<Map> filteredStudents = new ArrayList<>();
 
-            if (res != null && res.getData() != null) {
-                tableView.getItems().addAll((ObservableList) res.getData());
+        // 根据选择的搜索类型和输入的内容对学生数据进行过滤
+        for (Map student : studentMap) {
+            String value = (String) student.get(selectedOption); // 根据选择的搜索类型获取对应的值
+            if (value != null && value.contains(searchText)) { // 如果该值包含输入的内容，则加入过滤后的列表中
+                filteredStudents.add(student);
             }
         }
+
+        return filteredStudents;
+    }
+
+    private void updateTableView(List<Map> students) {
+        // 更新表格显示
+        tableView.setItems(FXCollections.observableList(students));
+    }
+
+    @FXML
+    public String onSelectChoiceComboBoxAction() {
+        String selectedOption = (String) selectChoiceComboBox.getSelectionModel().getSelectedItem();
+
+        // 根据选择的搜索类型设置输入框的提示文本
+        switch (selectedOption) {
+            case "学号":
+                select.setPromptText("请输入学号");
+                break;
+            case "姓名":
+                select.setPromptText("请输入姓名");
+                break;
+            case "部门":
+                select.setPromptText("请输入部门");
+                break;
+            case "班级":
+                select.setPromptText("请输入班级");
+                break;
+            case "年级":
+                select.setPromptText("请输入年级");
+                break;
+            case "专业":
+                select.setPromptText("请输入专业");
+                break;
+            default:
+                // Handle default case
+                break;
+        }
+        return selectedOption;
+    }
+    public String translate(String selectedOption){
+        switch (selectedOption) {
+            case "学号":
+                selectedOption="person_id";
+                break;
+            case "姓名":
+                selectedOption="student_name";
+                break;
+            case "部门":
+                selectedOption="department";
+                break;
+            case "班级":
+                selectedOption="classes";
+                break;
+            case "年级":
+                selectedOption="grade";
+                break;
+            case "专业":
+                selectedOption="major";
+                break;
+            default:
+                // Handle default case
+                break;
+        }
+        return selectedOption;
+    }
+
+    public void onFuzzySearchStartAction(ActionEvent actionEvent) {
     }
 }
-

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -147,7 +148,8 @@
                               </VBox>
                           </items>
                         </SplitPane>
-                        <CheckBox fx:id="fuzzySearch" layoutX="736.0" layoutY="27.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" textFill="#fff300" />
+                        <CheckBox fx:id="fuzzySearch" layoutX="833.0" layoutY="25.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" textFill="#fff300" />
+                        <ComboBox fx:id="selectChoiceComboBox" layoutX="724.0" layoutY="22.0" onAction="#onSelectChoiceComboBoxAction" prefHeight="23.0" prefWidth="106.0" />
                      </children>
                   </AnchorPane>
             </content>
