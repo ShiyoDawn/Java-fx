@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentTableController">
    <children>
@@ -37,7 +38,7 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="修改" textFill="#fff300">
+                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" onAction="#updateStudentAction" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="修改" textFill="#fff300">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -47,7 +48,7 @@
                               <Font size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="select" layoutX="559.0" layoutY="24.0" />
+                        <TextField fx:id="select" layoutX="559.0" layoutY="24.0" onAction="#onSelectAction" promptText="请输入学生准确信息" />
                         <SplitPane dividerPositions="0.6463490099009901" layoutY="72.0" prefHeight="585.0" prefWidth="1080.0">
                           <items>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0">
@@ -130,18 +131,23 @@
                                     </GridPane>
                                     <FlowPane alignment="CENTER" prefHeight="105.0" prefWidth="378.0">
                                        <children>
-                                          <Button fx:id="save" layoutX="50.0" layoutY="50.0" mnemonicParsing="false"  prefHeight="43.0" prefWidth="114.0" text="保存">
+                                          <Button fx:id="save" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="43.0" prefWidth="114.0" text="保存">
                                              <font>
                                                 <Font size="21.0" />
                                              </font>
                                           </Button>
                                        </children>
                                     </FlowPane>
+                                    <TextFlow fx:id="textFlow" prefHeight="60.0" prefWidth="378.0" textAlignment="CENTER">
+                                       <children>
+                                          <Label alignment="CENTER" text="请按正确格式输入" textFill="#f60000" />
+                                       </children>
+                                    </TextFlow>
                                  </children>
                               </VBox>
                           </items>
                         </SplitPane>
-                        <CheckBox fx:id="fuzzySearch" layoutX="736.0" layoutY="27.0" mnemonicParsing="false" text="模糊搜索" textFill="#fff300" />
+                        <CheckBox fx:id="fuzzySearch" layoutX="736.0" layoutY="27.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" textFill="#fff300" />
                      </children>
                   </AnchorPane>
             </content>
