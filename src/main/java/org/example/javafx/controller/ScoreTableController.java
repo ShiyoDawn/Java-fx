@@ -234,7 +234,7 @@ public class ScoreTableController  {
                 return;
             }
             Map map = (Map) result.getData();
-            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer student_id = Integer.parseInt(map.get("id").toString());
 
             DataRequest courDataRequest = new DataRequest();
             courDataRequest.add("course_name", course_name);
@@ -244,7 +244,7 @@ public class ScoreTableController  {
                 return;
             }
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer course_id = Integer.parseInt(map.get("id").toString());
 
             DataRequest dataRequest = new DataRequest();
 
