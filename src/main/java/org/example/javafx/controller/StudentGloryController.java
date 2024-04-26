@@ -12,6 +12,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import org.example.javafx.pojo.Result;
+import org.example.javafx.request.DataRequest;
+import org.example.javafx.request.HttpRequestUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static jdk.internal.org.jline.utils.Colors.s;
 
 public class StudentGloryController {
 
@@ -19,7 +29,7 @@ public class StudentGloryController {
     private Button addButton;
 
     @FXML
-    private TableView dataTableView;
+    private TableView<Map> dataTableView;
 
     @FXML
     private Button deleteButton;
@@ -52,13 +62,13 @@ public class StudentGloryController {
     private ComboBox gloryLevelComboBox;
 
     @FXML
-    private TableColumn<String,String> gloryNameColumn;
+    private TableColumn<Map,String> gloryNameColumn;
 
     @FXML
-    private TableColumn<String,String> gloryTypeColumn;
+    private TableColumn<Map,String> gloryTypeColumn;
 
     @FXML
-    private TableColumn<String,String> gloryLevelColumn;
+    private TableColumn<Map,String> gloryLevelColumn;
 
     @FXML
     private ComboBox gloryTypeEditComboBox;
@@ -67,7 +77,7 @@ public class StudentGloryController {
     private TextField gloryUpdateTextField;
 
     @FXML
-    private TableColumn<String,String> id;
+    private TableColumn<Map,String> id;
 
     @FXML
     private Button queryButton;
@@ -82,14 +92,15 @@ public class StudentGloryController {
     private ComboBox studentEditComboBox;
 
     @FXML
-    private TableColumn<String,String> studentNameColumn;
+    private TableColumn<Map,String> studentNameColumn;
 
     @FXML
-    private TableColumn<String,String> studentNumColumn;
+    private TableColumn<Map,String> studentNumColumn;
 
     @FXML
     private TextField gloryLevelUpdateTextField;
 
+    //-------------------------------------------------
     @FXML
     private void onAddButtonClick(ActionEvent event) {
 
@@ -131,7 +142,33 @@ public class StudentGloryController {
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
         studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
         gloryNameColumn.setCellValueFactory(new MapValueFactory<>("glory_name"));
-        gloryTypeColumn.setCellFactory(new MapValueFactory<>("glory_type"));
-        gloryLevelColumn.setCellFactory(new MapValueFactory<>("glory_level"));
+        gloryTypeColumn.setCellValueFactory(new MapValueFactory<>("glory_type"));
+        gloryLevelColumn.setCellValueFactory(new MapValueFactory<>("glory_level"));
+
+        editTabPane.setVisible(false);
+        editTextArea.setVisible(false);
+
+        DataRequest dataRequest=new DataRequest();
+        List studentList=new ArrayList();
+        List gloryTypeList=new ArrayList();
+        Result studentResult= HttpRequestUtils.request("/student/getStudentList",dataRequest);
+
+        Map cancelStudent=new HashMap();
+        cancelStudent.put("cancelStudent","请选择学生");
+        studentList.add(cancelStudent.get("cancelStudent"));
+        Map cancelGloryType=new HashMap();
+        cancelGloryType.put("cancelGloryType","请选择荣誉类型");
+        gloryTypeList.add(cancelGloryType.get("cancelGloryType"));
+        List<Map> studentMap=(List<Map>) studentResult.getData();
+        List<Map> gloryTypeMap=new ArrayList<>();
+        String[] strings={"体育赛事","科技创新","学术竞赛","评奖评优"};
+        for(int i=0;i<4;i++){
+            Map<String,String> map=new HashMap<>();
+            map.put(i+"",strings[i]);
+        }
+        for(Map student:studentMap){
+            studentList.add(student.get("student_name"));
+        }
+
     }
 }
