@@ -73,7 +73,7 @@
                               </ScrollPane>
                               <VBox prefHeight="583.0" prefWidth="438.0">
                                  <children>
-                                    <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                                    <FlowPane alignment="CENTER" prefHeight="159.0" prefWidth="378.0">
                                        <children>
                                           <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
@@ -130,18 +130,23 @@
                                           <TextField fx:id="majorText" prefHeight="23.0" prefWidth="199.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                        </children>
                                     </GridPane>
-                                    <FlowPane alignment="CENTER" prefHeight="105.0" prefWidth="378.0">
+                                    <FlowPane alignment="CENTER" hgap="20.0" prefHeight="87.0" prefWidth="378.0" vgap="20.0">
                                        <children>
-                                          <Button fx:id="save" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="43.0" prefWidth="114.0" text="保存">
+                                          <Button fx:id="save" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="40.0" prefWidth="75.0" text="保存">
                                              <font>
-                                                <Font size="21.0" />
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="moreButton" mnemonicParsing="false" onAction="#onMoreButtonAction" prefHeight="40.0" prefWidth="75.0" text="更多">
+                                             <font>
+                                                <Font size="20.0" />
                                              </font>
                                           </Button>
                                        </children>
                                     </FlowPane>
-                                    <TextFlow fx:id="textFlow" prefHeight="60.0" prefWidth="378.0" textAlignment="CENTER">
+                                    <TextFlow fx:id="textFlow" prefHeight="16.0" prefWidth="378.0" textAlignment="CENTER">
                                        <children>
-                                          <Label alignment="CENTER" text="请按正确格式输入" textFill="#f60000" />
+                                          <Label alignment="CENTER" text="请按正确格式输入，“保存”只能用于修改" textFill="#f60000" />
                                        </children>
                                     </TextFlow>
                                  </children>
@@ -150,6 +155,7 @@
                         </SplitPane>
                         <CheckBox fx:id="fuzzySearch" layoutX="810.0" layoutY="28.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" textFill="#fff300" />
                         <ComboBox fx:id="selectChoiceComboBox" layoutX="543.0" layoutY="24.0" onAction="#onSelectChoiceComboBoxAction" prefHeight="23.0" prefWidth="91.0" promptText="查询类别" />
+                        <Button fx:id="resetButton" layoutX="938.0" layoutY="24.0" mnemonicParsing="false" onAction="#onResetAction" text="重置" />
                      </children>
                   </AnchorPane>
             </content>
