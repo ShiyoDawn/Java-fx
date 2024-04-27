@@ -99,13 +99,13 @@ public class ScoreEditController {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer student_id = Integer.parseInt(map.get("id").toString());
 
             DataRequest courDataRequest = new DataRequest();
-            courDataRequest.add("course_name", course_name);
-            result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
+            courDataRequest.add("id", course_name.split("-")[0]);
+            result = HttpRequestUtils.request("/course/selectInfo", courDataRequest);
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer course_id = Integer.parseInt(map.get("id").toString().split("\\.")[0]);
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
@@ -174,7 +174,7 @@ public class ScoreEditController {
             studentList.add(student.get("student_name"));
         }
         for (Map course : courseMap) {
-            courseList.add(course.get("course_name"));
+            courseList.add(course.get("id").toString().split("\\.")[0]+"-"+course.get("course_name"));
         }
         studentComboBox.getItems().addAll(studentList);
         courseComboBox.getItems().addAll(courseList);
