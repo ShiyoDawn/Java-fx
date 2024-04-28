@@ -109,6 +109,13 @@ public class ScoreEditController {
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
+            result=HttpRequestUtils.request("/score/selectByStudentAndCourse",dataRequest);
+            if(result==null){
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("成绩不存在,请重新选择");
+                alert.showAndWait();
+                return;
+            }
             CommonMethod.alertButton("/score/deleteAllById",dataRequest,"删除");
         } else if (student_name == null && course_name != null) {
             Stage confirmStage = new Stage();

@@ -130,19 +130,22 @@ public class StudentGloryController {
             alert.showAndWait();
             return;
         }
-        for (Map gloryMap : selected) {
-            String student_name = CommonMethod.getString(gloryMap, "student_name");
-            String glory_name = CommonMethod.getString(gloryMap, "glory_name");
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("student_name", student_name);
-            dataRequest.add("glory_name", glory_name);
-            HttpRequestUtils.request("/glory/deleteGlory", dataRequest);
-        }
         String msg = CommonMethod.alertButton("/glory/deleteGlory", new DataRequest(), "删除");
+        if (msg == "确认") {
+            for (Map gloryMap : selected) {
+                String student_name = CommonMethod.getString(gloryMap, "student_name");
+                String glory_name = CommonMethod.getString(gloryMap, "glory_name");
+                DataRequest dataRequest = new DataRequest();
+                dataRequest.add("student_name", student_name);
+                dataRequest.add("glory_name", glory_name);
+                HttpRequestUtils.request("/glory/deleteGlory", dataRequest);
+            }
+        }
         onQueryButtonClick();
     }
 
     Result tmpResult;
+
     @FXML
     private void onEditButtonClick(ActionEvent event) {
         onCancelClick();
@@ -162,7 +165,7 @@ public class StudentGloryController {
             System.out.println(dataRequest.getData());
             result = HttpRequestUtils.request("/glory/selectByStudentAndGlory", dataRequest);
             Map map = (Map) result.getData();
-            tmpResult=HttpRequestUtils.request("/glory/selectByStudentAndGlory",dataRequest);
+            tmpResult = HttpRequestUtils.request("/glory/selectByStudentAndGlory", dataRequest);
             studentEditComboBox.setValue(map.get("student_name"));
             studentEditComboBox.setEditable(false);
             studentEditComboBox.setDisable(true);
@@ -230,6 +233,7 @@ public class StudentGloryController {
     @FXML
     private void onCancelClick() {
         studentEditComboBox.setValue("请选择学生");
+        gloryTypeEditComboBox.setValue("请选择荣誉类型");
         gloryUpdateTextField.setText("");
         gloryLevelUpdateTextField.setText("");
         studentEditComboBox.setDisable(false);
@@ -257,7 +261,7 @@ public class StudentGloryController {
             gloryTypeEditComboBox.setValue("请选择荣誉类型");
             glory_type = null;
         }
-        if (gloryUpdateTextField.getText()=="") {
+        if (gloryUpdateTextField.getText() == "") {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
             confirmStage.setHeight(150);
@@ -271,7 +275,7 @@ public class StudentGloryController {
             confirmStage.show();
             return;
         }
-        if (gloryLevelUpdateTextField.getText()=="") {
+        if (gloryLevelUpdateTextField.getText() == "") {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
             confirmStage.setHeight(150);
@@ -288,24 +292,31 @@ public class StudentGloryController {
         if (student_name != null && glory_type != null) {
             System.out.println(student_name);
             dataRequest.add("student_name", student_name);
-            result=HttpRequestUtils.request("/student/selectStudentByName",dataRequest);
-            Map map=(Map) result.getData();
+            result = HttpRequestUtils.request("/student/selectStudentByName", dataRequest);
+            Map map = (Map) result.getData();
             System.out.println(map);
-            Integer student_id=Integer.parseInt(map.get("id").toString());
-            dataRequest.add("student_id",student_id);
-            dataRequest.add("glory_name",gloryUpdateTextField.getText());
-            dataRequest.add("glory_type",glory_type);
-            if(tmpResult!=null){
-                dataRequest.add("raw_glory_name",((Map)tmpResult.getData()).get("glory_name"));
+            Integer student_id = Integer.parseInt(map.get("id").toString());
+            dataRequest.add("student_id", student_id);
+            dataRequest.add("glory_name", gloryUpdateTextField.getText());
+            dataRequest.add("glory_type", glory_type);
+            if (tmpResult != null) {
+                dataRequest.add("raw_glory_name", ((Map) tmpResult.getData()).get("glory_name"));
             }
-            dataRequest.add("glory_level",gloryLevelUpdateTextField.getText());
-            if(editConfirmButton.getText()=="修改荣誉"){
-                String msg=CommonMethod.alertButton("/glory/updateGlory",dataRequest,"修改");
-            }else if(editConfirmButton.getText()=="增加荣誉"){
-                String msg=CommonMethod.alertButton("/glory/insertGlory",dataRequest,"增加");
+            dataRequest.add("glory_level", gloryLevelUpdateTextField.getText());
+            if (editConfirmButton.getText() == "修改荣誉") {
+                String msg = CommonMethod.alertButton("/glory/updateGlory", new DataRequest(), "修改");
+                if(msg=="确认"){
+                    HttpRequestUtils.request("/glory/updateGlory",dataRequest);
+                }
+            } else if (editConfirmButton.getText() == "增加荣誉") {
+                String msg = CommonMethod.alertButton("/glory/insertGlory", new DataRequest(), "增加");
+                if(msg=="确认"){
+                    HttpRequestUtils.request("/glory/updateGlory",dataRequest);
+                }
+                System.out.println(dataRequest.getData());
             }
             System.out.println(dataRequest.getData());
-        }else if(student_name==null&&glory_type!=null){
+        } else if (student_name == null && glory_type != null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
             confirmStage.setHeight(150);
@@ -317,7 +328,7 @@ public class StudentGloryController {
             Scene scene = new Scene(hBox);
             confirmStage.setScene(scene);
             confirmStage.show();
-        }else if(student_name!=null&&glory_type==null){
+        } else if (student_name != null && glory_type == null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
             confirmStage.setHeight(150);
@@ -329,7 +340,7 @@ public class StudentGloryController {
             Scene scene = new Scene(hBox);
             confirmStage.setScene(scene);
             confirmStage.show();
-        }else if(student_name==null&&glory_type==null){
+        } else if (student_name == null && glory_type == null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
             confirmStage.setHeight(150);
@@ -374,7 +385,7 @@ public class StudentGloryController {
         for (int i = 0; i < 4; i++) {
             Map<String, String> map = new HashMap<>();
             map.put(i + "", strings[i]);
-            gloryTypeList.add(map.get(""+i));
+            gloryTypeList.add(map.get("" + i));
         }
         for (Map student : studentMap) {
             studentList.add(student.get("student_name"));

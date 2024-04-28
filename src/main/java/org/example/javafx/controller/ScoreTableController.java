@@ -158,16 +158,18 @@ public class ScoreTableController {
         }
         //System.out.println(selected);
         //onResetButtonClick();
-        for (Map scoreMap : selected) {
-            Integer student_id = CommonMethod.getInteger(scoreMap, "student_id");
-            Integer course_id = CommonMethod.getInteger(scoreMap, "course_id");
-            System.out.println(student_id + " " + course_id);
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("student_id", student_id);
-            dataRequest.add("course_id", course_id);
-            HttpRequestUtils.request("/score/deleteAllById", dataRequest);
-        }
         String msg = CommonMethod.alertButton("/score/deleteAllById", new DataRequest(), "删除");
+        if (msg == "确认") {
+            for (Map scoreMap : selected) {
+                Integer student_id = CommonMethod.getInteger(scoreMap, "student_id");
+                Integer course_id = CommonMethod.getInteger(scoreMap, "course_id");
+                System.out.println(student_id + " " + course_id);
+                DataRequest dataRequest = new DataRequest();
+                dataRequest.add("student_id", student_id);
+                dataRequest.add("course_id", course_id);
+                HttpRequestUtils.request("/score/deleteAllById", dataRequest);
+            }
+        }
         onQueryButtonClick();
     }
 

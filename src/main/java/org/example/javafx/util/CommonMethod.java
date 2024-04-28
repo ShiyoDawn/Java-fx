@@ -265,6 +265,6 @@ public class CommonMethod {
         } else {
             alert.close();
         }
-        return null;
+        return (tempresult.get()==confirmButton)?"确认":"取消";
     }
 }
