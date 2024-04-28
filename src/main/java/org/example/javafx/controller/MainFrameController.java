@@ -56,6 +56,9 @@ public class MainFrameController {
     Button gloryCenterButton = new Button();
 
     @FXML
+    Button leaveCenterButton = new Button();
+
+    @FXML
     Label statueLabel;
 
     @FXML
@@ -82,6 +85,7 @@ public class MainFrameController {
         setTabChange(userCenterButton, "user-view.fxml");
         setTabChange(scoreCenterButton,"score-view.fxml");
         setTabChange(gloryCenterButton,"student-glory.fxml");
+        setTabChange(leaveCenterButton,"leave-view.fxml");
 
 
         searchBox.setEditable(true);
@@ -93,6 +97,7 @@ public class MainFrameController {
         list.add("用户中心");
         list.add("分数管理");
         list.add("荣誉管理");
+        list.add("请假管理");
         searchBox.getItems().addAll(list);
         searchButton.setOnAction(e ->
         {

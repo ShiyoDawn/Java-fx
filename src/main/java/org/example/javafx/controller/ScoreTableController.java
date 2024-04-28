@@ -158,7 +158,8 @@ public class ScoreTableController {
         }
         //System.out.println(selected);
         //onResetButtonClick();
-        String msg = CommonMethod.alertButton("/score/deleteAllById", new DataRequest(), "删除");
+        String msg = CommonMethod.alertButton("删除");
+        System.out.println(msg);
         if (msg == "确认") {
             for (Map scoreMap : selected) {
                 Integer student_id = CommonMethod.getInteger(scoreMap, "student_id");
@@ -476,18 +477,22 @@ public class ScoreTableController {
             }
             dataRequest.add("mark", markUpdateTextField.getText());
             if (editConfirmButton.getText() == "修改分数") {
-                String msg = CommonMethod.alertButton("/score/updateScore", dataRequest, "修改");
+                String msg = CommonMethod.alertButton("修改");
+                if(msg=="确认"){
+                    result=HttpRequestUtils.request("/score/updateScore",dataRequest);
+                }
             } else if (editConfirmButton.getText() == "增加分数") {
-                String msg = CommonMethod.alertButton("/score/insertScore", dataRequest, "增加");
-                System.out.println(msg);
-                if (msg != null) {
-                    if (msg.equals("Score has existed.")) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setResizable(false);
-                        alert.setContentText("成绩已存在,请重新输入");
-                        alert.showAndWait();
-                        return;
-                    }
+                String msg = CommonMethod.alertButton("增加");
+                result=HttpRequestUtils.request("/score/selectByStudentAndCourse",dataRequest);
+                if(result!=null){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setResizable(false);
+                    alert.setContentText("成绩已存在,请重新输入");
+                    alert.showAndWait();
+                    return;
+                }
+                if(msg=="确认"){
+                    HttpRequestUtils.request("/score/insertScore",dataRequest);
                 }
             }
             onQueryButtonClick();

@@ -130,7 +130,7 @@ public class StudentGloryController {
             alert.showAndWait();
             return;
         }
-        String msg = CommonMethod.alertButton("/glory/deleteGlory", new DataRequest(), "删除");
+        String msg = CommonMethod.alertButton("删除");
         if (msg == "确认") {
             for (Map gloryMap : selected) {
                 String student_name = CommonMethod.getString(gloryMap, "student_name");
@@ -304,12 +304,12 @@ public class StudentGloryController {
             }
             dataRequest.add("glory_level", gloryLevelUpdateTextField.getText());
             if (editConfirmButton.getText() == "修改荣誉") {
-                String msg = CommonMethod.alertButton("/glory/updateGlory", new DataRequest(), "修改");
+                String msg = CommonMethod.alertButton("修改");
                 if(msg=="确认"){
                     HttpRequestUtils.request("/glory/updateGlory",dataRequest);
                 }
             } else if (editConfirmButton.getText() == "增加荣誉") {
-                String msg = CommonMethod.alertButton("/glory/insertGlory", new DataRequest(), "增加");
+                String msg = CommonMethod.alertButton("增加");
                 if(msg=="确认"){
                     HttpRequestUtils.request("/glory/updateGlory",dataRequest);
                 }

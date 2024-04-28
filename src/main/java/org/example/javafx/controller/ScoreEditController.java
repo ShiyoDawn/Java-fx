@@ -116,7 +116,7 @@ public class ScoreEditController {
                 alert.showAndWait();
                 return;
             }
-            CommonMethod.alertButton("/score/deleteAllById",dataRequest,"删除");
+            CommonMethod.alertButton("删除");
         } else if (student_name == null && course_name != null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
