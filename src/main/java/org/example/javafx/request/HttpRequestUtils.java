@@ -18,6 +18,7 @@ import lombok.Data;
 import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Course;
 import org.example.javafx.pojo.Result;
+import org.w3c.dom.ls.LSInput;
 
 import static java.net.http.HttpRequest.newBuilder;
 
@@ -47,17 +48,6 @@ public class HttpRequestUtils {
             e.printStackTrace();
         }
         return new Result(400, null, "未知原因失败");
-    }
-
-    public Integer loginAgain(Integer id) throws IOException, InterruptedException {
-        HttpRequest httpRequest = HttpRequest.newBuilder()
-                .uri(URI.create(serverUrl + "/loginAgain"))
-                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(id)))
-                .headers("Content-Type", "application/json")
-                .build();
-        HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-        Integer id0 = new Gson().fromJson(response.body(), Integer.class);
-        return id0;
     }
 
     public Result getCourse(DataRequest request) throws IOException, InterruptedException {
@@ -113,6 +103,27 @@ public class HttpRequestUtils {
                 Result result = gson.fromJson(response.body(), Result.class);
                 return result;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List getMenu(Integer userType) {
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(serverUrl + "/menu/get"))
+                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(userType)))
+                .headers("Content-Type", "application/json")
+                .build();
+        try {
+            HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            Result result = new Gson().fromJson(response.body(), Result.class);
+            List menuList = new Gson().fromJson(result.getData().toString(),List.class);
+            if (result.getCode().equals(200) == false) {
+                throw new RuntimeException();
+            }else return menuList;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
