@@ -52,11 +52,11 @@
                         <TextField fx:id="select" layoutX="641.0" layoutY="24.0" onAction="#onSelectAction" promptText="请选择查询类别" />
                         <SplitPane dividerPositions="0.6463490099009901" layoutY="72.0" prefHeight="585.0" prefWidth="1080.0">
                           <items>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0" stylesheets="@css/table.css">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="848.0">
                                        <children>
-                                          <TableView fx:id="tableView" prefHeight="720.0" prefWidth="848.0" style="-fx-background-color: #BEBEBE;">
+                                          <TableView fx:id="tableView"  prefHeight="720.0" prefWidth="848.0">
                                             <columns>
                                               <TableColumn fx:id="idColumn" prefWidth="33.333282589912415" text="序号" />
                                               <TableColumn fx:id="person_idColumn" prefWidth="118.00006103515625" text="学号" />

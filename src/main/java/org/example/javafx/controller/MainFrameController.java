@@ -37,23 +37,23 @@ public class MainFrameController {
     @FXML
     Button dashBoardButton = new Button();
 
-    @FXML
-    Button courseCenterButton = new Button();
-
-    @FXML
-    Button studentCenterButton = new Button();
-
-    @FXML
-    Button activityCenterButton = new Button();
-
-    @FXML
-    Button userCenterButton = new Button();
-
-    @FXML
-    Button scoreCenterButton = new Button();
-
-    @FXML
-    Button gloryCenterButton = new Button();
+//    @FXML
+//    Button courseCenterButton = new Button();
+//
+//    @FXML
+//    Button studentCenterButton = new Button();
+//
+//    @FXML
+//    Button activityCenterButton = new Button();
+//
+//    @FXML
+//    Button userCenterButton = new Button();
+//
+//    @FXML
+//    Button scoreCenterButton = new Button();
+//
+//    @FXML
+//    Button gloryCenterButton = new Button();
 
     @FXML
     Label statueLabel;
@@ -61,27 +61,33 @@ public class MainFrameController {
     @FXML
     Button searchButton;
 
+    List<Map<String,String>> menuList;
+
     @FXML
     public void initialize() throws IOException, InterruptedException {
+
+        menuList = new HttpRequestUtils().getMenu(AppStore.getUser().getUser_type_id());
+        System.out.println(menuList);
         //加载仪表盘界面为初始界面
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
-        DataRequest dataRequest1 = new DataRequest();
         BorderPane dashboard = new BorderPane(fxmlLoader.load());
         borderPane.setCenter(dashboard);
         userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
+        setTabChange(dashBoardButton, "dashboard-view.fxml");
 
-
-        //TODO 发送请求，根据用户type获取tab
 
         //初始化页面切换
-        setTabChange(dashBoardButton, "dashboard-view.fxml");
-        setTabChange(courseCenterButton, "course-view.fxml");
-        setTabChange(studentCenterButton, "student-view.fxml");
-        setTabChange(activityCenterButton, "activity-view.fxml");
-        setTabChange(userCenterButton, "user-view.fxml");
-        setTabChange(scoreCenterButton,"score-view.fxml");
-        setTabChange(gloryCenterButton,"student-glory.fxml");
+        for (int i = 1; i < menuList.size(); i++) {
+            Button newButton = new Button(menuList.get(i).get("name"));
+
+//            prefHeight="35.0" prefWidth="100.0"
+            newButton.setPrefHeight(35);
+            newButton.setPrefWidth(100);
+            vBox.getChildren().add(i,newButton);
+            setTabChange(newButton,menuList.get(i).get("url"));
+        }
+
 
 
         searchBox.setEditable(true);
