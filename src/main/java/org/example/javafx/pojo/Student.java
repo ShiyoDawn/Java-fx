@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
-    private Integer id;
+    private String id;
 
-    private Integer person_id;
+    private String person_id;
 
     private String student_name;
 
@@ -21,4 +23,5 @@ public class Student {
     private String grade;
 
     private String major;
+
 }

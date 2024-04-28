@@ -32,11 +32,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class ScoreTableController  {
+public class ScoreTableController {
     //显示元素
 
     @FXML
-    private TableView<Map> dataTableView ;
+    private TableView<Map> dataTableView;
 
     @FXML
     private ComboBox courseComboBox;
@@ -93,7 +93,7 @@ public class ScoreTableController  {
     @FXML
     private Button editCancelButton;
     @FXML
-    private Button editComfirmButton;
+    private Button editConfirmButton;
 
     @FXML
     private AnchorPane scoreAnchorPane;
@@ -124,13 +124,11 @@ public class ScoreTableController  {
     @FXML
     private void onAddButtonClick(ActionEvent event) {
         onCancelClick();
-        Stage editStage = new Stage();
-        //取消放大（全屏）按钮
         editTabPane.setVisible(true);
         editTextArea.setVisible(true);
         editTextArea.setEditable(false);
         editTextArea.setDisable(true);
-        editComfirmButton.setText("增加分数");
+        editConfirmButton.setText("增加分数");
         onQueryButtonClick();
         //onResetButtonClick();
     }
@@ -138,9 +136,9 @@ public class ScoreTableController  {
     @FXML
     private void onDeleteButtonClick(ActionEvent event) {
         onCancelClick();
-        List<Map> selected=dataTableView.getSelectionModel().getSelectedItems();
+        List<Map> selected = dataTableView.getSelectionModel().getSelectedItems();
         System.out.println(selected);
-        if(selected.size()==0){
+        if (selected.size() == 0) {
             Stage editStage = new Stage();
             //取消放大（全屏）按钮
             editStage.setResizable(false);
@@ -160,39 +158,42 @@ public class ScoreTableController  {
         }
         //System.out.println(selected);
         //onResetButtonClick();
-        for(Map scoreMap:selected){
-            Integer student_id=CommonMethod.getInteger(scoreMap,"student_id");
-            Integer course_id=CommonMethod.getInteger(scoreMap,"course_id");
-            System.out.println(student_id+" "+course_id);
-            DataRequest dataRequest=new DataRequest();
-            dataRequest.add("student_id",student_id);
-            dataRequest.add("course_id",course_id);
-            HttpRequestUtils.request("/score/deleteAllById",dataRequest);
+        String msg = CommonMethod.alertButton("/score/deleteAllById", new DataRequest(), "删除");
+        if (msg == "确认") {
+            for (Map scoreMap : selected) {
+                Integer student_id = CommonMethod.getInteger(scoreMap, "student_id");
+                Integer course_id = CommonMethod.getInteger(scoreMap, "course_id");
+                System.out.println(student_id + " " + course_id);
+                DataRequest dataRequest = new DataRequest();
+                dataRequest.add("student_id", student_id);
+                dataRequest.add("course_id", course_id);
+                HttpRequestUtils.request("/score/deleteAllById", dataRequest);
+            }
         }
-        String msg=CommonMethod.alertButton("/score/deleteAllById",new DataRequest(),"删除");
         onQueryButtonClick();
     }
 
     @FXML
     private void onEditButtonClick(ActionEvent event) {
         onCancelClick();
-        Map selected=dataTableView.getSelectionModel().getSelectedItem();
-        editComfirmButton.setText("修改分数");
+        Map selected = dataTableView.getSelectionModel().getSelectedItem();
+        editConfirmButton.setText("修改分数");
         editTabPane.setVisible(true);
         editTextArea.setVisible(true);
         editTextArea.setEditable(false);
         editTextArea.setDisable(true);
-        if(selected!=null){
-            DataRequest dataRequest=new DataRequest();
-            Integer student_id=CommonMethod.getInteger(selected,"student_id");
-            Integer course_id=CommonMethod.getInteger(selected,"course_id");
-            dataRequest.add("student_id",student_id);
-            dataRequest.add("course_id",course_id);
-            Result result=new Result();
-            result=HttpRequestUtils.request("/score/selectByStudentAndCourse",dataRequest);
-            Map map=(Map) result.getData();
-            studentEditComboBox.setValue(map.get("student_name").toString());
-            courseEditComboBox.setValue(map.get("course_name").toString());
+        if (selected != null) {
+            DataRequest dataRequest = new DataRequest();
+            Integer student_id = CommonMethod.getInteger(selected, "student_id");
+            Integer course_id = CommonMethod.getInteger(selected, "course_id");
+            dataRequest.add("student_id", student_id);
+            dataRequest.add("course_id", course_id);
+            Result result = new Result();
+            result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
+            Map map = (Map) result.getData();
+            System.out.println(map);
+            studentEditComboBox.setValue(map.get("student_name"));
+            courseEditComboBox.setValue(map.get("course_id") + "-" + map.get("course_name"));
             studentEditComboBox.setEditable(false);
             courseEditComboBox.setEditable(false);
             studentEditComboBox.setDisable(true);
@@ -214,93 +215,91 @@ public class ScoreTableController  {
         if (course != null)
             course_name = course.toString();
 
-        if(student_name == "请选择学生"){
+        if (student_name == "请选择学生") {
             studentComboBox.setValue("请选择学生");
             student_name = null;
         }
-        if(course_name == "请选择课程"){
+        if (course_name == "请选择课程") {
             courseComboBox.setValue("请选择课程");
             course_name = null;
         }
 
-        System.out.println(student_name+" "+course_name);
-        if (student_name != null && course_name != null)
-        {
+        System.out.println(student_name + " " + course_name);
+        if (student_name != null && course_name != null) {
             DataRequest stuDataRequest = new DataRequest();
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
-            if(result==null){
+            if (result == null) {
                 observableList.clear();
                 return;
             }
             Map map = (Map) result.getData();
-            Integer student_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer student_id = Integer.parseInt(map.get("id").toString());
 
             DataRequest courDataRequest = new DataRequest();
-            courDataRequest.add("course_name", course_name);
-            result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
-            if(result==null){
+            courDataRequest.add("id", course_name.split("-")[0]);
+            result = HttpRequestUtils.request("/course/selectInfo", courDataRequest);
+            if (result == null) {
                 observableList.clear();
                 return;
             }
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString().substring(0,map.get("id").toString().length()-2));
+            Integer course_id = Integer.parseInt(map.get("id").toString().split("\\.")[0]);
 
             DataRequest dataRequest = new DataRequest();
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
-            result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
-            result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
-            map=(Map) result.getData();
-            System.out.println(map.get("student_id")+" "+map.get("course_id")+" "+map.get("mark"));
-            if(result==null){
-                observableList.clear();
-                return;
-            }
-
-        } else if (student_name != null && course_name == null)
-        {
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("student_name",student_name);
-            result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
-            result = HttpRequestUtils.request("/score/selectByStudentName",dataRequest);
-            if(result==null){
-                observableList.clear();
-                return;
-            }
-        }
-        else if(student_name == null && course_name != null)
-        {
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("course_name",course_name);
-            result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
-
-            result = HttpRequestUtils.request("/score/selectByCourseName",dataRequest);
-            System.out.println(dataTableView.getItems());
-            if(result==null){
-                observableList.clear();
-                return;
-            }
-        }
-        else if(student_name == null && course_name == null)
-        {
             result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
-            result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
+            result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
+            map = (Map) result.getData();
+            System.out.println(map.get("student_id") + " " + map.get("course_id") + " " + map.get("mark"));
+            if (result == null) {
+                observableList.clear();
+                return;
+            }
+
+        } else if (student_name != null && course_name == null) {
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("student_name", student_name);
+            result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
+            result = HttpRequestUtils.request("/score/selectByStudentName", dataRequest);
+            if (result == null) {
+                observableList.clear();
+                return;
+            }
+        } else if (student_name == null && course_name != null) {
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("id", course_name.split("-")[0]);
+            result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
+
+            result = HttpRequestUtils.request("/course/selectInfo", dataRequest);
+            Map map = (Map) result.getData();
+            DataRequest newDataRequest = new DataRequest();
+            newDataRequest.add("course_id", map.get("id"));
+            result = HttpRequestUtils.request("/score/selectByCourseId", newDataRequest);
+            System.out.println(dataTableView.getItems());
+            if (result == null) {
+                observableList.clear();
+                return;
+            }
+        } else if (student_name == null && course_name == null) {
+            result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
+            result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
         }
-        if(result==null){
+        if (result == null) {
             return;
         }
         setTableViewData(result);
     }
 
     @FXML
-    public void onResetButtonClick(){
-        Result result=null;
+    public void onResetButtonClick() {
+        Result result = null;
         studentComboBox.setValue("请选择学生");
         courseComboBox.setValue("请选择课程");
-        result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
-        result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
+        result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
+        result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
         setTableViewData(result);
     }
 
@@ -322,7 +321,7 @@ public class ScoreTableController  {
             scoreMap.put("operateColumn", editButton);*/
             observableList.add(scoreMap);
         } else if (result.getData() instanceof ArrayList) {
-            Button editButton;
+            //Button editButton;
             scoreList = (ArrayList) result.getData();
             for (Map scoreMap : (ArrayList<Map>) scoreList) {
                 System.out.println(scoreMap);
@@ -382,7 +381,7 @@ public class ScoreTableController  {
             courseEditComboBox.setValue("请选择课程");
             course_name = null;
         }
-        if (markUpdateTextField.getText() == null) {
+        if (markUpdateTextField.getText() == "") {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
             confirmStage.setHeight(150);
@@ -404,71 +403,71 @@ public class ScoreTableController  {
             Integer student_id = Integer.parseInt(map.get("id").toString());
 
             DataRequest courDataRequest = new DataRequest();
-            courDataRequest.add("course_name", course_name);
-            result = HttpRequestUtils.request("/course/selectCourseByName", courDataRequest);
+            courDataRequest.add("id", course_name.split("-")[0]);
+            result = HttpRequestUtils.request("/course/selectInfo", courDataRequest);
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString());
+            Integer course_id = Integer.parseInt(map.get("id").toString().split("\\.")[0]);
 
             dataRequest.add("student_id", student_id);
             dataRequest.add("course_id", course_id);
-            String markstr=markUpdateTextField.getText();
-            Integer cnt=0;
-            if(markstr.length()>1){
-                if(markstr.charAt(0)=='0'&&markstr.charAt(1)!='.'){
-                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            String markstr = markUpdateTextField.getText();
+            Integer cnt = 0;
+            if (markstr.length() > 1) {
+                if (markstr.charAt(0) == '0' && markstr.charAt(1) != '.') {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setResizable(false);
                     alert.setContentText("请输入正确的分数");
                     alert.showAndWait();
                     return;
                 }
             }
-            if(markstr.length()==2){
-                if(markstr.charAt(0)=='0'&&markstr.charAt(1)=='.'){
-                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            if (markstr.length() == 2) {
+                if (markstr.charAt(0) == '0' && markstr.charAt(1) == '.') {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setResizable(false);
                     alert.setContentText("请输入正确的分数");
                     alert.showAndWait();
                     return;
                 }
             }
-            if(!Character.isDigit(markstr.charAt(0))){
-                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            if (!Character.isDigit(markstr.charAt(0))) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setResizable(false);
                 alert.setContentText("请输入正确的分数");
                 alert.showAndWait();
                 return;
             }
-            for(int i=0;i<markstr.length();i++){
-                if(Character.isDigit(markstr.charAt(i))||markstr.charAt(i)=='.'&&cnt<=1){
-                    if(markstr.charAt(i)=='.'){
+            for (int i = 0; i < markstr.length(); i++) {
+                if (Character.isDigit(markstr.charAt(i)) || markstr.charAt(i) == '.' && cnt <= 1) {
+                    if (markstr.charAt(i) == '.') {
                         cnt++;
                     }
-                    if(cnt>=2){
-                        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    if (cnt >= 2) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setResizable(false);
                         alert.setContentText("请输入正确的分数");
                         alert.showAndWait();
                         return;
                     }
-                }else{
-                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setResizable(false);
                     alert.setContentText("请输入正确的分数");
                     alert.showAndWait();
                     return;
                 }
             }
-            Double mark=Double.parseDouble(markstr);
-            if(mark<0||markstr.equals("0.0")||mark>100){
-                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            Double mark = Double.parseDouble(markstr);
+            if (mark < 0 || markstr.equals("0.0") || mark > 100) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setResizable(false);
                 alert.setContentText("请输入正确的分数");
                 alert.showAndWait();
                 return;
             }
-            if(markstr.length()>2&&mark!=100){
-                if(markstr.split("\\.")[1].length()>=2){
-                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            if (markstr.length() > 2 && mark != 100) {
+                if (markstr.split("\\.")[1].length() >= 2) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setResizable(false);
                     alert.setContentText("请输入正确的分数");
                     alert.showAndWait();
@@ -476,14 +475,14 @@ public class ScoreTableController  {
                 }
             }
             dataRequest.add("mark", markUpdateTextField.getText());
-            if(editComfirmButton.getText()=="修改分数"){
-                String msg=CommonMethod.alertButton("/score/updateScore",dataRequest,"修改");
-            }else if(editComfirmButton.getText()=="增加分数"){
-                String msg=CommonMethod.alertButton("/score/insertScore",dataRequest,"增加");
+            if (editConfirmButton.getText() == "修改分数") {
+                String msg = CommonMethod.alertButton("/score/updateScore", dataRequest, "修改");
+            } else if (editConfirmButton.getText() == "增加分数") {
+                String msg = CommonMethod.alertButton("/score/insertScore", dataRequest, "增加");
                 System.out.println(msg);
-                if(msg!=null){
-                    if(msg.equals("Score has existed.")){
-                        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                if (msg != null) {
+                    if (msg.equals("Score has existed.")) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setResizable(false);
                         alert.setContentText("成绩已存在,请重新输入");
                         alert.showAndWait();
@@ -553,11 +552,11 @@ public class ScoreTableController  {
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", req); //从后台获取所有学生信息列表集合
         Result courseResult = HttpRequestUtils.request("/course/selectAll", req); //从后台获取所有学生信息列表集合
 
-        Map cancelStudent=new HashMap();
-        cancelStudent.put("cancelStudent","请选择学生");
+        Map cancelStudent = new HashMap();
+        cancelStudent.put("cancelStudent", "请选择学生");
         studentList.add(cancelStudent.get("cancelStudent"));
-        Map cancelCourse=new HashMap();
-        cancelCourse.put("cancelCourse","请选择课程");
+        Map cancelCourse = new HashMap();
+        cancelCourse.put("cancelCourse", "请选择课程");
         courseList.add(cancelCourse.get("cancelCourse"));
 
         List<Map> studentMap = (List<Map>) studentResult.getData();
@@ -566,7 +565,7 @@ public class ScoreTableController  {
             studentList.add(student.get("student_name"));
         }
         for (Map course : courseMap) {
-            courseList.add(course.get("course_name"));
+            courseList.add(course.get("id").toString().split("\\.")[0] + "-" + course.get("course_name"));
         }
         studentComboBox.getItems().addAll(studentList);
         courseComboBox.getItems().addAll(courseList);

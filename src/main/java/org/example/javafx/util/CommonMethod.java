@@ -256,13 +256,15 @@ public class CommonMethod {
         Optional<ButtonType> tempresult = alert.showAndWait();
         if (tempresult.isPresent() && tempresult.get() == confirmButton) {
             Result result=HttpRequestUtils.request(url, dataRequest);
-            if(result.getCode()==404){
-                return result.getMsg();
+            if(result!=null){
+                if(result.getCode()==404){
+                    return result.getMsg();
+                }
             }
             alert.close();
         } else {
             alert.close();
         }
-        return null;
+        return (tempresult.get()==confirmButton)?"确认":"取消";
     }
 }

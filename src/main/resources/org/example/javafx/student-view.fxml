@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -18,6 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentTableController">
    <children>
@@ -37,17 +39,17 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="修改" textFill="#fff300">
+                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" onAction="#updateStudentAction" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="修改" textFill="#fff300">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Label alignment="CENTER" layoutX="505.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询" textFill="#fff300">
+                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：" textFill="#fff300">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="select" layoutX="559.0" layoutY="24.0" />
+                        <TextField fx:id="select" layoutX="641.0" layoutY="24.0" onAction="#onSelectAction" promptText="请选择查询类别" />
                         <SplitPane dividerPositions="0.6463490099009901" layoutY="72.0" prefHeight="585.0" prefWidth="1080.0">
                           <items>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0">
@@ -71,7 +73,7 @@
                               </ScrollPane>
                               <VBox prefHeight="583.0" prefWidth="438.0">
                                  <children>
-                                    <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                                    <FlowPane alignment="CENTER" prefHeight="159.0" prefWidth="378.0">
                                        <children>
                                           <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
@@ -128,20 +130,32 @@
                                           <TextField fx:id="majorText" prefHeight="23.0" prefWidth="199.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                        </children>
                                     </GridPane>
-                                    <FlowPane alignment="CENTER" prefHeight="105.0" prefWidth="378.0">
+                                    <FlowPane alignment="CENTER" hgap="20.0" prefHeight="87.0" prefWidth="378.0" vgap="20.0">
                                        <children>
-                                          <Button fx:id="save" layoutX="50.0" layoutY="50.0" mnemonicParsing="false"  prefHeight="43.0" prefWidth="114.0" text="保存">
+                                          <Button fx:id="save" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="40.0" prefWidth="75.0" text="保存">
                                              <font>
-                                                <Font size="21.0" />
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="moreButton" mnemonicParsing="false" onAction="#onMoreButtonAction" prefHeight="40.0" prefWidth="75.0" text="更多">
+                                             <font>
+                                                <Font size="20.0" />
                                              </font>
                                           </Button>
                                        </children>
                                     </FlowPane>
+                                    <TextFlow fx:id="textFlow" prefHeight="16.0" prefWidth="378.0" textAlignment="CENTER">
+                                       <children>
+                                          <Label alignment="CENTER" text="请按正确格式输入，“保存”只能用于修改" textFill="#f60000" />
+                                       </children>
+                                    </TextFlow>
                                  </children>
                               </VBox>
                           </items>
                         </SplitPane>
-                        <CheckBox fx:id="fuzzySearch" layoutX="736.0" layoutY="27.0" mnemonicParsing="false" text="模糊搜索" textFill="#fff300" />
+                        <CheckBox fx:id="fuzzySearch" layoutX="810.0" layoutY="28.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" textFill="#fff300" />
+                        <ComboBox fx:id="selectChoiceComboBox" layoutX="543.0" layoutY="24.0" onAction="#onSelectChoiceComboBoxAction" prefHeight="23.0" prefWidth="91.0" promptText="查询类别" />
+                        <Button fx:id="resetButton" layoutX="938.0" layoutY="24.0" mnemonicParsing="false" onAction="#onResetAction" text="重置" />
                      </children>
                   </AnchorPane>
             </content>

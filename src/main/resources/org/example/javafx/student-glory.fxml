@@ -43,7 +43,7 @@
                                                                 <TableColumn fx:id="studentNumColumn" prefWidth="116.66665649414062" text="学号" />
                                                                 <TableColumn fx:id="gloryNameColumn" minWidth="0.0" prefWidth="158.0" text="所获荣誉" />
                                                                 <TableColumn fx:id="gloryTypeColumn" minWidth="0.0" prefWidth="129.33343505859375" text="荣誉类型" />
-                                                <TableColumn fx:id="gloryLevelColumn" minWidth="0.0" prefWidth="119.99993896484375" text="荣誉级别" />
+                                                                <TableColumn fx:id="gloryLevelColumn" minWidth="0.0" prefWidth="119.99993896484375" text="荣誉级别" />
                                                             </columns>
                                                         </TableView>
                                                     </children>
@@ -69,7 +69,7 @@
                                                                             </opaqueInsets>
                                                                         </ComboBox>
                                                                         <ComboBox fx:id="gloryTypeEditComboBox" layoutX="78.0" layoutY="135.0" prefHeight="29.0" prefWidth="130.0" promptText="请选择荣誉类型" />
-                                                                        <Button fx:id="editComfirmButton" layoutX="44.0" layoutY="292.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="31.0" prefWidth="65.0" text="确认" />
+                                                                        <Button fx:id="editConfirmButton" layoutX="44.0" layoutY="292.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="31.0" prefWidth="65.0" text="确认" />
                                                                         <Button fx:id="editCancelButton" layoutX="144.0" layoutY="291.0" mnemonicParsing="false" onAction="#onCancelClick" prefHeight="34.0" prefWidth="65.0" text="重置" />
                                                       <Text layoutX="19.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="获奖级别：" />
                                                       <TextField fx:id="gloryLevelUpdateTextField" layoutX="80.0" layoutY="232.0" prefHeight="23.0" prefWidth="127.0" />
