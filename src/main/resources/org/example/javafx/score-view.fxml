@@ -33,11 +33,11 @@
                                         <Label layoutX="735.0" layoutY="22.0" text="课程：" />
                                         <ComboBox fx:id="studentComboBox" layoutX="590.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
                                         <ComboBox fx:id="courseComboBox" layoutX="771.0" layoutY="18.0" prefHeight="23.0" prefWidth="111.0" promptText="请选择课程" />
-                                        <SplitPane layoutY="55.0" prefHeight="608.0" prefWidth="877.0">
+                                        <SplitPane layoutY="55.0" prefHeight="608.0" prefWidth="877.0" stylesheets="@css/table.css">
                                             <items>
                                                 <AnchorPane prefHeight="606.0" prefWidth="849.0">
                                                     <children>
-                                                        <TableView fx:id="dataTableView" prefHeight="608.0" prefWidth="1080.0" stylesheets="@css/table.css">
+                                                        <TableView fx:id="dataTableView" prefHeight="608.0" prefWidth="1080.0" >
                                                             <columns>
                                                                 <TableColumn fx:id="id" prefWidth="67.33337020874023" text="id" />
                                                                 <TableColumn fx:id="studentNameColumn" prefWidth="115.3333511352539" text="学生姓名" />
