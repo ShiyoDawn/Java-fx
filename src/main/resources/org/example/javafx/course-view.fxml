@@ -79,7 +79,7 @@
             </FXCollections>
         </items>
     </ComboBox>
-    <Button fx:id="selectCourse" layoutX="904.0" layoutY="60.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="62.0" text="查询" />
+    <Button fx:id="selectCourse" onAction="#select" layoutX="904.0" layoutY="60.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="62.0" text="查询" />
     <TextField fx:id="inputName" layoutX="759.0" layoutY="60.0" prefHeight="30.0" prefWidth="123.0" promptText="请输入课程名称" />
     <ComboBox fx:id="selectType" layoutX="595.0" layoutY="60.0" prefHeight="30.0" prefWidth="140.0" promptText="请选择课程性质">
         <items>

@@ -127,11 +127,11 @@ public class StudentGloryController {
 
     @FXML
     public void initialize(){
-        id.setCellValueFactory(new MapValueFactory<>("id"));
-        studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
-        studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
-        gloryNameColumn.setCellValueFactory(new MapValueFactory<>("glory_name"));
-        gloryTypeColumn.setCellFactory(new MapValueFactory<>("glory_type"));
-        gloryLevelColumn.setCellFactory(new MapValueFactory<>("glory_level"));
+//        id.setCellValueFactory(new MapValueFactory<>("id"));
+//        studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
+//        studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
+//        gloryNameColumn.setCellValueFactory(new MapValueFactory<>("glory_name"));
+//        gloryTypeColumn.setCellFactory(new MapValueFactory<>("glory_type"));
+//        gloryLevelColumn.setCellFactory(new MapValueFactory<>("glory_level"));
     }
 }

@@ -78,7 +78,7 @@ public class CourseController {
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
             int clickedPageIndex = newValue.intValue();
             try {
-                handlePageClick(clickedPageIndex); // 处理点击事件
+                handlePageClick(clickedPageIndex,"/course/selectAllByPage"); // 处理点击事件
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
@@ -91,7 +91,7 @@ public class CourseController {
         DataRequest dataRequest = new DataRequest();
 
     }
-    private void handlePageClick(int pageNum) throws IOException, InterruptedException {
+    private void handlePageClick(int pageNum,String url) throws IOException, InterruptedException {
         List<javafx.scene.Node> toRemove = new ArrayList<>();
         for (StackPane a:stackPanes) {
             a.getChildren().forEach(node -> {
@@ -105,40 +105,8 @@ public class CourseController {
                 a.getChildren().remove(b);
             }
         }
-        DataRequest dataRequest = new DataRequest();
-        Map<String,Integer> map = new HashMap<>();
-        map.put("pageNum",pageNum);
-        dataRequest.setData(map);
-        Result data = HttpRequestUtils.courseField("/course/selectAllByPage", dataRequest);
-        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
-        int count = 0;
-        for(Map<String, ? extends Object> a : dataList){
-            count++;
-            Label label = new Label();
-            label.setId("course");
-            label.setTextAlignment(TextAlignment.CENTER);
-            label.setWrapText(true);
-            label.setFont(new Font(20));
-            label.setText(a.get("course_name") + "                 " + a.get("classes") + "   " + a.get("teacher_name"));
-            label.setLayoutX(37.0);
-            label.setLayoutY(102+(count-1)*80);
-            label.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1) {  // 检查是否是单击事件
-                    course_name.setText((String) a.get("course_name"));
-                    num.setText((String) a.get("num"));
-                    type.setValue((String)a.get("course_type_name"));
-                    classes.setText((String) a.get("classes"));
-                    book.setText((String) a.get("book"));
-                    extra.setText((String) a.get("extracurricular"));
-                    teacher.setText((String) a.get("teacher_name"));
-                    credit.setText(String.valueOf( a.get("credit")));
-                }
-            });
-            stackPanes.get(count - 1).getChildren().add(label);
-            if(count % 6 == 0){
-                break;
-            }
-        }
+        addLabel(pageNum,url);
+        setPagination(pageNum,null,null,null,"/course/selectAll");
     }
     private void load() throws IOException, InterruptedException {
         stackPanes.add(one);
@@ -150,14 +118,21 @@ public class CourseController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("course-view.fxml"));
         DataRequest dataRequest = new DataRequest();
-        DataRequest dataRequest1 = new DataRequest();
         Result data = HttpRequestUtils.courseField("/course/selectAllType", dataRequest);
-        Result dataCou = HttpRequestUtils.courseField("/course/selectAll", dataRequest1);
         List<Map<String, String>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
-        List<Map<String, ? extends Object>> dataListCou = new Gson().fromJson(dataCou.getData().toString(), List.class);
         for(Map<String, String> a : dataList){
             selectType.getItems().add(a.get("course_type_name"));
         }
+        addLabel(0,"/course/selectAll");
+        setPagination(null,null,null,null,"/course/selectAll");
+    }
+    private void addLabel(Integer pageNum,String url) throws IOException, InterruptedException {
+        DataRequest dataRequest = new DataRequest();
+        Map<String,Integer> map = new HashMap<>();
+        map.put("pageNum",pageNum);
+        dataRequest.setData(map);
+        Result dataCou = HttpRequestUtils.courseField(url, dataRequest);
+        List<Map<String, ? extends Object>> dataListCou = new Gson().fromJson(dataCou.getData().toString(), List.class);
         int count = 0;
         for(Map<String, ? extends Object> a : dataListCou){
             count++;
@@ -179,6 +154,8 @@ public class CourseController {
                     extra.setText((String) a.get("extracurricular"));
                     teacher.setText((String) a.get("teacher_name"));
                     credit.setText(String.valueOf( a.get("credit")));
+                } else if (event.getClickCount() == 2) {
+                    System.out.println("123");
                 }
             });
             stackPanes.get(count - 1).getChildren().add(label);
@@ -187,8 +164,49 @@ public class CourseController {
                 break;
             }
         }
-        pagination.setPageCount((dataListCou.size() % 6 == 0 ? (dataListCou.size() / 6) : ((dataListCou.size() / 6) + 1)));
     }
 
+    private void setPagination(Integer pageNum,String course_name,String course_name_type,String terms,String url) throws IOException, InterruptedException {
+        DataRequest dataRequest = new DataRequest();
+        Map<String,String> map = new HashMap<>();
+        map.put("pageNum",String.valueOf(pageNum));
+        map.put("course_name",course_name);
+        map.put("course_name_type",course_name_type);
+        map.put("terms",terms);
+        dataRequest.setData(map);
+        Result data = HttpRequestUtils.courseField(url, dataRequest);
+        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+        pagination.setPageCount((dataList.size() % 6 == 0 ? (dataList.size() / 6) : ((dataList.size() / 6) + 1)));
+    }
+    private Map<String, String> selectData() {
+        Map<String, String> map = new HashMap<>();
+        String a = (String) selectTerms.getValue();
+        if (a == null) {
+            map.put("terms",null);
+        } else {
+            map.put("terms", a);
+        }
+        String b = (String) selectType.getValue();
+        if (b == null) {
+            map.put("course_type",null);
+        } else {
+            map.put("course_type",b);
+        }
+        String c = inputName.getText();
+        if (c == null) {
+            map.put("course_name",null);
+        } else {
+            map.put("course_name",c);
+        }
+        return map;
+    }
+    @FXML
+    public void select() throws IOException, InterruptedException {
+        DataRequest dataRequest = new DataRequest();
+        Map<String,String> map = selectData();
+        dataRequest.setData(map);
+        Result data = HttpRequestUtils.courseField("url", dataRequest);
+        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
 
+    }
 }
