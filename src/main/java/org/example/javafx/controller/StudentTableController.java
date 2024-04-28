@@ -413,7 +413,7 @@ public class StudentTableController {
                 Parent parent = loader.load();
 
                 // 获取Controller并传递选中的学生对象
-                PersonController controller = loader.getController();
+                StudentInformationController controller = loader.getController();
                 controller.initData(selectedStudent);
 
                 // 创建一个新的舞台
