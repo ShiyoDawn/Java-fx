@@ -159,7 +159,6 @@ public class ScoreTableController {
         //System.out.println(selected);
         //onResetButtonClick();
         String msg = CommonMethod.alertButton("删除");
-        System.out.println(msg);
         if (msg == "确认") {
             for (Map scoreMap : selected) {
                 String student_num = CommonMethod.getString(scoreMap, "student_num");
@@ -192,9 +191,13 @@ public class ScoreTableController {
             Result result = new Result();
             result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
             Map map = (Map) result.getData();
-            System.out.println(map);
             studentEditComboBox.setValue(map.get("student_name"));
-            courseEditComboBox.setValue(map.get("course_num") + "-" + map.get("course_name"));
+            DataRequest dataRequest1=new DataRequest();
+            dataRequest1.add("num",course_num);
+            result=HttpRequestUtils.request("/course/selectByNum",dataRequest1);
+            Map map1=(Map) result.getData();
+            System.out.println(map1);
+            courseEditComboBox.setValue(map1.get("id").toString().split("\\.")[0]+ "-" + map.get("course_name"));
             studentEditComboBox.setEditable(false);
             courseEditComboBox.setEditable(false);
             studentEditComboBox.setDisable(true);
@@ -256,7 +259,6 @@ public class ScoreTableController {
             dataRequest.add("course_num", course_num);
             result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
             result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
-            map = (Map) result.getData();
             System.out.println(map.get("student_num") + " " + map.get("course_num") + " " + map.get("mark"));
             if (result == null) {
                 observableList.clear();
@@ -327,7 +329,7 @@ public class ScoreTableController {
         } else if (result.getData() instanceof ArrayList) {
             //Button editButton;
             scoreList = (ArrayList) result.getData();
-            for (Map scoreMap : (ArrayList<Map>) scoreList) {
+            for (Map scoreMap :  scoreList) {
                 System.out.println(scoreMap);
                 /*editButton = new Button("编辑");
                 editButton.setId("edit"+index);

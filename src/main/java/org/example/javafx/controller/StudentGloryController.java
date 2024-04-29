@@ -295,8 +295,10 @@ public class StudentGloryController {
             result = HttpRequestUtils.request("/student/selectStudentByName", dataRequest);
             Map map = (Map) result.getData();
             System.out.println(map);
-            Integer student_id = Integer.parseInt(map.get("id").toString());
-            dataRequest.add("student_id", student_id);
+            dataRequest.add("id",map.get("person_id").toString());
+            result=HttpRequestUtils.request("/person/selectById",dataRequest);
+            String student_num = ((Map)result.getData()).get("person_num").toString();
+            dataRequest.add("student_num", student_num);
             dataRequest.add("glory_name", gloryUpdateTextField.getText());
             dataRequest.add("glory_type", glory_type);
             if (tmpResult != null) {
@@ -311,9 +313,8 @@ public class StudentGloryController {
             } else if (editConfirmButton.getText() == "增加荣誉") {
                 String msg = CommonMethod.alertButton("增加");
                 if(msg=="确认"){
-                    HttpRequestUtils.request("/glory/updateGlory",dataRequest);
+                    HttpRequestUtils.request("/glory/insertGlory",dataRequest);
                 }
-                System.out.println(dataRequest.getData());
             }
             System.out.println(dataRequest.getData());
         } else if (student_name == null && glory_type != null) {
@@ -361,7 +362,7 @@ public class StudentGloryController {
     public void initialize() {
         id.setCellValueFactory(new MapValueFactory<>("id"));
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
-        studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
+        studentNumColumn.setCellValueFactory(new MapValueFactory("student_num"));  //设置列值工程属性
         gloryNameColumn.setCellValueFactory(new MapValueFactory<>("glory_name"));
         gloryTypeColumn.setCellValueFactory(new MapValueFactory<>("glory_type"));
         gloryLevelColumn.setCellValueFactory(new MapValueFactory<>("glory_level"));

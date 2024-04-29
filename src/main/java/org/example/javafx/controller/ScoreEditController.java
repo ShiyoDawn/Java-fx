@@ -100,17 +100,18 @@ public class ScoreEditController {
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
             DataRequest dataRequest1=new DataRequest();
-            dataRequest1.add("id",map.get("person_id"));
+            dataRequest1.add("id",Integer.parseInt(map.get("person_id").toString()));
             result=HttpRequestUtils.request("/person/selectById",dataRequest1);
             Map map1=(Map) result.getData();
             String student_num = map1.get("person_num").toString();
 
             DataRequest courDataRequest = new DataRequest();
-            courDataRequest.add("id", course_name.split("-")[0]);
+            courDataRequest.add("id", Integer.parseInt(course_name.split("-")[0]));
             result = HttpRequestUtils.request("/course/selectInfo", courDataRequest);
             map = (Map) result.getData();
             String course_num = map.get("num").toString();
 
+            System.out.println(student_num+" "+course_num);
             dataRequest.add("student_num", student_num);
             dataRequest.add("course_num", course_num);
             result=HttpRequestUtils.request("/score/selectByStudentAndCourse",dataRequest);
@@ -120,7 +121,10 @@ public class ScoreEditController {
                 alert.showAndWait();
                 return;
             }
-            CommonMethod.alertButton("删除");
+            String msg=CommonMethod.alertButton("删除");
+            if(msg=="确认"){
+                HttpRequestUtils.request("/score/deleteAllById",dataRequest);
+            }
         } else if (student_name == null && course_name != null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);

@@ -7,6 +7,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -19,13 +21,49 @@
    <children>
       <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="学生请假管理">
+            <Tab fx:id="viewTab" text="学生请假管理">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane prefHeight="661.0" prefWidth="1080.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="1067.0">
+                                 <children>
+                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="58.0" prefHeight="589.0" prefWidth="1067.0">
+                                      <columns>
+                                        <TableColumn fx:id="idColumn" prefWidth="67.33333849906921" text="序号" />
+                                        <TableColumn fx:id="studentNumColumn" prefWidth="104.66667175292969" text="学号" />
+                                          <TableColumn fx:id="studentNameColumn" prefWidth="104.6666259765625" text="姓名" />
+                                          <TableColumn fx:id="leaveTypeColumn" prefWidth="119.33331298828125" text="请假类型" />
+                                          <TableColumn fx:id="leaveReasonColumn" prefWidth="176.666748046875" text="请假原因" />
+                                          <TableColumn fx:id="destinationColumn" prefWidth="161.33331298828125" text="请假去向" />
+                                          <TableColumn fx:id="timeColumn" prefWidth="131.333251953125" text="请假时间" />
+                                          <TableColumn fx:id="statusColumn" prefWidth="115.3333740234375" text="状态" />
+                                      </columns>
+                                    </TableView>
+                                    <Button fx:id="queryButton" layoutX="847.0" layoutY="13.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="35.0" prefWidth="55.0" text="查询" />
+                                    <Button fx:id="resetViewButton" layoutX="944.0" layoutY="14.0" mnemonicParsing="false" onAction="#onResetViewButtonClick" prefHeight="35.0" prefWidth="57.0" text="重置" />
+                                    <Text layoutX="586.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" textAlignment="CENTER" wrappingWidth="52.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="studentInfoTextField" layoutX="638.0" layoutY="17.0" prefHeight="27.0" prefWidth="151.0" text="请输入学号或姓名" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab fx:id="applyTab" text="学生请假申请">
                <content>
                   <AnchorPane prefHeight="645.0" prefWidth="1057.0">
                      <children>
-                        <ScrollPane prefHeight="671.0" prefWidth="1080.0">
+                        <ScrollPane prefHeight="662.0" prefWidth="1080.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="656.0" prefWidth="1078.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="659.0" prefWidth="1079.0">
                                  <children>
                                     <GridPane layoutX="62.0" layoutY="56.0" prefHeight="178.0" prefWidth="879.0">
                                       <columnConstraints>

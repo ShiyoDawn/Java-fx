@@ -87,7 +87,6 @@ public class MainFrameController {
         setTabChange(gloryCenterButton,"student-glory.fxml");
         setTabChange(leaveCenterButton,"leave-view.fxml");
 
-
         searchBox.setEditable(true);
         List list = new ArrayList<>();
         list.add("仪表盘");
