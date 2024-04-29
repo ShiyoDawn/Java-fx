@@ -37,23 +37,23 @@ public class MainFrameController {
     @FXML
     Button dashBoardButton = new Button();
 
-//    @FXML
-//    Button courseCenterButton = new Button();
-//
-//    @FXML
-//    Button studentCenterButton = new Button();
-//
-//    @FXML
-//    Button activityCenterButton = new Button();
-//
-//    @FXML
-//    Button userCenterButton = new Button();
-//
-//    @FXML
-//    Button scoreCenterButton = new Button();
-//
-//    @FXML
-//    Button gloryCenterButton = new Button();
+    @FXML
+    Button courseCenterButton = new Button();
+
+    @FXML
+    Button studentCenterButton = new Button();
+
+    @FXML
+    Button activityCenterButton = new Button();
+
+    @FXML
+    Button userCenterButton = new Button();
+
+    @FXML
+    Button scoreCenterButton = new Button();
+
+    @FXML
+    Button gloryCenterButton = new Button();
 
     @FXML
     Label statueLabel;
@@ -75,19 +75,22 @@ public class MainFrameController {
         borderPane.setCenter(dashboard);
         userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
         setTabChange(dashBoardButton, "dashboard-view.fxml");
-
+        System.out.println("checkpoint1");
 
         //初始化页面切换
         for (int i = 1; i < menuList.size(); i++) {
             Button newButton = new Button(menuList.get(i).get("name"));
+            System.out.println("checkpoint1.5"+i);
 
 //            prefHeight="35.0" prefWidth="100.0"
             newButton.setPrefHeight(35);
             newButton.setPrefWidth(100);
             vBox.getChildren().add(i,newButton);
+            System.out.println("checkpoint1.55:"+i);
             setTabChange(newButton,menuList.get(i).get("url"));
+            System.out.println("checkpoint1.6"+i);
         }
-
+        System.out.println("checkpoint2");
 
 
         searchBox.setEditable(true);
@@ -125,6 +128,7 @@ public class MainFrameController {
 
         //load complete
         statueLabel.setText("加载完成");
+        System.out.println("checkpoint3");
     }
 
 

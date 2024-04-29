@@ -56,10 +56,10 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="848.0">
                                        <children>
-                                          <TableView fx:id="tableView"  prefHeight="720.0" prefWidth="848.0">
+                                          <TableView fx:id="tableView" prefHeight="720.0" prefWidth="848.0">
                                             <columns>
                                               <TableColumn fx:id="idColumn" prefWidth="33.333282589912415" text="序号" />
-                                              <TableColumn fx:id="person_idColumn" prefWidth="118.00006103515625" text="学号" />
+                                              <TableColumn fx:id="person_numColumn" prefWidth="118.00006103515625" text="学号" />
                                                 <TableColumn fx:id="student_nameColumn" prefWidth="75.3333740234375" text="姓名" />
                                                 <TableColumn fx:id="departmentColumn" prefWidth="124.66668701171875" text="部门" />
                                                 <TableColumn fx:id="classesColumn" prefWidth="83.3333740234375" text="班级" />
@@ -97,7 +97,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="person_idText" prefHeight="23.0" prefWidth="199.0" GridPane.columnIndex="1" />
+                                          <TextField fx:id="person_numText" prefHeight="23.0" prefWidth="199.0" GridPane.columnIndex="1" />
                                           <Label alignment="CENTER_RIGHT" prefHeight="15.0" prefWidth="107.0" text="姓名" textAlignment="RIGHT" GridPane.rowIndex="1">
                                              <font>
                                                 <Font size="18.0" />

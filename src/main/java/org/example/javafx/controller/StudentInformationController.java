@@ -2,15 +2,19 @@ package org.example.javafx.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 
@@ -103,7 +107,7 @@ public class StudentInformationController {
         Result studentResult = HttpRequestUtils.request("/student/getStudentInfo", req);
         if (studentResult != null && studentResult.getCode() == 200) {
             Map<String, Object> studentInfo = (Map<String, Object>) studentResult.getData();
-            person_idLabel.setText(studentInfo.get("id").toString());
+            person_idLabel.setText((String)studentInfo.get("person_num"));
             person_nameLabel.setText((String) studentInfo.get("student_name"));
             genderLabel.setText((String) studentInfo.get("gender"));
             birthdayLabel.setText((String) studentInfo.get("birthday"));
@@ -111,7 +115,7 @@ public class StudentInformationController {
             identity_numberLabel.setText((String) studentInfo.get("identity_number"));
             phone_numberLabel.setText((String) studentInfo.get("phone_number"));
             emailLabel.setText((String) studentInfo.get("email"));
-            admission_dateLabel.setText((String) studentInfo.get("admission_date"));
+            //admission_dateLabel.setText((String) studentInfo.get("admission_date"));
             //collegeLabel.setText((String) studentInfo.get("college"));
             majorLabel.setText((String) studentInfo.get("major"));
             classLabel.setText((String) studentInfo.get("class"));
@@ -134,8 +138,24 @@ public class StudentInformationController {
             }
 
         } else {
-            String errorMessage = (studentResult != null && studentResult.getMsg() != null) ? studentResult.getMsg() : "Failed to fetch student information.";
-            System.out.println(errorMessage);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText(null);
+            alert.setContentText((studentResult != null && studentResult.getMsg() != null) ? studentResult.getMsg() : "Failed to fetch student information.");
+            alert.showAndWait();
+        }
+        try {
+            // 将"path_to_your_image"改为实际图片文件的路径
+            FileInputStream inputStream = new FileInputStream("C:\\Users\\Lenovo\\Desktop\\b_ceeab09a7a242063992bbc5b656ffba3.jpg");
+            Image image = new Image(inputStream);
+            personImage.setImage(image);
+        } catch (FileNotFoundException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText(null);
+            alert.setContentText("错误：找不到图片文件。");
+            alert.showAndWait();
+            e.printStackTrace();
         }
     }
 
