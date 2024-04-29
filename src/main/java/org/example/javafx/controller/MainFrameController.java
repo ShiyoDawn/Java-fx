@@ -56,42 +56,36 @@ public class MainFrameController {
     Button gloryCenterButton = new Button();
 
     @FXML
+    Button leaveCenterButton = new Button();
+
+    @FXML
     Label statueLabel;
 
     @FXML
     Button searchButton;
 
-    List<Map<String,String>> menuList;
-
     @FXML
     public void initialize() throws IOException, InterruptedException {
-
-        menuList = new HttpRequestUtils().getMenu(AppStore.getUser().getUser_type_id());
-        System.out.println(menuList);
         //加载仪表盘界面为初始界面
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
+        DataRequest dataRequest1 = new DataRequest();
         BorderPane dashboard = new BorderPane(fxmlLoader.load());
         borderPane.setCenter(dashboard);
         userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
-        setTabChange(dashBoardButton, "dashboard-view.fxml");
-        System.out.println("checkpoint1");
+
+
+        //TODO 发送请求，根据用户type获取tab
 
         //初始化页面切换
-        for (int i = 1; i < menuList.size(); i++) {
-            Button newButton = new Button(menuList.get(i).get("name"));
-            System.out.println("checkpoint1.5"+i);
-
-//            prefHeight="35.0" prefWidth="100.0"
-            newButton.setPrefHeight(35);
-            newButton.setPrefWidth(100);
-            vBox.getChildren().add(i,newButton);
-            System.out.println("checkpoint1.55:"+i);
-            setTabChange(newButton,menuList.get(i).get("url"));
-            System.out.println("checkpoint1.6"+i);
-        }
-        System.out.println("checkpoint2");
-
+        setTabChange(dashBoardButton, "dashboard-view.fxml");
+        setTabChange(courseCenterButton, "course-view.fxml");
+        setTabChange(studentCenterButton, "student-view.fxml");
+        setTabChange(activityCenterButton, "activity-view.fxml");
+        setTabChange(userCenterButton, "user-view.fxml");
+        setTabChange(scoreCenterButton,"score-view.fxml");
+        setTabChange(gloryCenterButton,"student-glory.fxml");
+        setTabChange(leaveCenterButton,"leave-view.fxml");
 
         searchBox.setEditable(true);
         List list = new ArrayList<>();
@@ -102,6 +96,7 @@ public class MainFrameController {
         list.add("用户中心");
         list.add("分数管理");
         list.add("荣誉管理");
+        list.add("请假管理");
         searchBox.getItems().addAll(list);
         searchButton.setOnAction(e ->
         {
@@ -128,7 +123,6 @@ public class MainFrameController {
 
         //load complete
         statueLabel.setText("加载完成");
-        System.out.println("checkpoint3");
     }
 
 

@@ -158,15 +158,15 @@ public class ScoreTableController {
         }
         //System.out.println(selected);
         //onResetButtonClick();
-        String msg = CommonMethod.alertButton("/score/deleteAllById", new DataRequest(), "删除");
+        String msg = CommonMethod.alertButton("删除");
         if (msg == "确认") {
             for (Map scoreMap : selected) {
-                Integer student_id = CommonMethod.getInteger(scoreMap, "student_id");
-                Integer course_id = CommonMethod.getInteger(scoreMap, "course_id");
-                System.out.println(student_id + " " + course_id);
+                String student_num = CommonMethod.getString(scoreMap, "student_num");
+                String course_num = CommonMethod.getString(scoreMap, "course_num");
+                System.out.println(student_num + " " + course_num);
                 DataRequest dataRequest = new DataRequest();
-                dataRequest.add("student_id", student_id);
-                dataRequest.add("course_id", course_id);
+                dataRequest.add("student_num", student_num);
+                dataRequest.add("course_num", course_num);
                 HttpRequestUtils.request("/score/deleteAllById", dataRequest);
             }
         }
@@ -184,16 +184,20 @@ public class ScoreTableController {
         editTextArea.setDisable(true);
         if (selected != null) {
             DataRequest dataRequest = new DataRequest();
-            Integer student_id = CommonMethod.getInteger(selected, "student_id");
-            Integer course_id = CommonMethod.getInteger(selected, "course_id");
-            dataRequest.add("student_id", student_id);
-            dataRequest.add("course_id", course_id);
+            String student_num = CommonMethod.getString(selected, "student_num");
+            String course_num = CommonMethod.getString(selected, "course_num");
+            dataRequest.add("student_num", student_num);
+            dataRequest.add("course_num", course_num);
             Result result = new Result();
             result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
             Map map = (Map) result.getData();
-            System.out.println(map);
             studentEditComboBox.setValue(map.get("student_name"));
-            courseEditComboBox.setValue(map.get("course_id") + "-" + map.get("course_name"));
+            DataRequest dataRequest1=new DataRequest();
+            dataRequest1.add("num",course_num);
+            result=HttpRequestUtils.request("/course/selectByNum",dataRequest1);
+            Map map1=(Map) result.getData();
+            System.out.println(map1);
+            courseEditComboBox.setValue(map1.get("id").toString().split("\\.")[0]+ "-" + map.get("course_name"));
             studentEditComboBox.setEditable(false);
             courseEditComboBox.setEditable(false);
             studentEditComboBox.setDisable(true);
@@ -234,7 +238,10 @@ public class ScoreTableController {
                 return;
             }
             Map map = (Map) result.getData();
-            Integer student_id = Integer.parseInt(map.get("id").toString());
+            DataRequest dataRequest=new DataRequest();
+            dataRequest.add("id",map.get("person_id"));
+            result= HttpRequestUtils.request("/person/selectById",dataRequest);
+            String student_num=((Map)result.getData()).get("person_num").toString();
 
             DataRequest courDataRequest = new DataRequest();
             courDataRequest.add("id", course_name.split("-")[0]);
@@ -244,16 +251,15 @@ public class ScoreTableController {
                 return;
             }
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString().split("\\.")[0]);
+            String course_num = map.get("num").toString();
 
-            DataRequest dataRequest = new DataRequest();
+            dataRequest = new DataRequest();
 
-            dataRequest.add("student_id", student_id);
-            dataRequest.add("course_id", course_id);
+            dataRequest.add("student_num", student_num);
+            dataRequest.add("course_num", course_num);
             result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
             result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
-            map = (Map) result.getData();
-            System.out.println(map.get("student_id") + " " + map.get("course_id") + " " + map.get("mark"));
+            System.out.println(map.get("student_num") + " " + map.get("course_num") + " " + map.get("mark"));
             if (result == null) {
                 observableList.clear();
                 return;
@@ -276,7 +282,7 @@ public class ScoreTableController {
             result = HttpRequestUtils.request("/course/selectInfo", dataRequest);
             Map map = (Map) result.getData();
             DataRequest newDataRequest = new DataRequest();
-            newDataRequest.add("course_id", map.get("id"));
+            newDataRequest.add("course_num", map.get("num"));
             result = HttpRequestUtils.request("/score/selectByCourseId", newDataRequest);
             System.out.println(dataTableView.getItems());
             if (result == null) {
@@ -323,7 +329,7 @@ public class ScoreTableController {
         } else if (result.getData() instanceof ArrayList) {
             //Button editButton;
             scoreList = (ArrayList) result.getData();
-            for (Map scoreMap : (ArrayList<Map>) scoreList) {
+            for (Map scoreMap :  scoreList) {
                 System.out.println(scoreMap);
                 /*editButton = new Button("编辑");
                 editButton.setId("edit"+index);
@@ -400,16 +406,23 @@ public class ScoreTableController {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            Integer student_id = Integer.parseInt(map.get("id").toString());
+            DataRequest dataRequest1=new DataRequest();
+            dataRequest1.add("id",map.get("person_id"));
+            result=HttpRequestUtils.request("/person/selectById",dataRequest1);
+            Map map1=(Map) result.getData();
+            System.out.println(map1);
+            String student_num = map1.get("person_num").toString();
 
             DataRequest courDataRequest = new DataRequest();
-            courDataRequest.add("id", course_name.split("-")[0]);
+            System.out.println(course_name);
+            courDataRequest.add("id", Integer.parseInt(course_name.split("-")[0]));
             result = HttpRequestUtils.request("/course/selectInfo", courDataRequest);
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString().split("\\.")[0]);
+            System.out.println(map);
+            String course_num = map.get("num").toString();
 
-            dataRequest.add("student_id", student_id);
-            dataRequest.add("course_id", course_id);
+            dataRequest.add("student_num", student_num);
+            dataRequest.add("course_num", course_num);
             String markstr = markUpdateTextField.getText();
             Integer cnt = 0;
             if (markstr.length() > 1) {
@@ -476,18 +489,22 @@ public class ScoreTableController {
             }
             dataRequest.add("mark", markUpdateTextField.getText());
             if (editConfirmButton.getText() == "修改分数") {
-                String msg = CommonMethod.alertButton("/score/updateScore", dataRequest, "修改");
+                String msg = CommonMethod.alertButton("修改");
+                if(msg=="确认"){
+                    result=HttpRequestUtils.request("/score/updateScore",dataRequest);
+                }
             } else if (editConfirmButton.getText() == "增加分数") {
-                String msg = CommonMethod.alertButton("/score/insertScore", dataRequest, "增加");
-                System.out.println(msg);
-                if (msg != null) {
-                    if (msg.equals("Score has existed.")) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setResizable(false);
-                        alert.setContentText("成绩已存在,请重新输入");
-                        alert.showAndWait();
-                        return;
-                    }
+                String msg = CommonMethod.alertButton("增加");
+                result=HttpRequestUtils.request("/score/selectByStudentAndCourse",dataRequest);
+                if(result!=null){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setResizable(false);
+                    alert.setContentText("成绩已存在,请重新输入");
+                    alert.showAndWait();
+                    return;
+                }
+                if(msg=="确认"){
+                    HttpRequestUtils.request("/score/insertScore",dataRequest);
                 }
             }
             onQueryButtonClick();
@@ -535,9 +552,9 @@ public class ScoreTableController {
     public void initialize() {
         System.out.println("check");
         id.setCellValueFactory(new MapValueFactory<>("id"));
-        studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
+        studentNumColumn.setCellValueFactory(new MapValueFactory("student_num"));  //设置列值工程属性
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
-        courseNumColumn.setCellValueFactory(new MapValueFactory<>("course_id"));
+        courseNumColumn.setCellValueFactory(new MapValueFactory<>("course_num"));
         courseNameColumn.setCellValueFactory(new MapValueFactory<>("course_name"));
         creditColumn.setCellValueFactory(new MapValueFactory<>("credit"));
         markColumn.setCellValueFactory(new MapValueFactory<>("mark"));
