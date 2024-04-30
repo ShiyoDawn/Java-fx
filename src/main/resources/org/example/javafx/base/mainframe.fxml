@@ -11,7 +11,7 @@
             <Label fx:id="userLabel" prefHeight="33.0" prefWidth="86.0" text="ADMIN/admin" />
             <Label prefHeight="15.0" prefWidth="216.0" text="                                           快捷跳转" />
             <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
-            <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Button" />
+            <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="查询页面" />
          </items>
       </ToolBar>
    </top>

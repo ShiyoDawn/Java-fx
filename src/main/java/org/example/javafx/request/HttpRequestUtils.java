@@ -131,4 +131,30 @@ public class HttpRequestUtils {
         }
         return null;
     }
+
+    public List searchMenu(Integer userType, String str) {
+        Map param = new HashMap();
+        param.put("type", userType);
+        param.put("str", str);
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(serverUrl + "/menu/searchMenu"))
+                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(param)))
+                .headers("Content-Type", "application/json")
+                .build();
+        try {
+            HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            Result result = new Gson().fromJson(response.body(), Result.class);
+            List menuList = new Gson().fromJson(result.getData().toString(),List.class);
+            if (result.getCode().equals(200) == false) {
+                throw new RuntimeException();
+            }else return menuList;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

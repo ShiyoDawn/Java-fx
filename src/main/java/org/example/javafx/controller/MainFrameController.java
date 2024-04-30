@@ -37,24 +37,6 @@ public class MainFrameController {
     @FXML
     Button dashBoardButton = new Button();
 
-//    @FXML
-//    Button courseCenterButton = new Button();
-//
-//    @FXML
-//    Button studentCenterButton = new Button();
-//
-//    @FXML
-//    Button activityCenterButton = new Button();
-//
-//    @FXML
-//    Button userCenterButton = new Button();
-//
-//    @FXML
-//    Button scoreCenterButton = new Button();
-//
-//    @FXML
-//    Button gloryCenterButton = new Button();
-
     @FXML
     Label statueLabel;
 
@@ -62,6 +44,8 @@ public class MainFrameController {
     Button searchButton;
 
     List<Map<String,String>> menuList;
+
+    List menuListOnlyName = new ArrayList<>();
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
@@ -80,8 +64,6 @@ public class MainFrameController {
         //初始化页面切换
         for (int i = 1; i < menuList.size(); i++) {
             Button newButton = new Button(menuList.get(i).get("name"));
-
-//            prefHeight="35.0" prefWidth="100.0"
             newButton.setPrefHeight(35);
             newButton.setPrefWidth(100);
             vBox.getChildren().add(i,newButton);
@@ -91,15 +73,12 @@ public class MainFrameController {
 
 
         searchBox.setEditable(true);
-        List list = new ArrayList<>();
-        list.add("仪表盘");
-        list.add("课程管理");
-        list.add("学生管理");
-        list.add("实践活动");
-        list.add("用户中心");
-        list.add("分数管理");
-        list.add("荣誉管理");
-        searchBox.getItems().addAll(list);
+
+
+        for (int i = 0; i < menuList.size(); i++) {
+            menuListOnlyName.add(menuList.get(i).get("name"));
+        }
+        searchBox.getItems().addAll(menuListOnlyName);
         searchButton.setOnAction(e ->
         {
             try {
@@ -109,14 +88,13 @@ public class MainFrameController {
             }
         });
 
-        searchBox.valueProperty().addListener(new ChangeListener<String>() {
 
+        //根据选入comboBox的文本跳转到目标页面
+        searchBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 try {
-                    if (newValue.equals("学生管理")) {
-                        tabChange("student-view.fxml");
-                    }
+                    tryChange(newValue);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -125,6 +103,16 @@ public class MainFrameController {
 
         //load complete
         statueLabel.setText("加载完成");
+    }
+
+    private void tryChange(String newValue) throws IOException {
+        for (int i = 0; i < menuList.size(); i++){
+            Map<String,String> menu = menuList.get(i);
+            if (newValue.equals(menu.get("name"))) {
+                tabChange(menu.get("url"));
+                return;
+            }
+        }
     }
 
 
@@ -149,23 +137,30 @@ public class MainFrameController {
     protected void setSearchBox() throws IOException {
         //示例
         String target = searchBox.getEditor().getText();
-        if (target != "") {
+//        if (target != "") {
+//            searchBox.getItems().clear();
+//        } else {
+//            tryChange(target);
+//
+//            return;
+//        }
+        if(target == ""){
             searchBox.getItems().clear();
-        } else if (target.equals("学生管理")) {
-            tabChange("student-view.fxml");
+            searchBox.getItems().addAll(menuListOnlyName);
+            searchBox.show();
             return;
         }
-            else if (target.equals("课程管理")) {
-                tabChange("course-view.fxml");
-                return;
-        } else if (target.equals("分数管理")) {
-            tabChange("score-view.fxml");
-            return;
+        searchBox.getItems().clear();
+        HttpRequestUtils httpRequestUtils = new HttpRequestUtils();
+        List<Map<String,String>> list = httpRequestUtils.searchMenu(AppStore.getUser().getUser_type_id(),target);
+        List menus = new ArrayList<Map<String,String>>();
+        for (int i = 0; i < list.size(); i++) {
+            menus.add(list.get(i).get("name"));
         }
+        searchBox.getItems().addAll(menus);
+        if (menus.get(0).equals("未找到相关页面"))
+            searchBox.setEditable(false);
         searchBox.show();
-
-        //TODO 模糊查找根据target请求目标
-        searchBox.getItems().addAll();
     }
 
 
