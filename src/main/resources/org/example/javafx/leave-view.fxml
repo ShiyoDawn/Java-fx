@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.LeaveController">
+   <children>
+      <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab fx:id="viewTab" text="学生请假管理">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane prefHeight="661.0" prefWidth="1080.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="1067.0">
+                                 <children>
+                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="58.0" prefHeight="589.0" prefWidth="1067.0">
+                                      <columns>
+                                        <TableColumn fx:id="idColumn" prefWidth="67.33333849906921" text="序号" />
+                                        <TableColumn fx:id="studentNumColumn" prefWidth="104.66667175292969" text="学号" />
+                                          <TableColumn fx:id="studentNameColumn" prefWidth="104.6666259765625" text="姓名" />
+                                          <TableColumn fx:id="leaveTypeColumn" prefWidth="119.33331298828125" text="请假类型" />
+                                          <TableColumn fx:id="leaveReasonColumn" prefWidth="176.666748046875" text="请假原因" />
+                                          <TableColumn fx:id="destinationColumn" prefWidth="161.33331298828125" text="请假去向" />
+                                          <TableColumn fx:id="timeColumn" prefWidth="131.333251953125" text="请假时间" />
+                                          <TableColumn fx:id="statusColumn" prefWidth="115.3333740234375" text="状态" />
+                                      </columns>
+                                    </TableView>
+                                    <Button fx:id="queryButton" layoutX="847.0" layoutY="13.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="35.0" prefWidth="55.0" text="查询" />
+                                    <Button fx:id="resetViewButton" layoutX="944.0" layoutY="14.0" mnemonicParsing="false" onAction="#onResetViewButtonClick" prefHeight="35.0" prefWidth="57.0" text="重置" />
+                                    <Text layoutX="586.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" textAlignment="CENTER" wrappingWidth="52.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="studentInfoTextField" layoutX="638.0" layoutY="17.0" prefHeight="27.0" prefWidth="151.0" text="请输入学号或姓名" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab fx:id="applyTab" text="学生请假申请">
+               <content>
+                  <AnchorPane prefHeight="645.0" prefWidth="1057.0">
+                     <children>
+                        <ScrollPane prefHeight="662.0" prefWidth="1080.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="659.0" prefWidth="1079.0">
+                                 <children>
+                                    <GridPane layoutX="62.0" layoutY="56.0" prefHeight="178.0" prefWidth="879.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.3333740234375" minWidth="10.0" prefWidth="164.66659545898438" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.33332316080737" minWidth="10.0" prefWidth="242.33331298828122" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.66666666666663" minWidth="10.0" prefWidth="245.66668701171875" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="228.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="学号：" textAlignment="RIGHT" wrappingWidth="142.24020385742188">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="姓名：" textAlignment="RIGHT" wrappingWidth="141.57359313964844" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="联系电话：" textAlignment="RIGHT" wrappingWidth="150.2401885986328" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="辅导员姓名：" textAlignment="RIGHT" wrappingWidth="144.2402801513672" GridPane.rowIndex="3">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="年龄：" textAlignment="RIGHT" wrappingWidth="206.24016761779785" GridPane.columnIndex="2">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="专业：" textAlignment="RIGHT" wrappingWidth="204.9068546295166" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="学院：" textAlignment="RIGHT" wrappingWidth="205.57354164123535" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="辅导员电话：" textAlignment="RIGHT" wrappingWidth="210.90691566467285" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="studentIdTextField" prefHeight="23.0" prefWidth="229.0" GridPane.columnIndex="1" />
+                                          <TextField fx:id="studentNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="studentTeleTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="instructorNameTextfield" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="ageTextField" GridPane.columnIndex="3" />
+                                          <TextField fx:id="majorTextField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <TextField fx:id="instructorTeleTextField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                          <Text fill="#f40c0c" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="21.57354736328125" GridPane.columnIndex="2">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#f40c0c" layoutX="417.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="21.57354736328125" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#f40c0c" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="21.57354736328125" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#f40c0c" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="21.57354736328125" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="instituteTextField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                    <Text layoutX="416.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="基本信息" textAlignment="CENTER" wrappingWidth="246.90692138671875">
+                                       <font>
+                                          <Font name="System Bold Italic" size="25.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="416.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请假信息" textAlignment="CENTER" wrappingWidth="240.0">
+                                       <font>
+                                          <Font name="System Bold Italic" size="25.0" />
+                                       </font>
+                                    </Text>
+                                    <GridPane layoutX="74.0" layoutY="295.0" prefHeight="204.0" prefWidth="870.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="382.3333740234375" minWidth="10.0" prefWidth="197.33333333333334" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="656.0" minWidth="10.0" prefWidth="225.33333333333334" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="656.0" minWidth="10.0" prefWidth="184.66666666666663" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="656.0" minWidth="10.0" prefWidth="232.99995930989576" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="55.333333333333336" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="112.66670735677084" minHeight="10.0" prefHeight="77.66668701171875" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="81.33333333333334" minHeight="10.0" prefHeight="73.66664632161459" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="82.66669718424478" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="请假类型：" textAlignment="RIGHT" wrappingWidth="184.6666259765625">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="请假缘由具体描述：" textAlignment="RIGHT" wrappingWidth="192.240234375" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="请假目的地：" textAlignment="RIGHT" wrappingWidth="181.33322143554688" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <ComboBox fx:id="goOutTypeComboBox" prefHeight="23.0" prefWidth="148.0" GridPane.columnIndex="1" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="请假事由：" textAlignment="RIGHT" wrappingWidth="179.57341957092285" GridPane.columnIndex="2">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <ComboBox fx:id="reasonComboBox" prefHeight="23.0" prefWidth="160.0" GridPane.columnIndex="3" />
+                                          <TextField fx:id="reasonTextField" prefHeight="67.0" prefWidth="229.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="destinationTextfield" prefHeight="45.0" prefWidth="229.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="请假开始时间：" textAlignment="RIGHT" wrappingWidth="195.57355499267578" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <DatePicker fx:id="goOutDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <DatePicker fx:id="comeBackDatePicker" prefHeight="23.0" prefWidth="197.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="请假结束时间：" textAlignment="RIGHT" wrappingWidth="188.90691566467285" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </GridPane>
+                                    <Text fill="#f40c0c" layoutX="951.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="21.57354736328125">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#f40c0c" layoutX="951.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="21.57354736328125">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#f40c0c" layoutX="951.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="21.57354736328125">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Button fx:id="applyButton" layoutX="656.0" layoutY="569.0" mnemonicParsing="false" onAction="#onApplyButtonClick" prefHeight="41.0" prefWidth="85.0" text="申请" underline="true" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="resetButton" layoutX="330.0" layoutY="569.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="41.0" prefWidth="85.0" text="重置" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="saveButton" layoutX="496.0" layoutY="569.0" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="41.0" prefWidth="85.0" text="保存" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Button>
+                                    <CheckBox fx:id="finalCheckBox" layoutX="192.0" layoutY="510.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="707.0" text="本人承诺以上信息真实准确，服从学校的校园管理规定，保证好个人的人身安全。">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <Text fill="#f40c0c" layoutX="168.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="14.90692138671875">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#ac4545" layoutX="31.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(友情提醒：带*的内容为必填)" textAlignment="CENTER" wrappingWidth="288.9068603515625">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#f40c0c" layoutX="454.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" textAlignment="CENTER" wrappingWidth="21.57354736328125">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

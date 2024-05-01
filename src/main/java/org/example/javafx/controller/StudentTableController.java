@@ -73,10 +73,10 @@ public class StudentTableController {
     private TextField majorText;
 
     @FXML
-    private TableColumn person_idColumn;
+    private TableColumn person_numColumn;
 
     @FXML
-    private TextField person_idText;
+    private TextField person_numText;
 
     @FXML
     private Button save;
@@ -107,25 +107,25 @@ public class StudentTableController {
     private static Boolean bool=false;
     // 原始学生数据列表
     @FXML
-    public void initialize(){
+    public void initialize() {
         idColumn.setCellValueFactory(new MapValueFactory<>("id"));
-        person_idColumn.setCellValueFactory(new MapValueFactory<>("person_id"));
+        person_numColumn.setCellValueFactory(new MapValueFactory<>("person_num"));
         student_nameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
         departmentColumn.setCellValueFactory(new MapValueFactory<>("department"));
         classesColumn.setCellValueFactory(new MapValueFactory<>("classes"));
         gradeColumn.setCellValueFactory(new MapValueFactory<>("grade"));
         majorColumn.setCellValueFactory(new MapValueFactory<>("major"));
-        selectChoiceComboBox.getItems().addAll("学号","姓名","部门","班级","年级","专业");
-        DataRequest req = new DataRequest();
-        Result studentResult = HttpRequestUtils.request("/student/getStudentList", req);
-        List<Map> studentMap = (List<Map>) studentResult.getData();
-        tableView.setItems(FXCollections.observableList(studentMap));
+        selectChoiceComboBox.getItems().addAll("学号", "姓名", "部门", "班级", "年级", "专业");
+
+        Result studentResult = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
+        List<Map> studentList = (List<Map>) studentResult.getData();
+        tableView.setItems(FXCollections.observableList(studentList));
         save.setDisable(true);
         save.setOpacity(0.5);
     }
     public void clearPanel(){
         id=null;
-        person_idText.setText("");
+        person_numText.setText("");
         student_nameText.setText("");
         departmentText.setText("");
         classText.setText("");
@@ -137,7 +137,7 @@ public class StudentTableController {
     public void addStudentButtonClick() {
         if (validateInput()) {
             DataRequest req = new DataRequest();
-            req.add("person_id", person_idText.getText().trim());
+            req.add("person_num", person_numText.getText().trim());
             req.add("student_name", student_nameText.getText().trim());
             req.add("department", departmentText.getText().trim());
             req.add("classes", classText.getText().trim());
@@ -166,7 +166,7 @@ public class StudentTableController {
     }
 
     private boolean validateInput() {
-        return !person_idText.getText().trim().isEmpty() &&
+        return !person_numText.getText().trim().isEmpty() &&
                 !student_nameText.getText().trim().isEmpty() &&
                 !departmentText.getText().trim().isEmpty() &&
                 !classText.getText().trim().isEmpty() &&
@@ -183,10 +183,12 @@ public class StudentTableController {
     public void deleteStudentButtonClick() {
         Map<String, String> selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            String person_id=selectedItem.get("person_id");
+            String id=selectedItem.get("id");
+            String person_num=selectedItem.get("person_num");
             String student_name = selectedItem.get("student_name");
             DataRequest req = new DataRequest();
-            req.add("person_id", person_id); // 将 person_id 转换为字符串
+            req.add("id", id);
+            req.add("person_num", person_num); // 将 person_id 转换为字符串
             req.add("student_name", student_name);
             Result deleteResult = HttpRequestUtils.request("/student/deleteStudent", req);
             if (deleteResult.getCode() == 200) {
@@ -214,8 +216,9 @@ public class StudentTableController {
             if (id != null) {
                 DataRequest req = new DataRequest();
                 req.add("id", id.toString());
-                req.add("person_id", person_idText.getText().trim());
+                req.add("person_num", person_numText.getText().trim());
                 req.add("student_name", student_nameText.getText().trim());
+                System.out.println(student_nameText.getText().trim());
                 req.add("department", departmentText.getText().trim());
                 req.add("classes", classText.getText().trim());
                 req.add("grade", gradeText.getText().trim());
@@ -256,7 +259,7 @@ public class StudentTableController {
         Map<String, String> selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             id = Integer.parseInt(selectedItem.get("id"));
-            person_idText.setText(selectedItem.get("person_id"));
+            person_numText.setText(selectedItem.get("person_num"));
             student_nameText.setText(selectedItem.get("student_name"));
             departmentText.setText(selectedItem.get("department"));
             classText.setText(selectedItem.get("classes"));
@@ -413,7 +416,7 @@ public class StudentTableController {
                 Parent parent = loader.load();
 
                 // 获取Controller并传递选中的学生对象
-                PersonController controller = loader.getController();
+                StudentInformationController controller = loader.getController();
                 controller.initData(selectedStudent);
 
                 // 创建一个新的舞台
@@ -438,6 +441,19 @@ public class StudentTableController {
     }
 
     public void onResetAction() {
-        initialize();
+        idColumn.setCellValueFactory(new MapValueFactory<>("id"));
+        person_numColumn.setCellValueFactory(new MapValueFactory<>("person_num"));
+        student_nameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
+        departmentColumn.setCellValueFactory(new MapValueFactory<>("department"));
+        classesColumn.setCellValueFactory(new MapValueFactory<>("classes"));
+        gradeColumn.setCellValueFactory(new MapValueFactory<>("grade"));
+        majorColumn.setCellValueFactory(new MapValueFactory<>("major"));
+
+        Result studentResult = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
+        List<Map> studentList = (List<Map>) studentResult.getData();
+
+        tableView.setItems(FXCollections.observableList(studentList));
+        save.setDisable(true);
+        save.setOpacity(0.5);
     }
 }

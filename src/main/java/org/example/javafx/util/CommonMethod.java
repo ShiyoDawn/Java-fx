@@ -246,7 +246,7 @@ public class CommonMethod {
         return iList;
     }
 
-    public static String alertButton(String url, DataRequest dataRequest,String type) {
+    public static String alertButton(String type) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("确定要"+type+"吗？");
         alert.setResizable(false);
@@ -254,7 +254,8 @@ public class CommonMethod {
         ButtonType cancelButton = new ButtonType("取消", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(confirmButton, cancelButton);
         Optional<ButtonType> tempresult = alert.showAndWait();
-        if (tempresult.isPresent() && tempresult.get() == confirmButton) {
+        return (tempresult.get()==confirmButton)?"确认":"取消";
+        /*if (tempresult.isPresent() && tempresult.get() == confirmButton) {
             Result result=HttpRequestUtils.request(url, dataRequest);
             if(result!=null){
                 if(result.getCode()==404){
@@ -264,7 +265,6 @@ public class CommonMethod {
             alert.close();
         } else {
             alert.close();
-        }
-        return (tempresult.get()==confirmButton)?"确认":"取消";
+        }*/
     }
 }
