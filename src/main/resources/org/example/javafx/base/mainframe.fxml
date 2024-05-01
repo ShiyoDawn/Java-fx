@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/menu.css" BorderPane.alignment="CENTER">
          <items>
@@ -29,18 +25,8 @@
          </opaqueInsets>
          <children>
             <Button fx:id="dashBoardButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="仪表盘" />
-            <Button fx:id="courseCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="课程管理" />
-            <Button fx:id="studentCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="学生管理" />
-            <Button fx:id="activityCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="实践活动" />
-            <Button fx:id="userCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="用户中心" />
-            <Button fx:id="scoreCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="分数管理" />
-            <Button fx:id="gloryCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="荣誉管理" />
-            <Button fx:id="leaveCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="请假管理" />
-            <VBox alignment="BOTTOM_CENTER" prefHeight="170.0" prefWidth="100.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="设置" />
-               </children>
-            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="170.0" prefWidth="100.0" />
+            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="设置" />
          </children></VBox>
    </left>
 
