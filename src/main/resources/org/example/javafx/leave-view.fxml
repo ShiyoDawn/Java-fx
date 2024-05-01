@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -29,16 +30,16 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="1067.0">
                                  <children>
-                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="58.0" prefHeight="589.0" prefWidth="1067.0">
+                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="58.0" prefHeight="589.0" prefWidth="1128.0">
                                       <columns>
                                         <TableColumn fx:id="idColumn" prefWidth="67.33333849906921" text="序号" />
                                         <TableColumn fx:id="studentNumColumn" prefWidth="104.66667175292969" text="学号" />
                                           <TableColumn fx:id="studentNameColumn" prefWidth="104.6666259765625" text="姓名" />
-                                          <TableColumn fx:id="leaveTypeColumn" prefWidth="119.33331298828125" text="请假类型" />
-                                          <TableColumn fx:id="leaveReasonColumn" prefWidth="176.666748046875" text="请假原因" />
-                                          <TableColumn fx:id="destinationColumn" prefWidth="161.33331298828125" text="请假去向" />
-                                          <TableColumn fx:id="timeColumn" prefWidth="131.333251953125" text="请假时间" />
-                                          <TableColumn fx:id="statusColumn" prefWidth="115.3333740234375" text="状态" />
+                                          <TableColumn fx:id="leaveTypeColumn" prefWidth="113.99993896484375" text="请假类型" />
+                                          <TableColumn fx:id="leaveReasonColumn" prefWidth="134.0001220703125" text="请假原因" />
+                                          <TableColumn fx:id="destinationColumn" prefWidth="137.333251953125" text="请假去向" />
+                                          <TableColumn fx:id="timeColumn" prefWidth="143.333251953125" text="请假时间" />
+                                          <TableColumn fx:id="statusColumn" prefWidth="101.333251953125" text="状态" />
                                       </columns>
                                     </TableView>
                                     <Button fx:id="queryButton" layoutX="847.0" layoutY="13.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="35.0" prefWidth="55.0" text="查询" />
@@ -48,7 +49,22 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
-                                    <TextField fx:id="studentInfoTextField" layoutX="638.0" layoutY="17.0" prefHeight="27.0" prefWidth="151.0" text="请输入学号或姓名" />
+                                    <TextField fx:id="studentInfoTextField" layoutX="638.0" layoutY="17.0" prefHeight="27.0" prefWidth="151.0" />
+                                    <Button fx:id="checkButton" layoutX="63.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCheckButtonClick" prefHeight="30.0" prefWidth="61.0" text="审核" />
+                                    <Text fill="#d22121" layoutX="211.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1.审核时要看清学生的相关信息." wrappingWidth="209.57357788085938">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font></Text>
+                                    <Text fill="#d91717" layoutX="211.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2.双击某一栏可进入该学生请假详情界面">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Label layoutX="167.0" layoutY="11.0" prefHeight="15.0" prefWidth="44.0" text="提醒：" textFill="#d01c1c">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </AnchorPane>
                           </content>
@@ -226,17 +242,12 @@
                                           <Font name="System Bold Italic" size="15.0" />
                                        </font>
                                     </Text>
-                                    <Button fx:id="applyButton" layoutX="656.0" layoutY="569.0" mnemonicParsing="false" onAction="#onApplyButtonClick" prefHeight="41.0" prefWidth="85.0" text="申请" underline="true" wrapText="true">
+                                    <Button fx:id="applyButton" layoutX="577.0" layoutY="569.0" mnemonicParsing="false" onAction="#onApplyButtonClick" prefHeight="41.0" prefWidth="85.0" text="申请" underline="true" wrapText="true">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="resetButton" layoutX="330.0" layoutY="569.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="41.0" prefWidth="85.0" text="重置" wrapText="true">
-                                       <font>
-                                          <Font name="System Bold" size="17.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="saveButton" layoutX="496.0" layoutY="569.0" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="41.0" prefWidth="85.0" text="保存" wrapText="true">
+                                    <Button fx:id="resetButton" layoutX="401.0" layoutY="569.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="41.0" prefWidth="85.0" text="重置" wrapText="true">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
