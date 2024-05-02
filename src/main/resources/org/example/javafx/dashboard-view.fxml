@@ -83,31 +83,31 @@
                         <RowConstraints prefHeight="90.0" vgrow="SOMETIMES"/>
                         <RowConstraints prefHeight="90.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
-                    <Label text="周/节次" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                    <Label text="周/节次" GridPane.halignment="CENTER" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                    <Label text="星期一" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                    <Label text="星期一" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                    <Label text="星期二" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                    <Label text="星期二" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                    <Label text="星期三" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                    <Label text="星期三" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                    <Label text="星期四" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                    <Label text="星期四" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                    <Label text="星期五" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                    <Label text="星期五" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                    <Label text="星期六" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                    <Label text="星期六" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                    <Label text="星期日" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                    <Label text="星期日" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                    <Label text="第一、二节" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                    <Label text="第一、二节" GridPane.halignment="CENTER" GridPane.rowIndex="1"
                            GridPane.valignment="CENTER"/>
-                    <Label text="第三、四节" GridPane.halignment="CENTER" GridPane.rowIndex="3"
+                    <Label text="第三、四节" GridPane.halignment="CENTER" GridPane.rowIndex="2"
                            GridPane.valignment="CENTER"/>
-                    <Label text="第五、六节" GridPane.halignment="CENTER" GridPane.rowIndex="4"
+                    <Label text="第五、六节" GridPane.halignment="CENTER" GridPane.rowIndex="3"
                            GridPane.valignment="CENTER"/>
-                    <Label text="第七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="5"
+                    <Label text="第七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="4"
                            GridPane.valignment="CENTER"/>
-                    <Label text="第九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="6"
+                    <Label text="第九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="5"
                            GridPane.valignment="CENTER"/>
                 </GridPane>
             </children>

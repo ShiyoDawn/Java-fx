@@ -16,7 +16,8 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="690.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseController">
+<?import javafx.scene.layout.BorderPane?>
+<AnchorPane fx:id="pane" prefHeight="690.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseController">
     <TabPane prefHeight="690.0" prefWidth="980.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="   课程管理            ">
@@ -43,7 +44,7 @@
                                                 <TextField fx:id="classes" layoutX="95.0" layoutY="314.0" />
 
                                                 <Button fx:id="save" layoutX="118.0" layoutY="427.0" mnemonicParsing="false" onAction="#saveInfo" prefHeight="30.0" prefWidth="62.0" text="保存" />
-                                                <ComboBox fx:id="type" layoutX="95.0" layoutY="115.0" prefHeight="16.0" prefWidth="162.0" promptText="请选择学期">
+                                                <ComboBox fx:id="type" layoutX="95.0" layoutY="115.0" prefHeight="16.0" prefWidth="162.0" promptText="请选择课程种类">
                                                     <items>
                                                         <FXCollections fx:factory="observableArrayList">
                                                             <String fx:value="专业基础课" />
@@ -65,29 +66,47 @@
                                     </Tab>
                                 </tabs>
                             </TabPane>
+                     <TextField fx:id="classNum" layoutX="603.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" promptText="请输入课序号" />
+                      <ComboBox fx:id="selectTerms" layoutX="278.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" promptText="请选择学期">
+                          <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="全部" />
+                                  <String fx:value="2023-2024-1" />
+                                  <String fx:value="2023-2024-2" />
+                              </FXCollections>
+                          </items>
+                      </ComboBox>
+                      <ComboBox fx:id="selectType" layoutX="441.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" promptText="请选择课程性质">
+                          <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="全部" />
+                              </FXCollections>
+                          </items>
+                      </ComboBox>
+                      <TextField fx:id="inputName" layoutX="762.0" layoutY="31.0" prefHeight="30.0" prefWidth="123.0" promptText="请输入课程名称" />
+                     <ComboBox fx:id="selectClass" layoutX="116.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" promptText="请选择班级">
+                        <items>
+                           <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="全部" />
+                              <String fx:value="23.1" />
+                              <String fx:value="23.2" />
+                              <String fx:value="23.3" />
+                              <String fx:value="23.4" />
+                              <String fx:value="23.5" />
+                              <String fx:value="23.6" />
+                              <String fx:value="23.7" />
+                              <String fx:value="23.8" />
+                              <String fx:value="临班" />
+                           </FXCollections>
+                        </items>
+                     </ComboBox>
                         </children>
                     </AnchorPane>
                 </content>
             </Tab>
         </tabs>
     </TabPane>
-    <ComboBox fx:id="selectTerms" layoutX="433.0" layoutY="60.0" prefHeight="30.0" prefWidth="140.0" promptText="请选择学期">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="2023-2024-1" />
-                <String fx:value="2023-2024-2" />
-            </FXCollections>
-        </items>
-    </ComboBox>
-    <Button fx:id="selectCourse" onAction="#select" layoutX="904.0" layoutY="60.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="62.0" text="查询" />
-    <TextField fx:id="inputName" layoutX="759.0" layoutY="60.0" prefHeight="30.0" prefWidth="123.0" promptText="请输入课程名称" />
-    <ComboBox fx:id="selectType" layoutX="595.0" layoutY="60.0" prefHeight="30.0" prefWidth="140.0" promptText="请选择课程性质">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="全部" />
-            </FXCollections>
-        </items>
-    </ComboBox>
+    <Button fx:id="selectCourse" layoutX="904.0" layoutY="60.0" mnemonicParsing="false" onAction="#select" prefHeight="30.0" prefWidth="62.0" text="查询" />
     <StackPane fx:id="one" layoutX="24.0" layoutY="112.0">
         <Rectangle arcHeight="20" arcWidth="20" height="56.0" layoutX="24.0" layoutY="112.0" opacity="0.9" width="629.0">
          <fill>
@@ -188,6 +207,5 @@
         <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="56.0" layoutX="24.0" layoutY="512.0" opacity="0.9" width="629.0" />
     </StackPane>
     <Pagination fx:id="pagination" layoutX="24.0" layoutY="595.0" prefHeight="50.0" prefWidth="629.0" />
-
 
 </AnchorPane>
