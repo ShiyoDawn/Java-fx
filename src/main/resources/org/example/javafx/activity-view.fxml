@@ -1,11 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <Label text="实践活动中心" BorderPane.alignment="CENTER" />
-   </center>
-</BorderPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="创新实践">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="cAddButton" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" text="增加" />
+                        <Button fx:id="cDeleteButton" layoutX="170.0" layoutY="15.0" mnemonicParsing="false" text="删除" />
+                        <Button fx:id="cUpdateButton" layoutX="270.0" layoutY="15.0" mnemonicParsing="false" text="修改" />
+                        <ScrollPane layoutY="65.0" prefHeight="569.0" prefWidth="1080.0">
+                          <content>
+                            <AnchorPane layoutY="60.0" minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="1800.0">
+                                 <children>
+                                    <TableView prefHeight="900.0" prefWidth="1800.0">
+                                      <columns>
+                                        <TableColumn fx:id="cIdColumn" prefWidth="53.333346009254456" text="序号" />
+                                          <TableColumn fx:id="cNameColumn" prefWidth="75.99996948242188" text="姓名" />
+                                          <TableColumn fx:id="cActivity_typeColumn" prefWidth="98.6666259765625" text="活动类型" />
+                                          <TableColumn fx:id="cDateColumn" prefWidth="156.666748046875" text="日期" />
+                                          <TableColumn fx:id="cScoreColumn" prefWidth="146.66668701171875" text="评分" />
+                                          <TableColumn fx:id="cActivity_nameColumn" prefWidth="374.6666259765625" text="活动名称" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <TextField fx:id="cTextField" layoutX="700.0" layoutY="8.0" />
+                        <CheckBox fx:id="cFuzzySearchCheckBox" layoutX="700.0" layoutY="40.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="模糊搜索" />
+                        <Button fx:id="cResetButton" layoutX="950.0" layoutY="15.0" mnemonicParsing="false" text="重置" />
+                        <ComboBox fx:id="cComboBox" layoutX="555.0" layoutY="20.0" prefHeight="27.0" prefWidth="135.0" />
+                        <Button fx:id="cSearchButton" layoutX="860.0" layoutY="15.0" mnemonicParsing="false" text="搜索" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="日常活动">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane layoutY="65.0" prefHeight="564.0" prefWidth="1080.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1500.0">
+                                 <children>
+                                    <TableView prefHeight="700.0" prefWidth="1500.0">
+                                      <columns>
+                                        <TableColumn fx:id="dDaily_idColumn" prefWidth="50.000033020973206" text="序号" />
+                                          <TableColumn fx:id="dNameColumn" prefWidth="65.33328247070312" text="姓名" />
+                                          <TableColumn fx:id="dActivity_type" prefWidth="86.66665649414062" text="活动类型" />
+                                          <TableColumn fx:id="dDateColumn" prefWidth="146.6666259765625" text="日期" />
+                                          <TableColumn fx:id="dScoreColumn" prefWidth="96.666748046875" text="评分" />
+                                          <TableColumn fx:id="dActivityColumn" prefWidth="337.3333740234375" text="活动名称" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <Button fx:id="dAddButton" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" text="增加" />
+                        <Button fx:id="dUpdateButton" layoutX="270.0" layoutY="15.0" mnemonicParsing="false" text="修改" />
+                        <Button fx:id="dDeleteButton" layoutX="170.0" layoutY="15.0" mnemonicParsing="false" text="删除" />
+                        <Button fx:id="dResetButton" layoutX="950.0" layoutY="15.0" mnemonicParsing="false" text="重置" />
+                        <TextField fx:id="dTextField" layoutX="700.0" layoutY="8.0" />
+                        <CheckBox fx:id="dFuzzySearchCheckBox" layoutX="700.0" layoutY="38.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="模糊搜索" />
+                        <ComboBox fx:id="dComboBox" layoutX="555.0" layoutY="20.0" prefWidth="135.0" />
+                        <Button fx:id="dSearchiButton" layoutX="860.0" layoutY="15.0" mnemonicParsing="false" text="搜索" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
