@@ -130,7 +130,7 @@ public class StudentGloryController {
             alert.showAndWait();
             return;
         }
-        String msg = CommonMethod.alertButton("/glory/deleteGlory", new DataRequest(), "删除");
+        String msg = CommonMethod.alertButton("删除");
         if (msg == "确认") {
             for (Map gloryMap : selected) {
                 String student_name = CommonMethod.getString(gloryMap, "student_name");
@@ -189,11 +189,19 @@ public class StudentGloryController {
             student_name = null;
         }
         if (student_name != null) {
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("student_name", student_name);
-            result = HttpRequestUtils.request("/glory/selectByStudentName", dataRequest);
-            if (result == null) {
+            //DataRequest dataRequest = new DataRequest();
+            //dataRequest.add("student_name", student_name);
+            //result = HttpRequestUtils.request("/glory/selectByStudentName", dataRequest);
+            List<Map> ans=CommonMethod.filter(gloryList,"student_name",student_name);
+            if (ans == null||ans.size()==0) {
                 observableList.clear();
+                return;
+            }else{
+                observableList.clear();
+                for(Map map:ans){
+                    observableList.add(map);
+                }
+                dataTableView.setItems(observableList);
                 return;
             }
         } else if (student_name == null) {
@@ -209,7 +217,8 @@ public class StudentGloryController {
     @FXML
     private void onResetButtonClick() {
         Result result = null;
-        studentComboBox.setValue("请选择学生");
+        studentComboBox.setValue(null);
+        studentComboBox.setPromptText("请选择学生");
         result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
         result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
         setTableViewData(result);
@@ -295,8 +304,10 @@ public class StudentGloryController {
             result = HttpRequestUtils.request("/student/selectStudentByName", dataRequest);
             Map map = (Map) result.getData();
             System.out.println(map);
-            Integer student_id = Integer.parseInt(map.get("id").toString());
-            dataRequest.add("student_id", student_id);
+            dataRequest.add("id",map.get("person_id").toString());
+            result=HttpRequestUtils.request("/person/selectById",dataRequest);
+            String student_num = ((Map)result.getData()).get("person_num").toString();
+            dataRequest.add("student_num", student_num);
             dataRequest.add("glory_name", gloryUpdateTextField.getText());
             dataRequest.add("glory_type", glory_type);
             if (tmpResult != null) {
@@ -304,16 +315,15 @@ public class StudentGloryController {
             }
             dataRequest.add("glory_level", gloryLevelUpdateTextField.getText());
             if (editConfirmButton.getText() == "修改荣誉") {
-                String msg = CommonMethod.alertButton("/glory/updateGlory", new DataRequest(), "修改");
+                String msg = CommonMethod.alertButton("修改");
                 if(msg=="确认"){
                     HttpRequestUtils.request("/glory/updateGlory",dataRequest);
                 }
             } else if (editConfirmButton.getText() == "增加荣誉") {
-                String msg = CommonMethod.alertButton("/glory/insertGlory", new DataRequest(), "增加");
+                String msg = CommonMethod.alertButton("增加");
                 if(msg=="确认"){
-                    HttpRequestUtils.request("/glory/updateGlory",dataRequest);
+                    HttpRequestUtils.request("/glory/insertGlory",dataRequest);
                 }
-                System.out.println(dataRequest.getData());
             }
             System.out.println(dataRequest.getData());
         } else if (student_name == null && glory_type != null) {
@@ -361,7 +371,7 @@ public class StudentGloryController {
     public void initialize() {
         id.setCellValueFactory(new MapValueFactory<>("id"));
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
-        studentNumColumn.setCellValueFactory(new MapValueFactory("student_id"));  //设置列值工程属性
+        studentNumColumn.setCellValueFactory(new MapValueFactory("student_num"));  //设置列值工程属性
         gloryNameColumn.setCellValueFactory(new MapValueFactory<>("glory_name"));
         gloryTypeColumn.setCellValueFactory(new MapValueFactory<>("glory_type"));
         gloryLevelColumn.setCellValueFactory(new MapValueFactory<>("glory_level"));
@@ -393,6 +403,7 @@ public class StudentGloryController {
         studentComboBox.getItems().addAll(studentList);
         studentEditComboBox.getItems().addAll(studentList);
         gloryTypeEditComboBox.getItems().addAll(gloryTypeList);
+        studentComboBox.setEditable(true);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         onResetButtonClick();
 

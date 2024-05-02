@@ -63,7 +63,7 @@ public class ScoreEditController {
     //-----------------------------------------------------
 
     @FXML
-    private void cancelDeleteButtonClick(ActionEvent actionEvent) {
+    private void cancelDeleteButtonClick() {
         Stage stage = (Stage) cancelDeleteButton.getScene().getWindow();
         stage.close();
     }
@@ -99,16 +99,21 @@ public class ScoreEditController {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            Integer student_id = Integer.parseInt(map.get("id").toString());
+            DataRequest dataRequest1=new DataRequest();
+            dataRequest1.add("id",Integer.parseInt(map.get("person_id").toString()));
+            result=HttpRequestUtils.request("/person/selectById",dataRequest1);
+            Map map1=(Map) result.getData();
+            String student_num = map1.get("person_num").toString();
 
             DataRequest courDataRequest = new DataRequest();
-            courDataRequest.add("id", course_name.split("-")[0]);
+            courDataRequest.add("id", Integer.parseInt(course_name.split("-")[0]));
             result = HttpRequestUtils.request("/course/selectInfo", courDataRequest);
             map = (Map) result.getData();
-            Integer course_id = Integer.parseInt(map.get("id").toString().split("\\.")[0]);
+            String course_num = map.get("num").toString();
 
-            dataRequest.add("student_id", student_id);
-            dataRequest.add("course_id", course_id);
+            System.out.println(student_num+" "+course_num);
+            dataRequest.add("student_num", student_num);
+            dataRequest.add("course_num", course_num);
             result=HttpRequestUtils.request("/score/selectByStudentAndCourse",dataRequest);
             if(result==null){
                 Alert alert=new Alert(Alert.AlertType.INFORMATION);
@@ -116,7 +121,10 @@ public class ScoreEditController {
                 alert.showAndWait();
                 return;
             }
-            CommonMethod.alertButton("/score/deleteAllById",dataRequest,"删除");
+            String msg=CommonMethod.alertButton("删除");
+            if(msg=="确认"){
+                HttpRequestUtils.request("/score/deleteAllById",dataRequest);
+            }
         } else if (student_name == null && course_name != null) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);

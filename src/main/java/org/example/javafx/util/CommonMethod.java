@@ -246,7 +246,7 @@ public class CommonMethod {
         return iList;
     }
 
-    public static String alertButton(String url, DataRequest dataRequest,String type) {
+    public static String alertButton(String type) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("确定要"+type+"吗？");
         alert.setResizable(false);
@@ -254,7 +254,8 @@ public class CommonMethod {
         ButtonType cancelButton = new ButtonType("取消", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(confirmButton, cancelButton);
         Optional<ButtonType> tempresult = alert.showAndWait();
-        if (tempresult.isPresent() && tempresult.get() == confirmButton) {
+        return (tempresult.get()==confirmButton)?"确认":"取消";
+        /*if (tempresult.isPresent() && tempresult.get() == confirmButton) {
             Result result=HttpRequestUtils.request(url, dataRequest);
             if(result!=null){
                 if(result.getCode()==404){
@@ -264,7 +265,18 @@ public class CommonMethod {
             alert.close();
         } else {
             alert.close();
+        }*/
+    }
+
+    public static List<Map> filter(List<Map> Map, String selectedOption, String searchText) {
+        List<Map> filtered = new ArrayList<>();
+        // 根据选择的搜索类型和输入的内容对学生数据进行过滤
+        for (Map map : Map) {
+            String value = (String) map.get(selectedOption); // 根据选择的搜索类型获取对应的值
+            if (value != null && value.contains(searchText)) { // 如果该值包含输入的内容，则加入过滤后的列表中
+                filtered.add(map);
+            }
         }
-        return (tempresult.get()==confirmButton)?"确认":"取消";
+        return filtered;
     }
 }
