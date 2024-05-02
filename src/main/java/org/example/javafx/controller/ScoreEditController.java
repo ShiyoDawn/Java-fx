@@ -63,7 +63,7 @@ public class ScoreEditController {
     //-----------------------------------------------------
 
     @FXML
-    private void cancelDeleteButtonClick(ActionEvent actionEvent) {
+    private void cancelDeleteButtonClick() {
         Stage stage = (Stage) cancelDeleteButton.getScene().getWindow();
         stage.close();
     }

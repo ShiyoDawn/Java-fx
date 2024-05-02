@@ -189,11 +189,19 @@ public class StudentGloryController {
             student_name = null;
         }
         if (student_name != null) {
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("student_name", student_name);
-            result = HttpRequestUtils.request("/glory/selectByStudentName", dataRequest);
-            if (result == null) {
+            //DataRequest dataRequest = new DataRequest();
+            //dataRequest.add("student_name", student_name);
+            //result = HttpRequestUtils.request("/glory/selectByStudentName", dataRequest);
+            List<Map> ans=CommonMethod.filter(gloryList,"student_name",student_name);
+            if (ans == null||ans.size()==0) {
                 observableList.clear();
+                return;
+            }else{
+                observableList.clear();
+                for(Map map:ans){
+                    observableList.add(map);
+                }
+                dataTableView.setItems(observableList);
                 return;
             }
         } else if (student_name == null) {
@@ -209,7 +217,8 @@ public class StudentGloryController {
     @FXML
     private void onResetButtonClick() {
         Result result = null;
-        studentComboBox.setValue("请选择学生");
+        studentComboBox.setValue(null);
+        studentComboBox.setPromptText("请选择学生");
         result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
         result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
         setTableViewData(result);
@@ -394,6 +403,7 @@ public class StudentGloryController {
         studentComboBox.getItems().addAll(studentList);
         studentEditComboBox.getItems().addAll(studentList);
         gloryTypeEditComboBox.getItems().addAll(gloryTypeList);
+        studentComboBox.setEditable(true);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         onResetButtonClick();
 

@@ -267,4 +267,16 @@ public class CommonMethod {
             alert.close();
         }*/
     }
+
+    public static List<Map> filter(List<Map> Map, String selectedOption, String searchText) {
+        List<Map> filtered = new ArrayList<>();
+        // 根据选择的搜索类型和输入的内容对学生数据进行过滤
+        for (Map map : Map) {
+            String value = (String) map.get(selectedOption); // 根据选择的搜索类型获取对应的值
+            if (value != null && value.contains(searchText)) { // 如果该值包含输入的内容，则加入过滤后的列表中
+                filtered.add(map);
+            }
+        }
+        return filtered;
+    }
 }

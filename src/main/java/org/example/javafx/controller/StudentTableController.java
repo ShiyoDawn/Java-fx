@@ -296,7 +296,7 @@ public class StudentTableController {
                 updateTableView(filteredStudents);
             }
             else {
-                // 根据选择的搜索类型和输入的内容进行过滤
+                // 根据选择的搜索类型和输入的内容进行筛查
                 List<Map> caughtStudents = catchStudents(studentMap, selectedOption, searchText);
                 // 更新表格显示
                 updateTableView(caughtStudents);
@@ -371,7 +371,7 @@ public class StudentTableController {
     public String translate(String selectedOption){
         switch (selectedOption) {
             case "学号":
-                selectedOption="person_id";
+                selectedOption="person_num";
                 break;
             case "姓名":
                 selectedOption="student_name";
