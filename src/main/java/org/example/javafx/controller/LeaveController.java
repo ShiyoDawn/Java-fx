@@ -143,9 +143,41 @@ public class LeaveController {
             onResetViewButtonClick();
         } else {
             DataRequest dataRequest = new DataRequest();
-            Result result = new Result();
-            dataRequest.add("student_num", studentInfoTextField.getText());
-            result = HttpRequestUtils.request("/leave/selectByStudentNum", dataRequest);
+            //Result result = new Result();
+            //dataRequest.add("student_num", studentInfoTextField.getText());
+            List<Map> result=CommonMethod.filter(leaveList,"student_num",studentInfoTextField.getText());
+            if(result==null||result.size()==0){
+                result=CommonMethod.filter(leaveList,"student_name",studentInfoTextField.getText());
+                if(result==null||result.size()==0){
+                    Stage confirmStage = new Stage();
+                    confirmStage.setWidth(250);
+                    confirmStage.setHeight(150);
+                    //取消放大（全屏）按钮
+                    confirmStage.setResizable(false);
+                    confirmStage.setResizable(false);
+                    Text text = new Text("无该同学请假信息，请重新输入");
+                    HBox hBox = new HBox(text);
+                    hBox.setAlignment(Pos.CENTER);
+                    Scene scene = new Scene(hBox);
+                    confirmStage.setScene(scene);
+                    confirmStage.show();
+                    return;
+                }else{
+                    observableList.clear();
+                    for(Map map:result){
+                        observableList.add(map);
+                    }
+                    dataTableView.setItems(observableList);
+                }
+            }else{
+                observableList.clear();
+                for(Map map:result){
+                    observableList.add(map);
+                }
+                dataTableView.setItems(observableList);
+            }
+
+            /*result = HttpRequestUtils.request("/leave/selectByStudentNum", dataRequest);
             if (result == null) {
                 dataRequest.add("student_name", studentInfoTextField.getText());
                 result = HttpRequestUtils.request("/leave/selectByStudentName", dataRequest);
@@ -168,12 +200,13 @@ public class LeaveController {
             } else {
                 System.out.println(result.getData());
                 setTableViewData(result);
-            }
+            }*/
         }
     }
 
     @FXML
     private void onResetViewButtonClick() {
+        studentInfoTextField.setText("");
         studentInfoTextField.setPromptText("请输入学号或姓名");
         Result result = new Result();
         result = HttpRequestUtils.request("/leave/getLeaveList", new DataRequest());
