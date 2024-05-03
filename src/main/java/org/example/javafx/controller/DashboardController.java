@@ -36,12 +36,12 @@ public class DashboardController {
     @FXML
     GridPane gridPane;
 
-    /*@FXML
+    @FXML
     public void initialize() throws IOException, InterruptedException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         addlabel(Integer.parseInt(getCurrentTime().get("week")), 1, getCurrentTime().get("terms"));
-    }*/
+    }
 
     //添加课程表上的课程
     private void addlabel(int week, Integer student_id, String terms) throws IOException, InterruptedException {
@@ -73,7 +73,7 @@ public class DashboardController {
             });
             gridPane.setHalignment(label, HPos.CENTER); // 设置水平对齐方式为居中
             gridPane.setValignment(label, VPos.CENTER); // 设置垂直对齐方式为居中
-            gridPane.add(label, (int) week_time, (int) (time_sort + 1));
+            gridPane.add(label, (int) week_time, (int) (time_sort));
         }
 
 
