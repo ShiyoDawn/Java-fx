@@ -5,12 +5,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
+import org.example.javafx.StartUp;
 import org.example.javafx.pojo.Course;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -26,6 +29,10 @@ public class MainFrameController {
 
     @FXML
     BorderPane borderPane;
+
+    @FXML
+    HBox header;
+
     @FXML
     Label userLabel;
     @FXML
@@ -36,24 +43,6 @@ public class MainFrameController {
 
     @FXML
     Button dashBoardButton = new Button();
-
-//    @FXML
-//    Button courseCenterButton = new Button();
-//
-//    @FXML
-//    Button studentCenterButton = new Button();
-//
-//    @FXML
-//    Button activityCenterButton = new Button();
-//
-//    @FXML
-//    Button userCenterButton = new Button();
-//
-//    @FXML
-//    Button scoreCenterButton = new Button();
-//
-//    @FXML
-//    Button gloryCenterButton = new Button();
 
     @FXML
     Label statueLabel;
@@ -77,6 +66,7 @@ public class MainFrameController {
         borderPane.setCenter(dashboard);
         userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
         setTabChange(dashBoardButton, "dashboard-view.fxml");
+        stageMove();
 
 
         //初始化页面切换
@@ -123,6 +113,10 @@ public class MainFrameController {
         statueLabel.setText("加载完成");
     }
 
+    public void exit() {
+        MainApplication.getMainStage().close();
+    }
+
     private void tryChange(String newValue) throws IOException {
         for (int i = 0; i < menuList.size(); i++){
             Map<String,String> menu = menuList.get(i);
@@ -155,13 +149,6 @@ public class MainFrameController {
     protected void setSearchBox() throws IOException {
         //示例
         String target = searchBox.getEditor().getText();
-//        if (target != "") {
-//            searchBox.getItems().clear();
-//        } else {
-//            tryChange(target);
-//
-//            return;
-//        }
         if(target == ""){
             searchBox.getItems().clear();
             searchBox.getItems().addAll(menuListOnlyName);
@@ -182,4 +169,29 @@ public class MainFrameController {
     }
 
 
+    double x1;
+    double y1;
+    double x_stage;
+    double y_stage;
+    private void stageMove() {
+        header.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent m) {
+                //计算
+                MainApplication.getMainStage().setX(x_stage + m.getScreenX() - x1);
+                MainApplication.getMainStage().setY(y_stage + m.getScreenY() - y1);
+            }
+        });
+        header.setOnDragEntered(null);
+        header.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+            @Override public void handle(MouseEvent m) {
+
+                //按下鼠标后，记录当前鼠标的坐标
+                x1 = m.getScreenX();
+                y1 = m.getScreenY();
+                x_stage = MainApplication.getMainStage().getX();
+                y_stage = MainApplication.getMainStage().getY();
+            }
+        });
+    }
 }

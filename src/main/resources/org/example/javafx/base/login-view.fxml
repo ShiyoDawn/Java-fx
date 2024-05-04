@@ -5,21 +5,44 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 
-<VBox stylesheets="@../css/button-style.css" alignment="CENTER" prefHeight="330.0" prefWidth="341.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.javafx.controller.LoginController">
-    <padding>
-        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-    </padding>
-
-    <Label fx:id="welcomeText" />
-   <TextField prefHeight="59.0" prefWidth="281.0" text="admin" fx:id="user"/>
-   <PasswordField fx:id="passwordField" prefHeight="53.0" prefWidth="281.0" text="123456"/>
-    <Button onAction="#onLoginButtonClick" prefHeight="60.0" prefWidth="100.0" text="登录">
-      <font>
-         <Font size="11.0" />
-      </font></Button>
+<VBox fx:id="mainBox" stylesheets="@../css/login.css" alignment="CENTER" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.LoginController">
+    <HBox fx:id="header" prefHeight="8.0" prefWidth="341.0">
+        <Label prefHeight="34.0" prefWidth="708.0" text="                                                                                                           " />
+        <Button prefHeight="23.0" prefWidth="40.0" />
+    </HBox>
+    <HBox>
+        <Label prefHeight="339.0" prefWidth="361.0">
+         <font>
+            <Font size="23.0" />
+         </font></Label>
+        <VBox alignment="CENTER" prefHeight="389.0" prefWidth="274.0" stylesheets="@../css/button-style.css">
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+         <HBox prefHeight="73.0" prefWidth="214.0">
+            <children>
+               <Label prefHeight="71.0" prefWidth="98.0" text="登录">
+                  <font>
+                     <Font name="System Bold" size="29.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+            <Label fx:id="welcomeText" />
+            <TextField fx:id="user" prefHeight="45.0" prefWidth="214.0" text="admin">
+            </TextField>
+         <Label />
+            <PasswordField fx:id="passwordField" prefHeight="38.0" prefWidth="214.0" text="123456">
+            </PasswordField>
+         <Label />
+            <Button onAction="#onLoginButtonClick" prefHeight="45.0" prefWidth="214.0" text="登录">
+                <font>
+                    <Font size="11.0" />
+                </font></Button>
+        </VBox>
+    </HBox>
 </VBox>

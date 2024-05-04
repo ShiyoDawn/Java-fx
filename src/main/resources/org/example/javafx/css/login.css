@@ -1,0 +1,8 @@
+#mainBox {
+    -fx-background-color: blue;
+    -fx-background-image: url(loginBackground.jpg);
+}
+
+.pane {
+    -fx-background-color: transparent;
+}

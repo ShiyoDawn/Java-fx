@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1214.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
    <top>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/menu.css" BorderPane.alignment="CENTER">
-         <items>
-            <Label fx:id="userLabel" prefHeight="33.0" prefWidth="86.0" text="ADMIN/admin" />
-            <Label prefHeight="15.0" prefWidth="216.0" text="                                           快捷跳转" />
-            <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
-            <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="查询页面" />
-         </items>
-      </ToolBar>
+      <VBox>
+         <HBox fx:id="header">
+            <children>
+               <Label prefHeight="26.0" prefWidth="1168.0" text="                                                                                                                                                                                            " />
+               <Button> </Button>
+               <Button> </Button>
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label fx:id="userLabel" prefHeight="33.0" prefWidth="86.0" text="ADMIN/admin" />
+               <Label prefHeight="15.0" prefWidth="216.0" text="                                           快捷跳转" />
+               <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
+               <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="查询页面" />
+            </children>
+         </HBox>
+      </VBox>
    </top>
    <bottom>
       <Label fx:id="statueLabel" prefHeight="15.0" prefWidth="690.0" text="加载中" BorderPane.alignment="TOP_LEFT" />
