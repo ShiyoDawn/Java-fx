@@ -1,8 +1,10 @@
 #mainBox {
-    -fx-background-color: blue;
     -fx-background-image: url(loginBackground.jpg);
-}
-
-.pane {
-    -fx-background-color: transparent;
+    /*-fx-background-color: blue;*/
+    fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-border-width: 1px;
+    -fx-border-color: #000000;
+    -fx-border-radius: 10px;
+    -fx-border-radius: 10 5 5 10;
 }

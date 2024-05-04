@@ -1,15 +1,20 @@
 package org.example.javafx.controller;
 
 import com.google.gson.Gson;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
@@ -18,8 +23,12 @@ import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.LoginRequest;
 
 import java.io.IOException;
+import java.util.concurrent.Callable;
 
 public class LoginController {
+
+    @FXML
+    VBox mainBox;
 
     @FXML
     HBox header;
@@ -56,7 +65,11 @@ public class LoginController {
     double y1;
     double x_stage;
     double y_stage;
+
+
+
     public void initialize() {
+
         header.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent m) {
                 //计算

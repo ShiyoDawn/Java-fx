@@ -3,6 +3,7 @@ package org.example.javafx;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
@@ -20,11 +21,9 @@ public class MainApplication extends Application {
 
         var fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 400);
-        stage.setTitle("Hello!");
-//        stage.getIcons().add(new Image("css.base.png"));// icon
+        scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         stage.setScene(scene);
-
         stage.show();
 
         mainStage = stage;
