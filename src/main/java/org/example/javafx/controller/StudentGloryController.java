@@ -53,8 +53,6 @@ public class StudentGloryController {
     @FXML
     private TabPane editTabPane;
 
-    @FXML
-    private TextArea editTextArea;
 
     @FXML
     private AnchorPane gloryAnchorPane;
@@ -112,9 +110,6 @@ public class StudentGloryController {
     private void onAddButtonClick(ActionEvent event) {
         onCancelClick();
         editTabPane.setVisible(true);
-        editTextArea.setVisible(true);
-        editTextArea.setEditable(false);
-        editTextArea.setDisable(true);
         editConfirmButton.setText("增加荣誉");
         onQueryButtonClick();
     }
@@ -152,9 +147,6 @@ public class StudentGloryController {
         Map selected = dataTableView.getSelectionModel().getSelectedItem();
         editConfirmButton.setText("修改荣誉");
         editTabPane.setVisible(true);
-        editTextArea.setVisible(true);
-        editTextArea.setEditable(false);
-        editTextArea.setDisable(true);
         if (selected != null) {
             DataRequest dataRequest = new DataRequest();
             String student_name = CommonMethod.getString(selected, "student_name");
@@ -377,7 +369,6 @@ public class StudentGloryController {
         gloryLevelColumn.setCellValueFactory(new MapValueFactory<>("glory_level"));
 
         editTabPane.setVisible(false);
-        editTextArea.setVisible(false);
 
         DataRequest dataRequest = new DataRequest();
         List studentList = new ArrayList();
