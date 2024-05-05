@@ -119,6 +119,9 @@ public class StudentTableController {
 
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
         List<Map> studentList = (List<Map>) studentResult.getData();
+        if (studentList == null || studentList.isEmpty()) {
+            return;
+        }
         tableView.setItems(FXCollections.observableList(studentList));
         save.setDisable(true);
         save.setOpacity(0.5);

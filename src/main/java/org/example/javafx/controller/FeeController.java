@@ -80,17 +80,18 @@ public class FeeController {
 
     @FXML
     public void onAddButtonClick() {
-        Stage stage=new Stage();
-        FXMLLoader fxmlLoader=new FXMLLoader();
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/org/example/javafx/fee-add.fxml"));
         try {
-            Parent parent=fxmlLoader.load();
-            Map map=new HashMap();
-            map.put("id",String.valueOf(feeList.size()));
-            FeeAddController feeAddController=fxmlLoader.getController();
+            Parent parent = fxmlLoader.load();
+            Map map = new HashMap();
+            map.put("id", String.valueOf(feeList.size()));
+            FeeAddController feeAddController = fxmlLoader.getController();
             feeAddController.initialize(map);
             stage.setScene(new Scene(parent));
             stage.setTitle("添加学生费用信息");
+            stage.setResizable(false);
             stage.showAndWait();
             onQueryButtonClick();
         } catch (IOException e) {
@@ -102,17 +103,17 @@ public class FeeController {
     @FXML
     public void onDeleteButtonClick() {
         List<Map> selected = dataTableView.getSelectionModel().getSelectedItems();
-        if(selected.size()==0){
-            Alert alert= new Alert(Alert.AlertType.INFORMATION);
+        if (selected.size() == 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("提示");
             alert.setContentText("请先选择要删除的数据");
             alert.showAndWait();
-        }else{
-            String msg=CommonMethod.alertButton("删除");
-            if (msg=="确定") {
+        } else {
+            String msg = CommonMethod.alertButton("删除");
+            if (msg == "确认") {
                 for (Map feeMap : selected) {
                     DataRequest dataRequest = new DataRequest();
-                    dataRequest.add("id",feeMap.get("id"));
+                    dataRequest.add("id", feeMap.get("id"));
                     HttpRequestUtils.request("/fee/deleteFee", dataRequest);
                 }
                 onQueryButtonClick();
