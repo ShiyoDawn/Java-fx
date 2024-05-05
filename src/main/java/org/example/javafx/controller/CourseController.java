@@ -367,6 +367,7 @@ public class CourseController {
             newStage.initStyle(StageStyle.DECORATED);
             newStage.setTitle("添加课程界面");
             newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
