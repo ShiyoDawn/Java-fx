@@ -57,6 +57,12 @@ public class FeeAddController {
 
     @FXML
     private void onApplyButtonClick() {
+        if(studentNameTextField.getText()==""||studentNumTextField.getText()==""||dateTextField.getText()==""||moneyTextField.getText()==""||activityTextField.getText()==""||activityDetailTextField.getText()==""){
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("请填写完整信息");
+            alert.showAndWait();
+            return;
+        }
         String msg= CommonMethod.alertButton("提交");
         if(msg=="确认"){
             DataRequest dataRequest=new DataRequest();
@@ -93,5 +99,11 @@ public class FeeAddController {
         // TODO
         idTextField.setVisible(false);
         idTextField.setText(map.get("id").toString());
+        studentNameTextField.setText("");
+        studentNumTextField.setText("");
+        dateTextField.setText("");
+        moneyTextField.setText("");
+        activityTextField.setText("");
+        activityDetailTextField.setText("");
     }
 }

@@ -110,8 +110,8 @@ public class ActivityController {
         cActivity_typeColumn.setCellValueFactory(new MapValueFactory<>("activity_type_id"));
         cComboBox.getItems().addAll("姓名", "活动类型", "日期", "分数", "活动名称");
         Result result = HttpRequestUtils.request("/evaluate/getEvaluateList", new DataRequest());
-        List<Map> list = (List<Map>) result.getData();
-        cTableView.setItems(FXCollections.observableList(list));
+        /*List<Map> list = (List<Map>) result.getData();
+        cTableView.setItems(FXCollections.observableList(list));*/
     }
     @FXML
     void onCAddButtonClickAction(ActionEvent event) {
