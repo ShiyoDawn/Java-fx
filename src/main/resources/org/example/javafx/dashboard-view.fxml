@@ -2,7 +2,6 @@
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -31,7 +30,7 @@
                         <Tab text="事务进度" />
                     </tabs>
                 </TabPane>
-                <ComboBox fx:id="comboBoxWeek" layoutX="420" layoutY="40" prefWidth="130" promptText="请选择周数">
+                <ComboBox fx:id="comboBoxWeek" editable="true" layoutX="493.0" layoutY="40.0" prefWidth="130" promptText="请选择周数">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="第1周" />
@@ -56,7 +55,7 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <ComboBox fx:id="comboBoxTerm" layoutX="250" layoutY="40" prefWidth="130" promptText="请选择学期">
+                <ComboBox fx:id="comboBoxTerm" editable="true" layoutX="305.0" layoutY="40.0" prefWidth="130" promptText="请选择学期">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="2023-2024-1" />
@@ -64,8 +63,8 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Button fx:id="selectCourseSheet" layoutX="585" layoutY="40" onAction="#select" text="查询" />
-                <GridPane fx:id="gridPane"  layoutX="20" layoutY="80" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="625.0" stylesheets="@./css/timeTable.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<!--                <Button fx:id="selectCourseSheet" layoutX="585" layoutY="40" onAction="#select" text="查询" />-->
+                <GridPane fx:id="gridPane" layoutX="20" layoutY="80" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="625.0" stylesheets="@./css/timeTable.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" prefWidth="65" />
                         <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />

@@ -100,19 +100,19 @@ public class ActivityController {
     @FXML
     private TableView cTableView;
 
-    @FXML
-    public void initialize() {
-        cIdColumn.setCellValueFactory(new MapValueFactory<>("id"));
-        cNameColumn.setCellValueFactory(new MapValueFactory<>("person_name"));
-        cActivity_nameColumn.setCellValueFactory(new MapValueFactory<>("activity_name"));
-        cDateColumn.setCellValueFactory(new MapValueFactory<>("date"));
-        cScoreColumn.setCellValueFactory(new MapValueFactory<>("score"));
-        cActivity_typeColumn.setCellValueFactory(new MapValueFactory<>("activity_type_id"));
-        cComboBox.getItems().addAll("姓名", "活动类型", "日期", "分数", "活动名称");
-        Result result = HttpRequestUtils.request("/evaluate/getEvaluateList", new DataRequest());
-        List<Map> list = (List<Map>) result.getData();
-        cTableView.setItems(FXCollections.observableList(list));
-    }
+//    @FXML
+//    public void initialize() {
+//        cIdColumn.setCellValueFactory(new MapValueFactory<>("id"));
+//        cNameColumn.setCellValueFactory(new MapValueFactory<>("person_name"));
+//        cActivity_nameColumn.setCellValueFactory(new MapValueFactory<>("activity_name"));
+//        cDateColumn.setCellValueFactory(new MapValueFactory<>("date"));
+//        cScoreColumn.setCellValueFactory(new MapValueFactory<>("score"));
+//        cActivity_typeColumn.setCellValueFactory(new MapValueFactory<>("activity_type_id"));
+//        cComboBox.getItems().addAll("姓名", "活动类型", "日期", "分数", "活动名称");
+//        Result result = HttpRequestUtils.request("/evaluate/getEvaluateList", new DataRequest());
+//        List<Map> list = (List<Map>) result.getData();
+//        cTableView.setItems(FXCollections.observableList(list));
+//    }
     @FXML
     void onCAddButtonClickAction(ActionEvent event) {
 
