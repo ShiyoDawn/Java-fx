@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="331.0" prefWidth="546.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="org.example.javafx.controller.FeeAddController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="101.66664632161458" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="483.99999237060547" minWidth="0.0" prefWidth="125.00002034505206" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="483.99999237060547" minWidth="10.0" prefWidth="61.333353678385436" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="483.99999237060547" minWidth="10.0" prefWidth="83.66666666666669" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="483.99999237060547" minWidth="10.0" prefWidth="106.66666666666669" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="483.99999237060547" minWidth="10.0" prefWidth="69.333251953125" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="129.33334350585938" minHeight="10.0" prefHeight="98.66666666666667" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="212.999989827474" minHeight="10.0" prefHeight="72.99997965494792" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="299.00002034505206" minHeight="10.0" prefHeight="90.33331298828125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="240.6666768391927" minHeight="10.0" prefHeight="71.66668701171875" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="姓名：" textAlignment="RIGHT" wrappingWidth="94.24023246765137">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <TextField fx:id="studentNameTextField" prefHeight="23.0" prefWidth="137.0" GridPane.columnIndex="1" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="学号：" textAlignment="RIGHT" wrappingWidth="80.66674423217773" GridPane.columnIndex="3">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+       <TextField fx:id="idTextField" prefHeight="23.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+       <TextField fx:id="studentNumTextField" prefHeight="23.0" prefWidth="167.0" GridPane.columnIndex="4" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="日期：" textAlignment="RIGHT" wrappingWidth="94.240234375" GridPane.rowIndex="1">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <TextField fx:id="dateTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="moneyTextField" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <TextArea fx:id="activityDetailTextField" prefHeight="92.0" prefWidth="99.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="支出 / 收入明细：" textAlignment="RIGHT" wrappingWidth="80.90673828125" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="支出 / 收入：" wrappingWidth="95.573486328125" GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="活动：" textAlignment="RIGHT" wrappingWidth="90.00006103515625" GridPane.rowIndex="2">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="activityTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button fx:id="applyButton" mnemonicParsing="false" onAction="#onApplyButtonClick" prefHeight="36.0" prefWidth="62.0" text="提交" textFill="#e62121" underline="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="38.0" prefWidth="65.0" text="重置" textFill="#312c2c" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="34.0" prefWidth="65.0" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</GridPane>
