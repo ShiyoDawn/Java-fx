@@ -91,6 +91,7 @@ public class FeeController {
             feeAddController.initialize(map);
             stage.setScene(new Scene(parent));
             stage.setTitle("添加学生费用信息");
+            stage.setResizable(false);
             stage.showAndWait();
             onQueryButtonClick();
         } catch (IOException e) {

@@ -57,8 +57,6 @@ public class ScoreTableController {
     @FXML
     private TableColumn<Map, String> markColumn;
 
-    @FXML
-    private TableColumn<Map, Button> operateColumn;
 
     @FXML
     private ComboBox studentComboBox;
@@ -77,8 +75,6 @@ public class ScoreTableController {
 
     @FXML
     private TextField markUpdateTextField;
-    @FXML
-    private TextArea editTextArea;
 
     @FXML
     private Button addButton;
@@ -125,9 +121,6 @@ public class ScoreTableController {
     private void onAddButtonClick(ActionEvent event) {
         onCancelClick();
         editTabPane.setVisible(true);
-        editTextArea.setVisible(true);
-        editTextArea.setEditable(false);
-        editTextArea.setDisable(true);
         editConfirmButton.setText("增加分数");
         onQueryButtonClick();
         //onResetButtonClick();
@@ -180,9 +173,6 @@ public class ScoreTableController {
         Map selected = dataTableView.getSelectionModel().getSelectedItem();
         editConfirmButton.setText("修改分数");
         editTabPane.setVisible(true);
-        editTextArea.setVisible(true);
-        editTextArea.setEditable(false);
-        editTextArea.setDisable(true);
         if (selected != null) {
             DataRequest dataRequest = new DataRequest();
             String student_num = CommonMethod.getString(selected, "student_num");
@@ -602,7 +592,6 @@ public class ScoreTableController {
         markColumn.setCellValueFactory(new MapValueFactory<>("mark"));
 
         editTabPane.setVisible(false);
-        editTextArea.setVisible(false);
 
 
         DataRequest req = new DataRequest();
