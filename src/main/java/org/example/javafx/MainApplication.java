@@ -20,12 +20,11 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
 
         var fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 650, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 670, 440);
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         stage.setScene(scene);
         stage.show();
-
         mainStage = stage;
 
     }

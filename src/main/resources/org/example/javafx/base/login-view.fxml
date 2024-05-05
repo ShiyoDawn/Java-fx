@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainBox" stylesheets="@../css/login.css" alignment="CENTER" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.LoginController">
-    <HBox fx:id="header" prefHeight="8.0" prefWidth="341.0">
-        <Label prefHeight="34.0" prefWidth="708.0" text="                                                                                                           " />
-        <Button prefHeight="23.0" prefWidth="40.0" />
+<VBox fx:id="mainBox" alignment="CENTER" prefHeight="436.0" prefWidth="692.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.LoginController">
+    <HBox fx:id="header" prefHeight="70.0" prefWidth="692.0">
+        <Label prefHeight="75.0" prefWidth="676.0" text="                                                                                                           " />
+        <Button fx:id="closeButton" text="X" prefHeight="23.0" prefWidth="40.0" />
     </HBox>
     <HBox>
         <Label prefHeight="339.0" prefWidth="361.0">
