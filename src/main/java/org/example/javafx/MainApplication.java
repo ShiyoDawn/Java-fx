@@ -3,9 +3,9 @@ package org.example.javafx;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import lombok.Data;
-
+import javafx.stage.StageStyle;
 import java.io.IOException;
 
 
@@ -18,16 +18,15 @@ public class MainApplication extends Application {
     private static boolean canClose=true;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+
+        var fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 670, 440);
+        scene.setFill(Color.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         stage.setScene(scene);
         stage.show();
         mainStage = stage;
-    }
 
-    public static void main(String[] args) {
-        launch();
     }
 
     public static void resetStage(String name, Scene scene) {
@@ -36,11 +35,12 @@ public class MainApplication extends Application {
             mainStage.setHeight(stageHeight);
             mainStage.setX(200);
             mainStage.setY(80);
+            mainStage.setTitle("教务管理系统");// 标题
+            scene.setFill(null);
+            mainStage.setScene(scene);
+            mainStage.show();
         }
-        mainStage.setTitle(name);
-        mainStage.setScene(scene);
-        mainStage.setResizable(false);
-        mainStage.show();
+
     }
     public static void setCanClose(boolean canClose) {
         MainApplication.canClose = canClose;

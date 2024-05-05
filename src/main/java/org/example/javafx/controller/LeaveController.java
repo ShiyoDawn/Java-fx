@@ -407,7 +407,7 @@ public class LeaveController {
             dataRequest.add("id",id);
             dataRequest.add("status",msg[0]);
             HttpRequestUtils.request("/leave/updateStatus",dataRequest);
-            onResetButtonClick();
+            onQueryButtonClick();
         }else if(selected.size()>1){
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);

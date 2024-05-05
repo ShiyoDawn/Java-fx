@@ -11,8 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ActivityController">
    <children>
       <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -20,14 +19,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="cAddButton" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" text="增加" />
-                        <Button fx:id="cDeleteButton" layoutX="170.0" layoutY="15.0" mnemonicParsing="false" text="删除" />
-                        <Button fx:id="cUpdateButton" layoutX="270.0" layoutY="15.0" mnemonicParsing="false" text="修改" />
+                        <Button fx:id="cAddButton" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCAddButtonClickAction" text="增加" />
+                        <Button fx:id="cDeleteButton" layoutX="170.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCDeleteButtonClickAction" text="删除" />
+                        <Button fx:id="cUpdateButton" layoutX="270.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCUpdateButtonClickAction" text="修改" />
                         <ScrollPane layoutY="65.0" prefHeight="569.0" prefWidth="1080.0">
                           <content>
                             <AnchorPane layoutY="60.0" minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="1800.0">
                                  <children>
-                                    <TableView prefHeight="900.0" prefWidth="1800.0">
+                                    <TableView fx:id="cTableView" prefHeight="900.0" prefWidth="1800.0">
                                       <columns>
                                         <TableColumn fx:id="cIdColumn" prefWidth="53.333346009254456" text="序号" />
                                           <TableColumn fx:id="cNameColumn" prefWidth="75.99996948242188" text="姓名" />
@@ -42,10 +41,10 @@
                           </content>
                         </ScrollPane>
                         <TextField fx:id="cTextField" layoutX="700.0" layoutY="8.0" />
-                        <CheckBox fx:id="cFuzzySearchCheckBox" layoutX="700.0" layoutY="40.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="模糊搜索" />
-                        <Button fx:id="cResetButton" layoutX="950.0" layoutY="15.0" mnemonicParsing="false" text="重置" />
-                        <ComboBox fx:id="cComboBox" layoutX="555.0" layoutY="20.0" prefHeight="27.0" prefWidth="135.0" />
-                        <Button fx:id="cSearchButton" layoutX="860.0" layoutY="15.0" mnemonicParsing="false" text="搜索" />
+                        <CheckBox fx:id="cFuzzySearchCheckBox" layoutX="700.0" layoutY="40.0" mnemonicParsing="false" onAction="#onCFuzzySearchCheckBoxAction" prefHeight="20.0" prefWidth="100.0" text="模糊搜索" />
+                        <Button fx:id="cResetButton" layoutX="950.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCResetAction" text="重置" />
+                        <ComboBox fx:id="cComboBox" layoutX="555.0" layoutY="20.0" onAction="#onCComboBoxAction" prefHeight="27.0" prefWidth="135.0" />
+                        <Button fx:id="cSearchButton" layoutX="860.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCSearchButtonClickAction" text="搜索" />
                      </children>
                   </AnchorPane>
             </content>
@@ -77,7 +76,7 @@
                         <Button fx:id="dDeleteButton" layoutX="170.0" layoutY="15.0" mnemonicParsing="false" text="删除" />
                         <Button fx:id="dResetButton" layoutX="950.0" layoutY="15.0" mnemonicParsing="false" text="重置" />
                         <TextField fx:id="dTextField" layoutX="700.0" layoutY="8.0" />
-                        <CheckBox fx:id="dFuzzySearchCheckBox" layoutX="700.0" layoutY="38.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="模糊搜索" />
+                        <CheckBox fx:id="dFuzzySearchCheckBox" layoutX="700.0" layoutY="40.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="模糊搜索" />
                         <ComboBox fx:id="dComboBox" layoutX="555.0" layoutY="20.0" prefWidth="135.0" />
                         <Button fx:id="dSearchiButton" layoutX="860.0" layoutY="15.0" mnemonicParsing="false" text="搜索" />
                      </children>

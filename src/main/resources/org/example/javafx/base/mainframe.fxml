@@ -4,20 +4,32 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
    <top>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/menu.css" BorderPane.alignment="CENTER">
-         <items>
-            <Label fx:id="userLabel" prefHeight="33.0" prefWidth="86.0" text="ADMIN/admin" />
-            <Label prefHeight="15.0" prefWidth="216.0" text="                                           快捷跳转" />
-            <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
-            <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Button" />
-         </items>
-      </ToolBar>
+      <VBox>
+         <HBox fx:id="header" alignment="TOP_RIGHT">
+            <children>
+               <Button fx:id="minButton" prefHeight="23.0" prefWidth="29.0" text="—">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Button>
+               <Button fx:id="closeButton" prefHeight="25.0" prefWidth="20.0" text="X"> </Button>
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label fx:id="userLabel" prefHeight="33.0" prefWidth="86.0" text="ADMIN/admin" />
+               <Label prefHeight="15.0" prefWidth="216.0" text="                                           快捷跳转" />
+               <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
+               <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="查询页面" />
+            </children>
+         </HBox>
+      </VBox>
    </top>
    <bottom>
       <Label fx:id="statueLabel" prefHeight="15.0" prefWidth="690.0" text="加载中" BorderPane.alignment="TOP_LEFT" />
@@ -29,18 +41,8 @@
          </opaqueInsets>
          <children>
             <Button fx:id="dashBoardButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="仪表盘" />
-            <Button fx:id="courseCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="课程管理" />
-            <Button fx:id="studentCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="学生管理" />
-            <Button fx:id="activityCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="实践活动" />
-            <Button fx:id="userCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="用户中心" />
-            <Button fx:id="scoreCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="分数管理" />
-            <Button fx:id="gloryCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="荣誉管理" />
-            <Button fx:id="leaveCenterButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="请假管理" />
-            <VBox alignment="BOTTOM_CENTER" prefHeight="170.0" prefWidth="100.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="设置" />
-               </children>
-            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="170.0" prefWidth="100.0" />
+            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="设置" />
          </children></VBox>
    </left>
 

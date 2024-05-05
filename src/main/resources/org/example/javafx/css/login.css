@@ -1,0 +1,5 @@
+#mainBox {
+    -fx-background-image: url(loginBackground.jpg);
+    fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}

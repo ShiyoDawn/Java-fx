@@ -23,28 +23,28 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentTableController">
    <children>
-      <TabPane prefHeight="690.0" prefWidth="1080.0" style="-fx-background-color: #FFFAF0;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="学生管理">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #8B8989;">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
                      <children>
-                        <Button fx:id="add" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="新增" textFill="#fff300">
+                        <Button fx:id="add" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="新增" >
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="delete" layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#deleteStudentButtonClick" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="删除" textFill="#fff300">
+                        <Button fx:id="delete" layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#deleteStudentButtonClick" prefHeight="23.0" prefWidth="83.0"  text="删除" >
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" onAction="#updateStudentAction" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #72aaae;" text="修改" textFill="#fff300">
+                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" onAction="#updateStudentAction" prefHeight="23.0" prefWidth="83.0" >
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：" textFill="#fff300">
+                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：" >
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -153,7 +153,7 @@
                               </VBox>
                           </items>
                         </SplitPane>
-                        <CheckBox fx:id="fuzzySearch" layoutX="810.0" layoutY="28.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" textFill="#fff300" />
+                        <CheckBox fx:id="fuzzySearch" layoutX="810.0" layoutY="28.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" />
                         <ComboBox fx:id="selectChoiceComboBox" layoutX="543.0" layoutY="24.0" onAction="#onSelectChoiceComboBoxAction" prefHeight="23.0" prefWidth="91.0" promptText="查询类别" />
                         <Button fx:id="resetButton" layoutX="938.0" layoutY="24.0" mnemonicParsing="false" onAction="#onResetAction" text="重置" />
                      </children>
