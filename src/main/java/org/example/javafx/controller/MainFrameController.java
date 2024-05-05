@@ -18,6 +18,7 @@ import org.example.javafx.pojo.Course;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
+import org.example.javafx.util.ElementsTool;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +38,10 @@ public class MainFrameController {
     Label userLabel;
     @FXML
     VBox vBox = new VBox(5);
+
+    @FXML Button minButton;
+
+    @FXML Button closeButton;
 
     @FXML
     ComboBox searchBox;
@@ -67,6 +72,10 @@ public class MainFrameController {
         userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
         setTabChange(dashBoardButton, "dashboard-view.fxml");
         stageMove();
+
+        ElementsTool tool = new ElementsTool();
+        tool.setCloseButton(closeButton);
+        tool.setMinButton(minButton);
 
 
         //初始化页面切换

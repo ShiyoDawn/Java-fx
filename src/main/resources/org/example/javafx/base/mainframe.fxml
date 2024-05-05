@@ -7,15 +7,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1214.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
    <top>
       <VBox>
-         <HBox fx:id="header">
+         <HBox fx:id="header" alignment="TOP_RIGHT">
             <children>
-               <Label prefHeight="26.0" prefWidth="1168.0" text="                                                                                                                                                                                            " />
-               <Button> </Button>
-               <Button> </Button>
+               <Button fx:id="minButton" prefHeight="23.0" prefWidth="29.0" text="—">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Button>
+               <Button fx:id="closeButton" prefHeight="25.0" prefWidth="20.0" text="X"> </Button>
             </children>
          </HBox>
          <HBox>

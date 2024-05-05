@@ -4,16 +4,19 @@ import com.google.gson.Gson;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
@@ -21,6 +24,7 @@ import org.example.javafx.pojo.Result;
 import org.example.javafx.pojo.User;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.request.LoginRequest;
+import org.example.javafx.util.ElementsTool;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
@@ -32,12 +36,17 @@ public class LoginController {
 
     @FXML
     HBox header;
+    @FXML
+    public Button closeButton;
+
 
     @FXML
     private TextField user;
 
     @FXML
     private PasswordField passwordField;
+
+
 
     @FXML
     protected void onLoginButtonClick() throws IOException {
@@ -70,6 +79,7 @@ public class LoginController {
 
     public void initialize() {
 
+        //header移动初始化
         header.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent m) {
                 //计算
@@ -89,6 +99,8 @@ public class LoginController {
                 y_stage = MainApplication.getMainStage().getY();
             }
         });
+        ElementsTool tool = new ElementsTool();
+        tool.setCloseButton(closeButton);
     }
 
 
