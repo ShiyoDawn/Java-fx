@@ -350,6 +350,7 @@ public class LeaveController {
         }else if(selected.size()==1){
             final String[] msg = new String[1];
             Stage primaryStage=new Stage();
+            primaryStage.setResizable(false);
             Button passButton = new Button("通过");
             Button failButton = new Button("不通过");
             Button cancelButton = new Button("取消");
@@ -377,6 +378,10 @@ public class LeaveController {
             cancelButton.setOnAction(c->{
                 msg[0]=CommonMethod.getString(selected.get(0),"status");
                 primaryStage.close();
+            });
+
+            primaryStage.setOnCloseRequest(e -> {
+                msg[0]=CommonMethod.getString(selected.get(0),"status");
             });
 
             failButton.setOnAction(f->{
@@ -474,7 +479,17 @@ public class LeaveController {
             majorTextField.setText(map.get("major").toString());
             studentIdTextField.setDisable(true);
             studentNameTextField.setDisable(true);
+            studentInfoTextField.setDisable(true);
             majorTextField.setDisable(true);
+
+            checkButton.setVisible(false);
+            queryButton.setVisible(false);
+            resetViewButton.setVisible(false);
+            studentInfoTextField.setVisible(false);
+
+            checkButton.setDisable(true);
+            queryButton.setDisable(true);
+            resetViewButton.setDisable(true);
         }else{
             applyTab.setText("仅学生需填写");
             applyTab.setDisable(true);

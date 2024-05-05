@@ -60,7 +60,7 @@
                                                           <TableColumn fx:id="markColumn" minWidth="0.0" prefWidth="102.666748046875" text="成绩" />
                                                       </columns>
                                                   </TableView>
-                                                <TabPane fx:id="editTabPane" layoutX="794.0" prefHeight="592.0" prefWidth="267.0" tabClosingPolicy="UNAVAILABLE">
+                                                <TabPane fx:id="editTabPane" layoutX="794.0" prefHeight="611.0" prefWidth="267.0" tabClosingPolicy="UNAVAILABLE">
                                                     <tabs>
                                                         <Tab text="编辑窗口">
                                                             <content>
