@@ -21,8 +21,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import lombok.Data;
+import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
+import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.util.CommonMethod;
@@ -425,6 +427,7 @@ public class LeaveController {
 
     @FXML
     private void initialize() {
+        User user= AppStore.getUser();
         idColumn.setCellValueFactory(new MapValueFactory<>("id"));
         studentNumColumn.setCellValueFactory(new MapValueFactory("student_num"));  //设置列值工程属性
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
@@ -454,6 +457,28 @@ public class LeaveController {
             }
         });
         studentInfoTextField.setPromptText("请输入学号或姓名");
+
+        //以下是学生信息相关;
+        if(user.getUser_type_id()==3){
+            String person_num=user.getPerson_num();
+            //以下是根据学生信息来填入请假界面信息的;
+            DataRequest dataRequest=new DataRequest();
+            dataRequest.add("person_num",person_num);
+            Result result=HttpRequestUtils.request("/person/selectByPersonNum",dataRequest);
+            Map map=(Map) result.getData();
+            studentIdTextField.setText(map.get("person_num").toString());
+            dataRequest.add("person_id",Integer.parseInt(map.get("id").toString().split("\\.")[0]));
+            result=HttpRequestUtils.request("/student/selectStudentByPid",dataRequest);
+            map=(Map) result.getData();
+            studentNameTextField.setText(map.get("student_name").toString());
+            majorTextField.setText(map.get("major").toString());
+            studentIdTextField.setDisable(true);
+            studentNameTextField.setDisable(true);
+            majorTextField.setDisable(true);
+        }else{
+            applyTab.setText("仅学生需填写");
+            applyTab.setDisable(true);
+        }
         //以下是申请界面的;
         goOutTypeComboBox.setValue("请选择请假类型");
         reasonComboBox.setValue("请选择请假事由");
