@@ -191,7 +191,7 @@
             <Label fx:id="degreeLabel" alignment="CENTER" prefHeight="20.0" prefWidth="200.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
-      <TextArea fx:id="personal_profileLabel" layoutX="450.0" layoutY="400.0" prefHeight="200.0" prefWidth="300.0" promptText="请输入个人简介" />
+      <TextArea fx:id="personal_profileTextArea" layoutX="450.0" layoutY="400.0" prefHeight="200.0" prefWidth="300.0" promptText="请输入个人简介" />
       <Label layoutX="450.0" layoutY="373.0" text="个人简介">
          <font>
             <Font size="15.0" />
