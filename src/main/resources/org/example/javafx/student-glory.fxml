@@ -21,7 +21,7 @@
             <children>
                 <TabPane fx:id="tabpane" layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                        <Tab text="学生荣誉管理">
+                        <Tab fx:id="viewTab" text="学生荣誉管理">
                             <content>
                                 <AnchorPane fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
                                     <children>

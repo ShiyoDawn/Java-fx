@@ -79,6 +79,9 @@ public class FeeController {
     @FXML
     private AnchorPane anchor;
 
+    @FXML
+    private Tab viewTab;
+
     //-----------------------------------
     private List<Map> feeList;
 
@@ -228,6 +231,9 @@ public class FeeController {
         studentComboBox.setEditable(true);
         User user = AppStore.getUser();
         if (user.getUser_type_id() == 3) {
+
+            viewTab.setText("我的生活学习消费");
+
             addButton.setVisible(false);
             deleteButton.setVisible(false);
             studentComboBox.setVisible(false);

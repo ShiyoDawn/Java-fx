@@ -488,12 +488,17 @@ public class LeaveController {
 
         //以下是学生信息相关;
         if(user.getUser_type_id()==3){
+
+            viewTab.setText("我的请假");
+            applyTab.setText("请假申请");
+
             String person_num=user.getPerson_num();
             //以下是根据学生信息来填入请假界面信息的;
             DataRequest dataRequest=new DataRequest();
             dataRequest.add("person_num",person_num);
             Result result=HttpRequestUtils.request("/person/selectByPersonNum",dataRequest);
             Map map=(Map) result.getData();
+            instituteTextField.setText(map.get("department").toString());
             studentIdTextField.setText(map.get("person_num").toString());
             dataRequest.add("person_id",Integer.parseInt(map.get("id").toString().split("\\.")[0]));
             result=HttpRequestUtils.request("/student/selectStudentByPid",dataRequest);
@@ -504,6 +509,7 @@ public class LeaveController {
             studentNameTextField.setDisable(true);
             studentInfoTextField.setDisable(true);
             majorTextField.setDisable(true);
+            instituteTextField.setDisable(true);
             idColumn.setVisible(false);
 
             checkButton.setVisible(false);
@@ -532,7 +538,7 @@ public class LeaveController {
             three.setLayoutY(24);
             three.setStrokeType(StrokeType.OUTSIDE);
             three.setStrokeWidth(0.0);
-            three.setWrappingWidth(210.0);
+            three.setWrappingWidth(230.0);
 
         }else{
             applyTab.setText("仅学生需填写");
