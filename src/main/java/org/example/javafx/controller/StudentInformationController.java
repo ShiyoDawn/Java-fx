@@ -90,7 +90,7 @@ public class StudentInformationController {
     private Label person_nameLabel;
 
     @FXML
-    private TextArea personal_profileLabel;
+    private TextArea personal_profileTextArea;
 
     @FXML
     private Label phone_numberLabel;
@@ -107,35 +107,54 @@ public class StudentInformationController {
         Result studentResult = HttpRequestUtils.request("/student/getStudentInfo", req);
         if (studentResult != null && studentResult.getCode() == 200) {
             Map<String, Object> studentInfo = (Map<String, Object>) studentResult.getData();
-            person_idLabel.setText((String)studentInfo.get("person_num"));
-            person_nameLabel.setText((String) studentInfo.get("student_name"));
-            genderLabel.setText((String) studentInfo.get("gender"));
-            birthdayLabel.setText((String) studentInfo.get("birthday"));
-            identityLabel.setText((String) studentInfo.get("identity"));
-            identity_numberLabel.setText((String) studentInfo.get("identity_number"));
-            phone_numberLabel.setText((String) studentInfo.get("phone_number"));
-            emailLabel.setText((String) studentInfo.get("email"));
+            person_idLabel.setText((String)studentInfo.get("person_num"));//1
+            person_nameLabel.setText((String) studentInfo.get("student_name"));//1
+            genderLabel.setText((String) studentInfo.get("gender"));//1
+            birthdayLabel.setText((String) studentInfo.get("birthday"));//1
+            identityLabel.setText((String) studentInfo.get("identity"));//1
+            identity_numberLabel.setText((String) studentInfo.get("identity_number"));//1
+            phone_numberLabel.setText((String) studentInfo.get("phone_number"));//1
+            emailLabel.setText((String) studentInfo.get("email"));//1
             //admission_dateLabel.setText((String) studentInfo.get("admission_date"));
-            //collegeLabel.setText((String) studentInfo.get("college"));
-            majorLabel.setText((String) studentInfo.get("major"));
-            classLabel.setText((String) studentInfo.get("class"));
-            degreeLabel.setText((String) studentInfo.get("degree"));
+            collegeLabel.setText((String) studentInfo.get("department"));//1
+            majorLabel.setText((String) studentInfo.get("major"));//1
+            classLabel.setText((String) studentInfo.get("classes"));//1
+            degreeLabel.setText((String) studentInfo.get("grade"));//1
             //GPALabel.setText(studentInfo.get("GPA").toString());
-            //personal_profileLabel.setText((String) studentInfo.get("personalProfile"));
-            List<Map<String, Object>> studentFamilies = (List<Map<String, Object>>) studentInfo.get("studentFamilies");
+            List<Map<String, String>> studentFamilies = (List<Map<String, String>>) studentInfo.get("studentFamilies");
             if (studentFamilies != null && !studentFamilies.isEmpty()) {
-                Map<String, Object> firstFamilyMember = studentFamilies.get(0); // 假设只取第一个家庭成员信息
-                father_nameLabel.setText((String) firstFamilyMember.get("name"));
-                father_phone_numberLabel.setText((String) firstFamilyMember.get("phone"));
-                father_workLabel.setText((String) firstFamilyMember.get("job"));
-                addressLabel.setText((String) firstFamilyMember.get("address"));
-                if (studentFamilies.size() > 1) {
-                    Map<String, Object> secondFamilyMember = studentFamilies.get(1);
-                    mother_nameLabel.setText((String) secondFamilyMember.get("name"));
-                    mother_phone_numberLabel.setText((String) secondFamilyMember.get("phone"));
-                    mother_workLabel.setText((String) secondFamilyMember.get("job"));
+//                Map<String, Object> firstFamilyMember = studentFamilies.get(0); // 假设只取第一个家庭成员信息
+//                father_nameLabel.setText((String) firstFamilyMember.get("name"));
+//                father_phone_numberLabel.setText((String) firstFamilyMember.get("phone"));
+//                father_workLabel.setText((String) firstFamilyMember.get("job"));
+//                addressLabel.setText((String) firstFamilyMember.get("address"));
+//                if (studentFamilies.size() > 1) {
+//                    Map<String, Object> secondFamilyMember = studentFamilies.get(1);
+//                    mother_nameLabel.setText((String) secondFamilyMember.get("name"));
+//                    mother_phone_numberLabel.setText((String) secondFamilyMember.get("phone"));
+//                    mother_workLabel.setText((String) secondFamilyMember.get("job"));
+//                }
+                for (Map<String, String> familyMember : studentFamilies) {
+                    if ("父亲".equals(familyMember.get("relation"))) {
+                        father_nameLabel.setText((String) familyMember.get("name"));
+                        father_phone_numberLabel.setText((String) familyMember.get("phone"));
+                        father_workLabel.setText((String) familyMember.get("job"));
+                        addressLabel.setText((String) familyMember.get("address"));
+                    } else if ("母亲".equals(familyMember.get("relation"))) {
+                        mother_nameLabel.setText((String) familyMember.get("name"));
+                        mother_phone_numberLabel.setText((String) familyMember.get("phone"));
+                        mother_workLabel.setText((String) familyMember.get("job"));
+                        addressLabel.setText((String) familyMember.get("address"));
+                    }
                 }
             }
+            List<Map<String, String>> glories=(List<Map<String, String>>)studentInfo.get("glories");
+            String s="";
+            s=s+"小学："+(String) studentInfo.get("primary")+"\n"+"初中："+(String) studentInfo.get("junior")+"\n"+"高中："+(String) studentInfo.get("senior")+"\n"+"大学：山东大学"+"\n";
+            for (Map<String,String> m:glories){
+                s=s+"荣誉："+"\n"+m.get("glory_name")+","+m.get("glory_type")+","+m.get("glory_level")+"."+"\n";
+            }
+            personal_profileTextArea.setText(s);
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -158,7 +177,6 @@ public class StudentInformationController {
             e.printStackTrace();
         }
     }
-
     @FXML
     void onExitButtonAction() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
