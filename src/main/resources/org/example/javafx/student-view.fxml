@@ -27,24 +27,24 @@
         <tabs>
           <Tab text="学生管理">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="add" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="新增" >
+                        <Button fx:id="add" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="新增">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="delete" layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#deleteStudentButtonClick" prefHeight="23.0" prefWidth="83.0"  text="删除" >
+                        <Button fx:id="delete" layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#deleteStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="删除">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" onAction="#updateStudentAction" prefHeight="23.0" prefWidth="83.0" >
+                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" onAction="#updateStudentAction" prefHeight="23.0" prefWidth="83.0" text="修改">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：" >
+                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：">
                            <font>
                               <Font size="17.0" />
                            </font>
