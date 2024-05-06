@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" prefHeight="690.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseController">
     <TabPane prefHeight="690.0" prefWidth="980.0" tabClosingPolicy="UNAVAILABLE">
@@ -100,7 +101,10 @@
                             </ComboBox>
                                  <Button fx:id="add" layoutX="25.0" layoutY="18.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="56.0" prefWidth="71.0" text="增添课程">
                                                 </Button>
-                     <Label textFill="hotpink" layoutX="247.0" layoutY="611.0" prefHeight="50.0" prefWidth="365.0" text="双击课程可查看课程相关的详细信息" />
+                     <Label layoutX="154.0" layoutY="598.0" prefHeight="67.0" prefWidth="467.0" text="双击课程可查看课程相关的详细信息" textFill="hotpink">
+                        <font>
+                           <Font size="25.0" />
+                        </font></Label>
                         </children>
                     </AnchorPane>
                 </content>

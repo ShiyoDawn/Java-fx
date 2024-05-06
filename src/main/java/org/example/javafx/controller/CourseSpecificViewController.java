@@ -126,6 +126,7 @@ public class CourseSpecificViewController {
             newStage.initStyle(StageStyle.DECORATED);
             newStage.setTitle("成员");
             newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();

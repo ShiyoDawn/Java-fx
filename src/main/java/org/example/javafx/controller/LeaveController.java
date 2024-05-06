@@ -16,6 +16,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -60,7 +61,7 @@ public class LeaveController {
     private TableColumn<Map, String> destinationColumn;
 
     @FXML
-    private TextField destinationTextfield;
+    private TextField destinationTextField;
 
     @FXML
     private CheckBox finalCheckBox;
@@ -131,6 +132,18 @@ public class LeaveController {
 
     @FXML
     private TextField studentInfoTextField;
+
+    @FXML
+    private Text one;
+
+    @FXML
+    private Label two;
+
+    @FXML
+    private Text three;
+
+    @FXML
+    private Text four;
 
     //---------------------------------------------------------
     private List<Map> leaveList = new ArrayList<>();
@@ -211,7 +224,15 @@ public class LeaveController {
         studentInfoTextField.setText("");
         studentInfoTextField.setPromptText("请输入学号或姓名");
         Result result = new Result();
-        result = HttpRequestUtils.request("/leave/getLeaveList", new DataRequest());
+        result=HttpRequestUtils.request("/leave/getLeaveList",new DataRequest());
+        if(AppStore.getUser().getUser_type_id()==3) {
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("student_num", AppStore.getUser().getPerson_num());
+            result = HttpRequestUtils.request("/leave/selectByStudentNum", dataRequest);
+        }else{
+            result = HttpRequestUtils.request("/leave/getLeaveList", new DataRequest());
+        }
+        leaveList=(List<Map>) result.getData();
         setTableViewData(result);
     }
 
@@ -258,7 +279,7 @@ public class LeaveController {
         if (reasonTextField.getText() == "") {
             cnt++;
         }
-        if (destinationTextfield.getText() == "") {
+        if (destinationTextField.getText() == "") {
             cnt++;
         }
         if (!finalCheckBox.isSelected()) {
@@ -283,12 +304,11 @@ public class LeaveController {
             String msg = CommonMethod.alertButton("提交");
             if (msg == "确认") {
                 DataRequest dataRequest = new DataRequest();
-                dataRequest.add("id",leaveList.size()+1);
                 dataRequest.add("student_num", studentIdTextField.getText());
                 dataRequest.add("student_name", studentNameTextField.getText());
                 dataRequest.add("leave_type", goOutTypeComboBox.getSelectionModel().getSelectedItem().toString());
                 dataRequest.add("leave_reason", reasonComboBox.getSelectionModel().getSelectedItem().toString());
-                dataRequest.add("destination", destinationTextfield.getText());
+                dataRequest.add("destination", destinationTextField.getText());
                 dataRequest.add("time", goOutDatePicker.getValue().toString() + "~" + comeBackDatePicker.getValue().toString());
                 dataRequest.add("status", "[未处理]*");
                 dataRequest.add("age",ageTextField.getText());
@@ -303,6 +323,7 @@ public class LeaveController {
                 System.out.println(dataRequest.getData());
                 HttpRequestUtils.request("/leave/insertLeave", dataRequest);
                 onResetButtonClick();
+                onResetViewButtonClick();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -317,15 +338,17 @@ public class LeaveController {
         reasonComboBox.setValue("请选择请假事由");
         goOutDatePicker.setValue(LocalDate.now());
         comeBackDatePicker.setValue(LocalDate.now());
-        studentIdTextField.setText("");
-        studentNameTextField.setText("");
+        if(AppStore.getUser().getUser_type_id()!=3){
+            studentIdTextField.setText("");
+            studentNameTextField.setText("");
+            majorTextField.setText("");
+        }
         studentTeleTextField.setText("");
         instituteTextField.setText("");
         instructorNameTextfield.setText("");
         instructorTeleTextField.setText("");
-        majorTextField.setText("");
         reasonTextField.setText("");
-        destinationTextfield.setText("");
+        destinationTextField.setText("");
         finalCheckBox.setSelected(false);
     }
 
@@ -350,6 +373,7 @@ public class LeaveController {
         }else if(selected.size()==1){
             final String[] msg = new String[1];
             Stage primaryStage=new Stage();
+            primaryStage.setResizable(false);
             Button passButton = new Button("通过");
             Button failButton = new Button("不通过");
             Button cancelButton = new Button("取消");
@@ -377,6 +401,10 @@ public class LeaveController {
             cancelButton.setOnAction(c->{
                 msg[0]=CommonMethod.getString(selected.get(0),"status");
                 primaryStage.close();
+            });
+
+            primaryStage.setOnCloseRequest(e -> {
+                msg[0]=CommonMethod.getString(selected.get(0),"status");
             });
 
             failButton.setOnAction(f->{
@@ -474,7 +502,36 @@ public class LeaveController {
             majorTextField.setText(map.get("major").toString());
             studentIdTextField.setDisable(true);
             studentNameTextField.setDisable(true);
+            studentInfoTextField.setDisable(true);
             majorTextField.setDisable(true);
+
+            checkButton.setVisible(false);
+            queryButton.setVisible(false);
+            resetViewButton.setVisible(false);
+            studentInfoTextField.setVisible(false);
+            one.setVisible(false);
+            two.setVisible(false);
+            //three.setVisible(false);
+            four.setVisible(false);
+
+            /*checkButton.setDisable(true);
+            queryButton.setDisable(true);
+            resetViewButton.setDisable(true);
+            one.setDisable(true);
+            two.setDisable(true);
+            three.setDisable(true);
+            four.setDisable(true);*/
+
+            dataTableView.setPrefHeight(616);
+            dataTableView.setLayoutY(32);
+
+            three.setText("提醒：双击可进入详情界面");
+            three.setLayoutX(41);
+            three.setLayoutY(24);
+            three.setStrokeType(StrokeType.OUTSIDE);
+            three.setStrokeWidth(0.0);
+            three.setWrappingWidth(210.0);
+
         }else{
             applyTab.setText("仅学生需填写");
             applyTab.setDisable(true);

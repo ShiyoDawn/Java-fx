@@ -27,8 +27,8 @@ public class DashboardController {
     BorderPane borderPane;
     @FXML
     MenuBar menuBar;
-    @FXML
-    Button selectCourseSheet;
+//    @FXML
+//    Button selectCourseSheet;
     @FXML
     ComboBox comboBoxTerm;
     @FXML
@@ -41,6 +41,24 @@ public class DashboardController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         addlabel(Integer.parseInt(getCurrentTime().get("week")), 1, getCurrentTime().get("terms"));
+        comboBoxTerm.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                select();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        comboBoxWeek.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                select();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     //添加课程表上的课程
@@ -82,11 +100,11 @@ public class DashboardController {
     private Map<String, String> selectData() {
         Map<String, String> map = new HashMap<>();
         String a = (String) comboBoxTerm.getValue();
-        if (a == null) {
+        if (a == null || (!(a.equals("2023-2024-1")) && !(a.equals("2023-2024-2")))) {
             return null;
         }
         String b = (String) comboBoxWeek.getValue();
-        if (b == null) {
+        if (b == null || (!(b.equals("第1周"))&&!(b.equals("第2周"))&&!(b.equals("第3周"))&&!(b.equals("第4周"))&&!(b.equals("第5周"))&&!(b.equals("第6周"))&&!(b.equals("第7周"))&&!(b.equals("第8周"))&&!(b.equals("第9周"))&&!(b.equals("第10周"))&&!(b.equals("第11周"))&&!(b.equals("第12周"))&&!(b.equals("第13周"))&&!(b.equals("第14周"))&&!(b.equals("第15周"))&&!(b.equals("第16周"))&&!(b.equals("第17周"))&&!(b.equals("第18周"))&&!(b.equals("第19周")) )) {
             return null;
         }
         map.put("terms", a);
@@ -126,6 +144,7 @@ public class DashboardController {
     private void detailCourse() {
 
     }
+
 
     private Map<String, String> getCurrentTime() {
         Map<String, String> map = new HashMap<>();

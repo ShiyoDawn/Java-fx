@@ -28,9 +28,9 @@
                      <children>
                         <ScrollPane prefHeight="661.0" prefWidth="1080.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="1067.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="766.0" prefWidth="1067.0">
                                  <children>
-                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="58.0" prefHeight="589.0" prefWidth="1128.0">
+                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="52.0" prefHeight="589.0" prefWidth="1128.0">
                                       <columns>
                                         <TableColumn fx:id="idColumn" prefWidth="67.33333849906921" text="序号" />
                                         <TableColumn fx:id="studentNumColumn" prefWidth="104.66667175292969" text="学号" />
@@ -44,23 +44,23 @@
                                     </TableView>
                                     <Button fx:id="queryButton" layoutX="847.0" layoutY="13.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="35.0" prefWidth="55.0" text="查询" />
                                     <Button fx:id="resetViewButton" layoutX="944.0" layoutY="14.0" mnemonicParsing="false" onAction="#onResetViewButtonClick" prefHeight="35.0" prefWidth="57.0" text="重置" />
-                                    <Text layoutX="586.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" textAlignment="CENTER" wrappingWidth="52.0">
+                                    <Text fx:id="one" layoutX="586.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" textAlignment="CENTER" wrappingWidth="52.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
                                     <TextField fx:id="studentInfoTextField" layoutX="638.0" layoutY="17.0" prefHeight="27.0" prefWidth="151.0" />
                                     <Button fx:id="checkButton" layoutX="63.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCheckButtonClick" prefHeight="30.0" prefWidth="61.0" text="审核" />
-                                    <Text fill="#d22121" layoutX="211.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1.审核时要看清学生的相关信息." wrappingWidth="209.57357788085938">
+                                    <Text fx:id="three" fill="#d22121" layoutX="211.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1.审核时要看清学生的相关信息." wrappingWidth="209.57357788085938">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Text>
-                                    <Text fill="#d91717" layoutX="211.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2.双击某一栏可进入该学生请假详情界面">
+                                    <Text fx:id="four" fill="#d91717" layoutX="211.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2.双击某一栏可进入该学生请假详情界面">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="167.0" layoutY="11.0" prefHeight="15.0" prefWidth="44.0" text="提醒：" textFill="#d01c1c">
+                                    <Label fx:id="two" layoutX="167.0" layoutY="11.0" prefHeight="15.0" prefWidth="44.0" text="提醒：" textFill="#d01c1c">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
@@ -212,7 +212,7 @@
                                           </Text>
                                           <ComboBox fx:id="reasonComboBox" prefHeight="23.0" prefWidth="160.0" GridPane.columnIndex="3" />
                                           <TextField fx:id="reasonTextField" prefHeight="67.0" prefWidth="229.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField fx:id="destinationTextfield" prefHeight="45.0" prefWidth="229.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <TextField fx:id="destinationTextField" prefHeight="45.0" prefWidth="229.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="请假开始时间：" textAlignment="RIGHT" wrappingWidth="195.57355499267578" GridPane.rowIndex="2">
                                              <font>
                                                 <Font size="20.0" />

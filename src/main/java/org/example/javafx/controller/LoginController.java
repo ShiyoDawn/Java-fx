@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -59,6 +60,9 @@ public class LoginController {
             AppStore.setUser(nowUser);
         }
         catch(Exception e) {
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("用户名或密码错误");
+            alert.showAndWait();
             System.out.println("未知错误无法登录");
             return;
         }
