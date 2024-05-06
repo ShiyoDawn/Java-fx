@@ -202,7 +202,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="export_to_PDFButton" layoutX="450.0" layoutY="634.0" mnemonicParsing="false" text="PDF导出">
+      <Button fx:id="export_to_PDFButton" layoutX="450.0" layoutY="634.0" mnemonicParsing="false" onAction="#onExportPDFButtonAction" text="PDF导出">
          <font>
             <Font size="15.0" />
          </font>

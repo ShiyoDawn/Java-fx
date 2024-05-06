@@ -1,5 +1,6 @@
 package org.example.javafx.controller;
 
+import com.itextpdf.text.pdf.BaseFont;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,12 +13,31 @@ import javafx.stage.Stage;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 public class StudentInformationController {
 
     @FXML
@@ -120,20 +140,9 @@ public class StudentInformationController {
             majorLabel.setText((String) studentInfo.get("major"));//1
             classLabel.setText((String) studentInfo.get("classes"));//1
             degreeLabel.setText((String) studentInfo.get("grade"));//1
-            //GPALabel.setText(studentInfo.get("GPA").toString());
+            //GPALabel.setText("");
             List<Map<String, String>> studentFamilies = (List<Map<String, String>>) studentInfo.get("studentFamilies");
             if (studentFamilies != null && !studentFamilies.isEmpty()) {
-//                Map<String, Object> firstFamilyMember = studentFamilies.get(0); // 假设只取第一个家庭成员信息
-//                father_nameLabel.setText((String) firstFamilyMember.get("name"));
-//                father_phone_numberLabel.setText((String) firstFamilyMember.get("phone"));
-//                father_workLabel.setText((String) firstFamilyMember.get("job"));
-//                addressLabel.setText((String) firstFamilyMember.get("address"));
-//                if (studentFamilies.size() > 1) {
-//                    Map<String, Object> secondFamilyMember = studentFamilies.get(1);
-//                    mother_nameLabel.setText((String) secondFamilyMember.get("name"));
-//                    mother_phone_numberLabel.setText((String) secondFamilyMember.get("phone"));
-//                    mother_workLabel.setText((String) secondFamilyMember.get("job"));
-//                }
                 for (Map<String, String> familyMember : studentFamilies) {
                     if ("父亲".equals(familyMember.get("relation"))) {
                         father_nameLabel.setText((String) familyMember.get("name"));
@@ -181,5 +190,65 @@ public class StudentInformationController {
     void onExitButtonAction() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    public void onExportPDFButtonAction(ActionEvent event) {
+        Document document = new Document(PageSize.A4);
+
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("student_information.pdf"));
+            document.open();
+
+            // 设置中文字体
+            BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+            com.itextpdf.text.Font fontChinese = new com.itextpdf.text.Font(bfChinese, 12, com.itextpdf.text.Font.NORMAL);
+
+            // 添加图片到 PDF
+            WritableImage snapshot = personImage.snapshot(null, null);
+            File outputFile = new File("person_image.png");
+            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", outputFile);
+            com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(outputFile.getAbsolutePath());
+            document.add(image);
+
+            // 添加文本信息到 PDF
+            document.add(new Paragraph("姓名: " + person_nameLabel.getText(), fontChinese));
+            document.add(new Paragraph("性别: " + genderLabel.getText(), fontChinese));
+            document.add(new Paragraph("身份证号: " + identity_numberLabel.getText(), fontChinese));
+            document.add(new Paragraph("电话号码: " + phone_numberLabel.getText(), fontChinese));
+            document.add(new Paragraph("出生日期: " + birthdayLabel.getText(), fontChinese));
+            document.add(new Paragraph("邮箱: " + emailLabel.getText(), fontChinese));
+            document.add(new Paragraph("地址: " + addressLabel.getText(), fontChinese));
+            document.add(new Paragraph("父亲姓名: " + father_nameLabel.getText(), fontChinese));
+            document.add(new Paragraph("父亲工作: " + father_workLabel.getText(), fontChinese));
+            document.add(new Paragraph("父亲电话号码: " + father_phone_numberLabel.getText(), fontChinese));
+            document.add(new Paragraph("母亲姓名: " + mother_nameLabel.getText(), fontChinese));
+            document.add(new Paragraph("母亲工作: " + mother_workLabel.getText(), fontChinese));
+            document.add(new Paragraph("母亲电话号码: " + mother_phone_numberLabel.getText(), fontChinese));
+            document.add(new Paragraph("学号: " + person_idLabel.getText(), fontChinese));
+            document.add(new Paragraph("学院: " + collegeLabel.getText(), fontChinese));
+            document.add(new Paragraph("专业: " + majorLabel.getText(), fontChinese));
+            document.add(new Paragraph("班级: " + classLabel.getText(), fontChinese));
+            document.add(new Paragraph("GPA: " + GPALabel.getText(), fontChinese));
+            document.add(new Paragraph("入学时间: " + admission_dateLabel.getText(), fontChinese));
+            document.add(new Paragraph("政治面貌: " + identityLabel.getText(), fontChinese));
+            document.add(new Paragraph("学位: " + degreeLabel.getText(), fontChinese));
+            document.add(new Paragraph("个人简介: " + personal_profileTextArea.getText(), fontChinese));
+
+            document.close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("成功");
+            alert.setHeaderText(null);
+            alert.setContentText("学生信息已成功导出到PDF文件。");
+            alert.showAndWait();
+        } catch (DocumentException | IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText(null);
+            alert.setContentText("导出PDF文件时发生错误。");
+            alert.showAndWait();
+            e.printStackTrace();
+        }
     }
 }
