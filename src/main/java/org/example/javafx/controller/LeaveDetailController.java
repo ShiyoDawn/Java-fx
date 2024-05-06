@@ -109,8 +109,6 @@ public class LeaveDetailController {
         }
 
         idTextField.setVisible(false);
-
-        idTextField.setText(map.get("id").toString());
         studentIdTextField.setText(map.get("student_num").toString());
         studentNameTextField.setText(map.get("student_name").toString());
         ageTextField.setText(map.get("age").toString());
@@ -144,5 +142,6 @@ public class LeaveDetailController {
         goOutTypeComboBox.setDisable(true);
         destinationTextfield.setDisable(true);
         finalCheckBox.setDisable(true);
+
     }
 }

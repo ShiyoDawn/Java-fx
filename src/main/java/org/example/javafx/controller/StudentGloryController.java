@@ -222,8 +222,23 @@ public class StudentGloryController {
         Result result = null;
         studentComboBox.setValue(null);
         studentComboBox.setPromptText("请选择学生");
-        result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
-        result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
+        User user=AppStore.getUser();
+        if(user.getUser_type_id()==3){
+            DataRequest dataRequest=new DataRequest();
+            String person_num = user.getPerson_num();
+            dataRequest.add("person_num", person_num);
+            result = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
+            Map map = (Map) result.getData();
+            dataRequest.add("person_id", Integer.parseInt(map.get("id").toString().split("\\.")[0]));
+            result = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
+            map = (Map) result.getData();
+            String student_name = map.get("student_name").toString();
+            dataRequest.add("student_name", student_name);
+            result=HttpRequestUtils.request("/glory/selectByStudentName",dataRequest);
+        }else{
+            result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
+            result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
+        }
         setTableViewData(result);
     }
 
@@ -231,7 +246,6 @@ public class StudentGloryController {
         observableList.clear();
         if (result.getData() instanceof Map) {
             Map gloryMap = (Map) result.getData();
-            System.out.println(gloryMap);
             observableList.add(gloryMap);
         } else if (result.getData() instanceof ArrayList) {
             gloryList = (ArrayList<Map>) result.getData();
@@ -392,30 +406,31 @@ public class StudentGloryController {
             one.setVisible(false);
             studentComboBox.setVisible(false);
             queryButton.setVisible(false);
-            resetButton.setVisible(false);
+            id.setVisible(false);
 
-            Text text=new Text("( 提醒：若要添加/修改您所获得的荣誉，请联系管理员或老师进行操作 )");
+            Text text=new Text("( 提醒：若要添加/修改您所获得的荣誉，请通知联系管理员或老师进行操作 )");
             text.setLayoutX(89.0);
             text.setLayoutY(34.0);
             text.setFill(javafx.scene.paint.Color.valueOf("#e21e1e"));
             text.setFont(javafx.scene.text.Font.font("System Bold", 14.0));
             anchor.getChildren().add(text);
 
-            Text glory=new Text("荣誉");
+            Text glory=new Text("荣誉:");
             glory.setLayoutX(710.0);
             glory.setLayoutY(34.0);
-            text.setFont(javafx.scene.text.Font.font("System Bold", 13.0));
+            text.setFont(javafx.scene.text.Font.font("System Bold", 14.0));
             anchor.getChildren().add(glory);
 
-            TextField textField=new TextField("请输入荣誉信息");
+            TextField textField=new TextField();
+            textField.setPromptText("请输入荣誉信息");
             textField.setLayoutX(755.0);
-            textField.setLayoutY(34.0);
-            textField.setPrefHeight(32.0);
-            textField.setPrefWidth(180.0);
+            textField.setLayoutY(14.0);
+            textField.setPrefHeight(28.0);
+            textField.setPrefWidth(130.0);
             anchor.getChildren().add(textField);
 
 
-            Button gloryButton=new Button("查询荣誉");
+            Button gloryButton=new Button("查询");
             gloryButton.setLayoutX(900.0);
             gloryButton.setLayoutY(14.0);
             gloryButton.setPrefHeight(32.0);
@@ -438,6 +453,12 @@ public class StudentGloryController {
                 Result result=new Result();
                 result.setData(list);
                 setTableViewData(result);
+            });
+
+            resetButton.setOnAction(e -> {
+                textField.setPromptText("请输入活动信息");
+                textField.setText("");
+                onResetButtonClick();
             });
             anchor.getChildren().add(gloryButton);
 
@@ -470,6 +491,5 @@ public class StudentGloryController {
         studentComboBox.setEditable(true);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         onResetButtonClick();
-
     }
 }

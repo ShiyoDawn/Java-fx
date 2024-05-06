@@ -436,12 +436,27 @@ public class ScoreTableController {
             three.setText("您的平均绩点为：");
             three.setLayoutX(74.0);
             three.setLayoutY(34.0);
+
             Label label=new Label();
             label.setFont(new Font("System Bold", 14.0));
             label.setLayoutX(180.0);
             label.setLayoutY(20.0);
             label.setText(String.valueOf(GPA));
             anchor.getChildren().add(label);
+
+            Text text=new Text("您目前的总学分为：");
+            text.setLayoutX(250.0);
+            text.setLayoutY(34.0);
+            text.setFill(javafx.scene.paint.Color.valueOf("#e21e1e"));
+            text.setFont(new Font("System", 13.0));
+            anchor.getChildren().add(text);
+
+            Label creditLabel=new Label();
+            creditLabel.setFont(new Font("System Bold", 14.0));
+            creditLabel.setText(String.valueOf(totalCredit));
+            creditLabel.setLayoutX(365.0);
+            creditLabel.setLayoutY(20.0);
+            anchor.getChildren().add(creditLabel);
         }
         dataTableView.setItems(observableList);
     }

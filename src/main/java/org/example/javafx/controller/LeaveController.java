@@ -467,7 +467,7 @@ public class LeaveController {
 
         //---------------------------------
         dataTableView.setOnMouseClicked(e->{
-            if(e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2){
+            if(e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2 && dataTableView.getSelectionModel().getSelectedItem()!=null){
                 Stage stage=new Stage();
                 stage.setResizable(false);
                 FXMLLoader fxmlLoader=new FXMLLoader(MainApplication.class.getResource("leave-detail.fxml"));
@@ -504,6 +504,7 @@ public class LeaveController {
             studentNameTextField.setDisable(true);
             studentInfoTextField.setDisable(true);
             majorTextField.setDisable(true);
+            idColumn.setVisible(false);
 
             checkButton.setVisible(false);
             queryButton.setVisible(false);
@@ -525,7 +526,8 @@ public class LeaveController {
             dataTableView.setPrefHeight(616);
             dataTableView.setLayoutY(32);
 
-            three.setText("提醒：双击可进入详情界面");
+            three.setText("( 提醒：双击可进入详情界面 )");
+            three.setFont(javafx.scene.text.Font.font("System", 14.0));
             three.setLayoutX(41);
             three.setLayoutY(24);
             three.setStrokeType(StrokeType.OUTSIDE);

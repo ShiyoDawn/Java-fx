@@ -11,8 +11,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
+import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.util.CommonMethod;
@@ -69,6 +72,12 @@ public class FeeController {
 
     @FXML
     private TableColumn<Map, String> studentNumColumn;
+
+    @FXML
+    private Label one;
+
+    @FXML
+    private AnchorPane anchor;
 
     //-----------------------------------
     private List<Map> feeList;
@@ -165,14 +174,29 @@ public class FeeController {
 
     public void setTableViewData(Result result) {
         observableList.clear();
+        Result tmpResult = new Result();
+        User user=AppStore.getUser();
+        String person_num = user.getPerson_num();
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("person_num", person_num);
+        tmpResult = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
+        Map map = (Map) tmpResult.getData();
+        dataRequest.add("person_id", Integer.parseInt(map.get("id").toString().split("\\.")[0]));
+        tmpResult = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
+        map = (Map) tmpResult.getData();
+        String student_name = map.get("student_name").toString();
         if (result.getData() instanceof Map) {
             Map feeMap = (Map) result.getData();
-            observableList.add(feeMap);
+            if(feeMap.get("student_name").equals(student_name)){
+                observableList.add(feeMap);
+            }
         } else if (result.getData() instanceof ArrayList) {
             //Button editButton;
-            feeList = (ArrayList) result.getData();
+            feeList=(List<Map>)result.getData();
             for (Map feeMap : feeList) {
-                observableList.add(feeMap);
+                if(feeMap.get("student_name").equals(student_name)){
+                    observableList.add(feeMap);
+                }
             }
         }
         dataTableView.setItems(observableList);
@@ -188,6 +212,71 @@ public class FeeController {
         activityColumn.setCellValueFactory(new MapValueFactory<>("activity"));
         activityDetailColumn.setCellValueFactory(new MapValueFactory<>("activity_detail"));
 
+        studentComboBox.setEditable(true);
+        User user = AppStore.getUser();
+        if (user.getUser_type_id() == 3) {
+            addButton.setVisible(false);
+            deleteButton.setVisible(false);
+            studentComboBox.setVisible(false);
+            queryButton.setVisible(false);
+            id.setVisible(false);
+
+            one.setVisible(false);
+
+            Text text = new Text("活动：");
+            text.setFont(javafx.scene.text.Font.font(13));
+            text.setLayoutX(700.0);
+            text.setLayoutY(35.0);
+            anchor.getChildren().add(text);
+
+            TextField textField = new TextField();
+            textField.setPromptText("请输入活动信息");
+            textField.setLayoutX(755.0);
+            textField.setLayoutY(18.0);
+            textField.setPrefWidth(110);
+            textField.setPrefHeight(23);
+            anchor.getChildren().add(textField);
+
+            Button button = new Button("查询");
+            button.setLayoutX(900.0);
+            button.setLayoutY(14.0);
+            button.setPrefWidth(55);
+            button.setPrefHeight(32);
+            anchor.getChildren().add(button);
+
+            Text tip=new Text("( 提醒：1、+代表该活动收入,-代表该活动支出  2、增加/修改操作仅限管理员或教师 )");
+            tip.setFont(javafx.scene.text.Font.font("System Bold",14));
+            tip.setLayoutX(80.0);
+            tip.setLayoutY(34.0);
+            tip.setFill(javafx.scene.paint.Color.RED);
+            anchor.getChildren().add(tip);
+
+            button.setOnAction(e -> {
+                if (textField.getText() == "" || textField.getText() == null) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("请输入活动信息");
+                    alert.showAndWait();
+                    return;
+                }
+                String activity = textField.getText();
+                DataRequest dataRequest = new DataRequest();
+                dataRequest.add("activity", activity);
+                List<Map> list = new ArrayList<>();
+                list = CommonMethod.filter(feeList, "activity", activity);
+                if(list.size()==0){
+                    list=CommonMethod.filter(feeList,"activity_detail",activity);
+                }
+                Result result=new Result();
+                result.setData(list);
+                setTableViewData(result);
+            });
+
+            resetButton.setOnAction(e -> {
+                textField.setPromptText("请输入活动信息");
+                textField.setText("");
+                onResetButtonClick();
+            });
+        }
         DataRequest dataRequest = new DataRequest();
         List studentList = new ArrayList();
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", dataRequest);
@@ -200,7 +289,6 @@ public class FeeController {
         }
         studentComboBox.getItems().addAll(studentList);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        studentComboBox.setEditable(true);
 
 
         onResetButtonClick();
