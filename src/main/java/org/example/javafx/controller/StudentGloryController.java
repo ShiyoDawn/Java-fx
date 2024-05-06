@@ -14,7 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
+import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.util.CommonMethod;
@@ -99,6 +101,15 @@ public class StudentGloryController {
 
     @FXML
     private TextField gloryLevelUpdateTextField;
+
+    @FXML
+    private Label one;
+
+    @FXML
+    private TabPane tabpane;
+
+    @FXML
+    private AnchorPane anchor;
 
     //-------------------------------------------------
 
@@ -369,6 +380,68 @@ public class StudentGloryController {
         gloryLevelColumn.setCellValueFactory(new MapValueFactory<>("glory_level"));
 
         editTabPane.setVisible(false);
+
+        User user= AppStore.getUser();
+        if(user.getUser_type_id()==3){
+            addButton.setDisable(true);
+            deleteButton.setDisable(true);
+            editButton.setDisable(true);
+            addButton.setVisible(false);
+            deleteButton.setVisible(false);
+            editButton.setVisible(false);
+            one.setVisible(false);
+            studentComboBox.setVisible(false);
+            queryButton.setVisible(false);
+            resetButton.setVisible(false);
+
+            Text text=new Text("( 提醒：若要添加/修改您所获得的荣誉，请联系管理员或老师进行操作 )");
+            text.setLayoutX(89.0);
+            text.setLayoutY(34.0);
+            text.setFill(javafx.scene.paint.Color.valueOf("#e21e1e"));
+            text.setFont(javafx.scene.text.Font.font("System Bold", 14.0));
+            anchor.getChildren().add(text);
+
+            Text glory=new Text("荣誉");
+            glory.setLayoutX(710.0);
+            glory.setLayoutY(34.0);
+            text.setFont(javafx.scene.text.Font.font("System Bold", 13.0));
+            anchor.getChildren().add(glory);
+
+            TextField textField=new TextField("请输入荣誉信息");
+            textField.setLayoutX(755.0);
+            textField.setLayoutY(34.0);
+            textField.setPrefHeight(32.0);
+            textField.setPrefWidth(180.0);
+            anchor.getChildren().add(textField);
+
+
+            Button gloryButton=new Button("查询荣誉");
+            gloryButton.setLayoutX(900.0);
+            gloryButton.setLayoutY(14.0);
+            gloryButton.setPrefHeight(32.0);
+            gloryButton.setPrefWidth(55.0);
+            gloryButton.setOnAction(event -> {
+                List<Map> list=new ArrayList<>();
+                if(textField.getText()==""||textField.getText()==null){
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("请输入荣誉信息后查询");
+                    alert.showAndWait();
+                    return;
+                }
+                list=CommonMethod.filter(gloryList,"glory_name",textField.getText());
+                if(list.size()==0){
+                    list=CommonMethod.filter(gloryList,"glory_type",textField.getText());
+                    if(list.size()==0){
+                        list=CommonMethod.filter(gloryList,"glory_level",textField.getText());
+                    }
+                }
+                Result result=new Result();
+                result.setData(list);
+                setTableViewData(result);
+            });
+            anchor.getChildren().add(gloryButton);
+
+        }
 
         DataRequest dataRequest = new DataRequest();
         List studentList = new ArrayList();

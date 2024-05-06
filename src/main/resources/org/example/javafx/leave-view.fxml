@@ -24,11 +24,11 @@
         <tabs>
             <Tab fx:id="viewTab" text="学生请假管理">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="745.0" prefWidth="1080.0">
                      <children>
                         <ScrollPane prefHeight="661.0" prefWidth="1080.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="766.0" prefWidth="1067.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="763.0" prefWidth="1067.0">
                                  <children>
                                     <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="52.0" prefHeight="589.0" prefWidth="1128.0">
                                       <columns>
