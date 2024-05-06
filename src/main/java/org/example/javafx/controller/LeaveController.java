@@ -526,7 +526,7 @@ public class LeaveController {
             dataTableView.setPrefHeight(616);
             dataTableView.setLayoutY(32);
 
-            three.setText("( 提醒：双击可进入详情界面 )");
+            three.setText("( 提醒：左键双击可进入详情界面 )");
             three.setFont(javafx.scene.text.Font.font("System", 14.0));
             three.setLayoutX(41);
             three.setLayoutY(24);

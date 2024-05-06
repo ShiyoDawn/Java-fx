@@ -181,21 +181,34 @@ public class FeeController {
         dataRequest.add("person_num", person_num);
         tmpResult = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
         Map map = (Map) tmpResult.getData();
-        dataRequest.add("person_id", Integer.parseInt(map.get("id").toString().split("\\.")[0]));
-        tmpResult = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
-        map = (Map) tmpResult.getData();
-        String student_name = map.get("student_name").toString();
+        String student_name=null;
+        if(map!=null){
+            dataRequest.add("person_id", Integer.parseInt(map.get("id").toString().split("\\.")[0]));
+            tmpResult = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
+            map = (Map) tmpResult.getData();
+            student_name = map.get("student_name").toString();
+        }
         if (result.getData() instanceof Map) {
             Map feeMap = (Map) result.getData();
-            if(feeMap.get("student_name").equals(student_name)){
+            if(student_name==null){
                 observableList.add(feeMap);
+            }else{
+                if(feeMap.get("student_name").equals(student_name)){
+                    observableList.add(feeMap);
+                }
             }
         } else if (result.getData() instanceof ArrayList) {
             //Button editButton;
             feeList=(List<Map>)result.getData();
-            for (Map feeMap : feeList) {
-                if(feeMap.get("student_name").equals(student_name)){
+            if(student_name==null){
+                for(Map feeMap:feeList){
                     observableList.add(feeMap);
+                }
+            }else{
+                for (Map feeMap : feeList) {
+                    if(feeMap.get("student_name").equals(student_name)){
+                        observableList.add(feeMap);
+                    }
                 }
             }
         }
