@@ -13,6 +13,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="scoreBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreTableController">
@@ -23,18 +24,23 @@
                     <tabs>
                         <Tab text="学生分数管理">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
+                                <AnchorPane fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
                                     <children>
                                         <Button fx:id="addButton" layoutX="74.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="53.0" text="添加" />
                                         <Button fx:id="deleteButton" layoutX="146.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="29.0" prefWidth="51.0" text="删除" />
                                         <Button fx:id="editButton" layoutX="213.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="52.0" text="修改" />
                                         <Button fx:id="queryButton" layoutX="902.0" layoutY="14.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="32.0" prefWidth="55.0" text="查询" />
-                                        <Label layoutX="551.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
-                                        <Label layoutX="735.0" layoutY="22.0" text="课程：" />
+                                        <Label fx:id="one" layoutX="551.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
+                                        <Label fx:id="two" layoutX="735.0" layoutY="22.0" text="课程：" />
                                         <Button fx:id="resetButton" layoutX="980.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="重置" />
                                         <ComboBox fx:id="studentComboBox" layoutX="590.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
                                         <ComboBox fx:id="courseComboBox" layoutX="771.0" layoutY="18.0" prefHeight="23.0" prefWidth="111.0" promptText="请选择课程" />
                                         <AnchorPane layoutX="877.0" layoutY="56.0" prefHeight="609.0" prefWidth="195.0" />
+                              <Text fx:id="three" fill="#e22525" layoutX="283.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="提醒：选中多个可批量删除" wrappingWidth="159.33331298828125">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Text>
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -53,18 +59,19 @@
                                                       <columns>
                                                           <TableColumn fx:id="id" prefWidth="67.33337020874023" text="id" />
                                                           <TableColumn fx:id="studentNameColumn" prefWidth="115.3333511352539" text="学生姓名" />
-                                                          <TableColumn fx:id="studentNumColumn" prefWidth="113.99998474121094" text="学号" />
-                                                          <TableColumn fx:id="courseNumColumn" minWidth="0.0" prefWidth="123.33331298828125" text="课程号" />
-                                                          <TableColumn fx:id="courseNameColumn" minWidth="0.0" prefWidth="147.33340454101562" text="课程名称" />
-                                                          <TableColumn fx:id="creditColumn" minWidth="0.0" prefWidth="104.0" text="学分" />
-                                                          <TableColumn fx:id="markColumn" minWidth="0.0" prefWidth="102.666748046875" text="成绩" />
+                                                          <TableColumn fx:id="studentNumColumn" prefWidth="106.66654968261719" text="学号" />
+                                                          <TableColumn fx:id="courseNumColumn" minWidth="0.0" prefWidth="130.666748046875" text="课程号" />
+                                                          <TableColumn fx:id="courseNameColumn" minWidth="0.0" prefWidth="114.00009155273438" text="课程名称" />
+                                                          <TableColumn fx:id="creditColumn" minWidth="0.0" prefWidth="94.66668701171875" text="学分" />
+                                                          <TableColumn fx:id="markColumn" minWidth="0.0" prefWidth="94.66668701171875" text="成绩" />
+                                          <TableColumn fx:id="gradePointColumn" minWidth="0.0" prefWidth="99.3333740234375" text="绩点" />
                                                       </columns>
                                                   </TableView>
-                                                <TabPane fx:id="editTabPane" layoutX="794.0" prefHeight="611.0" prefWidth="267.0" tabClosingPolicy="UNAVAILABLE">
+                                                <TabPane fx:id="editTabPane" layoutX="833.0" prefHeight="611.0" prefWidth="228.0" tabClosingPolicy="UNAVAILABLE">
                                                     <tabs>
                                                         <Tab text="编辑窗口">
                                                             <content>
-                                                                <AnchorPane fx:id="editAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="582.0" prefWidth="275.0">
+                                                                <AnchorPane fx:id="editAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="582.0" prefWidth="256.0">
                                                                     <children>
                                                                         <TextField fx:id="markUpdateTextField" layoutX="78.0" layoutY="186.0" prefHeight="23.0" prefWidth="113.0" />
                                                                         <Text layoutX="38.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" wrappingWidth="83.3333740234375" />

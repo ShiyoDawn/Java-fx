@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
@@ -99,6 +100,13 @@ public class LeaveDetailController {
     public void initialize(Map map){
         absenceInfo=map;
         System.out.println(absenceInfo);
+
+        if(AppStore.getUser().getUser_type_id()==3){
+            passButton.setVisible(false);
+            failButton.setVisible(false);
+            passButton.setDisable(true);
+            failButton.setDisable(true);
+        }
 
         idTextField.setVisible(false);
 
