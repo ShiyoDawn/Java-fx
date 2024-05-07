@@ -1,6 +1,7 @@
 package org.example.javafx.controller;
 
-import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,13 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,10 +22,6 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
@@ -197,43 +192,99 @@ public class StudentInformationController {
         Document document = new Document(PageSize.A4);
 
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("student_information.pdf"));
+            // 创建一个文件选择器
+            FileChooser fileChooser = new FileChooser();
+            // 设置文件选择器的标题
+            fileChooser.setTitle("保存PDF");
+            // 设置默认的文件名
+            fileChooser.setInitialFileName(person_nameLabel.getText() + "的学生简历.pdf");
+            // 设置文件类型过滤器
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            // 显示保存文件的对话框
+            File file = fileChooser.showSaveDialog(null);
+            if (file != null) {
+                // 使用用户选择的文件路径创建 FileOutputStream
+                PdfWriter.getInstance(document, new FileOutputStream(file));
+
+                //PdfWriter.getInstance(document, new FileOutputStream(person_nameLabel.getText()+"的学生简历.pdf"));
+            }
             document.open();
 
             // 设置中文字体
-            BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+            BaseFont bfChinese = BaseFont.createFont("C:\\Windows\\Fonts\\simsun.ttc,1", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             com.itextpdf.text.Font fontChinese = new com.itextpdf.text.Font(bfChinese, 12, com.itextpdf.text.Font.NORMAL);
+            com.itextpdf.text.Font titleFont = new com.itextpdf.text.Font(bfChinese, 20, com.itextpdf.text.Font.BOLD); // 大字体用于标题
+
+            // 创建标题
+            Paragraph title = new Paragraph(person_nameLabel.getText() + "的学生简历", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            // 添加一个空的段落作为间隔
+            document.add(new Paragraph(" "));
+            // 创建一个表格
+            PdfPTable table = new PdfPTable(2); // 2 columns.
 
             // 添加图片到 PDF
             WritableImage snapshot = personImage.snapshot(null, null);
             File outputFile = new File("person_image.png");
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", outputFile);
             com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(outputFile.getAbsolutePath());
-            document.add(image);
+            image.scaleAbsolute(80, 100); // 设置图片大小
 
-            // 添加文本信息到 PDF
-            document.add(new Paragraph("姓名: " + person_nameLabel.getText(), fontChinese));
-            document.add(new Paragraph("性别: " + genderLabel.getText(), fontChinese));
-            document.add(new Paragraph("身份证号: " + identity_numberLabel.getText(), fontChinese));
-            document.add(new Paragraph("电话号码: " + phone_numberLabel.getText(), fontChinese));
-            document.add(new Paragraph("出生日期: " + birthdayLabel.getText(), fontChinese));
-            document.add(new Paragraph("邮箱: " + emailLabel.getText(), fontChinese));
-            document.add(new Paragraph("地址: " + addressLabel.getText(), fontChinese));
-            document.add(new Paragraph("父亲姓名: " + father_nameLabel.getText(), fontChinese));
-            document.add(new Paragraph("父亲工作: " + father_workLabel.getText(), fontChinese));
-            document.add(new Paragraph("父亲电话号码: " + father_phone_numberLabel.getText(), fontChinese));
-            document.add(new Paragraph("母亲姓名: " + mother_nameLabel.getText(), fontChinese));
-            document.add(new Paragraph("母亲工作: " + mother_workLabel.getText(), fontChinese));
-            document.add(new Paragraph("母亲电话号码: " + mother_phone_numberLabel.getText(), fontChinese));
-            document.add(new Paragraph("学号: " + person_idLabel.getText(), fontChinese));
-            document.add(new Paragraph("学院: " + collegeLabel.getText(), fontChinese));
-            document.add(new Paragraph("专业: " + majorLabel.getText(), fontChinese));
-            document.add(new Paragraph("班级: " + classLabel.getText(), fontChinese));
-            document.add(new Paragraph("GPA: " + GPALabel.getText(), fontChinese));
-            document.add(new Paragraph("入学时间: " + admission_dateLabel.getText(), fontChinese));
-            document.add(new Paragraph("政治面貌: " + identityLabel.getText(), fontChinese));
-            document.add(new Paragraph("学位: " + degreeLabel.getText(), fontChinese));
-            document.add(new Paragraph("个人简介: " + personal_profileTextArea.getText(), fontChinese));
+            // 创建一个 PdfPCell 对象并添加图片
+            PdfPCell imageCell = new PdfPCell(image, false);
+            imageCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            imageCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+            // 在表格中添加一行
+            table.addCell(new PdfPCell(new Phrase("个人照片:", fontChinese)));
+            table.addCell(imageCell);
+            table.addCell(new PdfPCell(new Phrase("姓名:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(person_nameLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("性别:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(genderLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("身份证号:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(identity_numberLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("电话号码:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(phone_numberLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("出生日期:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(birthdayLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("邮箱:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(emailLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("地址:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(addressLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("父亲姓名:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(father_nameLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("父亲工作:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(father_workLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("父亲电话号码:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(father_phone_numberLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("母亲姓名:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(mother_nameLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("母亲工作:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(mother_workLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("母亲电话号码:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(mother_phone_numberLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("学号:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(person_idLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("学院:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(collegeLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("专业:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(majorLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("班级:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(classLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("GPA:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(GPALabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("入学时间:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(admission_dateLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("政治面貌:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(identityLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("学位:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(degreeLabel.getText(), fontChinese)));
+            table.addCell(new PdfPCell(new Phrase("个人简介:", fontChinese)));
+            table.addCell(new PdfPCell(new Phrase(personal_profileTextArea.getText(), fontChinese)));
+
+            document.add(table);
 
             document.close();
 
