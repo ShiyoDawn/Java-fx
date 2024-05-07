@@ -22,25 +22,31 @@
             <children>
                 <TabPane layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                        <Tab text="学生分数管理">
+                        <Tab fx:id="viewTab" text="学生分数管理">
                             <content>
                                 <AnchorPane fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
                                     <children>
                                         <Button fx:id="addButton" layoutX="74.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="53.0" text="添加" />
                                         <Button fx:id="deleteButton" layoutX="146.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="29.0" prefWidth="51.0" text="删除" />
                                         <Button fx:id="editButton" layoutX="213.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="52.0" text="修改" />
-                                        <Button fx:id="queryButton" layoutX="902.0" layoutY="14.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="32.0" prefWidth="55.0" text="查询" />
-                                        <Label fx:id="one" layoutX="551.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
-                                        <Label fx:id="two" layoutX="735.0" layoutY="22.0" text="课程：" />
-                                        <Button fx:id="resetButton" layoutX="980.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="重置" />
-                                        <ComboBox fx:id="studentComboBox" layoutX="590.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
-                                        <ComboBox fx:id="courseComboBox" layoutX="771.0" layoutY="18.0" prefHeight="23.0" prefWidth="111.0" promptText="请选择课程" />
+                                        <Button fx:id="queryButton" layoutX="913.0" layoutY="14.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="32.0" prefWidth="55.0" text="查询" />
+                                        <Label fx:id="one" layoutX="601.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
+                                        <Label fx:id="two" layoutX="749.0" layoutY="22.0" text="课程：" />
+                                        <Button fx:id="resetButton" layoutX="991.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="重置" />
+                                        <ComboBox fx:id="studentComboBox" layoutX="637.0" layoutY="18.0" prefHeight="23.0" prefWidth="106.0" promptText="请选择学生" />
+                                        <ComboBox fx:id="courseComboBox" layoutX="785.0" layoutY="18.0" prefHeight="23.0" prefWidth="111.0" promptText="请选择课程" />
                                         <AnchorPane layoutX="877.0" layoutY="56.0" prefHeight="609.0" prefWidth="195.0" />
-                              <Text fx:id="three" fill="#e22525" layoutX="283.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="提醒：选中多个可批量删除" wrappingWidth="159.33331298828125">
+                              <Text fx:id="three" fill="#e22525" layoutX="265.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="（ 提醒：选中多个可批量删除 ）" wrappingWidth="198.6666259765625">
                                  <font>
                                     <Font name="System Italic" size="13.0" />
                                  </font>
                               </Text>
+                              <Label fx:id="five" layoutX="472.0" layoutY="21.0" prefHeight="18.0" prefWidth="46.0" text="班级：">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="classComboBox" layoutX="511.0" layoutY="18.0" prefHeight="23.0" prefWidth="80.0" />
                                     </children>
                                 </AnchorPane>
                             </content>

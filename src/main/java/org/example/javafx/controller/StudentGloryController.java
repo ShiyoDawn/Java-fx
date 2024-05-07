@@ -111,6 +111,9 @@ public class StudentGloryController {
     @FXML
     private AnchorPane anchor;
 
+    @FXML
+    private Tab viewTab;
+
     //-------------------------------------------------
 
     private List<Map> gloryList = new ArrayList<>(); // 学生信息列表数据
@@ -233,8 +236,8 @@ public class StudentGloryController {
             result = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
             map = (Map) result.getData();
             String student_name = map.get("student_name").toString();
-            dataRequest.add("student_name", student_name);
-            result=HttpRequestUtils.request("/glory/selectByStudentName",dataRequest);
+            dataRequest.add("student_num", person_num);
+            result=HttpRequestUtils.request("/glory/selectByStudentNum",dataRequest);
         }else{
             result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
             result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
@@ -397,6 +400,9 @@ public class StudentGloryController {
 
         User user= AppStore.getUser();
         if(user.getUser_type_id()==3){
+
+            viewTab.setText("我的荣誉");
+
             addButton.setDisable(true);
             deleteButton.setDisable(true);
             editButton.setDisable(true);
