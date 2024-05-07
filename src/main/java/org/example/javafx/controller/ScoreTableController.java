@@ -129,6 +129,10 @@ public class ScoreTableController {
     @FXML
     private Tab viewTab;
 
+    private static Label label = new Label();
+
+    private static Label creditLabel = new Label();
+
     //------------------------------------------------------------
 
     private List<Map> scoreList = new ArrayList<>(); // 学生信息列表数据
@@ -226,7 +230,9 @@ public class ScoreTableController {
 
     @FXML
     private void onQueryButtonClick() {
-        id.setVisible(false);
+        if(studentComboBox.getSelectionModel().getSelectedItem()!=null&&studentComboBox.getSelectionModel().getSelectedItem().toString()!="请选择学生"||courseComboBox.getSelectionModel().getSelectedItem()!=null&&courseComboBox.getSelectionModel().getSelectedItem().toString()!="请选择课程"||classComboBox.getSelectionModel().getSelectedItem()!=null&&classComboBox.getSelectionModel().getSelectedItem().toString()!="请选择班级"){
+            id.setVisible(false);
+        }
         if (classComboBox.getSelectionModel().getSelectedItem() != null && classComboBox.getSelectionModel().getSelectedItem().toString() != "请选择班级") {
             Result result = new Result();
             result = HttpRequestUtils.request("/score/getScoreList", new DataRequest());
@@ -391,6 +397,7 @@ public class ScoreTableController {
         Result result = new Result();
         id.setVisible(true);
         if (user.getUser_type_id() == 3) {
+            id.setVisible(false);
             String person_num = user.getPerson_num();
             DataRequest dataRequest = new DataRequest();
             dataRequest.add("person_num", person_num);
@@ -461,8 +468,6 @@ public class ScoreTableController {
                 double gradePoint = mark < 60 ? 0 : mark / 10 - 5;
                 gradePoint = (double) Math.round(gradePoint * 100) / 100;
                 totalGradePoint += credit * gradePoint;
-                System.out.println(mark + " " + gradePoint);
-                System.out.println(totalCredit + " " + totalGradePoint);
             }
             Double GPA = totalGradePoint / totalCredit;
             GPA = (double) Math.round(GPA * 100) / 100;
@@ -470,12 +475,14 @@ public class ScoreTableController {
             three.setLayoutX(74.0);
             three.setLayoutY(34.0);
 
-            Label label = new Label();
+
             label.setFont(new Font("System Bold", 14.0));
             label.setLayoutX(180.0);
             label.setLayoutY(20.0);
             label.setText(String.valueOf(GPA));
-            anchor.getChildren().add(label);
+            if(!anchor.getChildren().contains(label)){
+                anchor.getChildren().add(label);
+            }
 
             Text text = new Text("您目前的总学分为：");
             text.setLayoutX(250.0);
@@ -484,12 +491,13 @@ public class ScoreTableController {
             text.setFont(new Font("System", 13.0));
             anchor.getChildren().add(text);
 
-            Label creditLabel = new Label();
             creditLabel.setFont(new Font("System Bold", 14.0));
             creditLabel.setText(String.valueOf(totalCredit));
             creditLabel.setLayoutX(365.0);
             creditLabel.setLayoutY(20.0);
-            anchor.getChildren().add(creditLabel);
+            if(!anchor.getChildren().contains(creditLabel)){
+                anchor.getChildren().add(creditLabel);
+            }
         }
         dataTableView.setItems(observableList);
     }

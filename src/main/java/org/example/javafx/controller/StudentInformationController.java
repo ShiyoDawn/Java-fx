@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
@@ -107,6 +108,8 @@ public class StudentInformationController {
         Result studentResult = HttpRequestUtils.request("/student/getStudentInfo", req);
         if (studentResult != null && studentResult.getCode() == 200) {
             Map<String, Object> studentInfo = (Map<String, Object>) studentResult.getData();
+            String GPA=getGPA((String)studentInfo.get("person_num"));
+            GPALabel.setText(GPA);
             person_idLabel.setText((String)studentInfo.get("person_num"));//1
             person_nameLabel.setText((String) studentInfo.get("student_name"));//1
             genderLabel.setText((String) studentInfo.get("gender"));//1
@@ -181,5 +184,26 @@ public class StudentInformationController {
     void onExitButtonAction() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+    }
+
+    public String getGPA(String student_num) {
+        DataRequest dataRequest=new DataRequest();
+        dataRequest.add("student_num", student_num);
+        Result result=new Result();
+        result=HttpRequestUtils.request("/score/selectByStudentNum", dataRequest);
+        List<Map> scoreList=(List<Map>)result.getData();
+        Double totalCredit = 0.0;
+        Double totalGradePoint = 0.0;
+        for (Map map : scoreList) {
+            double credit = Double.parseDouble(map.get("credit").toString());
+            totalCredit += credit;
+            double mark = Double.parseDouble(map.get("mark").toString());
+            double gradePoint = mark < 60 ? 0 : mark / 10 - 5;
+            gradePoint = (double) Math.round(gradePoint * 100) / 100;
+            totalGradePoint += credit * gradePoint;
+        }
+        Double GPA = totalGradePoint / totalCredit;
+        GPA = (double) Math.round(GPA * 100) / 100;
+        return String.valueOf(GPA);
     }
 }

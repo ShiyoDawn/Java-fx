@@ -82,6 +82,10 @@ public class FeeController {
     @FXML
     private Tab viewTab;
 
+    private static Label label=new Label();
+
+    private static Label feeLabel=new Label();
+
     //-----------------------------------
     private List<Map> feeList;
 
@@ -196,8 +200,22 @@ public class FeeController {
             if(student_name==null){
                 observableList.add(feeMap);
             }else{
+                Double totalFee=0.0;
                 if(feeMap.get("student_name").equals(student_name)){
+                    totalFee=Double.parseDouble(feeMap.get("money").toString().substring(1,feeMap.get("money").toString().length()));
                     observableList.add(feeMap);
+                }
+                if(totalFee>0){
+                    label.setText("+"+totalFee);
+                }else{
+                    label.setText(String.valueOf(totalFee));
+                }
+                label.setFont(javafx.scene.text.Font.font("System Bold",15));
+                label.setTextFill(javafx.scene.paint.Color.RED);
+                label.setLayoutX(440.0);
+                label.setLayoutY(20.0);
+                if(!anchor.getChildren().contains(label)){
+                    anchor.getChildren().add(label);
                 }
             }
         } else if (result.getData() instanceof ArrayList) {
@@ -208,10 +226,29 @@ public class FeeController {
                     observableList.add(feeMap);
                 }
             }else{
+                Double totalFee=0.0;
                 for (Map feeMap : feeList) {
                     if(feeMap.get("student_name").equals(student_name)){
                         observableList.add(feeMap);
+                        Double fee=Double.parseDouble(feeMap.get("money").toString().substring(1,feeMap.get("money").toString().length()));
+                        if(feeMap.get("money").toString().charAt(0)=='+') {
+                            totalFee+=fee;
+                        }else{
+                            totalFee-=fee;
+                        }
                     }
+                }
+                if(totalFee>0){
+                    feeLabel.setText("+"+totalFee);
+                }else{
+                    feeLabel.setText(String.valueOf(totalFee));
+                }
+                feeLabel.setFont(javafx.scene.text.Font.font("System Bold",15));
+                feeLabel.setTextFill(javafx.scene.paint.Color.RED);
+                feeLabel.setLayoutX(440.0);
+                feeLabel.setLayoutY(20.0);
+                if(!anchor.getChildren().contains(feeLabel)){
+                    anchor.getChildren().add(feeLabel);
                 }
             }
         }
@@ -263,12 +300,19 @@ public class FeeController {
             button.setPrefHeight(32);
             anchor.getChildren().add(button);
 
-            Text tip=new Text("( 提醒：1、+代表该活动收入,-代表该活动支出  2、增加/修改操作仅限管理员或教师 )");
+            Text tip=new Text("( 提醒：+代表该活动收入,-代表该活动支出 )");
             tip.setFont(javafx.scene.text.Font.font("System Bold",14));
             tip.setLayoutX(80.0);
             tip.setLayoutY(34.0);
             tip.setFill(javafx.scene.paint.Color.RED);
             anchor.getChildren().add(tip);
+
+            Text balance=new Text("收支：");
+            balance.setFont(javafx.scene.text.Font.font("System Bold",14));
+            balance.setLayoutX(400.0);
+            balance.setLayoutY(34.0);
+            anchor.getChildren().add(balance);
+
 
             button.setOnAction(e -> {
                 if (textField.getText() == "" || textField.getText() == null) {

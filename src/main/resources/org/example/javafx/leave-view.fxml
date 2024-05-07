@@ -38,8 +38,8 @@
                                           <TableColumn fx:id="leaveTypeColumn" prefWidth="113.99993896484375" text="请假类型" />
                                           <TableColumn fx:id="leaveReasonColumn" prefWidth="134.0001220703125" text="请假原因" />
                                           <TableColumn fx:id="destinationColumn" prefWidth="137.333251953125" text="请假去向" />
-                                          <TableColumn fx:id="timeColumn" prefWidth="143.333251953125" text="请假时间" />
-                                          <TableColumn fx:id="statusColumn" prefWidth="101.333251953125" text="状态" />
+                                          <TableColumn fx:id="timeColumn" prefWidth="167.3333740234375" text="请假时间" />
+                                          <TableColumn fx:id="statusColumn" prefWidth="98.0" text="状态" />
                                       </columns>
                                     </TableView>
                                     <Button fx:id="queryButton" layoutX="847.0" layoutY="13.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="35.0" prefWidth="55.0" text="查询" />
