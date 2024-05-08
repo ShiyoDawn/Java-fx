@@ -18,7 +18,8 @@ public class LeaveDetailController {
     public void setAbsenceInfo(Map absenceInfo) {
         this.absenceInfo = absenceInfo;
     }
-    public Map getAbsenceInfo(){
+
+    public Map getAbsenceInfo() {
         return absenceInfo;
     }
 
@@ -78,30 +79,30 @@ public class LeaveDetailController {
 
     @FXML
     void onFailButtonClick() {
-        DataRequest dataRequest=new DataRequest();
-        dataRequest.add("status","不批准");
-        dataRequest.add("id",Integer.parseInt(idTextField.getText()));
-        HttpRequestUtils.request("/leave/updateStatus",dataRequest);
-        Stage stage=(Stage) passButton.getParent().getScene().getWindow();
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("status", "不批准");
+        dataRequest.add("id", Integer.parseInt(idTextField.getText()));
+        HttpRequestUtils.request("/leave/updateStatus", dataRequest);
+        Stage stage = (Stage) passButton.getParent().getScene().getWindow();
         stage.close();
     }
 
     @FXML
     void onPassButtonClick() {
-        DataRequest dataRequest=new DataRequest();
-        dataRequest.add("status","已通过");
-        dataRequest.add("id",Integer.parseInt(idTextField.getText()));
-        HttpRequestUtils.request("/leave/updateStatus",dataRequest);
-        Stage stage=(Stage) passButton.getParent().getScene().getWindow();
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("status", "已通过");
+        dataRequest.add("id", Integer.parseInt(idTextField.getText()));
+        HttpRequestUtils.request("/leave/updateStatus", dataRequest);
+        Stage stage = (Stage) passButton.getParent().getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    public void initialize(Map map){
-        absenceInfo=map;
+    public void initialize(Map map) {
+        absenceInfo = map;
         System.out.println(absenceInfo);
 
-        if(AppStore.getUser().getUser_type_id()==3){
+        if (AppStore.getUser().getUser_type_id() == 3) {
             passButton.setVisible(false);
             failButton.setVisible(false);
             passButton.setDisable(true);
@@ -117,8 +118,8 @@ public class LeaveDetailController {
         instructorNameTextfield.setText(map.get("instructor_name").toString());
         instructorTeleTextField.setText(map.get("instructor_tele").toString());
         reasonTextField.setText(map.get("leave_detailed_reason").toString());
-        LocalDate start= LocalDate.parse(map.get("start_time").toString());
-        LocalDate end=LocalDate.parse(map.get("end_time").toString());
+        LocalDate start = LocalDate.parse(map.get("start_time").toString());
+        LocalDate end = LocalDate.parse(map.get("end_time").toString());
         goOutDatePicker.setValue(start);
         comeBackDatePicker.setValue(end);
         studentTeleTextField.setText(map.get("student_tele").toString());

@@ -235,7 +235,7 @@ public class ScoreTableController {
 
     @FXML
     private void onQueryButtonClick() {
-        if(studentComboBox.getSelectionModel().getSelectedItem()!=null&&studentComboBox.getSelectionModel().getSelectedItem().toString()!="请选择学生"||courseComboBox.getSelectionModel().getSelectedItem()!=null&&courseComboBox.getSelectionModel().getSelectedItem().toString()!="请选择课程"||classComboBox.getSelectionModel().getSelectedItem()!=null&&classComboBox.getSelectionModel().getSelectedItem().toString()!="请选择班级"){
+        if (studentComboBox.getSelectionModel().getSelectedItem() != null && studentComboBox.getSelectionModel().getSelectedItem().toString() != "请选择学生" || courseComboBox.getSelectionModel().getSelectedItem() != null && courseComboBox.getSelectionModel().getSelectedItem().toString() != "请选择课程" || classComboBox.getSelectionModel().getSelectedItem() != null && classComboBox.getSelectionModel().getSelectedItem().toString() != "请选择班级") {
             id.setVisible(false);
         }
         if (classComboBox.getSelectionModel().getSelectedItem() != null && classComboBox.getSelectionModel().getSelectedItem().toString() != "请选择班级") {
@@ -253,7 +253,7 @@ public class ScoreTableController {
                 map = (Map) result.getData();
                 score.put("class", map.get("classes"));
             }
-            result=new Result();
+            result = new Result();
             List<Map> ans = CommonMethod.filter(scoreList, "class", classComboBox.getSelectionModel().getSelectedItem().toString().split("班")[0]);
             result.setData(ans);
             setTableViewData(result);
@@ -485,7 +485,7 @@ public class ScoreTableController {
             label.setLayoutX(180.0);
             label.setLayoutY(20.0);
             label.setText(String.valueOf(GPA));
-            if(!anchor.getChildren().contains(label)){
+            if (!anchor.getChildren().contains(label)) {
                 anchor.getChildren().add(label);
             }
 
@@ -500,7 +500,7 @@ public class ScoreTableController {
             creditLabel.setText(String.valueOf(totalCredit));
             creditLabel.setLayoutX(365.0);
             creditLabel.setLayoutY(20.0);
-            if(!anchor.getChildren().contains(creditLabel)){
+            if (!anchor.getChildren().contains(creditLabel)) {
                 anchor.getChildren().add(creditLabel);
             }
         }
@@ -714,18 +714,18 @@ public class ScoreTableController {
     @FXML
     public void initialize() {
         System.out.println("check");
-        Result result=HttpRequestUtils.request("/student/getStudentList",new DataRequest());
-        List<Map> studentList=(List<Map>)result.getData();
-        result=HttpRequestUtils.request("/person/getPersonList",new DataRequest());
-        List<Map> personList=(List<Map>)result.getData();
+        Result result = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
+        List<Map> studentList = (List<Map>) result.getData();
+        result = HttpRequestUtils.request("/person/getPersonList", new DataRequest());
+        List<Map> personList = (List<Map>) result.getData();
         id.setCellValueFactory(new MapValueFactory<>("id"));
         studentNumColumn.setCellValueFactory(new MapValueFactory("student_num"));  //设置列值工程属性
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
         classColumn.setCellValueFactory(
-                e->{
-                    for(Map student:studentList){
-                        if(student.get("student_name").equals(e.getValue().get("student_name"))){
-                            for(Map person:personList) {
+                e -> {
+                    for (Map student : studentList) {
+                        if (student.get("student_name").equals(e.getValue().get("student_name"))) {
+                            for (Map person : personList) {
                                 if (person.get("person_num").equals(e.getValue().get("student_num"))) {
                                     return new SimpleStringProperty(student.get("classes").toString());
                                 }
@@ -780,7 +780,7 @@ public class ScoreTableController {
         DataRequest req = new DataRequest();
         List cstudentList = new ArrayList();
         List courseList = new ArrayList();
-        List classList=new ArrayList();
+        List classList = new ArrayList();
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", req); //从后台获取所有学生信息列表集合
         Result courseResult = HttpRequestUtils.request("/course/selectAll", req); //从后台获取所有学生信息列表集合
 
@@ -827,9 +827,9 @@ public class ScoreTableController {
             }
         });
         dataTableView.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 1&&e.getButton() == MouseButton.PRIMARY&&editTabPane.isVisible()) {
+            if (e.getClickCount() == 1 && e.getButton() == MouseButton.PRIMARY && editTabPane.isVisible()) {
                 Map selected = dataTableView.getSelectionModel().getSelectedItem();
-                if(selected!=null){
+                if (selected != null) {
                     onEditButtonClick();
                 }
             }

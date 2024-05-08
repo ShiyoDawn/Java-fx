@@ -160,10 +160,10 @@ public class LeaveController {
             DataRequest dataRequest = new DataRequest();
             //Result result = new Result();
             //dataRequest.add("student_num", studentInfoTextField.getText());
-            List<Map> result=CommonMethod.filter(leaveList,"student_num",studentInfoTextField.getText());
-            if(result==null||result.size()==0){
-                result=CommonMethod.filter(leaveList,"student_name",studentInfoTextField.getText());
-                if(result==null||result.size()==0){
+            List<Map> result = CommonMethod.filter(leaveList, "student_num", studentInfoTextField.getText());
+            if (result == null || result.size() == 0) {
+                result = CommonMethod.filter(leaveList, "student_name", studentInfoTextField.getText());
+                if (result == null || result.size() == 0) {
                     Stage confirmStage = new Stage();
                     confirmStage.setWidth(250);
                     confirmStage.setHeight(150);
@@ -177,16 +177,16 @@ public class LeaveController {
                     confirmStage.setScene(scene);
                     confirmStage.show();
                     return;
-                }else{
+                } else {
                     observableList.clear();
-                    for(Map map:result){
+                    for (Map map : result) {
                         observableList.add(map);
                     }
                     dataTableView.setItems(observableList);
                 }
-            }else{
+            } else {
                 observableList.clear();
-                for(Map map:result){
+                for (Map map : result) {
                     observableList.add(map);
                 }
                 dataTableView.setItems(observableList);
@@ -224,15 +224,15 @@ public class LeaveController {
         studentInfoTextField.setText("");
         studentInfoTextField.setPromptText("请输入学号或姓名");
         Result result = new Result();
-        result=HttpRequestUtils.request("/leave/getLeaveList",new DataRequest());
-        if(AppStore.getUser().getUser_type_id()==3) {
+        result = HttpRequestUtils.request("/leave/getLeaveList", new DataRequest());
+        if (AppStore.getUser().getUser_type_id() == 3) {
             DataRequest dataRequest = new DataRequest();
             dataRequest.add("student_num", AppStore.getUser().getPerson_num());
             result = HttpRequestUtils.request("/leave/selectByStudentNum", dataRequest);
-        }else{
+        } else {
             result = HttpRequestUtils.request("/leave/getLeaveList", new DataRequest());
         }
-        leaveList=(List<Map>) result.getData();
+        leaveList = (List<Map>) result.getData();
         setTableViewData(result);
     }
 
@@ -311,15 +311,15 @@ public class LeaveController {
                 dataRequest.add("destination", destinationTextField.getText());
                 dataRequest.add("time", goOutDatePicker.getValue().toString() + "~" + comeBackDatePicker.getValue().toString());
                 dataRequest.add("status", "[未处理]*");
-                dataRequest.add("age",ageTextField.getText());
-                dataRequest.add("institute",instituteTextField.getText());
-                dataRequest.add("major",majorTextField.getText());
-                dataRequest.add("instructor_name",instructorNameTextfield.getText());
-                dataRequest.add("instructor_tele",instructorTeleTextField.getText());
-                dataRequest.add("leave_detailed_reason",reasonTextField.getText());
-                dataRequest.add("start_time",goOutDatePicker.getValue().toString());
-                dataRequest.add("end_time",comeBackDatePicker.getValue().toString());
-                dataRequest.add("student_tele",studentTeleTextField.getText());
+                dataRequest.add("age", ageTextField.getText());
+                dataRequest.add("institute", instituteTextField.getText());
+                dataRequest.add("major", majorTextField.getText());
+                dataRequest.add("instructor_name", instructorNameTextfield.getText());
+                dataRequest.add("instructor_tele", instructorTeleTextField.getText());
+                dataRequest.add("leave_detailed_reason", reasonTextField.getText());
+                dataRequest.add("start_time", goOutDatePicker.getValue().toString());
+                dataRequest.add("end_time", comeBackDatePicker.getValue().toString());
+                dataRequest.add("student_tele", studentTeleTextField.getText());
                 System.out.println(dataRequest.getData());
                 HttpRequestUtils.request("/leave/insertLeave", dataRequest);
                 onResetButtonClick();
@@ -338,7 +338,7 @@ public class LeaveController {
         reasonComboBox.setValue("请选择请假事由");
         goOutDatePicker.setValue(LocalDate.now());
         comeBackDatePicker.setValue(LocalDate.now());
-        if(AppStore.getUser().getUser_type_id()!=3){
+        if (AppStore.getUser().getUser_type_id() != 3) {
             studentIdTextField.setText("");
             studentNameTextField.setText("");
             majorTextField.setText("");
@@ -353,11 +353,10 @@ public class LeaveController {
     }
 
 
-
     @FXML
-    private void onCheckButtonClick(){
-        List<Map> selected=dataTableView.getSelectionModel().getSelectedItems();
-        if(selected.size()==0){
+    private void onCheckButtonClick() {
+        List<Map> selected = dataTableView.getSelectionModel().getSelectedItems();
+        if (selected.size() == 0) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
             confirmStage.setHeight(150);
@@ -370,9 +369,9 @@ public class LeaveController {
             confirmStage.setScene(scene);
             confirmStage.show();
             return;
-        }else if(selected.size()==1){
+        } else if (selected.size() == 1) {
             final String[] msg = new String[1];
-            Stage primaryStage=new Stage();
+            Stage primaryStage = new Stage();
             primaryStage.setResizable(false);
             Button passButton = new Button("通过");
             Button failButton = new Button("不通过");
@@ -393,22 +392,22 @@ public class LeaveController {
             reminderText.setLayoutX(72);
             reminderText.setLayoutY(105);
 
-            passButton.setOnAction(p->{
-                msg[0] ="已通过";
+            passButton.setOnAction(p -> {
+                msg[0] = "已通过";
                 primaryStage.close();
             });
 
-            cancelButton.setOnAction(c->{
-                msg[0]=CommonMethod.getString(selected.get(0),"status");
+            cancelButton.setOnAction(c -> {
+                msg[0] = CommonMethod.getString(selected.get(0), "status");
                 primaryStage.close();
             });
 
             primaryStage.setOnCloseRequest(e -> {
-                msg[0]=CommonMethod.getString(selected.get(0),"status");
+                msg[0] = CommonMethod.getString(selected.get(0), "status");
             });
 
-            failButton.setOnAction(f->{
-                msg[0]="不批准";
+            failButton.setOnAction(f -> {
+                msg[0] = "不批准";
                 primaryStage.close();
             });
 
@@ -432,13 +431,13 @@ public class LeaveController {
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             primaryStage.showAndWait();
-            DataRequest dataRequest=new DataRequest();
-            Integer id=CommonMethod.getInteger(selected.get(0),"id");
-            dataRequest.add("id",id);
-            dataRequest.add("status",msg[0]);
-            HttpRequestUtils.request("/leave/updateStatus",dataRequest);
+            DataRequest dataRequest = new DataRequest();
+            Integer id = CommonMethod.getInteger(selected.get(0), "id");
+            dataRequest.add("id", id);
+            dataRequest.add("status", msg[0]);
+            HttpRequestUtils.request("/leave/updateStatus", dataRequest);
             onQueryButtonClick();
-        }else if(selected.size()>1){
+        } else if (selected.size() > 1) {
             Stage confirmStage = new Stage();
             confirmStage.setWidth(250);
             confirmStage.setHeight(150);
@@ -455,7 +454,7 @@ public class LeaveController {
 
     @FXML
     private void initialize() {
-        User user= AppStore.getUser();
+        User user = AppStore.getUser();
         idColumn.setCellValueFactory(new MapValueFactory<>("id"));
         studentNumColumn.setCellValueFactory(new MapValueFactory("student_num"));  //设置列值工程属性
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
@@ -466,14 +465,14 @@ public class LeaveController {
         statusColumn.setCellValueFactory(new MapValueFactory<>("status"));
 
         //---------------------------------
-        dataTableView.setOnMouseClicked(e->{
-            if(e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2 && dataTableView.getSelectionModel().getSelectedItem()!=null){
-                Stage stage=new Stage();
+        dataTableView.setOnMouseClicked(e -> {
+            if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2 && dataTableView.getSelectionModel().getSelectedItem() != null) {
+                Stage stage = new Stage();
                 stage.setResizable(false);
-                FXMLLoader fxmlLoader=new FXMLLoader(MainApplication.class.getResource("leave-detail.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("leave-detail.fxml"));
                 try {
-                    Parent parent=fxmlLoader.load();
-                    LeaveDetailController leaveDetailController=fxmlLoader.getController();
+                    Parent parent = fxmlLoader.load();
+                    LeaveDetailController leaveDetailController = fxmlLoader.getController();
                     leaveDetailController.initialize(dataTableView.getSelectionModel().getSelectedItem());
                     stage.setScene(new Scene(parent));
                     stage.setTitle("请假具体消息");
@@ -487,23 +486,23 @@ public class LeaveController {
         studentInfoTextField.setPromptText("请输入学号或姓名");
 
         //以下是学生信息相关;
-        if(user.getUser_type_id()==3){
+        if (user.getUser_type_id() == 3) {
 
             viewTab.setText("我的请假");
             applyTab.setText("请假申请");
 
-            String person_num=user.getPerson_num();
+            String person_num = user.getPerson_num();
             //以下是根据学生信息来填入请假界面信息的;
-            DataRequest dataRequest=new DataRequest();
-            dataRequest.add("person_num",person_num);
-            Result result=HttpRequestUtils.request("/person/selectByPersonNum",dataRequest);
-            Map map=(Map) result.getData();
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("person_num", person_num);
+            Result result = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
+            Map map = (Map) result.getData();
             instituteTextField.setText(map.get("department").toString());
             studentIdTextField.setText(map.get("person_num").toString());
             studentTeleTextField.setText(map.get("phone_number").toString());
-            dataRequest.add("person_id",Integer.parseInt(map.get("id").toString().split("\\.")[0]));
-            result=HttpRequestUtils.request("/student/selectStudentByPid",dataRequest);
-            map=(Map) result.getData();
+            dataRequest.add("person_id", Integer.parseInt(map.get("id").toString().split("\\.")[0]));
+            result = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
+            map = (Map) result.getData();
             studentNameTextField.setText(map.get("student_name").toString());
             majorTextField.setText(map.get("major").toString());
 
@@ -544,7 +543,7 @@ public class LeaveController {
             three.setStrokeWidth(0.0);
             three.setWrappingWidth(230.0);
 
-        }else{
+        } else {
             applyTab.setText("仅学生需填写");
             applyTab.setDisable(true);
         }

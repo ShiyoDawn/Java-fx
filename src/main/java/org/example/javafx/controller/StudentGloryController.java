@@ -495,9 +495,9 @@ public class StudentGloryController {
         gloryTypeEditComboBox.getItems().addAll(gloryTypeList);
 
         dataTableView.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 1 && editTabPane.isVisible() && e.getButton() == MouseButton.PRIMARY){
-                Map map=dataTableView.getSelectionModel().getSelectedItem();
-                if(map!=null){
+            if (e.getClickCount() == 1 && editTabPane.isVisible() && e.getButton() == MouseButton.PRIMARY) {
+                Map map = dataTableView.getSelectionModel().getSelectedItem();
+                if (map != null) {
                     onEditButtonClick();
                 }
             }

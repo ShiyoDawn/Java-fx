@@ -19,6 +19,7 @@ import org.example.javafx.request.HttpRequestUtils;
 import java.io.*;
 import java.util.List;
 import java.util.Map;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -120,7 +121,7 @@ public class StudentInformationController {
         if (studentResult != null && studentResult.getCode() == 200) {
             Map<String, Object> studentInfo = (Map<String, Object>) studentResult.getData();
             GPALabel.setText(getGPA((String) studentInfo.get("person_num")));
-            person_idLabel.setText((String)studentInfo.get("person_num"));//1
+            person_idLabel.setText((String) studentInfo.get("person_num"));//1
             person_nameLabel.setText((String) studentInfo.get("student_name"));//1
             genderLabel.setText((String) studentInfo.get("gender"));//1
             birthdayLabel.setText((String) studentInfo.get("birthday"));//1
@@ -150,11 +151,11 @@ public class StudentInformationController {
                     }
                 }
             }
-            List<Map<String, String>> glories=(List<Map<String, String>>)studentInfo.get("glories");
-            String s="";
-            s=s+"小学："+(String) studentInfo.get("primary")+"\n"+"初中："+(String) studentInfo.get("junior")+"\n"+"高中："+(String) studentInfo.get("senior")+"\n"+"大学：山东大学"+"\n";
-            for (Map<String,String> m:glories){
-                s=s+"荣誉："+"\n"+m.get("glory_name")+","+m.get("glory_type")+","+m.get("glory_level")+"."+"\n";
+            List<Map<String, String>> glories = (List<Map<String, String>>) studentInfo.get("glories");
+            String s = "";
+            s = s + "小学：" + (String) studentInfo.get("primary") + "\n" + "初中：" + (String) studentInfo.get("junior") + "\n" + "高中：" + (String) studentInfo.get("senior") + "\n" + "大学：山东大学" + "\n";
+            for (Map<String, String> m : glories) {
+                s = s + "荣誉：" + "\n" + m.get("glory_name") + "," + m.get("glory_type") + "," + m.get("glory_level") + "." + "\n";
             }
             personal_profileTextArea.setText(s);
 
@@ -179,6 +180,7 @@ public class StudentInformationController {
             e.printStackTrace();
         }
     }
+
     @FXML
     void onExitButtonAction() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
@@ -186,11 +188,11 @@ public class StudentInformationController {
     }
 
     public String getGPA(String student_num) {
-        DataRequest dataRequest=new DataRequest();
+        DataRequest dataRequest = new DataRequest();
         dataRequest.add("student_num", student_num);
-        Result result=new Result();
-        result=HttpRequestUtils.request("/score/selectByStudentNum", dataRequest);
-        List<Map> scoreList=(List<Map>)result.getData();
+        Result result = new Result();
+        result = HttpRequestUtils.request("/score/selectByStudentNum", dataRequest);
+        List<Map> scoreList = (List<Map>) result.getData();
         Double totalCredit = 0.0;
         Double totalGradePoint = 0.0;
         for (Map map : scoreList) {
@@ -275,7 +277,7 @@ public class StudentInformationController {
             table.addCell(new PdfPCell(new Phrase(addressLabel.getText(), fontChinese)));
             table.addCell(new PdfPCell(new Phrase("父亲姓名:", fontChinese)));
             table.addCell(new PdfPCell(new Phrase(father_nameLabel.getText(), fontChinese)));
-            Phrase phrase=new Paragraph("父亲工作:"+father_workLabel.getText(), fontChinese);
+            Phrase phrase = new Paragraph("父亲工作:" + father_workLabel.getText(), fontChinese);
             table.addCell(new PdfPCell(new Phrase("父亲工作:", fontChinese)));
             table.addCell(new PdfPCell(new Phrase(father_workLabel.getText(), fontChinese)));
             table.addCell(new PdfPCell(new Phrase("父亲电话号码:", fontChinese)));
