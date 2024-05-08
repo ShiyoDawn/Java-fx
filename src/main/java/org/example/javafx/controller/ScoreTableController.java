@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -124,6 +125,9 @@ public class ScoreTableController {
     private TableColumn<Map, String> gradePointColumn;
 
     @FXML
+    private TableColumn<Map, String> classColumn;
+
+    @FXML
     private AnchorPane anchor;
 
     @FXML
@@ -200,7 +204,7 @@ public class ScoreTableController {
     }
 
     @FXML
-    private void onEditButtonClick(ActionEvent event) {
+    private void onEditButtonClick() {
         onCancelClick();
         Map selected = dataTableView.getSelectionModel().getSelectedItem();
         editConfirmButton.setText("修改分数");
@@ -525,7 +529,7 @@ public class ScoreTableController {
     }
 
     @FXML
-    private void onConfirmClick(ActionEvent event) {
+    private void onConfirmClick() {
         DataRequest dataRequest = new DataRequest();
         String student_name = null;
         String course_name = null;
@@ -710,9 +714,27 @@ public class ScoreTableController {
     @FXML
     public void initialize() {
         System.out.println("check");
+        Result result=HttpRequestUtils.request("/student/getStudentList",new DataRequest());
+        List<Map> studentList=(List<Map>)result.getData();
+        result=HttpRequestUtils.request("/person/getPersonList",new DataRequest());
+        List<Map> personList=(List<Map>)result.getData();
         id.setCellValueFactory(new MapValueFactory<>("id"));
         studentNumColumn.setCellValueFactory(new MapValueFactory("student_num"));  //设置列值工程属性
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
+        classColumn.setCellValueFactory(
+                e->{
+                    for(Map student:studentList){
+                        if(student.get("student_name").equals(e.getValue().get("student_name"))){
+                            for(Map person:personList) {
+                                if (person.get("person_num").equals(e.getValue().get("student_num"))) {
+                                    return new SimpleStringProperty(student.get("classes").toString());
+                                }
+                            }
+                        }
+                    }
+                    return new SimpleStringProperty("未知");
+                }
+        );
         courseNumColumn.setCellValueFactory(new MapValueFactory<>("course_num"));
         courseNameColumn.setCellValueFactory(new MapValueFactory<>("course_name"));
         creditColumn.setCellValueFactory(new MapValueFactory<>("credit"));
@@ -744,7 +766,7 @@ public class ScoreTableController {
             String person_num = user.getPerson_num();
             DataRequest dataRequest = new DataRequest();
             dataRequest.add("person_num", person_num);
-            Result result = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
+            result = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
             Map map = (Map) result.getData();
             dataRequest.add("person_id", Integer.parseInt(map.get("id").toString().split("\\.")[0]));
             result = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
@@ -756,7 +778,7 @@ public class ScoreTableController {
         }
 
         DataRequest req = new DataRequest();
-        List studentList = new ArrayList();
+        List cstudentList = new ArrayList();
         List courseList = new ArrayList();
         List classList=new ArrayList();
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", req); //从后台获取所有学生信息列表集合
@@ -764,7 +786,7 @@ public class ScoreTableController {
 
         Map cancelStudent = new HashMap();
         cancelStudent.put("cancelStudent", "请选择学生");
-        studentList.add(cancelStudent.get("cancelStudent"));
+        cstudentList.add(cancelStudent.get("cancelStudent"));
         Map cancelCourse = new HashMap();
         cancelCourse.put("cancelCourse", "请选择课程");
         courseList.add(cancelCourse.get("cancelCourse"));
@@ -780,14 +802,14 @@ public class ScoreTableController {
             classList.add(map.get("class"));
         }
         for (Map student : studentMap) {
-            studentList.add(student.get("student_name"));
+            cstudentList.add(student.get("student_name"));
         }
         for (Map course : courseMap) {
             courseList.add(course.get("id").toString().split("\\.")[0] + "-" + course.get("course_name"));
         }
-        studentComboBox.getItems().addAll(studentList);
+        studentComboBox.getItems().addAll(cstudentList);
         courseComboBox.getItems().addAll(courseList);
-        studentEditComboBox.getItems().addAll(studentList);
+        studentEditComboBox.getItems().addAll(cstudentList);
         courseEditComboBox.getItems().addAll(courseList);
         classComboBox.getItems().addAll(classList);
         classComboBox.setOnAction(e -> {
@@ -802,6 +824,14 @@ public class ScoreTableController {
                 studentComboBox.setValue(null);
                 studentComboBox.setPromptText("请选择学生");
                 studentComboBox.setDisable(true);
+            }
+        });
+        dataTableView.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 1&&e.getButton() == MouseButton.PRIMARY&&editTabPane.isVisible()) {
+                Map selected = dataTableView.getSelectionModel().getSelectedItem();
+                if(selected!=null){
+                    onEditButtonClick();
+                }
             }
         });
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

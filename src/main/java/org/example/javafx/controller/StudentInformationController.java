@@ -16,9 +16,7 @@ import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import com.itextpdf.text.Document;
@@ -29,10 +27,9 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 
 import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
+
 public class StudentInformationController {
 
     @FXML
@@ -122,6 +119,7 @@ public class StudentInformationController {
         Result studentResult = HttpRequestUtils.request("/student/getStudentInfo", req);
         if (studentResult != null && studentResult.getCode() == 200) {
             Map<String, Object> studentInfo = (Map<String, Object>) studentResult.getData();
+            GPALabel.setText(getGPA((String) studentInfo.get("person_num")));
             person_idLabel.setText((String)studentInfo.get("person_num"));//1
             person_nameLabel.setText((String) studentInfo.get("student_name"));//1
             genderLabel.setText((String) studentInfo.get("gender"));//1
@@ -169,7 +167,7 @@ public class StudentInformationController {
         }
         try {
             // 将"path_to_your_image"改为实际图片文件的路径
-            FileInputStream inputStream = new FileInputStream("C:\\Users\\Lenovo\\Desktop\\b_ceeab09a7a242063992bbc5b656ffba3.jpg");
+            FileInputStream inputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\studentPhoto.jpg");
             Image image = new Image(inputStream);
             personImage.setImage(image);
         } catch (FileNotFoundException e) {
@@ -187,8 +185,30 @@ public class StudentInformationController {
         stage.close();
     }
 
+    public String getGPA(String student_num) {
+        DataRequest dataRequest=new DataRequest();
+        dataRequest.add("student_num", student_num);
+        Result result=new Result();
+        result=HttpRequestUtils.request("/score/selectByStudentNum", dataRequest);
+        List<Map> scoreList=(List<Map>)result.getData();
+        Double totalCredit = 0.0;
+        Double totalGradePoint = 0.0;
+        for (Map map : scoreList) {
+            double credit = Double.parseDouble(map.get("credit").toString());
+            totalCredit += credit;
+            double mark = Double.parseDouble(map.get("mark").toString());
+            double gradePoint = mark < 60 ? 0 : mark / 10 - 5;
+            gradePoint = (double) Math.round(gradePoint * 100) / 100;
+            totalGradePoint += credit * gradePoint;
+        }
+        Double GPA = totalGradePoint / totalCredit;
+        GPA = (double) Math.round(GPA * 100) / 100;
+        return String.valueOf(GPA);
+    }
+
+
     @FXML
-    public void onExportPDFButtonAction(ActionEvent event) {
+    public void onExportToPDFButtonClick(ActionEvent event) {
         Document document = new Document(PageSize.A4);
 
         try {
@@ -229,7 +249,7 @@ public class StudentInformationController {
             File outputFile = new File("person_image.png");
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", outputFile);
             com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(outputFile.getAbsolutePath());
-            image.scaleAbsolute(80, 100); // 设置图片大小
+            image.scaleAbsolute(100, 100); // 设置图片大小
 
             // 创建一个 PdfPCell 对象并添加图片
             PdfPCell imageCell = new PdfPCell(image, false);
@@ -255,6 +275,7 @@ public class StudentInformationController {
             table.addCell(new PdfPCell(new Phrase(addressLabel.getText(), fontChinese)));
             table.addCell(new PdfPCell(new Phrase("父亲姓名:", fontChinese)));
             table.addCell(new PdfPCell(new Phrase(father_nameLabel.getText(), fontChinese)));
+            Phrase phrase=new Paragraph("父亲工作:"+father_workLabel.getText(), fontChinese);
             table.addCell(new PdfPCell(new Phrase("父亲工作:", fontChinese)));
             table.addCell(new PdfPCell(new Phrase(father_workLabel.getText(), fontChinese)));
             table.addCell(new PdfPCell(new Phrase("父亲电话号码:", fontChinese)));
