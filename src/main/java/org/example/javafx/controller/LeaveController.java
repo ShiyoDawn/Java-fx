@@ -500,16 +500,20 @@ public class LeaveController {
             Map map=(Map) result.getData();
             instituteTextField.setText(map.get("department").toString());
             studentIdTextField.setText(map.get("person_num").toString());
+            studentTeleTextField.setText(map.get("phone_number").toString());
             dataRequest.add("person_id",Integer.parseInt(map.get("id").toString().split("\\.")[0]));
             result=HttpRequestUtils.request("/student/selectStudentByPid",dataRequest);
             map=(Map) result.getData();
             studentNameTextField.setText(map.get("student_name").toString());
             majorTextField.setText(map.get("major").toString());
+
             studentIdTextField.setDisable(true);
             studentNameTextField.setDisable(true);
             studentInfoTextField.setDisable(true);
             majorTextField.setDisable(true);
             instituteTextField.setDisable(true);
+            studentTeleTextField.setDisable(true);
+
             idColumn.setVisible(false);
 
             checkButton.setVisible(false);

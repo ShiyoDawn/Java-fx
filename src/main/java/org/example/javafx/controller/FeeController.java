@@ -86,6 +86,8 @@ public class FeeController {
 
     private static Label feeLabel=new Label();
 
+    private static Label studentBalance=new Label();
+
     //-----------------------------------
     private List<Map> feeList;
 
@@ -340,6 +342,7 @@ public class FeeController {
                 onResetButtonClick();
             });
         }
+
         DataRequest dataRequest = new DataRequest();
         List studentList = new ArrayList();
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", dataRequest);
