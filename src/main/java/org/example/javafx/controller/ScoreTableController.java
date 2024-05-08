@@ -145,6 +145,7 @@ public class ScoreTableController {
 
     private Stage stage = null;
 
+
     //------------------------------------------------------------
 
     //因为不知道出了啥bug，于是为了方便，以下部分“result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());”可为刷新数据库作用
