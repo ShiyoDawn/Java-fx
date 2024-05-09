@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.javafx.AppStore;
 import org.example.javafx.pojo.User;
@@ -40,21 +41,14 @@ public class PasswordController {
     private Label checkNew;
 
     @FXML
+    private Label checkConfirm;
+
+    @FXML
     private void onApplyButtonClick() {
         User user = AppStore.getUser();
         String originPassword = originPasswordTextField.getText();
         String newPassword = newPasswordTextField.getText();
         String confirmPassword = confirmPasswordTextField.getText();
-        if(!newPassword.equals(confirmPassword)){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("两次输入的密码不一致，请重新输入!");
-            return;
-        }
-        if(newPassword.equals(originPassword)){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("新旧密码一致，请重新输入新密码!");
-            return;
-        }
         String msg= CommonMethod.alertButton("修改密码");
         if(msg=="确认"){
             DataRequest dataRequest=new DataRequest();
@@ -79,29 +73,58 @@ public class PasswordController {
         confirmPasswordTextField.setDisable(true);
         applyButton.setDisable(true);
         checkNew.setVisible(false);
+        checkConfirm.setVisible(false);
         checkOriginal.setVisible(false);
         originPasswordTextField.setOnAction(e->{
             checkOriginal.setVisible(true);
             if(originPasswordTextField.getText().equals(truePassword)){
                 newPasswordTextField.setDisable(false);
-                confirmPasswordTextField.setDisable(false);
                 checkOriginal.setText("密码正确！");
                 checkOriginal.setTextFill(javafx.scene.paint.Color.GREEN);
             }else{
+                checkNew.setVisible(false);
+                checkConfirm.setVisible(false);
                 checkOriginal.setText("密码错误！");
+                newPasswordTextField.setText("");
+                newPasswordTextField.setDisable(true);
+                confirmPasswordTextField.setText("");
+                confirmPasswordTextField.setDisable(true);
+                applyButton.setDisable(true);
                 checkOriginal.setTextFill(javafx.scene.paint.Color.RED);
             }
         });
-        confirmPasswordTextField.setOnAction(e->{
+        newPasswordTextField.setOnAction(e->{
             checkNew.setVisible(true);
-            if(newPasswordTextField.getText().equals(confirmPasswordTextField.getText())){
-                checkNew.setText("密码一致！");
-                applyButton.setDisable(false);
-                checkNew.setTextFill(javafx.scene.paint.Color.GREEN);
-            }else{
-                checkNew.setText("密码不一致！");
+            if(newPasswordTextField.getText().equals(originPasswordTextField.getText())) {
+                checkNew.setText("新旧密码一致，请重新输入新密码!");
+                confirmPasswordTextField.setText("");
+                confirmPasswordTextField.setDisable(true);
+                checkConfirm.setVisible(false);
                 applyButton.setDisable(true);
-                checkNew.setTextFill(javafx.scene.paint.Color.RED);
+                checkNew.setTextFill(Color.RED);
+            }else if(newPasswordTextField.getText().length()<6||newPasswordTextField.getText().length()>16){
+                checkNew.setText("密码位数不符合规范!");
+                confirmPasswordTextField.setText("");
+                confirmPasswordTextField.setDisable(true);
+                checkConfirm.setVisible(false);
+                applyButton.setDisable(true);
+                checkNew.setTextFill(Color.RED);
+            }else{
+                confirmPasswordTextField.setDisable(false);
+                checkNew.setText("密码符合规范！");
+                checkNew.setTextFill(javafx.scene.paint.Color.GREEN);
+            }
+        });
+        confirmPasswordTextField.setOnAction(e->{
+            checkConfirm.setVisible(true);
+            if(newPasswordTextField.getText().equals(confirmPasswordTextField.getText())){
+                checkConfirm.setText("两次密码一致！");
+                applyButton.setDisable(false);
+                checkConfirm.setTextFill(javafx.scene.paint.Color.GREEN);
+            }else{
+                checkConfirm.setText("两次密码不一致！");
+                applyButton.setDisable(true);
+                checkConfirm.setTextFill(javafx.scene.paint.Color.RED);
             }
         });
     }

@@ -27,6 +27,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.sql.SQLOutput;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,8 +98,8 @@ public class UserController {
         URL url = getClass().getResource("/org/example/javafx/password-edit.fxml");
         fxmlLoader.setLocation(url);
         try {
-            Parent parent=fxmlLoader.load();
-            Stage stage=new Stage();
+            Parent parent = fxmlLoader.load();
+            Stage stage = new Stage();
             stage.setScene(new Scene(parent));
             stage.setTitle("修改密码");
             stage.showAndWait();
@@ -118,19 +119,20 @@ public class UserController {
     private void onResetButtonClick() {
         User user = AppStore.getUser();
         Integer length = user.getPassword().length();
+        passwordLabel.setDisable(false);
         passwordLabel.setText("".join("", List.of("*".repeat(length))));
+        passwordLabel.setDisable(true);
     }
 
     @FXML
     private void onUploadPhotoButtonClick() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(uploadPhotoButton.getScene().getWindow());
         if (selectedFile != null) {
-            try {
-                Image image = new Image(new FileInputStream(selectedFile));
-                photoView.setImage(image);
-                BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
+                /*Image image = new Image(new FileInputStream(selectedFile));
+                photoView.setImage(image);*/
+                /*BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
                 byte[] imageBytes = byteArrayOutputStream.toByteArray();
@@ -141,27 +143,45 @@ public class UserController {
                 DataRequest dataRequest = new DataRequest();
                 dataRequest.add("person_num", user.getPerson_num());
                 dataRequest.add("photo", imageBytes);
-                HttpRequestUtils.request("/person/updatePhoto", dataRequest);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                HttpRequestUtils.request("/person/updatePhoto", dataRequest);*/
+            HttpRequestUtils.uploadFile("/user/uploadPhoto", selectedFile.getPath(), "photo", AppStore.getUser().getPerson_num());
+            User user = AppStore.getUser();
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("person_num", user.getPerson_num());
+            String str = HttpRequestUtils.request("/user/getPhoto", dataRequest).getData().toString();
+            byte[] data = Base64.getDecoder().decode(str);
+            if (data != null) {
+                Image image1 = new Image(new ByteArrayInputStream(data));
+                photoView.setImage(image1);
             }
+            onResetButtonClick();
         }
     }
 
 
     @FXML
     public void initialize() {
-
+        User user = AppStore.getUser();
         try {
             FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
             Image image = new Image(fileInputStream);
             photoView.setImage(image);
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("person_num", user.getPerson_num());
+            Result result = HttpRequestUtils.request("/user/getPhoto", dataRequest);
+            if (result != null) {
+                if (result.getCode() != -1) {
+                    String str = result.getData().toString();
+                    byte[] data = Base64.getDecoder().decode(str);
+                    if (data != null) {
+                        Image image1 = new Image(new ByteArrayInputStream(data));
+                        photoView.setImage(image1);
+                    }
+                }
+            }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        User user = AppStore.getUser();
         numLabel.setText(user.getPerson_num());
         usernameLabel.setText(user.getPerson_num());
         Integer length = user.getPassword().length();
