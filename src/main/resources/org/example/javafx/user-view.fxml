@@ -185,6 +185,11 @@
                                  </font>
                               </Label>
                               <ImageView fx:id="photoView" fitHeight="191.0" fitWidth="204.0" layoutX="102.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                              <Button fx:id="uploadPhotoButton" layoutX="167.0" layoutY="257.0" mnemonicParsing="false" onAction="#onUploadPhotoButtonClick" prefHeight="28.0" prefWidth="75.0" text="上传头像" textFill="#29a1b3">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                   </content>
