@@ -69,7 +69,13 @@ public class MainFrameController {
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         BorderPane dashboard = new BorderPane(fxmlLoader.load());
         borderPane.setCenter(dashboard);
-        userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
+
+        Result result=new Result();
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("person_num", AppStore.getUser().getPerson_num());
+        result = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
+        Map map = (Map) result.getData();
+        userLabel.setText("欢迎您: "+map.get("person_name") + (AppStore.confirmType(AppStore.getUser())=="学生"?"同学":AppStore.confirmType(AppStore.getUser())=="教师"?"老师":"管理员"));
         setTabChange(dashBoardButton, "dashboard-view.fxml");
         stageMove();
 

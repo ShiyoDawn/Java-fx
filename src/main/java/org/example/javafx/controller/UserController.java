@@ -21,6 +21,7 @@ import org.example.javafx.pojo.Result;
 import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
+import org.example.javafx.util.CommonMethod;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -93,12 +94,26 @@ public class UserController {
     private Button uploadPhotoButton;
 
     @FXML
+    private ImageView decorateView;
+
+    @FXML
+    public static User user;
+
+
+    @FXML
     private void onEditPasswordButtonClick(ActionEvent event) {
+        DataRequest dataRequest=new DataRequest();
+        dataRequest.add("person_num",AppStore.getUser().getPerson_num());
+        Map user=(Map) HttpRequestUtils.request("/user/selectByNum",dataRequest).getData();
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = getClass().getResource("/org/example/javafx/password-edit.fxml");
         fxmlLoader.setLocation(url);
+        Map map=new HashMap();
+        map.put("password",user.get("password"));
         try {
             Parent parent = fxmlLoader.load();
+            PasswordController passwordController = fxmlLoader.getController();
+            passwordController.initialize(map);
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
             stage.setTitle("修改密码");
@@ -110,15 +125,39 @@ public class UserController {
 
     }
 
+
+    //退出登录后的界面有点小问题（先放着）
     @FXML
     private void onLogOutButtonClick(ActionEvent event) {
-
+        String msg= CommonMethod.alertButton("退出登录");
+        if(msg=="确认"){
+            Stage stage=(Stage) anchor.getScene().getWindow();
+            stage.close();
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
+                Parent loginViewRoot=fxmlLoader.load();
+                LoginController loginController=fxmlLoader.getController();
+                Scene loginScene=new Scene(loginViewRoot);
+                Stage loginStage=new Stage();
+                loginStage.setScene(loginScene);
+                loginStage.setResizable(false);
+                loginStage.show();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
     private void onResetButtonClick() {
-        User user = AppStore.getUser();
-        Integer length = user.getPassword().length();
+        DataRequest dataRequest=new DataRequest();
+        dataRequest.add("person_num",AppStore.getUser().getPerson_num());
+        Map user=(Map) HttpRequestUtils.request("/user/selectByNum",dataRequest).getData();
+        /*DataRequest dataRequest=new DataRequest();
+        dataRequest.add("person_num",user.getPerson_num());
+        Result result = HttpRequestUtils.request("/user/selectPasswordByNum", dataRequest);
+        Integer length = result.getData().toString().length();*/
+        Integer length=user.get("password").toString().length();
         passwordLabel.setDisable(false);
         passwordLabel.setText("".join("", List.of("*".repeat(length))));
         passwordLabel.setDisable(true);
@@ -163,6 +202,10 @@ public class UserController {
     public void initialize() {
         User user = AppStore.getUser();
         try {
+            //设置背景图片，但是不知道为啥不能成功
+            anchor.setStyle("-fx-background-image: url('org/example/javafx/css/userBackground.png');" +
+                    "-fx-background-size: cover;" +
+                    "-fx-background-position: center;");
             FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
             Image image = new Image(fileInputStream);
             photoView.setImage(image);

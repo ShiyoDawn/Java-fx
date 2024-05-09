@@ -11,13 +11,13 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.UserController">
    <top>
-      <AnchorPane fx:id="anchor" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
          <children>
             <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab fx:id="viewTab" text="用户界面">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Label layoutX="54.0" layoutY="19.0" text="头像：">
                                  <font>
@@ -195,6 +195,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
+                              <ImageView fx:id="decorateView" fitHeight="248.0" fitWidth="280.0" layoutX="678.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </AnchorPane>
                   </content>

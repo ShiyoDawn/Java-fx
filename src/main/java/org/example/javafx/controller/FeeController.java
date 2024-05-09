@@ -205,7 +205,7 @@ public class FeeController {
         tmpResult = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
         Map map = (Map) tmpResult.getData();
         String student_name = null;
-        if (map != null) {
+        if (map != null&&map.get("user_type").equals(3.0)) {
             dataRequest.add("person_id", Integer.parseInt(map.get("id").toString().split("\\.")[0]));
             tmpResult = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
             map = (Map) tmpResult.getData();

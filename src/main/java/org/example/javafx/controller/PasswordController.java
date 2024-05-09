@@ -18,6 +18,15 @@ import java.util.Map;
 
 public class PasswordController {
 
+    public Map passwordMap;
+
+    public Map getPasswordMap() {
+        return passwordMap;
+    }
+
+    public void setPasswordMap(Map passwordMap) {
+        this.passwordMap = passwordMap;
+    }
 
     @FXML
     private Button applyButton;
@@ -66,9 +75,9 @@ public class PasswordController {
     }
 
     @FXML
-    public void initialize() {
-        User user= AppStore.getUser();
-        String truePassword = user.getPassword();
+    public void initialize(Map map) {
+        passwordMap=map;
+        String truePassword = map.get("password").toString();
         newPasswordTextField.setDisable(true);
         confirmPasswordTextField.setDisable(true);
         applyButton.setDisable(true);
