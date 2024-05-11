@@ -12,6 +12,7 @@
 <VBox fx:id="mainBox" alignment="CENTER" prefHeight="436.0" prefWidth="692.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.LoginController">
     <HBox fx:id="header" prefHeight="70.0" prefWidth="692.0">
         <Label prefHeight="75.0" prefWidth="676.0" text="                                                                                                           " />
+        <Button fx:id="minButton" text="-" prefHeight="23.0" prefWidth="40.0" />
         <Button fx:id="closeButton" text="X" prefHeight="23.0" prefWidth="40.0" />
     </HBox>
     <HBox>

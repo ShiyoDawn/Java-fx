@@ -13,8 +13,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
@@ -99,6 +101,9 @@ public class UserController {
     @FXML
     public static User user;
 
+    public static Stage mainStage=new Stage();
+
+
 
     @FXML
     private void onEditPasswordButtonClick(ActionEvent event) {
@@ -130,20 +135,27 @@ public class UserController {
     @FXML
     private void onLogOutButtonClick(ActionEvent event) {
         String msg= CommonMethod.alertButton("退出登录");
+        Stage stage=(Stage) anchor.getScene().getWindow();
+        if(stage.isShowing()){
+            mainStage.close();
+            mainStage=new Stage();
+        }
+        if(stage.isShowing()){
+            mainStage.close();
+            mainStage=new Stage();
+        }
         if(msg=="确认"){
-            Stage stage=(Stage) anchor.getScene().getWindow();
             stage.close();
+            var fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
-                Parent loginViewRoot=fxmlLoader.load();
-                LoginController loginController=fxmlLoader.getController();
-                Scene loginScene=new Scene(loginViewRoot);
-                Stage loginStage=new Stage();
-                loginStage.setScene(loginScene);
-                loginStage.setResizable(false);
-                loginStage.show();
-            }catch (Exception e){
-                e.printStackTrace();
+                Scene scene = new Scene(fxmlLoader.load(), 670, 440);
+                scene.setFill(Color.TRANSPARENT);
+                mainStage.setScene(scene);
+                mainStage.setTitle("登录");
+                mainStage.initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
+                mainStage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -253,6 +265,9 @@ public class UserController {
         } else if (user.getUser_type_id() == 1) {
             nameLabel.setText("admin");
             userTypeLabel.setText("管理员");
+        }
+        if(mainStage.isShowing()){
+            mainStage.close();
         }
 
         onResetButtonClick();

@@ -40,6 +40,8 @@ public class LoginController {
     @FXML
     public Button closeButton;
 
+    @FXML
+    public Button minButton;
 
     @FXML
     private TextField user;
@@ -105,6 +107,7 @@ public class LoginController {
         });
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
+        tool.setMinButton(minButton);
     }
 
 

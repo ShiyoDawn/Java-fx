@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.io.IOException;
 
 
@@ -15,7 +16,8 @@ public class MainApplication extends Application {
     private static double stageWidth = 1200;
     private static double stageHeight = 800;
 
-    private static boolean canClose=true;
+    private static boolean canClose = true;
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -30,7 +32,7 @@ public class MainApplication extends Application {
     }
 
     public static void resetStage(String name, Scene scene) {
-        if(stageWidth > 0) {
+        if (stageWidth > 0) {
             mainStage.setWidth(stageWidth);
             mainStage.setHeight(stageHeight);
             mainStage.setX(200);
@@ -42,11 +44,12 @@ public class MainApplication extends Application {
         }
 
     }
+
     public static void setCanClose(boolean canClose) {
         MainApplication.canClose = canClose;
     }
 
-    public static Stage getMainStage(){
+    public static Stage getMainStage() {
         return mainStage;
     }
 }
