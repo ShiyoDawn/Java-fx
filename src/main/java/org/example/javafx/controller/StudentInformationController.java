@@ -16,9 +16,8 @@ import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import com.itextpdf.text.Document;
@@ -29,10 +28,9 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 
 import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
+
 public class StudentInformationController {
 
     @FXML
@@ -122,39 +120,79 @@ public class StudentInformationController {
         Result studentResult = HttpRequestUtils.request("/student/getStudentInfo", req);
         if (studentResult != null && studentResult.getCode() == 200) {
             Map<String, Object> studentInfo = (Map<String, Object>) studentResult.getData();
-            person_idLabel.setText((String)studentInfo.get("person_num"));//1
-            person_nameLabel.setText((String) studentInfo.get("student_name"));//1
-            genderLabel.setText((String) studentInfo.get("gender"));//1
-            birthdayLabel.setText((String) studentInfo.get("birthday"));//1
-            identityLabel.setText((String) studentInfo.get("identity"));//1
-            identity_numberLabel.setText((String) studentInfo.get("identity_number"));//1
-            phone_numberLabel.setText((String) studentInfo.get("phone_number"));//1
-            emailLabel.setText((String) studentInfo.get("email"));//1
-            //admission_dateLabel.setText((String) studentInfo.get("admission_date"));
-            collegeLabel.setText((String) studentInfo.get("department"));//1
-            majorLabel.setText((String) studentInfo.get("major"));//1
-            classLabel.setText((String) studentInfo.get("classes"));//1
-            degreeLabel.setText((String) studentInfo.get("grade"));//1
+            person_idLabel.setText(studentInfo.get("person_num") != null ? (String)studentInfo.get("person_num") : "");
+            person_nameLabel.setText(studentInfo.get("student_name") != null ? (String) studentInfo.get("student_name") : "");
+            genderLabel.setText(studentInfo.get("gender") != null ? (String) studentInfo.get("gender") : "");
+            birthdayLabel.setText(studentInfo.get("birthday") != null ? (String) studentInfo.get("birthday") : "");
+            identityLabel.setText(studentInfo.get("identity") != null ? (String) studentInfo.get("identity") : "");
+            identity_numberLabel.setText(studentInfo.get("identity_number") != null ? (String) studentInfo.get("identity_number") : "");
+            phone_numberLabel.setText(studentInfo.get("phone_number") != null ? (String) studentInfo.get("phone_number") : "");
+            emailLabel.setText(studentInfo.get("email") != null ? (String) studentInfo.get("email") : "");
+            collegeLabel.setText(studentInfo.get("department") != null ? (String) studentInfo.get("department") : "");
+            majorLabel.setText(studentInfo.get("major") != null ? (String) studentInfo.get("major") : "");
+            classLabel.setText(studentInfo.get("classes") != null ? (String) studentInfo.get("classes") : "");
+            degreeLabel.setText(studentInfo.get("grade") != null ? (String) studentInfo.get("grade") : "");
+            //personImage.setImage(new Image((String) studentInfo.get("image")));//1
+//            try {
+//                // 将"path_to_your_image"改为实际图片文件的路径
+//                FileInputStream inputStream = new FileInputStream(studentInfo.get("image") != null ? (String) studentInfo.get("image") : "");
+//                Image image = new Image(inputStream);
+//                personImage.setImage(image);
+//            } catch (FileNotFoundException e) {
+//                personImage.setImage(null);
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("错误");
+//                alert.setHeaderText(null);
+//                alert.setContentText("错误：找不到图片文件。");
+//                alert.showAndWait();
+//                e.printStackTrace();
+//            }
+            try {
+                FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+                Image image = new Image(fileInputStream);
+                personImage.setImage(image);
+                //System.out.println(studentInfo.get("image"));
+                if(studentInfo.get("image") != null) {
+                    String str = (String) studentInfo.get("image");
+                    byte[] data = Base64.getDecoder().decode(str);
+                    if (data != null) {
+                        Image image1 = new Image(new ByteArrayInputStream(data));
+                        personImage.setImage(image1);
+                    }
+                }
+//                if (result != null) {
+//                    if (result.getCode() != -1) {
+//                        String str = result.getData().toString();
+//                        byte[] data = Base64.getDecoder().decode(str);
+//                        if (data != null) {
+//                            Image image1 = new Image(new ByteArrayInputStream(data));
+//                            photoView.setImage(image1);
+//                        }
+//                    }
+//                }
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             //GPALabel.setText("");
             List<Map<String, String>> studentFamilies = (List<Map<String, String>>) studentInfo.get("studentFamilies");
             if (studentFamilies != null && !studentFamilies.isEmpty()) {
                 for (Map<String, String> familyMember : studentFamilies) {
                     if ("父亲".equals(familyMember.get("relation"))) {
-                        father_nameLabel.setText((String) familyMember.get("name"));
-                        father_phone_numberLabel.setText((String) familyMember.get("phone"));
-                        father_workLabel.setText((String) familyMember.get("job"));
-                        addressLabel.setText((String) familyMember.get("address"));
+                        father_nameLabel.setText(familyMember.get("name") != null ? (String) familyMember.get("name") : "");
+                        father_phone_numberLabel.setText(familyMember.get("phone") != null ? (String) familyMember.get("phone") : "");
+                        father_workLabel.setText(familyMember.get("job") != null ? (String) familyMember.get("job") : "");
+                        addressLabel.setText(familyMember.get("address") != null ? (String) familyMember.get("address") : "");
                     } else if ("母亲".equals(familyMember.get("relation"))) {
-                        mother_nameLabel.setText((String) familyMember.get("name"));
-                        mother_phone_numberLabel.setText((String) familyMember.get("phone"));
-                        mother_workLabel.setText((String) familyMember.get("job"));
-                        addressLabel.setText((String) familyMember.get("address"));
+                        mother_nameLabel.setText(familyMember.get("name") != null ? (String) familyMember.get("name") : "");
+                        mother_phone_numberLabel.setText(familyMember.get("phone") != null ? (String) familyMember.get("phone") : "");
+                        mother_workLabel.setText(familyMember.get("job") != null ? (String) familyMember.get("job") : "");
+                        addressLabel.setText(familyMember.get("address") != null ? (String) familyMember.get("address") : "");
                     }
                 }
             }
             List<Map<String, String>> glories=(List<Map<String, String>>)studentInfo.get("glories");
             String s="";
-            s=s+"小学："+(String) studentInfo.get("primary")+"\n"+"初中："+(String) studentInfo.get("junior")+"\n"+"高中："+(String) studentInfo.get("senior")+"\n"+"大学：山东大学"+"\n";
+            s=s+"小学："+(studentInfo.get("primary") != null ? (String) studentInfo.get("primary") : "")+"\n"+"初中："+(studentInfo.get("junior") != null ? (String) studentInfo.get("junior") : "")+"\n"+"高中："+(studentInfo.get("senior") != null ? (String) studentInfo.get("senior") : "")+"\n"+"大学：山东大学"+"\n";
             for (Map<String,String> m:glories){
                 s=s+"荣誉："+"\n"+m.get("glory_name")+","+m.get("glory_type")+","+m.get("glory_level")+"."+"\n";
             }
@@ -167,19 +205,7 @@ public class StudentInformationController {
             alert.setContentText((studentResult != null && studentResult.getMsg() != null) ? studentResult.getMsg() : "Failed to fetch student information.");
             alert.showAndWait();
         }
-        try {
-            // 将"path_to_your_image"改为实际图片文件的路径
-            FileInputStream inputStream = new FileInputStream("C:\\Users\\Lenovo\\Desktop\\b_ceeab09a7a242063992bbc5b656ffba3.jpg");
-            Image image = new Image(inputStream);
-            personImage.setImage(image);
-        } catch (FileNotFoundException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("错误");
-            alert.setHeaderText(null);
-            alert.setContentText("错误：找不到图片文件。");
-            alert.showAndWait();
-            e.printStackTrace();
-        }
+
     }
     @FXML
     void onExitButtonAction() {
@@ -188,7 +214,7 @@ public class StudentInformationController {
     }
 
     @FXML
-    public void onExportPDFButtonAction(ActionEvent event) {
+    public void onExportToPDFButtonClick(ActionEvent event) {
         Document document = new Document(PageSize.A4);
 
         try {
