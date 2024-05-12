@@ -32,27 +32,51 @@ public class ElementsTool {
         });
     }
 
-    public void setMinButton(Button closeButton) {
-
+    public void setMinButton(Button minButton) {
+        minButton.setTextFill(Color.rgb(147, 249, 185));
         //按钮初始化
-        closeButton.setStyle(
+        minButton.setStyle(
                  "-fx-background-color:#93f9b9;" + //设置背景颜色
                         "-fx-background-radius:0 0 5 5;"     //设置背景圆角
         );
 
-        closeButton.setOnAction(new EventHandler<ActionEvent>() {
+        minButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 MainApplication.getMainStage().setIconified(true);
             }
         });
 
-        closeButton.setOnMouseEntered(e -> {
-            closeButton.setTextFill(Color.WHITE);
+        minButton.setOnMouseEntered(e -> {
+            minButton.setTextFill(Color.WHITE);
         });
 
-        closeButton.setOnMouseExited(e -> {
-            closeButton.setTextFill(Color.rgb(147, 249, 185));
+        minButton.setOnMouseExited(e -> {
+            minButton.setTextFill(Color.rgb(147, 249, 185));
         });
+
+    }
+
+    public void setResizeButton(Button resizeButton){
+        resizeButton.setTextFill(Color.rgb(110, 252, 255));
+        resizeButton.setStyle(
+                "-fx-background-color:#6efcff;" + //设置背景颜色
+                        "-fx-background-radius:0 0 5 5;"     //设置背景圆角
+        );
+        resizeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MainApplication.getMainStage().setResizable(true);
+            }
+        });
+
+        resizeButton.setOnMouseEntered(e -> {
+            resizeButton.setTextFill(Color.WHITE);
+        });
+
+        resizeButton.setOnMouseExited(e -> {
+            resizeButton.setTextFill(Color.rgb(110, 252, 255));
+        });
+
     }
 }

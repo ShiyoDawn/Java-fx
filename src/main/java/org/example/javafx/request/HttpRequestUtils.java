@@ -155,6 +155,26 @@ public class HttpRequestUtils {
         }
         return null;
     }
-
+    public static Result uploadFile(String uri,String filePath,String remoteFile,String person_num)  {
+        try {
+            Path file = Path.of(filePath);
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(serverUrl+uri+"?remoteFile="+remoteFile + "&fileName="
+                            + person_num+".jpg"))
+                    .POST(HttpRequest.BodyPublishers.ofFile(file))
+                    .build();
+            HttpResponse<String>  response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if(response.statusCode() == 200) {
+                Result dataResponse = gson.fromJson(response.body(), Result.class);
+                return dataResponse;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

@@ -8,9 +8,17 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.StartUp;
@@ -43,6 +51,8 @@ public class MainFrameController {
 
     @FXML Button closeButton;
 
+    @FXML Button resizeButton;
+
     @FXML
     ComboBox searchBox;
 
@@ -69,13 +79,63 @@ public class MainFrameController {
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         BorderPane dashboard = new BorderPane(fxmlLoader.load());
         borderPane.setCenter(dashboard);
-        userLabel.setText(AppStore.getUser().getPerson_num() + "/" + AppStore.confirmType(AppStore.getUser()));
+
+        Result result=new Result();
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("person_num", AppStore.getUser().getPerson_num());
+        result = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
+        Map map = (Map) result.getData();
+        userLabel.setText("欢迎您:  "+map.get("person_name") + (AppStore.confirmType(AppStore.getUser())=="学生"?"同学":AppStore.confirmType(AppStore.getUser())=="教师"?"老师":"管理员"));
         setTabChange(dashBoardButton, "dashboard-view.fxml");
         stageMove();
 
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
         tool.setMinButton(minButton);
+        tool.setResizeButton(resizeButton);
+
+        resizeButton.setDisable(true);
+        resizeButton.setTextFill(Color.WHITE);
+        /* 尝试实现全屏功能
+        Scale scale=new Scale();
+        double initialWidth=MainApplication.getMainStage().getWidth();
+        double initialHeight=MainApplication.getMainStage().getHeight();
+
+        MainApplication.getMainStage().widthProperty().addListener((observable, oldValue, newValue) -> {
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            double scaleFactor=Math.min(screenBounds.getMaxX() / initialWidth, screenBounds.getMaxY() / initialHeight);
+            scale.setX(scaleFactor-1.1);
+        });
+        MainApplication.getMainStage().heightProperty().addListener((observable, oldValue, newValue) -> {
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            double scaleFactor=Math.min(screenBounds.getMaxX() / initialWidth, screenBounds.getMaxY() / initialHeight);
+            scale.setY(scaleFactor-1.1);
+        });
+
+        resizeButton.setOnAction(e->{
+            MainApplication.getMainStage().setFullScreen(!MainApplication.getMainStage().isFullScreen());
+            borderPane.getTransforms().add(scale);
+            System.out.println(scale.getX()+" "+scale.getY());
+        });
+
+        MainApplication.getMainStage().addEventHandler(KeyEvent.KEY_PRESSED, e->{
+            if(e.getCode()== KeyCode.ESCAPE){
+                if(MainApplication.getMainStage().isFullScreen()){
+                    MainApplication.getMainStage().setFullScreen(false);
+                    Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                    MainApplication.getMainStage().widthProperty().addListener((observable, oldValue, newValue) -> {
+                        double scaleFactor=Math.min(initialHeight/screenBounds.getMaxX(), initialWidth/screenBounds.getMaxY());
+                        scale.setX(scaleFactor);
+                    });
+                    MainApplication.getMainStage().heightProperty().addListener((observable, oldValue, newValue) -> {
+                        double scaleFactor=Math.min(initialHeight/screenBounds.getMaxX(), initialWidth/screenBounds.getMaxY());
+                        scale.setY(scaleFactor);
+                    });
+                    borderPane.getTransforms().add(scale);
+                }
+                System.out.println(scale.getX()+" "+scale.getY());
+            }
+        });*/
 
 
         //初始化页面切换
@@ -121,6 +181,7 @@ public class MainFrameController {
         //load complete
         statueLabel.setText("加载完成");
     }
+
 
     public void exit() {
         MainApplication.getMainStage().close();

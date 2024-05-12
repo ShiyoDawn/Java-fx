@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
    <top>
       <VBox>
          <HBox fx:id="header" alignment="TOP_RIGHT">
@@ -17,14 +17,24 @@
                <Button fx:id="minButton" prefHeight="23.0" prefWidth="29.0" text="—">
                   <font>
                      <Font name="System Bold" size="12.0" />
-                  </font></Button>
-               <Button fx:id="closeButton" prefHeight="25.0" prefWidth="20.0" text="X"> </Button>
+                  </font>
+               </Button>
+               <Button fx:id="resizeButton" prefHeight="25.0" prefWidth="20.0" text="□">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Button>
+               <Button fx:id="closeButton" prefHeight="25.0" prefWidth="20.0" text="X">
+                    <font>
+                         <Font name="System Bold" size="12.0" />
+                    </font>
+               </Button>
             </children>
          </HBox>
          <HBox>
             <children>
-               <Label fx:id="userLabel" prefHeight="33.0" prefWidth="86.0" text="ADMIN/admin" />
-               <Label prefHeight="15.0" prefWidth="216.0" text="                                           快捷跳转" />
+               <Label fx:id="userLabel" prefHeight="33.0" prefWidth="150.0" text="ADMIN/admin" />
+               <Label prefHeight="15.0" prefWidth="182.0" text="                                快捷跳转：" />
                <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
                <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="查询页面" />
             </children>

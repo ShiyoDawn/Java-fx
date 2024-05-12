@@ -66,11 +66,12 @@
                                                           <TableColumn fx:id="id" prefWidth="67.33337020874023" text="id" />
                                                           <TableColumn fx:id="studentNameColumn" prefWidth="115.3333511352539" text="学生姓名" />
                                                           <TableColumn fx:id="studentNumColumn" prefWidth="106.66654968261719" text="学号" />
-                                                          <TableColumn fx:id="courseNumColumn" minWidth="0.0" prefWidth="130.666748046875" text="课程号" />
-                                                          <TableColumn fx:id="courseNameColumn" minWidth="0.0" prefWidth="114.00009155273438" text="课程名称" />
-                                                          <TableColumn fx:id="creditColumn" minWidth="0.0" prefWidth="94.66668701171875" text="学分" />
-                                                          <TableColumn fx:id="markColumn" minWidth="0.0" prefWidth="94.66668701171875" text="成绩" />
-                                          <TableColumn fx:id="gradePointColumn" minWidth="0.0" prefWidth="99.3333740234375" text="绩点" />
+                                          <TableColumn fx:id="classColumn" prefWidth="78.66668701171875" text="班级" />
+                                                          <TableColumn fx:id="courseNumColumn" minWidth="0.0" prefWidth="104.6666259765625" text="课程号" />
+                                                          <TableColumn fx:id="courseNameColumn" minWidth="0.0" prefWidth="102.00009155273438" text="课程名称" />
+                                                          <TableColumn fx:id="creditColumn" minWidth="0.0" prefWidth="78.66668701171875" text="学分" />
+                                                          <TableColumn fx:id="markColumn" minWidth="0.0" prefWidth="81.9998779296875" text="成绩" />
+                                          <TableColumn fx:id="gradePointColumn" minWidth="0.0" prefWidth="86.666748046875" text="绩点" />
                                                       </columns>
                                                   </TableView>
                                                 <TabPane fx:id="editTabPane" layoutX="833.0" prefHeight="611.0" prefWidth="228.0" tabClosingPolicy="UNAVAILABLE">
