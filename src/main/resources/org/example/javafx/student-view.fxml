@@ -50,35 +50,35 @@
                            </font>
                         </Label>
                         <TextField fx:id="select" layoutX="641.0" layoutY="24.0" onAction="#onSelectAction" promptText="请选择查询类别" />
-                        <SplitPane dividerPositions="0.6463490099009901" layoutY="72.0" prefHeight="585.0" prefWidth="1080.0">
+                        <SplitPane dividerPositions="0.7540222772277227" layoutY="72.0" prefHeight="585.0" prefWidth="1080.0">
                           <items>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0" stylesheets="@css/table.css">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="848.0">
                                        <children>
-                                          <TableView fx:id="tableView" prefHeight="720.0" prefWidth="848.0">
+                                          <TableView fx:id="tableView" prefHeight="720.0" prefWidth="821.0">
                                             <columns>
-                                              <TableColumn fx:id="idColumn" prefWidth="33.333282589912415" text="序号" />
-                                              <TableColumn fx:id="person_numColumn" prefWidth="118.00006103515625" text="学号" />
-                                                <TableColumn fx:id="student_nameColumn" prefWidth="75.3333740234375" text="姓名" />
-                                                <TableColumn fx:id="departmentColumn" prefWidth="124.66668701171875" text="部门" />
-                                                <TableColumn fx:id="classesColumn" prefWidth="83.3333740234375" text="班级" />
-                                                <TableColumn fx:id="gradeColumn" prefWidth="70.6666259765625" text="年级" />
-                                                <TableColumn fx:id="majorColumn" prefWidth="138.66671752929688" text="专业" />
+                                              <TableColumn fx:id="idColumn" prefWidth="39.33334481716156" text="序号" />
+                                              <TableColumn fx:id="person_numColumn" prefWidth="124.66669082641602" text="学号" />
+                                                <TableColumn fx:id="student_nameColumn" prefWidth="85.33334350585938" text="姓名" />
+                                                <TableColumn fx:id="departmentColumn" prefWidth="120.66661071777344" text="部门" />
+                                                <TableColumn fx:id="classesColumn" prefWidth="94.0" text="班级" />
+                                                <TableColumn fx:id="gradeColumn" prefWidth="108.00003051757812" text="年级" />
+                                                <TableColumn fx:id="majorColumn" prefWidth="96.0" text="专业" />
                                             </columns>
                                           </TableView>
                                        </children>
                                     </AnchorPane>
                                 </content>
                               </ScrollPane>
-                              <VBox prefHeight="583.0" prefWidth="438.0">
+                              <VBox prefHeight="583.0" prefWidth="351.0">
                                  <children>
-                                    <FlowPane alignment="CENTER" prefHeight="159.0" prefWidth="378.0">
+                                    <FlowPane alignment="CENTER" prefHeight="124.0" prefWidth="378.0">
                                        <children>
-                                          <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="imageView" fitHeight="130.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </FlowPane>
-                                    <GridPane alignment="CENTER" hgap="10.0" prefHeight="227.0" prefWidth="378.0">
+                                    <GridPane alignment="CENTER" hgap="10.0" prefHeight="216.0" prefWidth="262.0">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.333251953125" minWidth="10.0" prefWidth="112.6666259765625" />
                                         <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="266.0000406901042" minWidth="10.0" prefWidth="266.0000406901042" />
