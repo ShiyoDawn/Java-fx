@@ -125,6 +125,9 @@ public class StudentGloryController {
         editTabPane.setVisible(true);
         editConfirmButton.setText("增加荣誉");
         onQueryButtonClick();
+        if(!id.isVisible()&&(studentComboBox.getValue()==null||studentComboBox.getValue().toString().equals("请选择学生"))){
+            id.setVisible(true);
+        }
     }
 
     @FXML
@@ -150,6 +153,9 @@ public class StudentGloryController {
             }
         }
         onQueryButtonClick();
+        if(!id.isVisible()&&(studentComboBox.getValue()==null||studentComboBox.getValue().toString().equals("请选择学生"))){
+            id.setVisible(true);
+        }
     }
 
     Result tmpResult;
@@ -183,6 +189,7 @@ public class StudentGloryController {
 
     @FXML
     private void onQueryButtonClick() {
+        id.setVisible(false);
         String student_name = null;
         Object student = studentComboBox.getSelectionModel().getSelectedItem();
         Result result = null;
@@ -222,6 +229,7 @@ public class StudentGloryController {
     @FXML
     private void onResetButtonClick() {
         Result result = null;
+        id.setVisible(true);
         studentComboBox.setValue(null);
         studentComboBox.setPromptText("请选择学生");
         User user = AppStore.getUser();
@@ -382,7 +390,13 @@ public class StudentGloryController {
             confirmStage.setScene(scene);
             confirmStage.show();
         }
+        studentComboBox.setValue("");
+        studentComboBox.setPromptText("请选择学生");
         onQueryButtonClick();
+        onQueryButtonClick();
+        if(!id.isVisible()&&(studentComboBox.getValue()==null||studentComboBox.getValue().toString().equals("请选择学生"))){
+            id.setVisible(true);
+        }
     }
 
 

@@ -81,7 +81,19 @@ public class LeaveDetailController {
     void onFailButtonClick() {
         DataRequest dataRequest = new DataRequest();
         dataRequest.add("status", "不批准");
-        dataRequest.add("id", Integer.parseInt(idTextField.getText()));
+        dataRequest.add("student_num", studentIdTextField.getText());
+        dataRequest.add("student_name", studentNameTextField.getText());
+        dataRequest.add("institute", instituteTextField.getText());
+        dataRequest.add("major", majorTextField.getText());
+        dataRequest.add("instructor_name", instructorNameTextfield.getText());
+        dataRequest.add("instructor_tele", instructorTeleTextField.getText());
+        dataRequest.add("leave_detailed_reason", reasonTextField.getText());
+        dataRequest.add("start_time", goOutDatePicker.getValue().toString());
+        dataRequest.add("end_time", comeBackDatePicker.getValue().toString());
+        dataRequest.add("student_tele", studentTeleTextField.getText());
+        dataRequest.add("leave_reason", reasonComboBox.getValue());
+        dataRequest.add("leave_type", goOutTypeComboBox.getValue());
+        dataRequest.add("destination", destinationTextfield.getText());
         HttpRequestUtils.request("/leave/updateStatus", dataRequest);
         Stage stage = (Stage) passButton.getParent().getScene().getWindow();
         stage.close();
@@ -91,7 +103,19 @@ public class LeaveDetailController {
     void onPassButtonClick() {
         DataRequest dataRequest = new DataRequest();
         dataRequest.add("status", "已通过");
-        dataRequest.add("id", Integer.parseInt(idTextField.getText()));
+        dataRequest.add("student_num", studentIdTextField.getText());
+        dataRequest.add("student_name", studentNameTextField.getText());
+        dataRequest.add("institute", instituteTextField.getText());
+        dataRequest.add("major", majorTextField.getText());
+        dataRequest.add("instructor_name", instructorNameTextfield.getText());
+        dataRequest.add("instructor_tele", instructorTeleTextField.getText());
+        dataRequest.add("leave_detailed_reason", reasonTextField.getText());
+        dataRequest.add("start_time", goOutDatePicker.getValue().toString());
+        dataRequest.add("end_time", comeBackDatePicker.getValue().toString());
+        dataRequest.add("student_tele", studentTeleTextField.getText());
+        dataRequest.add("leave_reason", reasonComboBox.getValue());
+        dataRequest.add("leave_type", goOutTypeComboBox.getValue());
+        dataRequest.add("destination", destinationTextfield.getText());
         HttpRequestUtils.request("/leave/updateStatus", dataRequest);
         Stage stage = (Stage) passButton.getParent().getScene().getWindow();
         stage.close();

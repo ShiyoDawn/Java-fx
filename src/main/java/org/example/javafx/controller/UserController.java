@@ -131,7 +131,6 @@ public class UserController {
     }
 
 
-    //退出登录后的界面有点小问题（先放着）
     @FXML
     private void onLogOutButtonClick(ActionEvent event) {
         String msg= CommonMethod.alertButton("退出登录");
