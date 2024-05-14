@@ -94,10 +94,10 @@ public class MainFrameController {
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
         tool.setMinButton(minButton);
-        tool.setResizeButton(resizeButton);
+        /*tool.setResizeButton(resizeButton);
 
         resizeButton.setDisable(true);
-        resizeButton.setTextFill(Color.WHITE);
+        resizeButton.setTextFill(Color.WHITE);*/
         /*// 尝试实现全屏功能
         Scale scale=new Scale();
         double initialWidth=MainApplication.getMainStage().getWidth();

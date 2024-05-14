@@ -19,7 +19,7 @@
         <tabs>
           <Tab text="创新实践">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="practiceAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="practiceAddButton" layoutX="85.0" layoutY="11.0" mnemonicParsing="false" onAction="#onPracticeAddButtonClick" prefHeight="29.0" prefWidth="53.0" text="增添" />
                         <Button fx:id="practiceDeleteButton" layoutX="164.0" layoutY="10.0" mnemonicParsing="false" onAction="#onPracticeDeleteButtonClick" prefHeight="31.0" prefWidth="51.0" text="删除" />
@@ -28,7 +28,7 @@
                           <content>
                             <AnchorPane layoutY="60.0" minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="793.0">
                                  <children>
-                                    <TableView stylesheets="@css/table.css" fx:id="practiceTableView" layoutY="-1.0" prefHeight="900.0" prefWidth="780.0">
+                                    <TableView fx:id="practiceTableView" layoutY="-1.0" prefHeight="900.0" prefWidth="780.0" stylesheets="@css/table.css">
                                       <columns>
                                         <TableColumn fx:id="practiceIdColumn" prefWidth="70.6666818857193" text="序号" />
                                           <TableColumn fx:id="practiceStudentNumColumn" prefWidth="127.99998474121094" text="学号" />
@@ -114,7 +114,7 @@
           </Tab>
           <Tab text="日常活动">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="dailyAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                          <ScrollPane layoutY="44.0" prefHeight="619.0" prefWidth="793.0">
                           <content>
