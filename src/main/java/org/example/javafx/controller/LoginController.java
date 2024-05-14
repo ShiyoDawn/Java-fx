@@ -49,6 +49,10 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
+    @FXML Button chooseAdmin;
+    @FXML Button chooseStu;
+    @FXML Button chooseTea;
+
 
 
     @FXML
@@ -108,6 +112,25 @@ public class LoginController {
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
         tool.setMinButton(minButton);
+
+        tool.setButtonStyle01(chooseStu);
+        tool.setButtonStyle01(chooseAdmin);
+        tool.setButtonStyle01(chooseTea);
+
+        chooseAdmin.setOnAction(e -> {
+            user.setText("admin");
+            passwordField.setText("123456");
+        });
+
+        chooseStu.setOnAction(e -> {
+            user.setText("202300300001");
+            passwordField.setText("22222222");
+        });
+
+        chooseTea.setOnAction(e -> {
+//            user.setText("202300300001");
+//            passwordField.setText("22222222");
+        });
     }
 
 
