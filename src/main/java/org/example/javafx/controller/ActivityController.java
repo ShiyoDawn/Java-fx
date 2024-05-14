@@ -6,7 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
+import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.util.CommonMethod;
@@ -23,6 +28,12 @@ public class ActivityController {
 
     @FXML
     private TableView<Map> dailyTableView;
+
+    @FXML
+    private AnchorPane dailyAnchor;
+
+    @FXML
+    private AnchorPane practiceAnchor;
 
     @FXML
     private Button dailyUpdateButton;
@@ -186,14 +197,22 @@ public class ActivityController {
     void onDailyConfirmButtonClick() {
         Map map = dailyTableView.getSelectionModel().getSelectedItem();
         DataRequest rawDataRequest = new DataRequest();
-        rawDataRequest.add("student_num", map.get("student_num").toString());
-        rawDataRequest.add("student_name", map.get("student_name").toString());
-        rawDataRequest.add("activity_name", map.get("activity_name").toString());
-        rawDataRequest.add("activity_type", map.get("activity_type").toString());
-        rawDataRequest.add("date", map.get("date").toString());
-        rawDataRequest.add("score", map.get("score").toString());
+        if (map != null) {
+            rawDataRequest.add("student_num", map.get("student_num").toString());
+            rawDataRequest.add("student_name", map.get("student_name").toString());
+            rawDataRequest.add("activity_name", map.get("activity_name").toString());
+            rawDataRequest.add("activity_type", map.get("activity_type").toString());
+            rawDataRequest.add("date", map.get("date").toString());
+            rawDataRequest.add("score", map.get("score").toString());
+        }
         if (dailyConfirmButton.getText() == "修改") {
             if (dailyStudentNumEditTextField.getText() != "" && dailyStudentNameEditTextField.getText() != "" && dailyActivityNameEditTextField.getText() != "" && dailyActivityTypeComboBox.getValue() != "请选择活动类型" && dailyFromDatePicker.getValue() != null && dailyToDatePicker.getValue() != null && dailyScoreEditTextField.getText() != "") {
+                if (dailyFromDatePicker.getValue().isAfter(dailyToDatePicker.getValue())) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("日期填写有误，请重新填写！");
+                    alert.showAndWait();
+                    return;
+                }
                 DataRequest dataRequest = new DataRequest();
                 dataRequest.add("student_num", dailyStudentNumEditTextField.getText());
                 dataRequest.add("student_name", dailyStudentNameEditTextField.getText());
@@ -213,6 +232,12 @@ public class ActivityController {
             }
         } else if (dailyConfirmButton.getText() == "添加") {
             if (dailyStudentNumEditTextField.getText() != "" && dailyStudentNameEditTextField.getText() != "" && dailyActivityNameEditTextField.getText() != "" && dailyActivityTypeComboBox.getValue() != "请选择活动类型" && dailyFromDatePicker.getValue() != null && dailyToDatePicker.getValue() != null && dailyScoreEditTextField.getText() != "") {
+                if(practiceFromDatePicker.getValue().isAfter(practiceToDatePicker.getValue())){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("日期填写有误，请重新填写！");
+                    alert.showAndWait();
+                    return;
+                }
                 DataRequest dataRequest = new DataRequest();
                 dataRequest.add("student_num", dailyStudentNumEditTextField.getText());
                 dataRequest.add("student_name", dailyStudentNameEditTextField.getText());
@@ -232,6 +257,7 @@ public class ActivityController {
             }
         }
         onDailyQueryButtonClick();
+        onDailyResetEditButtonClick();
     }
 
     @FXML
@@ -252,6 +278,8 @@ public class ActivityController {
             String msg = CommonMethod.alertButton("删除");
             if (msg == "确认") {
                 Result result = HttpRequestUtils.request("/activity/deleteActivity", dataRequest);
+                onDailyQueryButtonClick();
+                onDailyResetEditButtonClick();
             }
         } else {
             String msg = CommonMethod.alertButton("删除");
@@ -266,14 +294,23 @@ public class ActivityController {
                     dataRequest.add("score", map.get("score").toString());
                     Result result = HttpRequestUtils.request("/activity/deleteActivity", dataRequest);
                 }
+                onDailyQueryButtonClick();
+                onDailyResetEditButtonClick();
             }
         }
-        onDailyQueryButtonClick();
     }
 
     @FXML
     void onDailyUpdateButtonClick() {
         Map map = dailyTableView.getSelectionModel().getSelectedItem();
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            dailyStudentNumEditTextField.setDisable(false);
+            dailyStudentNameEditTextField.setDisable(false);
+            dailyActivityNameEditTextField.setDisable(false);
+            dailyActivityTypeComboBox.setDisable(false);
+            dailyFromDatePicker.setDisable(false);
+            dailyToDatePicker.setDisable(false);
+        }
         if (map != null) {
             dailyConfirmButton.setText("修改");
             dailyStudentNumEditTextField.setText(map.get("student_num").toString());
@@ -295,7 +332,7 @@ public class ActivityController {
     @FXML
     void onDailyQueryButtonClick() {
         String studentInfo = dailyStudentInfoTextField.getText();
-        if(dailyStudentInfoTextField.getText()==""||dailyStudentInfoTextField.getText()=="请输入学生信息"){
+        if (dailyStudentInfoTextField.getText() == "" || dailyStudentInfoTextField.getText() == "请输入学生信息") {
             Result result = HttpRequestUtils.request("/activity/getActivityList", new DataRequest());
             setDailyTableViewData(result);
             return;
@@ -316,6 +353,7 @@ public class ActivityController {
             result.setData(list);
         }
         setDailyTableViewData(result);
+        onDailyResetEditButtonClick();
     }
 
     @FXML
@@ -324,6 +362,15 @@ public class ActivityController {
         dailyStudentInfoTextField.setPromptText("请输入学生信息");
         dailyStudentNumEditTextField.setDisable(false);
         dailyStudentNameEditTextField.setDisable(false);
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            dailyStudentNumEditTextField.setDisable(true);
+            dailyStudentNameEditTextField.setDisable(true);
+            dailyActivityTypeComboBox.setDisable(true);
+            dailyActivityNameEditTextField.setDisable(true);
+            dailyFromDatePicker.setDisable(true);
+            dailyToDatePicker.setDisable(true);
+            dailyScoreEditTextField.setDisable(true);
+        }
         dailyStudentNumEditTextField.setText("");
         dailyStudentNameEditTextField.setText("");
         dailyActivityNameEditTextField.setText("");
@@ -341,6 +388,15 @@ public class ActivityController {
     void onDailyResetEditButtonClick() {
         dailyStudentNumEditTextField.setDisable(false);
         dailyStudentNameEditTextField.setDisable(false);
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            dailyStudentNumEditTextField.setDisable(true);
+            dailyStudentNameEditTextField.setDisable(true);
+            dailyActivityTypeComboBox.setDisable(true);
+            dailyActivityNameEditTextField.setDisable(true);
+            dailyFromDatePicker.setDisable(true);
+            dailyToDatePicker.setDisable(true);
+            dailyScoreEditTextField.setDisable(true);
+        }
         dailyStudentNumEditTextField.setText("");
         dailyStudentNameEditTextField.setText("");
         dailyActivityNameEditTextField.setText("");
@@ -355,6 +411,9 @@ public class ActivityController {
     public void setDailyTableViewData(Result result) {
         dailyObservableList.clear();
         dailyList = (List<Map>) result.getData();
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            dailyList = CommonMethod.filter(dailyList, "student_num", AppStore.getUser().getPerson_num());
+        }
         for (Map map : dailyList) {
             for (String s : dailyType) {
                 if (map.get("activity_type").equals(s)) {
@@ -387,6 +446,12 @@ public class ActivityController {
         }
         if (practiceConfirmButton.getText() == "修改") {
             if (practiceStudentNumEditTextField.getText() != "" && practiceStudentNameEditTextField.getText() != "" && practiceActivityNameEditTextField.getText() != "" && practiceActivityTypeComboBox.getValue() != "请选择活动类型" && practiceFromDatePicker.getValue() != null && practiceToDatePicker.getValue() != null && practiceScoreEditTextField.getText() != "") {
+                if (practiceFromDatePicker.getValue().isAfter(practiceToDatePicker.getValue())) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("日期填写有误，请重新填写！");
+                    alert.showAndWait();
+                    return;
+                }
                 DataRequest dataRequest = new DataRequest();
                 dataRequest.add("student_num", practiceStudentNumEditTextField.getText());
                 dataRequest.add("student_name", practiceStudentNameEditTextField.getText());
@@ -406,6 +471,12 @@ public class ActivityController {
             }
         } else if (practiceConfirmButton.getText() == "添加") {
             if (practiceStudentNumEditTextField.getText() != "" && practiceStudentNameEditTextField.getText() != "" && practiceActivityNameEditTextField.getText() != "" && practiceActivityTypeComboBox.getValue() != "请选择活动类型" && practiceFromDatePicker.getValue() != null && practiceToDatePicker.getValue() != null && practiceScoreEditTextField.getText() != "") {
+                if(practiceFromDatePicker.getValue().isAfter(practiceToDatePicker.getValue())){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("日期填写有误，请重新填写！");
+                    alert.showAndWait();
+                    return;
+                }
                 DataRequest dataRequest = new DataRequest();
                 dataRequest.add("student_num", practiceStudentNumEditTextField.getText());
                 dataRequest.add("student_name", practiceStudentNameEditTextField.getText());
@@ -425,6 +496,7 @@ public class ActivityController {
 
         }
         onPracticeQueryButtonClick();
+        onPracticeResetEditButtonClick();
     }
 
     @FXML
@@ -445,6 +517,7 @@ public class ActivityController {
             String msg = CommonMethod.alertButton("删除");
             if (msg == "确认") {
                 Result result = HttpRequestUtils.request("/activity/deleteActivity", dataRequest);
+                onPracticeQueryButtonClick();
             }
         } else {
             String msg = CommonMethod.alertButton("删除");
@@ -459,17 +532,18 @@ public class ActivityController {
                     dataRequest.add("score", map.get("score").toString());
                     Result result = HttpRequestUtils.request("/activity/deleteActivity", dataRequest);
                 }
+                onPracticeQueryButtonClick();
             }
         }
-        onPracticeQueryButtonClick();
     }
 
     @FXML
     void onPracticeQueryButtonClick() {
         String studentInfo = practiceStudentInfoTextField.getText();
-        if(practiceStudentInfoTextField.getText()==""||practiceStudentInfoTextField.getText()=="请输入学生信息"){
+        if (practiceStudentInfoTextField.getText() == "" || practiceStudentInfoTextField.getText() == "请输入学生信息") {
             Result result = HttpRequestUtils.request("/activity/getActivityList", new DataRequest());
             setPracticeTableViewData(result);
+            onPracticeResetButtonClick();
             return;
         }
         DataRequest dataRequest = new DataRequest();
@@ -488,6 +562,7 @@ public class ActivityController {
             result.setData(list);
         }
         setPracticeTableViewData(result);
+        onPracticeResetEditButtonClick();
     }
 
     @FXML
@@ -496,6 +571,15 @@ public class ActivityController {
         practiceStudentInfoTextField.setPromptText("请输入学生信息");
         practiceStudentNumEditTextField.setDisable(false);
         practiceStudentNameEditTextField.setDisable(false);
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            practiceStudentNumEditTextField.setDisable(true);
+            practiceStudentNameEditTextField.setDisable(true);
+            practiceActivityTypeComboBox.setDisable(true);
+            practiceActivityNameEditTextField.setDisable(true);
+            practiceFromDatePicker.setDisable(true);
+            practiceToDatePicker.setDisable(true);
+            practiceScoreEditTextField.setDisable(true);
+        }
         practiceStudentNumEditTextField.setText("");
         practiceStudentNameEditTextField.setText("");
         practiceActivityNameEditTextField.setText("");
@@ -511,7 +595,16 @@ public class ActivityController {
     @FXML
     void onPracticeUpdateButtonClick() {
         Map map = practiceTableView.getSelectionModel().getSelectedItem();
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            practiceActivityTypeComboBox.setDisable(true);
+            practiceActivityNameEditTextField.setDisable(true);
+            practiceFromDatePicker.setDisable(true);
+            practiceToDatePicker.setDisable(true);
+            practiceScoreEditTextField.setDisable(true);
+        }
         if (map != null) {
+            practiceStudentNumEditTextField.setDisable(true);
+            practiceStudentNameEditTextField.setDisable(true);
             practiceStudentNumEditTextField.setText(map.get("student_num").toString());
             practiceStudentNameEditTextField.setText(map.get("student_name").toString());
             practiceActivityNameEditTextField.setText(map.get("activity_name").toString());
@@ -533,6 +626,15 @@ public class ActivityController {
     void onPracticeResetEditButtonClick() {
         practiceStudentNumEditTextField.setDisable(false);
         practiceStudentNameEditTextField.setDisable(false);
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            practiceStudentNumEditTextField.setDisable(true);
+            practiceStudentNameEditTextField.setDisable(true);
+            practiceActivityTypeComboBox.setDisable(true);
+            practiceActivityNameEditTextField.setDisable(true);
+            practiceFromDatePicker.setDisable(true);
+            practiceToDatePicker.setDisable(true);
+            practiceScoreEditTextField.setDisable(true);
+        }
         practiceStudentNumEditTextField.setText("");
         practiceStudentNameEditTextField.setText("");
         practiceActivityNameEditTextField.setText("");
@@ -546,6 +648,9 @@ public class ActivityController {
     public void setPracticeTableViewData(Result result) {
         practiceObservableList.clear();
         practiceList = (List<Map>) result.getData();
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            practiceList = CommonMethod.filter(practiceList, "student_num", AppStore.getUser().getPerson_num());
+        }
         for (Map map : practiceList) {
             for (String s : practiceType) {
                 if (map.get("activity_type").equals(s)) {
@@ -560,6 +665,55 @@ public class ActivityController {
 
     @FXML
     public void initialize() {
+
+        User user = AppStore.getUser();
+        if (user.getUser_type_id() == 3) {
+            one.setVisible(false);
+            dailyAddButton.setVisible(false);
+            dailyDeleteButton.setVisible(false);
+            dailyUpdateButton.setVisible(false);
+            dailyConfirmButton.setVisible(false);
+            dailyQueryButton.setVisible(false);
+            dailyResetButton.setVisible(false);
+            dailyResetEditButton.setVisible(false);
+            dailyStudentInfoTextField.setVisible(false);
+            dailyStudentNumEditTextField.setDisable(true);
+            dailyStudentNameEditTextField.setDisable(true);
+            dailyActivityNameEditTextField.setDisable(true);
+            dailyActivityTypeComboBox.setDisable(true);
+            dailyFromDatePicker.setDisable(true);
+            Text text = new Text("( 提醒：若要对日常活动进行增加/修改/删除操作，请联系您的老师或管理员 )");
+            text.setFont(javafx.scene.text.Font.font(14));
+            text.setFill(Color.RED);
+            text.setLayoutX(100);
+            text.setLayoutY(24);
+            dailyAnchor.getChildren().add(text);
+
+
+            two.setVisible(false);
+            practiceAddButton.setVisible(false);
+            practiceDeleteButton.setVisible(false);
+            practiceUpdateButton.setVisible(false);
+            practiceConfirmButton.setVisible(false);
+            practiceQueryButton.setVisible(false);
+            practiceResetButton.setVisible(false);
+            practiceResetEditButton.setVisible(false);
+            practiceStudentInfoTextField.setVisible(false);
+            practiceStudentNumEditTextField.setDisable(true);
+            practiceStudentNameEditTextField.setDisable(true);
+            practiceActivityNameEditTextField.setDisable(true);
+            practiceActivityTypeComboBox.setDisable(true);
+            practiceFromDatePicker.setDisable(true);
+
+            Text text1 = new Text("( 提醒：若要对创新实践进行增加/修改/删除操作，请联系您的老师或管理员 )");
+            text1.setFont(javafx.scene.text.Font.font(14));
+            text1.setFill(Color.RED);
+            text1.setLayoutX(100);
+            text1.setLayoutY(24);
+            practiceAnchor.getChildren().add(text1);
+        }
+
+
         dailyIdColumn.setVisible(false);
         practiceIdColumn.setVisible(false);
         practiceConfirmButton.setText("添加");
@@ -586,11 +740,31 @@ public class ActivityController {
         dailyActivityTypeComboBox.getItems().addAll(dailyType);
 
 
-        dailyTableView.setOnMouseClicked(e->{
-            onDailyUpdateButtonClick();
+        dailyTableView.setOnMouseClicked(e -> {
+            Map map = dailyTableView.getSelectionModel().getSelectedItem();
+            if (map != null) {
+                onDailyUpdateButtonClick();
+                if (user.getUser_type_id() == 3) {
+                    dailyActivityTypeComboBox.setDisable(true);
+                    dailyActivityNameEditTextField.setDisable(true);
+                    dailyFromDatePicker.setDisable(true);
+                    dailyToDatePicker.setDisable(true);
+                    dailyScoreEditTextField.setDisable(true);
+                }
+            }
         });
-        practiceTableView.setOnMouseClicked(e->{
-            onPracticeUpdateButtonClick();
+        practiceTableView.setOnMouseClicked(e -> {
+            Map map = practiceTableView.getSelectionModel().getSelectedItem();
+            if (map != null) {
+                onPracticeUpdateButtonClick();
+                if (user.getUser_type_id() == 3) {
+                    practiceActivityTypeComboBox.setDisable(true);
+                    practiceActivityNameEditTextField.setDisable(true);
+                    practiceFromDatePicker.setDisable(true);
+                    practiceToDatePicker.setDisable(true);
+                    practiceScoreEditTextField.setDisable(true);
+                }
+            }
         });
 
         dailyTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

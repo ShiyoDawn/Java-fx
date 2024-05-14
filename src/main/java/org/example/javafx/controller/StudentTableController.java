@@ -144,7 +144,10 @@ public class StudentTableController {
         }
 
         tableView.setOnMouseClicked(e -> {
-            updateStudentAction();
+            Map map = tableView.getSelectionModel().getSelectedItem();
+            if(map!=null){
+                updateStudentAction();
+            }
         });
 
 
@@ -369,6 +372,7 @@ public class StudentTableController {
             alert.setContentText("获取学生数据失败。错误：" + studentResult.getMsg());
             alert.showAndWait();
         }
+        clearPanel();
     }
 
     private List<Map> filterStudents(List<Map> studentMap, String selectedOption, String searchText) {
