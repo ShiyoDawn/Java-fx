@@ -19,20 +19,20 @@ public class ElementsTool {
         BackgroundFill backgroundFill = new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY);
         Background background = new Background(backgroundFill);
         closeButton.setBackground(background);
+        closeButton.setOpacity(0.4);
 
-        closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        closeButton.setOnAction(e -> {
                 MainApplication.getMainStage().close();
-            }
         });
 
         closeButton.setOnMouseEntered(e -> {
             closeButton.setTextFill(Color.WHITE);
+            closeButton.setOpacity(1);
         });
 
         closeButton.setOnMouseExited(e -> {
             closeButton.setTextFill(Color.RED);
+            closeButton.setOpacity(0.4);
         });
     }
 
@@ -42,6 +42,7 @@ public class ElementsTool {
         BackgroundFill backgroundFill = new BackgroundFill(Paint.valueOf("#93F9B9"), new CornerRadii(0), Insets.EMPTY);
         Background background = new Background(backgroundFill);
         minButton.setBackground(background);
+        minButton.setOpacity(0.4);
 
 
         minButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -53,10 +54,12 @@ public class ElementsTool {
 
         minButton.setOnMouseEntered(e -> {
             minButton.setTextFill(Color.WHITE);
+            minButton.setOpacity(1);
         });
 
         minButton.setOnMouseExited(e -> {
             minButton.setTextFill(Color.rgb(147, 249, 185));
+            minButton.setOpacity(0.4);
         });
 
     }
@@ -82,5 +85,15 @@ public class ElementsTool {
             resizeButton.setTextFill(Color.rgb(110, 252, 255));
         });
 
+    }
+
+    public void setButtonStyle01(Button button){
+        button.setStyle("-fx-background-color:rgb(0,255,208,0.1)");
+        button.setOnMouseEntered(e ->{
+            button.setStyle("-fx-background-color:rgb(0,255,208,0.4)");
+        });
+        button.setOnMouseExited(e -> {
+            button.setStyle("-fx-background-color:rgb(0,255,208,0.1)");
+        });
     }
 }

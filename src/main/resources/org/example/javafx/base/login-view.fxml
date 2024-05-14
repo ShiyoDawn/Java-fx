@@ -15,10 +15,25 @@
         <Button fx:id="closeButton" prefHeight="22.0" prefWidth="29.0" text="X" />
     </HBox>
     <HBox>
-        <Label prefHeight="339.0" prefWidth="361.0">
-         <font>
-            <Font size="23.0" />
-         </font></Label>
+      <VBox prefHeight="379.0" prefWidth="365.0">
+         <children>
+            <Button fx:id="chooseAdmin" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="管理员登录">
+               <VBox.margin>
+                  <Insets left="120.0" top="100.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="chooseStu" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="学生登录">
+               <VBox.margin>
+                  <Insets left="120.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="chooseTea" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="教师登录">
+               <VBox.margin>
+                  <Insets left="120.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
         <VBox alignment="CENTER" prefHeight="389.0" prefWidth="274.0" stylesheets="@../css/button-style.css">
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
