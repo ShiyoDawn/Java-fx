@@ -96,7 +96,7 @@ public class MainFrameController {
 
         resizeButton.setDisable(true);
         resizeButton.setTextFill(Color.WHITE);
-        /* 尝试实现全屏功能
+        /*// 尝试实现全屏功能
         Scale scale=new Scale();
         double initialWidth=MainApplication.getMainStage().getWidth();
         double initialHeight=MainApplication.getMainStage().getHeight();
