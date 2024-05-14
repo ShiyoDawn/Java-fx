@@ -1,0 +1,29 @@
+
+.button {
+    -fx-background-color: white;
+    -fx-text-fill: #16414b;
+    -fx-position: relative;
+    -fx-display: flex;
+    -fx-align-items: center;
+    -fx-justify-content: center;
+    -fx-box-sizing: border-box;
+    -fx-padding: 2;
+    -fx-overflow: hidden;
+    -fx-font-weight: 600;
+    -fx-font-size: 15;
+    -fx-text-align: center;
+    -fx-border-radius: 65;
+}
+
+.button:hover {
+    -fx-text-fill: #42e3a0;
+}
+.button:focused {
+    -fx-background-color: rgba(206, 206, 206, 0.4);
+    -fx-text-fill: #42e3a0;
+}
+
+
+
+
+

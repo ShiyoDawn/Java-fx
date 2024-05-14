@@ -88,12 +88,12 @@ public class ElementsTool {
     }
 
     public void setButtonStyle01(Button button){
-        button.setStyle("-fx-background-color:rgb(0,255,208,0.1)");
+        button.setStyle("-fx-background-color:rgb(0,255,208,0.7)");
         button.setOnMouseEntered(e ->{
-            button.setStyle("-fx-background-color:rgb(0,255,208,0.4)");
+            button.setStyle("-fx-background-color:rgb(0,255,208)");
         });
         button.setOnMouseExited(e -> {
-            button.setStyle("-fx-background-color:rgb(0,255,208,0.1)");
+            button.setStyle("-fx-background-color:rgb(0,255,208,0.7)");
         });
     }
 }

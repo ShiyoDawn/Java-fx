@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.javafx.controller.PersonController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonController">
+   <children>
+      <ScrollPane layoutY="90.0" prefHeight="600.0" prefWidth="1080.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1800.0">
+               <children>
+                  <TableView prefHeight="800.0" prefWidth="1800.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <ComboBox layoutX="570.0" layoutY="35.0" prefHeight="23.0" prefWidth="90.0" promptText="查询类型" />
+      <Button layoutX="70.0" layoutY="35.0" mnemonicParsing="false" text="录入人员" />
+      <Button layoutX="170.0" layoutY="35.0" mnemonicParsing="false" text="修改信息" />
+      <Button layoutX="270.0" layoutY="35.0" mnemonicParsing="false" text="删除人员" />
+      <TextField layoutX="670.0" layoutY="35.0" promptText="请选择查询类别" />
+      <Button layoutX="845.0" layoutY="35.0" mnemonicParsing="false" text="搜索" />
+      <CheckBox layoutX="670.0" layoutY="66.0" mnemonicParsing="false" text="模糊搜索" />
+      <Button layoutX="950.0" layoutY="35.0" mnemonicParsing="false" text="重置" />
+   </children>
 </AnchorPane>

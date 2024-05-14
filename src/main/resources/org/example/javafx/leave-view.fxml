@@ -30,7 +30,7 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="763.0" prefWidth="1067.0">
                                  <children>
-                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="52.0" prefHeight="589.0" prefWidth="1128.0">
+                                    <TableView fx:id="dataTableView" stylesheets="@css/table.css" layoutX="-1.0" layoutY="52.0" prefHeight="589.0" prefWidth="1128.0">
                                       <columns>
                                         <TableColumn fx:id="idColumn" prefWidth="67.33333849906921" text="序号" />
                                         <TableColumn fx:id="studentNumColumn" prefWidth="104.66667175292969" text="学号" />
