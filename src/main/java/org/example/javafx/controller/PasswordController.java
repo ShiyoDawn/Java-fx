@@ -58,6 +58,35 @@ public class PasswordController {
         String originPassword = originPasswordTextField.getText();
         String newPassword = newPasswordTextField.getText();
         String confirmPassword = confirmPasswordTextField.getText();
+        String truePassword = passwordMap.get("password").toString();
+        if(!originPassword.equals(truePassword)){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("原密码输入错误！");
+            alert.showAndWait();
+            applyButton.setDisable(true);
+            return;
+        }
+        if(newPassword.equals(originPassword)){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("新密码与原密码相同！");
+            alert.showAndWait();
+            applyButton.setDisable(true);
+            return;
+        }
+        if(newPassword.length()<6||newPassword.length()>16){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("密码位数不符合规范！");
+            alert.showAndWait();
+            applyButton.setDisable(true);
+            return;
+        }
+        if(!newPassword.equals(confirmPassword)){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("两次密码输入不一致！");
+            alert.showAndWait();
+            applyButton.setDisable(true);
+            return;
+        }
         String msg= CommonMethod.alertButton("修改密码");
         if(msg=="确认"){
             DataRequest dataRequest=new DataRequest();

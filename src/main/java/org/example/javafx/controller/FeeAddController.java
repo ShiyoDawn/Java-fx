@@ -70,11 +70,18 @@ public class FeeAddController {
             return;
         }
         if(moneyTextField.getText().charAt(0)!='-'&&moneyTextField.getText().charAt(0)!='+'&&moneyTextField.getText()!="0"){
-            System.out.println(moneyTextField.getText().charAt(0));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("金额格式错误");
             alert.showAndWait();
             return;
+        }
+        if(moneyTextField.getText()!="0"){
+            if(!Pattern.matches("^\\d+(\\.\\d+)?$",moneyTextField.getText().substring(1))){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("金额格式错误");
+                alert.showAndWait();
+                return;
+            }
         }
         if(fromDate.getValue().isAfter(toDate.getValue())){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -93,8 +100,8 @@ public class FeeAddController {
             dataRequest.add("activity", activityTextField.getText());
             dataRequest.add("activity_detail", activityDetailTextField.getText());
             HttpRequestUtils.request("/fee/insertFee", dataRequest);
+            onCancelButtonClick();
         }
-        onCancelButtonClick();
     }
 
     @FXML
