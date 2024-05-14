@@ -101,7 +101,7 @@ public class UserController {
     @FXML
     public static User user;
 
-    public static Stage mainStage=new Stage();
+    public Stage mainStage=new Stage();
 
 
 
@@ -139,10 +139,6 @@ public class UserController {
             mainStage.close();
             mainStage=new Stage();
         }
-        if(stage.isShowing()){
-            mainStage.close();
-            mainStage=new Stage();
-        }
         if(msg=="确认"){
             stage.close();
             var fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
@@ -151,6 +147,9 @@ public class UserController {
                 scene.setFill(Color.TRANSPARENT);
                 mainStage.setScene(scene);
                 mainStage.setTitle("登录");
+                LoginController loginController=fxmlLoader.getController();
+                loginController.initialize(mainStage);
+
                 mainStage.initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
                 mainStage.show();
             } catch (IOException e) {

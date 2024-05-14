@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.example.javafx.controller.LoginController;
 
 import java.io.IOException;
 
@@ -23,12 +24,13 @@ public class MainApplication extends Application {
 
         var fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 670, 440);
+        LoginController loginController=fxmlLoader.getController();
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         stage.setScene(scene);
         stage.show();
         mainStage = stage;
-
+        loginController.initialize(mainStage);
     }
 
     public static void resetStage(String name, Scene scene) {

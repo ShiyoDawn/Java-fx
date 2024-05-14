@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
@@ -28,9 +29,12 @@ import org.example.javafx.request.LoginRequest;
 import org.example.javafx.util.ElementsTool;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 public class LoginController {
+
+
 
     @FXML
     VBox mainBox;
@@ -87,8 +91,8 @@ public class LoginController {
 
 
 
-    public void initialize() {
-
+    @FXML
+    public void initialize(Stage stage) {
         //header移动初始化
         header.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent m) {
@@ -116,6 +120,15 @@ public class LoginController {
         tool.setButtonStyle01(chooseStu);
         tool.setButtonStyle01(chooseAdmin);
         tool.setButtonStyle01(chooseTea);
+
+        closeButton.setOnAction(e->{
+
+            stage.close();
+        });
+        minButton.setOnAction(e->{
+
+            stage.setIconified(true);
+        });
 
         chooseAdmin.setOnAction(e -> {
             user.setText("admin");
