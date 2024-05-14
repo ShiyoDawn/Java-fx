@@ -3,18 +3,22 @@ package org.example.javafx.util;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import org.example.javafx.MainApplication;
 
 public class ElementsTool {
     public void setCloseButton(Button closeButton) {
         //关闭按钮初始化
         closeButton.setTextFill(Color.RED);
-        closeButton.setStyle(
-                "-fx-background-color:#ff0000;"+         //设置背景颜色
-                        "-fx-background-radius:0 0 0 5;"     //设置背景圆角
-        );
+        BackgroundFill backgroundFill = new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY);
+        Background background = new Background(backgroundFill);
+        closeButton.setBackground(background);
 
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -33,12 +37,12 @@ public class ElementsTool {
     }
 
     public void setMinButton(Button minButton) {
+
         minButton.setTextFill(Color.rgb(147, 249, 185));
-        //按钮初始化
-        minButton.setStyle(
-                 "-fx-background-color:#93f9b9;" + //设置背景颜色
-                        "-fx-background-radius:0 0 5 5;"     //设置背景圆角
-        );
+        BackgroundFill backgroundFill = new BackgroundFill(Paint.valueOf("#93F9B9"), new CornerRadii(0), Insets.EMPTY);
+        Background background = new Background(backgroundFill);
+        minButton.setBackground(background);
+
 
         minButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

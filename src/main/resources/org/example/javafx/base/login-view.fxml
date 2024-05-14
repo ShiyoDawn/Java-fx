@@ -10,10 +10,9 @@
 <?import javafx.scene.text.Font?>
 
 <VBox fx:id="mainBox" alignment="CENTER" prefHeight="436.0" prefWidth="692.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.LoginController">
-    <HBox fx:id="header" prefHeight="70.0" prefWidth="692.0">
-        <Label prefHeight="75.0" prefWidth="676.0" text="                                                                                                           " />
-        <Button fx:id="minButton" text="-" prefHeight="23.0" prefWidth="40.0" />
-        <Button fx:id="closeButton" text="X" prefHeight="23.0" prefWidth="40.0" />
+    <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="69.0" prefWidth="692.0">
+        <Button fx:id="minButton" prefHeight="23.0" prefWidth="29.0" text="—" />
+        <Button fx:id="closeButton" prefHeight="22.0" prefWidth="29.0" text="X" />
     </HBox>
     <HBox>
         <Label prefHeight="339.0" prefWidth="361.0">

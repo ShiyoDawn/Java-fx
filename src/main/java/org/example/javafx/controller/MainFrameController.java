@@ -51,7 +51,6 @@ public class MainFrameController {
 
     @FXML Button closeButton;
 
-    @FXML Button resizeButton;
 
     @FXML
     ComboBox searchBox;
@@ -88,14 +87,13 @@ public class MainFrameController {
         userLabel.setText("欢迎您:  "+map.get("person_name") + (AppStore.confirmType(AppStore.getUser())=="学生"?"同学":AppStore.confirmType(AppStore.getUser())=="教师"?"老师":"管理员"));
         setTabChange(dashBoardButton, "dashboard-view.fxml");
         stageMove();
-
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
         tool.setMinButton(minButton);
-        tool.setResizeButton(resizeButton);
-
-        resizeButton.setDisable(true);
-        resizeButton.setTextFill(Color.WHITE);
+//        tool.setResizeButton(resizeButton);
+//
+//        resizeButton.setDisable(true);
+//        resizeButton.setTextFill(Color.WHITE);
         /* 尝试实现全屏功能
         Scale scale=new Scale();
         double initialWidth=MainApplication.getMainStage().getWidth();
