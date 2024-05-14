@@ -11,7 +11,7 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.MainFrameController">
    <top>
-      <VBox>
+      <VBox stylesheets="@../css/mainframe.css">
          <HBox fx:id="header" alignment="TOP_RIGHT">
             <children>
                <Button fx:id="minButton" prefHeight="26.0" prefWidth="29.0" text="—">
@@ -26,10 +26,10 @@
                </Button>
             </children>
          </HBox>
-         <HBox>
+         <HBox fx:id="topBox">
             <children>
                <Label fx:id="userLabel" prefHeight="33.0" prefWidth="150.0" text="ADMIN/admin" />
-               <Label prefHeight="15.0" prefWidth="182.0" text="                                快捷跳转：" />
+               <Label prefHeight="15.0" prefWidth="182.0" text="                                快捷跳转：" textFill="WHITE" />
                <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
                <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="查询页面" />
             </children>
@@ -40,15 +40,18 @@
       <Label fx:id="statueLabel" prefHeight="15.0" prefWidth="690.0" text="加载中" BorderPane.alignment="TOP_LEFT" />
    </bottom>
    <left>
-      <VBox fx:id="vBox" prefHeight="200.0" prefWidth="100.0" stylesheets="@../css/button-style.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="vBox" alignment="TOP_CENTER" prefHeight="621.0" prefWidth="109.0" spacing="10.0" stylesheets="@../css/menuButton-style.css" BorderPane.alignment="CENTER">
          <opaqueInsets>
             <Insets right="5.0" />
          </opaqueInsets>
          <children>
-            <Button fx:id="dashBoardButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="仪表盘" />
+            <Button fx:id="dashBoardButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="仪表盘" />
             <VBox alignment="BOTTOM_CENTER" prefHeight="170.0" prefWidth="100.0" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" text="设置" />
-         </children></VBox>
+            <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="90.0" text="设置" />
+         </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin></VBox>
    </left>
 
 </BorderPane>

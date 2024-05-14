@@ -34,7 +34,7 @@
             </Button>
          </children>
       </VBox>
-        <VBox alignment="CENTER" prefHeight="389.0" prefWidth="274.0" stylesheets="@../css/button-style.css">
+        <VBox alignment="CENTER" prefHeight="389.0" prefWidth="274.0" >
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
@@ -54,7 +54,7 @@
             <PasswordField fx:id="passwordField" prefHeight="38.0" prefWidth="214.0" text="123456">
             </PasswordField>
          <Label />
-            <Button onAction="#onLoginButtonClick" prefHeight="45.0" prefWidth="214.0" text="登录">
+            <Button stylesheets="@../css/loginButton.css" onAction="#onLoginButtonClick" prefHeight="45.0" prefWidth="214.0" text="登录">
                 <font>
                     <Font size="11.0" />
                 </font></Button>

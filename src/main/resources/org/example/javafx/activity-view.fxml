@@ -28,7 +28,7 @@
                           <content>
                             <AnchorPane layoutY="60.0" minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="793.0">
                                  <children>
-                                    <TableView fx:id="practiceTableView" layoutY="-1.0" prefHeight="900.0" prefWidth="780.0">
+                                    <TableView stylesheets="@css/table.css" fx:id="practiceTableView" layoutY="-1.0" prefHeight="900.0" prefWidth="780.0">
                                       <columns>
                                         <TableColumn fx:id="practiceIdColumn" prefWidth="70.6666818857193" text="序号" />
                                           <TableColumn fx:id="practiceStudentNumColumn" prefWidth="127.99998474121094" text="学号" />

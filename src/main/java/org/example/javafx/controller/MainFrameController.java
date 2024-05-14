@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -45,11 +46,12 @@ public class MainFrameController {
     @FXML
     Label userLabel;
     @FXML
-    VBox vBox = new VBox(5);
+    VBox vBox = new VBox(10);
 
     @FXML Button minButton;
 
     @FXML Button closeButton;
+    @FXML HBox topBox;
 
 
     @FXML
@@ -78,13 +80,13 @@ public class MainFrameController {
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         BorderPane dashboard = new BorderPane(fxmlLoader.load());
         borderPane.setCenter(dashboard);
-
         Result result=new Result();
         DataRequest dataRequest = new DataRequest();
         dataRequest.add("person_num", AppStore.getUser().getPerson_num());
         result = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
         Map map = (Map) result.getData();
         userLabel.setText("欢迎您:  "+map.get("person_name") + (AppStore.confirmType(AppStore.getUser())=="学生"?"同学":AppStore.confirmType(AppStore.getUser())=="教师"?"老师":"管理员"));
+        userLabel.setTextFill(Color.WHITE);
         setTabChange(dashBoardButton, "dashboard-view.fxml");
         stageMove();
         ElementsTool tool = new ElementsTool();
@@ -139,12 +141,12 @@ public class MainFrameController {
         //初始化页面切换
         for (int i = 1; i < menuList.size(); i++) {
             Button newButton = new Button(menuList.get(i).get("name"));
-            newButton.setPrefHeight(35);
-            newButton.setPrefWidth(100);
+            newButton.setPrefHeight(40);
+            newButton.setPrefWidth(90);
             vBox.getChildren().add(i,newButton);
             setTabChange(newButton,menuList.get(i).get("url"));
         }
-
+        vBox.setStyle("-fx-background-color: white");
 
 
         searchBox.setEditable(true);
@@ -179,12 +181,6 @@ public class MainFrameController {
         //load complete
         statueLabel.setText("加载完成");
     }
-
-
-    public void exit() {
-        MainApplication.getMainStage().close();
-    }
-
     private void tryChange(String newValue) throws IOException {
         for (int i = 0; i < menuList.size(); i++){
             Map<String,String> menu = menuList.get(i);
