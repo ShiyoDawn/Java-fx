@@ -53,6 +53,7 @@ public class MainFrameController {
     @FXML Button closeButton;
     @FXML HBox topBox;
 
+    @FXML Button resizeButton;
 
     @FXML
     ComboBox searchBox;
@@ -89,14 +90,15 @@ public class MainFrameController {
         userLabel.setTextFill(Color.WHITE);
         setTabChange(dashBoardButton, "dashboard-view.fxml");
         stageMove();
+
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
         tool.setMinButton(minButton);
-//        tool.setResizeButton(resizeButton);
-//
-//        resizeButton.setDisable(true);
-//        resizeButton.setTextFill(Color.WHITE);
-        /* 尝试实现全屏功能
+        tool.setResizeButton(resizeButton);
+
+        resizeButton.setDisable(true);
+        resizeButton.setTextFill(Color.WHITE);
+        /*// 尝试实现全屏功能
         Scale scale=new Scale();
         double initialWidth=MainApplication.getMainStage().getWidth();
         double initialHeight=MainApplication.getMainStage().getHeight();
