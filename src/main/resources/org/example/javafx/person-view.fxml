@@ -9,36 +9,38 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonController">
+<AnchorPane prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonTableController">
    <children>
       <ScrollPane layoutY="90.0" prefHeight="600.0" prefWidth="1080.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1800.0">
                <children>
-                  <TableView prefHeight="800.0" prefWidth="1800.0">
+                  <TableView fx:id="tableView" prefHeight="800.0" prefWidth="1800.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
+                      <TableColumn fx:id="idColumn" prefWidth="59.333346009254456" text="序号" />
+                      <TableColumn fx:id="person_nameColumn" prefWidth="91.33332061767578" text="姓名" />
+                        <TableColumn fx:id="genderColumn" prefWidth="52.666656494140625" text="性别" />
+                        <TableColumn fx:id="phone_numberColumn" prefWidth="143.33328247070312" text="联系电话" />
+                        <TableColumn fx:id="identityColumn" prefWidth="56.0" text="身份" />
+                        <TableColumn fx:id="person_numColumn" prefWidth="163.3333740234375" text="工号" />
+                        <TableColumn fx:id="birthdayColumn" prefWidth="177.3333740234375" text="出生日期" />
+                        <TableColumn fx:id="user_typeColumn" prefWidth="63.33331298828125" text="用户类型" />
+                        <TableColumn fx:id="emailColumn" prefWidth="180.6666259765625" text="邮箱" />
+                        <TableColumn fx:id="identity_numberColumn" prefWidth="133.9998779296875" text="身份证号" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
-      <ComboBox layoutX="570.0" layoutY="35.0" prefHeight="23.0" prefWidth="90.0" promptText="查询类型" />
-      <Button layoutX="70.0" layoutY="35.0" mnemonicParsing="false" text="录入人员" />
-      <Button layoutX="170.0" layoutY="35.0" mnemonicParsing="false" text="修改信息" />
-      <Button layoutX="270.0" layoutY="35.0" mnemonicParsing="false" text="删除人员" />
-      <TextField layoutX="670.0" layoutY="35.0" promptText="请选择查询类别" />
-      <Button layoutX="845.0" layoutY="35.0" mnemonicParsing="false" text="搜索" />
-      <CheckBox layoutX="670.0" layoutY="66.0" mnemonicParsing="false" text="模糊搜索" />
-      <Button layoutX="950.0" layoutY="35.0" mnemonicParsing="false" text="重置" />
+      <ComboBox fx:id="selectChoiceComboBox" layoutX="570.0" layoutY="35.0" onAction="#onSelectChoiceComboBoxAction" prefHeight="23.0" prefWidth="90.0" promptText="查询类型" />
+      <Button fx:id="insertButton" layoutX="70.0" layoutY="35.0" mnemonicParsing="false" onAction="#onInsertButtonClickAction" text="录入人员" />
+      <Button fx:id="upadateButton" layoutX="170.0" layoutY="35.0" mnemonicParsing="false" onAction="#onUpdateButtonClickAction" text="修改信息" />
+      <Button fx:id="deleteButton" layoutX="270.0" layoutY="35.0" mnemonicParsing="false" onAction="#onDeleteButtonClickAction" text="删除人员" />
+      <TextField fx:id="selectTextField" layoutX="670.0" layoutY="35.0" promptText="请选择查询类别" />
+      <Button fx:id="searchButton" layoutX="845.0" layoutY="35.0" mnemonicParsing="false" onAction="#onSelectButtonAction" text="搜索" />
+      <CheckBox fx:id="fuzzySearchCheckBox" layoutX="670.0" layoutY="66.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" />
+      <Button fx:id="resetButton" layoutX="950.0" layoutY="35.0" mnemonicParsing="false" onAction="#onResetButtonAction" text="重置" />
+      <Button fx:id="statisticButton" layoutX="430.0" layoutY="35.0" mnemonicParsing="false" onAction="#onStatisticButtonClickAction" text="数据统计" />
    </children>
 </AnchorPane>
