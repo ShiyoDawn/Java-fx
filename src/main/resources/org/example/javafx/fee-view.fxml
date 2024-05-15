@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane stylesheets="@css/pagesWithTableAndTab.css" fx:id="gloryBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.FeeController">
+<BorderPane fx:id="gloryBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.FeeController">
     <left>
-        <AnchorPane fx:id="gloryAnchorPane" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="gloryAnchorPane" prefHeight="725.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
@@ -36,7 +36,7 @@
                                                         <items>
                                                             <AnchorPane prefHeight="607.0" prefWidth="1071.0">
                                                                 <children>
-                                                                    <TableView fx:id="dataTableView"  layoutY="-2.0" prefHeight="651.0" prefWidth="1089.0">
+                                                                    <TableView fx:id="dataTableView" layoutY="-2.0" prefHeight="651.0" prefWidth="1089.0">
                                                                         <columns>
                                                                             <TableColumn fx:id="id" prefWidth="72.66665136814117" text="id" />
                                                                             <TableColumn fx:id="studentNumColumn" prefWidth="129.33335876464844" text="学号" />
