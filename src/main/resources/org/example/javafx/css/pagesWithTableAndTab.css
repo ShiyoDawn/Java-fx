@@ -1,5 +1,6 @@
 .table-view {
-    -fx-background-color: transparent;
+    -fx-background-color: #dbffed;
+    -fx-border-color: #dbffed;
 }
 
 .table-view .column-header-background .filler {
@@ -133,6 +134,8 @@
 /*    -fx-border-radius: 3px;*/
 /*}*/
 
-
+.anchorPane {
+    -fx-border-color: #000000;
+}
 
 
