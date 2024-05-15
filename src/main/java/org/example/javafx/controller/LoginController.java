@@ -133,16 +133,31 @@ public class LoginController {
         chooseAdmin.setOnAction(e -> {
             user.setText("admin");
             passwordField.setText("123456");
+            try {
+                onLoginButtonClick();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         chooseStu.setOnAction(e -> {
             user.setText("202300300001");
             passwordField.setText("22222222");
+            try {
+                onLoginButtonClick();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         chooseTea.setOnAction(e -> {
 //            user.setText("202300300001");
 //            passwordField.setText("22222222");
+            try {
+                onLoginButtonClick();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
     }
 

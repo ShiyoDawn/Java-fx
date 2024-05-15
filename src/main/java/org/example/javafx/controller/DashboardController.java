@@ -82,7 +82,7 @@ public class DashboardController {
             label.setWrapText(true);
             gridPane.setHgrow(label, Priority.ALWAYS);
             gridPane.setVgrow(label, Priority.ALWAYS);
-            label.setStyle("-fx-background-color: #00ff33; -fx-padding: 10;");
+            label.setStyle("-fx-background-color: transparent; -fx-padding: 10;-fx-border-color: #86f3c0; -fx-border-radius: 1px; -fx-border-width: 3px");
             label.setText(course_name + "\n" + "\n" + room);
             label.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1) { // 检查是否是单击事件

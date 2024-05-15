@@ -1,6 +1,0 @@
-.gridPane {
-    display: grid;
-    -fx-grid-template-columns: 150px ;
-    -fx-grid-template-rows:  150px ;
-    -fx-grid-line-color: blue;
-}
