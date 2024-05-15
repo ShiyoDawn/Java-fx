@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.DashboardController">
+<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" stylesheets="@./css/dashBoard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.DashboardController">
     <left>
-        <AnchorPane fx:id="anchorpane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="anchorpane" prefHeight="690.0" prefWidth="1099.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane layoutX="730.0" layoutY="40.0" prefHeight="122.0" prefWidth="251.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -64,7 +64,7 @@
                     </items>
                 </ComboBox>
 <!--                <Button fx:id="selectCourseSheet" layoutX="585" layoutY="40" onAction="#select" text="查询" />-->
-                <GridPane fx:id="gridPane" layoutX="20" layoutY="80" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="625.0" stylesheets="@./css/timeTable.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+                <GridPane fx:id="gridPane" layoutX="20" layoutY="80" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" prefWidth="65" />
                         <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />

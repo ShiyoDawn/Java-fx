@@ -5,3 +5,13 @@
 #header {
     -fx-background-color: #13b49d;
 }
+#vBox {
+    -fx-background-image: url(VBOX.jpg);
+}
+
+#centerPane {
+    -fx-background-color: #dbffed;
+}
+#statueLabel{
+    -fx-background-color: #dbffed;
+}

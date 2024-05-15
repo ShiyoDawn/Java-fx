@@ -1,7 +1,6 @@
-
 .button {
-    -fx-background-color: white;
-    -fx-text-fill: #16414b;
+    -fx-background-color: transparent;
+    -fx-text-fill: #278577;
     -fx-position: relative;
     -fx-display: flex;
     -fx-align-items: center;
@@ -16,11 +15,11 @@
 }
 
 .button:hover {
-    -fx-text-fill: #42e3a0;
+    -fx-text-fill: #134f57;
 }
 .button:focused {
-    -fx-background-color: rgba(206, 206, 206, 0.4);
-    -fx-text-fill: #42e3a0;
+    -fx-background-color: rgba(217, 255, 235);
+    -fx-text-fill: #134f57;
 }
 
 
