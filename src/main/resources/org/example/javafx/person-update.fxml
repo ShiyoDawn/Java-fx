@@ -59,7 +59,7 @@
             </font>
         </TextField>
         <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="143.0" layoutX="484.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
-        <Button fx:id="uploadPhotoButton" layoutX="523.0" layoutY="194.0" mnemonicParsing="false" text="上传照片" />
+        <Button fx:id="uploadPhotoButton" layoutX="523.0" layoutY="194.0" mnemonicParsing="false" onAction="#onUploadPhotoButtonClick" text="上传照片" />
         <Button fx:id="cancelButton" layoutX="490.0" layoutY="255.0" mnemonicParsing="false" onAction="#onCancelButtonClickAction" text="取消">
             <font>
                 <Font size="14.0" />
