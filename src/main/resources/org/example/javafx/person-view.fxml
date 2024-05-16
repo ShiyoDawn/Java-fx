@@ -9,9 +9,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonTableController">
+<AnchorPane prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonTableController">
    <children>
-      <ScrollPane layoutY="90.0" prefHeight="600.0" prefWidth="1080.0">
+      <ScrollPane layoutY="90.0" prefHeight="635.0" prefWidth="1100.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1800.0">
                <children>
@@ -39,7 +39,7 @@
       <Button fx:id="deleteButton" layoutX="270.0" layoutY="35.0" mnemonicParsing="false" onAction="#onDeleteButtonClickAction" text="删除人员" />
       <TextField fx:id="selectTextField" layoutX="670.0" layoutY="35.0" promptText="请选择查询类别" />
       <Button fx:id="searchButton" layoutX="845.0" layoutY="35.0" mnemonicParsing="false" onAction="#onSelectButtonAction" text="搜索" />
-      <CheckBox fx:id="fuzzySearchCheckBox" layoutX="670.0" layoutY="66.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" />
+      <CheckBox fx:id="fuzzySearchCheckBox" layoutX="670.0" layoutY="66.0" mnemonicParsing="false" text="模糊搜索" />
       <Button fx:id="resetButton" layoutX="950.0" layoutY="35.0" mnemonicParsing="false" onAction="#onResetButtonAction" text="重置" />
       <Button fx:id="statisticButton" layoutX="430.0" layoutY="35.0" mnemonicParsing="false" onAction="#onStatisticButtonClickAction" text="数据统计" />
    </children>
