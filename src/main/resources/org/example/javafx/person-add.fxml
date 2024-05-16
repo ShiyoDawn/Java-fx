@@ -76,6 +76,10 @@
          </font>
       </TextField>
       <ComboBox fx:id="user_typeComboBox" layoutX="324.0" layoutY="190.0" prefHeight="31.0" prefWidth="111.0" />
+      <Label fx:id="infoLabel" layoutX="299.0" layoutY="235.0" prefHeight="20.0" prefWidth="19.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
-

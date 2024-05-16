@@ -2,6 +2,7 @@ package org.example.javafx.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -51,6 +52,9 @@ public class PersonAddController {
 
     @FXML
     private TextField departmentTextField;
+
+    @FXML
+    private Label infoLabel;
 
     @FXML
     public void initialize() {
