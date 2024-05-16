@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonTableController">
+<AnchorPane fx:id="anchorPane" prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonTableController">
    <children>
       <ScrollPane layoutY="90.0" prefHeight="635.0" prefWidth="1100.0">
         <content>
@@ -44,4 +44,3 @@
       <Button fx:id="statisticButton" layoutX="430.0" layoutY="35.0" mnemonicParsing="false" onAction="#onStatisticButtonClickAction" text="数据统计" />
    </children>
 </AnchorPane>
-

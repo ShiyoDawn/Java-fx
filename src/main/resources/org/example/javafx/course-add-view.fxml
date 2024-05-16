@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="533.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseAddController">
+<AnchorPane fx:id="anchorPane" stylesheets="@css/pagesWithTableAndTab.css" prefHeight="533.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseAddController">
    <children>
       <Label layoutX="313.0" layoutY="29.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="课序号：" />
       <Label layoutX="313.0" layoutY="149.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="课外书" />

@@ -1,5 +1,5 @@
 .table-view {
-    -fx-background-color: #dbffed;
+    -fx-background-color: #edfff4;
     -fx-border-color: #dbffed;
 }
 
@@ -102,26 +102,26 @@
 
 /* 修改TabPane的Pane区域背景颜色 */
 .tab-pane {
-    -fx-background-color: #e6fff8;
+    -fx-background-color: #e6fffd;
     -fx-border-width: 3px;
     -fx-border-radius: 5px;
 }
 /* 修改Tab的背景颜色 */
 .tab {
-    -fx-background-color: #e6fff8;
+    -fx-background-color: #e6fffd;
 }
 /* 修改顶栏的背景颜色 */
 .tab-pane>*.tab-header-area>*.tab-header-background
 {
-    -fx-background-color:#e6fff8;
+    -fx-background-color:#e6fffd;
 }
 /* 修改Tab中文本的颜色 */
 .tab-label {
-    -fx-text-fill: #028f8b;
+    -fx-text-fill: #ffffff;
 }
 
 .tab:selected {
-    -fx-background-color: #42e3a0;
+    -fx-background-color: #3fd2af;
 }
 
 
@@ -134,7 +134,7 @@
 }
 .combo-box .list-cell{
     -fx-background-color: #00bdb8;
-    -fx-text-fill: #c8fae2;
+    -fx-text-fill: #fff;
 }
 .combo-box .list-cell:hover {
     -fx-text-fill: white;
@@ -142,15 +142,16 @@
 }
 
 .button {
-    -fx-background-color: #00bdb8;
+    -fx-background-color: #00bda7;
     -fx-text-fill: #fff;
     -fx-border-style: none;
     -fx-border-radius: 3px;
 }
 
 .text-field {
-    -fx-background-color: #5fcbc7;
+    -fx-background-color: #70dad6;
     -fx-text-fill: #fff;
+    -fx-prompt-text-fill: #fff;
 }
 
 .scroll-pane {
@@ -161,7 +162,13 @@
 }
 
 #changeBox {
-    -fx-background-color: #e6fff8;
+    -fx-background-color: #e6fffd;
 }
+
+#anchorPane, #editDeleteAnchorPane ,#editDeleteBorderPane ,#pane , #lesson {
+    -fx-background-color: #e6fffd;
+}
+
+
 
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonAddController">
+<AnchorPane fx:id="anchorPane" stylesheets="@css/pagesWithTableAndTab.css" prefHeight="300.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonAddController">
    <children>
       <Label layoutX="20.0" layoutY="20.0" text="录入人员">
          <font>

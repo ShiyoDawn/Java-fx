@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonUpdateController">
+<AnchorPane fx:id="anchorPane" prefHeight="300.0" prefWidth="660.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonUpdateController">
     <children>
         <Label layoutX="20.0" layoutY="20.0" text="修改人员信息">
             <font>
@@ -78,4 +78,3 @@
       <ComboBox fx:id="user_typeComboBox" layoutX="324.0" layoutY="190.0" prefHeight="31.0" prefWidth="111.0" promptText="用户类型" />
     </children>
 </AnchorPane>
-

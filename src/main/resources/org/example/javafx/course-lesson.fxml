@@ -11,8 +11,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="517.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseLessonController">
-    <GridPane fx:id="gridPane" layoutX="27.0" layoutY="67.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="580.0" stylesheets="@./css/timeTable.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@css/pagesWithTableAndTab.css" prefHeight="517.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseLessonController">
+    <GridPane fx:id="gridPane" layoutX="27.0" layoutY="67.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="580.0"  xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" prefWidth="60" />
             <ColumnConstraints hgrow="ALWAYS" prefWidth="74" />

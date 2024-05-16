@@ -15,3 +15,25 @@
 #statueLabel{
     -fx-background-color: #dbffed;
 }
+
+#searchButton ,#changeButton{
+    -fx-background-color: #e6ffef;
+    -fx-text-fill: #00543c;
+    -fx-border-style: none;
+    -fx-border-radius: 3px;
+}
+
+.combo-box-base {
+    -fx-background-color: #13b49d;
+    -fx-border-width: 2px;
+    -fx-border-color: #13b49d;
+    -fx-border-radius: 3px;
+}
+.combo-box .list-cell{
+    -fx-background-color: #13b49d;
+    -fx-text-fill: #fff;
+}
+.combo-box .list-cell:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #85d3d1;
+}
