@@ -169,7 +169,6 @@ public class AddStudentController {
                 select.setPromptText("请输入专业");
                 break;
             default:
-                // Handle default case
                 break;
         }
         return selectedOption;

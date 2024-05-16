@@ -29,7 +29,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
                      <children>
-                        <Button fx:id="add" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="新增" >
+                        <Button fx:id="add"  layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="新增" >
                            <font>
                               <Font size="14.0" />
                            </font>

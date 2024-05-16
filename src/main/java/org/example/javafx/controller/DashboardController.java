@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -35,12 +36,39 @@ public class DashboardController {
     ComboBox comboBoxWeek;
     @FXML
     GridPane gridPane;
+    Boolean bl = false;
+    static String classes;
+    static String student_id;
+    static String student_name;
+    static String terms;
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
-        addlabel(Integer.parseInt(getCurrentTime().get("week")), 1, getCurrentTime().get("terms"));
+        if(AppStore.getUser().getUser_type_id() == 3){
+            DataRequest dataRequestS = new DataRequest();
+            Map<String, String> mapS = new HashMap<>();
+            mapS.put("id", String.valueOf(AppStore.getUser().getPerson_id()));
+            dataRequestS.setData(mapS);
+            Result da = null;
+            try {
+                da = HttpRequestUtils.courseField("/course/selectClasses", dataRequestS);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            List<Map<String, ? extends Object>> dataListS = new Gson().fromJson(da.getData().toString(), List.class);
+            classes = String.valueOf(dataListS.get(0).get("classes"));
+            student_id = String.valueOf(dataListS.get(0).get("id"));
+            student_name = String.valueOf(dataListS.get(0).get("student_name"));
+            terms = "2023-2024-2";
+            bl = true;
+            addlabel(Integer.parseInt(getCurrentTime().get("week")), student_id, getCurrentTime().get("terms"));
+        } else {
+            addlabel(Integer.parseInt(getCurrentTime().get("week")), "1", getCurrentTime().get("terms"));
+        }
         comboBoxTerm.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 select();
@@ -62,9 +90,9 @@ public class DashboardController {
     }
 
     //添加课程表上的课程
-    private void addlabel(int week, Integer student_id, String terms) throws IOException, InterruptedException {
+    private void addlabel(int week, String student_id, String terms) throws IOException, InterruptedException {
         Map<String, String> student = new HashMap();
-        student.put("student_id", String.valueOf(student_id));
+        student.put("student_id", student_id);
         student.put("week", String.valueOf(week));
         student.put("terms", terms);
         DataRequest dataRequest = new DataRequest();
@@ -80,8 +108,8 @@ public class DashboardController {
             label.setId("1");
             label.setTextAlignment(TextAlignment.CENTER);
             label.setWrapText(true);
-            gridPane.setHgrow(label, Priority.ALWAYS);
-            gridPane.setVgrow(label, Priority.ALWAYS);
+            GridPane.setHgrow(label, Priority.ALWAYS);
+            GridPane.setVgrow(label, Priority.ALWAYS);
             label.setStyle("-fx-background-color: #00ff33; -fx-padding: 10;");
             label.setText(course_name + "\n" + "\n" + room);
             label.setOnMouseClicked(event -> {
@@ -137,7 +165,12 @@ public class DashboardController {
 
             int week = Integer.parseInt(selectData().get("week"));
             String terms = selectData().get("terms");
-            addlabel(week, 1, terms);
+            if(bl){
+                addlabel(week, String.valueOf(student_id), terms);
+            }else {
+                addlabel(week, "1", terms);
+            }
+
         }
     }
 
