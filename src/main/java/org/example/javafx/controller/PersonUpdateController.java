@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
@@ -13,6 +14,7 @@ import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Base64;
@@ -64,12 +66,12 @@ public class PersonUpdateController {
 
     @FXML
     private ComboBox user_typeComboBox;
-
     private String id;
 
 
     @FXML
     public void initialize(Map<String, Object> selectedPerson) {
+        person_numTextField.setDisable(true);
         id=(String) selectedPerson.get("id");
         // 只有当user_typeComboBox的项目为空时，才添加这些项目
         if (user_typeComboBox.getItems().isEmpty()) {
@@ -127,6 +129,29 @@ public class PersonUpdateController {
 //                    }
 //                }
 //            }
+
+
+        }
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Image image = new Image(fileInputStream);
+        imageView.setImage(image);
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("person_num", person_numTextField.getText());
+        Result result = HttpRequestUtils.request("/user/getPhoto", dataRequest);
+        if (result != null) {
+            if (result.getCode() != -1) {
+                String str = result.getData().toString();
+                byte[] data = Base64.getDecoder().decode(str);
+                if (data != null) {
+                    Image image1 = new Image(new ByteArrayInputStream(data));
+                    imageView.setImage(image1);
+                }
+            }
         }
     }
 
@@ -190,6 +215,25 @@ public class PersonUpdateController {
                 alert.setHeaderText(null);
                 alert.setContentText("修改失败");
                 alert.showAndWait();
+            }
+        }
+    }
+
+    @FXML
+    private void onUploadPhotoButtonClick(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg"));
+        File selectedFile = fileChooser.showOpenDialog(uploadPhotoButton.getScene().getWindow());
+        if (selectedFile != null) {
+            HttpRequestUtils.uploadFile("/user/uploadPhoto", selectedFile.getPath(), "photo", person_numTextField.getText());
+            person_numTextField.setDisable(true);
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("person_num",person_numTextField.getText());
+            String str = HttpRequestUtils.request("/user/getPhoto", dataRequest).getData().toString();
+            byte[] data = Base64.getDecoder().decode(str);
+            if (data != null) {
+                Image image1 = new Image(new ByteArrayInputStream(data));
+                imageView.setImage(image1);
             }
         }
     }
