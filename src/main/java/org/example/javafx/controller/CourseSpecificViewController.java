@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -106,6 +107,8 @@ public class CourseSpecificViewController {
             buttonHome.setLayoutX(700);
             buttonHome.setLayoutY(75 + (count - 1) * 150);
             buttonHome.setText("添加本节作业");
+//            Font font = Font.font("Verdana", FontWeight.BOLD, 14);
+//            buttonHome.setFont(font);
             lesson.getChildren().add(buttonHome);
             Label label = new Label();
             label.setMaxSize(450, 30);
@@ -147,6 +150,12 @@ public class CourseSpecificViewController {
                         Result data = null;
                         try {
                             data = HttpRequestUtils.courseField("/lesson/updateInfo", dataRequest);
+                            if(data.getCode() != 200){
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setHeaderText(data.getMsg());
+                                alert.showAndWait();
+                            }
+
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         } catch (InterruptedException e) {
@@ -156,7 +165,7 @@ public class CourseSpecificViewController {
                     });
                 }
             });
-            if((a.get("notes")) == null){
+            if((a.get("notes")) == null || String.valueOf(a.get("notes")).equals("")){
                 label.setText("暂无描述，请点击编辑");
             } else {
                 label.setText((String) a.get("notes"));
