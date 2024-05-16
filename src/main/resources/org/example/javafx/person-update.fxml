@@ -78,3 +78,4 @@
       <ComboBox fx:id="user_typeComboBox" layoutX="324.0" layoutY="190.0" prefHeight="31.0" prefWidth="111.0" promptText="用户类型" />
     </children>
 </AnchorPane>
+

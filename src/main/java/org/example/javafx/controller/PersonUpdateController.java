@@ -67,6 +67,7 @@ public class PersonUpdateController {
 
     private String id;
 
+
     @FXML
     public void initialize(Map<String, Object> selectedPerson) {
         id=(String) selectedPerson.get("id");
