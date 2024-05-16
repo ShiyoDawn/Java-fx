@@ -78,9 +78,11 @@ public class LoginController {
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/mainframe.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1600, 900);
         AppStore.setMainFrameController((MainFrameController) fxmlLoader.getController());
+        Scene scene = new Scene(fxmlLoader.load(), 1600, 900);
         MainApplication.resetStage("教学管理系统", scene);
+//        FXMLLoader fxmlLoader1 = new FXMLLoader(MainApplication.class.getResource("course-view.fxml"));
+//        AppStore.setMainFrameController(fxmlLoader1.getController());
 
 
     }

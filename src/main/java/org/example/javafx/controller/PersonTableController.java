@@ -21,6 +21,7 @@ import java.util.Map;
 
 public class PersonTableController {
 
+
     @FXML
     private TableColumn birthdayColumn;
 

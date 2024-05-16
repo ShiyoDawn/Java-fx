@@ -44,3 +44,4 @@
       <Button fx:id="statisticButton" layoutX="430.0" layoutY="35.0" mnemonicParsing="false" onAction="#onStatisticButtonClickAction" text="数据统计" />
    </children>
 </AnchorPane>
+

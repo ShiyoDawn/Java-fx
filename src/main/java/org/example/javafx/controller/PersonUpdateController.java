@@ -68,6 +68,7 @@ public class PersonUpdateController {
     private ComboBox user_typeComboBox;
     private String id;
 
+
     @FXML
     public void initialize(Map<String, Object> selectedPerson) {
         person_numTextField.setDisable(true);
