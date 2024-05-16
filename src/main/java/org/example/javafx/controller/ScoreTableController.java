@@ -197,6 +197,8 @@ public class ScoreTableController {
         Map selected = dataTableView.getSelectionModel().getSelectedItem();
         editConfirmButton.setText("修改分数");
         editTabPane.setVisible(true);
+        studentEditComboBox.setDisable(false);
+        courseEditComboBox.setDisable(false);
         if (selected != null) {
             DataRequest dataRequest = new DataRequest();
             String student_num = CommonMethod.getString(selected, "student_num");
@@ -205,7 +207,8 @@ public class ScoreTableController {
             String course_name = CommonMethod.getString(selected, "course_name");
             String mark = CommonMethod.getString(selected, "mark");
             studentEditComboBox.setValue(student_num + "-" + student_name);
-            courseEditComboBox.setValue(course_num + "-" + course_name);
+            courseEditComboBox.setValue(course_num+"-"+course_name);
+            System.out.println(studentEditComboBox.getValue()+" "+courseEditComboBox.getValue());
             studentEditComboBox.setDisable(true);
             courseEditComboBox.setDisable(true);
             markUpdateTextField.setText(mark);
@@ -382,7 +385,6 @@ public class ScoreTableController {
             map = (Map) result.getData();
             String student_name = map.get("student_name").toString();
             studentComboBox.setValue(user.getPerson_num() + "-" + student_name);
-            studentComboBox.setEditable(false);
             courseComboBox.setValue(null);
             studentComboBox.setPromptText("请选择学生");
             courseComboBox.setPromptText("请选择课程");
@@ -533,6 +535,7 @@ public class ScoreTableController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("请输入分数");
             alert.showAndWait();
+            return;
         }
         if (student_name != null && course_name != null) {
             DataRequest stuDataRequest = new DataRequest();
@@ -709,7 +712,6 @@ public class ScoreTableController {
             dataRequest.add("person_num", person_num);
             Result result1 = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
             studentComboBox.setValue(user.getPerson_num() + "-" + ((Map) result1.getData()).get("person_name"));
-            studentComboBox.setEditable(false);
             studentComboBox.setDisable(true);
         }
 

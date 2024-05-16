@@ -299,31 +299,15 @@ public class StudentGloryController {
             glory_type = null;
         }
         if (gloryUpdateTextField.getText() == "") {
-            Stage confirmStage = new Stage();
-            confirmStage.setWidth(250);
-            confirmStage.setHeight(150);
-            //取消放大（全屏）按钮
-            confirmStage.setResizable(false);
-            Text text = new Text("请输入荣誉名称");
-            HBox hBox = new HBox(text);
-            hBox.setAlignment(Pos.CENTER);
-            Scene scene = new Scene(hBox);
-            confirmStage.setScene(scene);
-            confirmStage.show();
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("请输入荣誉名称");
+            alert.showAndWait();
             return;
         }
         if (gloryLevelUpdateTextField.getText() == "") {
-            Stage confirmStage = new Stage();
-            confirmStage.setWidth(250);
-            confirmStage.setHeight(150);
-            //取消放大（全屏）按钮
-            confirmStage.setResizable(false);
-            Text text = new Text("请输入荣誉级别");
-            HBox hBox = new HBox(text);
-            hBox.setAlignment(Pos.CENTER);
-            Scene scene = new Scene(hBox);
-            confirmStage.setScene(scene);
-            confirmStage.show();
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("请输入荣誉等级");
+            alert.showAndWait();
             return;
         }
         if (student_name != null && glory_type != null) {
@@ -332,10 +316,15 @@ public class StudentGloryController {
             DataRequest dataRequest1=new DataRequest();
             if(map!=null){
                 dataRequest1.add("student_name",CommonMethod.getString(map,"student_name"));
+                dataRequest1.add("student_num",CommonMethod.getString(map,"student_num"));
+            }else{
+                dataRequest1.add("student_name",student_name.split("-")[1]);
+                dataRequest1.add("student_num",student_name.split("-")[0]);
+            }
+            if(map!=null){
                 dataRequest1.add("raw_glory_name",CommonMethod.getString(map,"glory_name"));
                 dataRequest1.add("raw_glory_type",CommonMethod.getString(map,"glory_type"));
                 dataRequest1.add("raw_glory_level",CommonMethod.getString(map,"glory_level"));
-                dataRequest1.add("student_num",CommonMethod.getString(map,"student_num"));
             }
             if(gloryUpdateTextField.getText()==null||gloryUpdateTextField.getText().equals("")||gloryTypeEditComboBox.getValue()==null||gloryTypeEditComboBox.getValue().toString().equals("请选择荣誉类型")||gloryLevelUpdateTextField.getText()==null||gloryLevelUpdateTextField.getText().equals("")){
                 Alert alert=new Alert(Alert.AlertType.INFORMATION);
