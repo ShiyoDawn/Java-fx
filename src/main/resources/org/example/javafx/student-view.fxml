@@ -71,7 +71,7 @@
                                     </AnchorPane>
                                 </content>
                               </ScrollPane>
-                              <VBox prefHeight="583.0" prefWidth="287.0">
+                              <VBox fx:id="changeBox" prefHeight="583.0" prefWidth="287.0">
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="124.0" prefWidth="378.0">
                                        <children>

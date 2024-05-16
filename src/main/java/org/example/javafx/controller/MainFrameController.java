@@ -198,12 +198,18 @@ public class MainFrameController {
     }
 
 
-    protected void setTabChange(Button button, String url) throws IOException {
+    protected void setTabChange(Button button, String url){
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(MainApplication.class.getResource(url));
-        BorderPane newPane = new BorderPane(fxmlLoader.load());
+
         button.setOnAction(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainApplication.class.getResource(url));
+            BorderPane newPane = null;
+            try {
+                newPane = new BorderPane(fxmlLoader.load());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             borderPane.setCenter(newPane);
         });
     }

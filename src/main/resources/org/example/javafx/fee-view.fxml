@@ -37,14 +37,15 @@
                                                             <AnchorPane prefHeight="607.0" prefWidth="1071.0">
                                                                 <children>
                                                                     <TableView fx:id="dataTableView" layoutY="-2.0" prefHeight="651.0" prefWidth="1089.0">
+
                                                                         <columns>
                                                                             <TableColumn fx:id="id" prefWidth="72.66665136814117" text="id" />
                                                                             <TableColumn fx:id="studentNumColumn" prefWidth="129.33335876464844" text="学号" />
                                                                             <TableColumn fx:id="studentNameColumn" prefWidth="116.66665649414062" text="姓名" />
                                                                             <TableColumn fx:id="activityColumn" minWidth="0.0" prefWidth="130.0" text="活动" />
                                                                             <TableColumn fx:id="activityDetailColumn" minWidth="0.0" prefWidth="203.33343505859375" text="活动具体支出/收入情况或原因" />
-                                                                            <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="149.33331298828125" text="日期" />
-                                                            <TableColumn fx:id="moneyColumn" minWidth="0.0" prefWidth="144.0" text="支出/收入（-/+）" />
+                                                                            <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="193.33331298828125" text="日期" />
+                                                            <TableColumn fx:id="moneyColumn" minWidth="0.0" prefWidth="114.6666259765625" text="支出/收入（-/+）" />
                                                                         </columns>
                                                                     </TableView>
                                                                 </children>

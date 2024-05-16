@@ -26,6 +26,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
+import org.example.javafx.util.CommonMethod;
 
 import javax.imageio.ImageIO;
 import java.io.FileNotFoundException;
@@ -120,6 +121,8 @@ public class StudentInformationController {
         Result studentResult = HttpRequestUtils.request("/student/getStudentInfo", req);
         if (studentResult != null && studentResult.getCode() == 200) {
             Map<String, Object> studentInfo = (Map<String, Object>) studentResult.getData();
+            String GPA=getGPA(studentInfo.get("person_num").toString());
+            GPALabel.setText(GPA);
             person_idLabel.setText(studentInfo.get("person_num") != null ? (String)studentInfo.get("person_num") : "");
             person_nameLabel.setText(studentInfo.get("student_name") != null ? (String) studentInfo.get("student_name") : "");
             genderLabel.setText(studentInfo.get("gender") != null ? (String) studentInfo.get("gender") : "");
@@ -211,6 +214,28 @@ public class StudentInformationController {
     void onExitButtonAction() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+    }
+
+    public String getGPA(String student_num) {
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("student_num", student_num);
+        Result result = new Result();
+        result = HttpRequestUtils.request("/score/getScoreList", dataRequest);
+        List<Map> scoreList = (List<Map>) result.getData();
+        Double totalCredit = 0.0;
+        Double totalGradePoint = 0.0;
+        scoreList= CommonMethod.filter(scoreList,"student_num",student_num);
+        for (Map map : scoreList) {
+            double credit = Double.parseDouble(map.get("credit").toString());
+            totalCredit += credit;
+            double mark = Double.parseDouble(map.get("mark").toString());
+            double gradePoint = mark < 60 ? 0 : mark / 10 - 5;
+            gradePoint = (double) Math.round(gradePoint * 100) / 100;
+            totalGradePoint += credit * gradePoint;
+        }
+        Double GPA = totalGradePoint / totalCredit;
+        GPA = (double) Math.round(GPA * 100) / 100;
+        return String.valueOf(GPA);
     }
 
     @FXML

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="paneMember" prefHeight="634.0" prefWidth="443.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseMemberController">
+<AnchorPane fx:id="paneMember" stylesheets="@css/pagesWithTableAndTab.css" prefHeight="634.0" prefWidth="443.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseMemberController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="84.0" text="教师">
          <font>

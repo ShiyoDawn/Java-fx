@@ -18,7 +18,7 @@
     -fx-text-fill: #134f57;
 }
 .button:focused {
-    -fx-background-color: rgba(217, 255, 235);
+    -fx-background-color: rgb(217, 255, 245);
     -fx-text-fill: #134f57;
 }
 

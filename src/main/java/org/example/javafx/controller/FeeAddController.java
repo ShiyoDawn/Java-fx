@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.javafx.AppStore;
+import org.example.javafx.pojo.Result;
 import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
@@ -89,9 +90,33 @@ public class FeeAddController {
             alert.showAndWait();
             return;
         }
+        DataRequest dataRequest=new DataRequest();
+        dataRequest.add("person_num",studentNumTextField.getText());
+        Result result=new Result();
+        result=HttpRequestUtils.request("/person/selectByPersonNum",dataRequest);
+        if(result==null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("学生不存在");
+            alert.showAndWait();
+            return;
+        }else{
+            if(result.getCode()==404){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("学生不存在");
+                alert.showAndWait();
+                return;
+            }
+            Map map=(Map)result.getData();
+            if(!(map.get("person_name").equals(studentNameTextField.getText()))){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("输入的学生姓名与学号不匹配");
+                alert.showAndWait();
+                return;
+            }
+        }
         String msg = CommonMethod.alertButton("提交");
         if (msg == "确认") {
-            DataRequest dataRequest = new DataRequest();
+            dataRequest = new DataRequest();
             dataRequest.add("id", Integer.parseInt(idTextField.getText()) + 1);
             dataRequest.add("student_name", studentNameTextField.getText());
             dataRequest.add("student_num", studentNumTextField.getText());

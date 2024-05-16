@@ -33,10 +33,10 @@
                                         <TableColumn fx:id="practiceIdColumn" prefWidth="70.6666818857193" text="序号" />
                                           <TableColumn fx:id="practiceStudentNumColumn" prefWidth="127.99998474121094" text="学号" />
                                           <TableColumn fx:id="practiceStudentNameColumn" prefWidth="112.66665649414062" text="姓名" />
-                                          <TableColumn fx:id="practiceActivityNameColumn" prefWidth="132.6666259765625" text="活动名称" />
-                                          <TableColumn fx:id="practiceActivityTypeColumn" prefWidth="114.666748046875" text="活动类型" />
-                                          <TableColumn fx:id="practiceDateColumn" prefWidth="134.6666259765625" text="日期" />
-                                          <TableColumn fx:id="practiceScoreColumn" prefWidth="84.0" text="评分" />
+                                          <TableColumn fx:id="practiceActivityNameColumn" prefWidth="118.0" text="活动名称" />
+                                          <TableColumn fx:id="practiceActivityTypeColumn" prefWidth="117.3333740234375" text="活动类型" />
+                                          <TableColumn fx:id="practiceDateColumn" prefWidth="156.66668701171875" text="日期" />
+                                          <TableColumn fx:id="practiceScoreColumn" prefWidth="73.33331298828125" text="评分" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -126,9 +126,9 @@
                                           <TableColumn fx:id="dailyStudentNumColumn" prefWidth="113.3333511352539" text="学号" />
                                           <TableColumn fx:id="dailyStudentNameColumn" prefWidth="93.33328247070312" text="姓名" />
                                           <TableColumn fx:id="dailyActivityNameColumn" prefWidth="130.66668701171875" text="活动名称" />
-                                          <TableColumn fx:id="dailyActivityTypeColumn" prefWidth="162.66668701171875" text="活动类型" />
-                                          <TableColumn fx:id="dailyDateColumn" prefWidth="119.33331298828125" text="日期" />
-                                          <TableColumn fx:id="dailyScoreColumn" prefWidth="91.333251953125" text="评分" />
+                                          <TableColumn fx:id="dailyActivityTypeColumn" prefWidth="146.666748046875" text="活动类型" />
+                                          <TableColumn fx:id="dailyDateColumn" prefWidth="146.66668701171875" text="日期" />
+                                          <TableColumn fx:id="dailyScoreColumn" prefWidth="80.6666259765625" text="评分" />
                                       </columns>
                                     </TableView>
                                  </children>
