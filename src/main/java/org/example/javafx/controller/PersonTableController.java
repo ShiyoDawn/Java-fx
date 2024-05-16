@@ -233,34 +233,34 @@ public class PersonTableController {
     }
     @FXML
     public String onSelectChoiceComboBoxAction(){
-        String selectedChoice = (String) selectChoiceComboBox.getValue();
+        String selectedChoice = (String) selectChoiceComboBox.getSelectionModel().getSelectedItem();
         switch (selectedChoice) {
             case "姓名":
                 selectTextField.setPromptText("请输入姓名");
                 break;
             case "性别":
-                selectChoiceComboBox.setPromptText("请输入性别");
+                selectTextField.setPromptText("请输入性别");
                 break;
             case "联系电话":
-                selectChoiceComboBox.setPromptText("请输入联系电话");
+                selectTextField.setPromptText("请输入联系电话");
                 break;
             case "身份":
-                selectChoiceComboBox.setPromptText("请输入身份");
+                selectTextField.setPromptText("请输入身份");
                 break;
             case "工号":
-                selectChoiceComboBox.setPromptText("请输入工号");
+                selectTextField.setPromptText("请输入工号");
                 break;
             case "出生日期":
-                selectChoiceComboBox.setPromptText("请输入出生日期");
+                selectTextField.setPromptText("请输入出生日期");
                 break;
             case "用户类型":
-                selectChoiceComboBox.setPromptText("请输入用户类型");
+                selectTextField.setPromptText("请输入用户类型");
                 break;
             case "邮箱":
-                selectChoiceComboBox.setPromptText("请输入邮箱");
+                selectTextField.setPromptText("请输入邮箱");
                 break;
             case "身份证号":
-                selectChoiceComboBox.setPromptText("请输入身份证号");
+                selectTextField.setPromptText("请输入身份证号");
                 break;
             default:
                 break;

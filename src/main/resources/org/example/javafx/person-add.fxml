@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" stylesheets="@css/pagesWithTableAndTab.css" prefHeight="300.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonAddController">
+<AnchorPane fx:id="anchorPane" prefHeight="300.0" prefWidth="660.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonAddController">
    <children>
       <Label layoutX="20.0" layoutY="20.0" text="录入人员">
          <font>
@@ -76,7 +76,7 @@
          </font>
       </TextField>
       <ComboBox fx:id="user_typeComboBox" layoutX="324.0" layoutY="190.0" prefHeight="31.0" prefWidth="111.0" />
-      <Label fx:id="infoLabel" layoutX="299.0" layoutY="235.0" prefHeight="20.0" prefWidth="19.0">
+      <Label fx:id="infoLabel" layoutX="259.0" layoutY="241.0" prefHeight="27.0" prefWidth="154.0">
          <font>
             <Font size="15.0" />
          </font>
