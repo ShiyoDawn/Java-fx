@@ -12,8 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -38,6 +40,8 @@ public class CourseController {
     Label id;
     @FXML
     ComboBox selectTerms;
+    @FXML
+    TextField capacity;
     @FXML
     Button selectCourse;
     @FXML
@@ -84,12 +88,27 @@ public class CourseController {
     TextField classNum;
     @FXML
     ComboBox selectClass;
+    @FXML
+    Tab tab;
     static List<StackPane> stackPanes = new ArrayList<>(6);
 
     //分页查询，根据查询数量自适应页码数量
     @FXML
     public void initialize() throws IOException, InterruptedException {
         load();
+        if(AppStore.getUser().getUser_type_id() == 3){
+            save.setVisible(false);
+            add.setVisible(false);
+            delete.setVisible(false);
+            tab.setText("显示窗口");
+            selectClass.setVisible(false);
+            Label l = new Label("班级:  " + DashboardController.classes);
+            select();
+            l.setLayoutX(119);
+            l.setLayoutY(34);
+            l.setFont(Font.font(17));
+            tabCenter.getChildren().add(l);
+        }
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
             int clickedPageIndex = newValue.intValue();
             try {
@@ -160,6 +179,7 @@ public class CourseController {
         extra.setText((String) dataList.get(0).get("extracurricular"));
         teacher.setText((String) dataList.get(0).get("teacher_name"));
         credit.setText(String.valueOf(dataList.get(0).get("credit")));
+        capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
         id.setText(String.valueOf(dataList.get(0).get("id")));
         setPagination(dataList);
     }
@@ -188,6 +208,7 @@ public class CourseController {
                     extra.setText(a.get("extracurricular").toString());
                     teacher.setText(a.get("teacher_name").toString());
                     credit.setText(String.valueOf(a.get("credit")));
+                    capacity.setText(String.valueOf(a.get("capacity")));
                     id.setText(String.valueOf(a.get("id")));
                 } else if (event.getClickCount() == 2) {
                     FXMLLoader fxmlLoader = new FXMLLoader();
@@ -296,6 +317,7 @@ public class CourseController {
         if (course_name.getText() == null) ;
         map.put("course_name", course_name.getText());
         map.put("credit", credit.getText());
+        map.put("capacity", capacity.getText());
         map.put("num", num.getText());
         map.put("course_type", (String) type.getValue());
         map.put("book", book.getText());
@@ -368,7 +390,8 @@ public class CourseController {
             newStage.setTitle("添加课程界面");
             newStage.setScene(new Scene(root));
             newStage.setResizable(false);
-            newStage.show();
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

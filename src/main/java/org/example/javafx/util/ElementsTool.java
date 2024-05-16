@@ -15,11 +15,11 @@ import org.example.javafx.MainApplication;
 public class ElementsTool {
     public void setCloseButton(Button closeButton) {
         //关闭按钮初始化
-        closeButton.setTextFill(Color.RED);
-        BackgroundFill backgroundFill = new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY);
+        closeButton.setTextFill(Color.WHITE);
+        BackgroundFill backgroundFill = new BackgroundFill(Color.CADETBLUE, new CornerRadii(0), Insets.EMPTY);
         Background background = new Background(backgroundFill);
         closeButton.setBackground(background);
-        closeButton.setOpacity(0.4);
+        closeButton.setOpacity(0.6);
 
         closeButton.setOnAction(e -> {
                 MainApplication.getMainStage().close();
@@ -27,11 +27,16 @@ public class ElementsTool {
 
         closeButton.setOnMouseEntered(e -> {
             closeButton.setTextFill(Color.WHITE);
+            BackgroundFill back = new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY);
+            Background background1 = new Background(back);
+            closeButton.setBackground(background1);
             closeButton.setOpacity(1);
         });
 
         closeButton.setOnMouseExited(e -> {
-            closeButton.setTextFill(Color.RED);
+            BackgroundFill back = new BackgroundFill(Color.CADETBLUE, new CornerRadii(0), Insets.EMPTY);
+            Background background1 = new Background(back);
+            closeButton.setBackground(background1);
             closeButton.setOpacity(0.4);
         });
     }

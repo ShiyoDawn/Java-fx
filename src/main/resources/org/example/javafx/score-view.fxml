@@ -16,9 +16,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="scoreBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreTableController">
+<BorderPane fx:id="scoreBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ScoreTableController">
     <bottom>
-        <AnchorPane fx:id="scoreAnchorPane" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="scoreAnchorPane" prefHeight="725.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
@@ -57,7 +57,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="608.0" prefWidth="1078.0">
                      <children>
-                                  <SplitPane prefHeight="611.0" prefWidth="955.0" stylesheets="@css/table.css">
+                                  <SplitPane prefHeight="611.0" prefWidth="955.0">
                                       <items>
                                           <AnchorPane prefHeight="609.0" prefWidth="958.0">
                                               <children>

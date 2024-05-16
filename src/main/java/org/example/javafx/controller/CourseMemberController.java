@@ -120,7 +120,7 @@ public class CourseMemberController {
                 label1.setTextAlignment(TextAlignment.CENTER);
                 label1.setWrapText(true);
                 label1.setFont(new Font(20));
-                label1.setText(dataList.get(0).get("teacher_name"));
+                label1.setText(String.valueOf(dataList.get(0).get("teacher_name")));
                 label1.setLayoutX(27.0);
                 label1.setLayoutY(20);
                 paneTeacher.getChildren().add(label1);

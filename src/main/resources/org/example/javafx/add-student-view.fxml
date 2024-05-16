@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="700" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.AddStudentController">
+<AnchorPane stylesheets="@css/pagesWithTableAndTab.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="700" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.AddStudentController">
    <children>
       <TabPane prefHeight="690.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -22,7 +22,7 @@
                         <TextField fx:id="select" layoutX="378.0" layoutY="23.0" promptText="请选择查询类别" />
                         <SplitPane layoutY="72.0" prefHeight="585.0" prefWidth="700.0">
                           <items>
-                              <ScrollPane prefHeight="583.0" prefWidth="443.0" stylesheets="@css/table.css">
+                              <ScrollPane prefHeight="583.0" prefWidth="443.0" >
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="700.0">
                                        <children>

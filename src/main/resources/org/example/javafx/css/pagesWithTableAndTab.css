@@ -1,5 +1,6 @@
 .table-view {
-    -fx-background-color: transparent;
+    -fx-background-color: #dbffed;
+    -fx-border-color: #dbffed;
 }
 
 .table-view .column-header-background .filler {
@@ -96,6 +97,45 @@
     -fx-background-color: #e7e7e7;
     -fx-background-insets: 2, 0, 0;
     -fx-background-radius: 2em;
+}
+
+
+/* 修改TabPane的Pane区域背景颜色 */
+.tab-pane {
+    -fx-background-color: #e6fff8;
+    -fx-border-width: 3px;
+    -fx-border-radius: 5px;
+}
+/* 修改Tab的背景颜色 */
+.tab {
+    -fx-background-color: #e6fff8;
+}
+/* 修改顶栏的背景颜色 */
+.tab-pane>*.tab-header-area>*.tab-header-background
+{
+    -fx-background-color:#e6fff8;
+}
+/* 修改Tab中文本的颜色 */
+.tab-label {
+    -fx-text-fill: white;
+}
+
+.tab:selected {
+    -fx-background-color: #42e3a0;
+}
+
+
+
+/*.combo-box-base {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-border-width: 2px;*/
+/*    -fx-border-color: #3eb1d0;*/
+/*    -fx-border-style: dashed;*/
+/*    -fx-border-radius: 3px;*/
+/*}*/
+
+.anchorPane {
+    -fx-border-color: #000000;
 }
 
 

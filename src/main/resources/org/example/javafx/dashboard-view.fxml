@@ -14,7 +14,7 @@
 
 <BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" stylesheets="@./css/dashBoard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.DashboardController">
     <left>
-        <AnchorPane fx:id="anchorpane" prefHeight="690.0" prefWidth="1099.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="anchorpane" prefHeight="690.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane layoutX="730.0" layoutY="40.0" prefHeight="122.0" prefWidth="251.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
