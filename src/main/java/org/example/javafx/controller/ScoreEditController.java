@@ -96,8 +96,7 @@ public class ScoreEditController {
         }
         if (course_name != null && student_name != null) {
             DataRequest stuDataRequest = new DataRequest();
-            stuDataRequest.add("student_name", student_name);
-            result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
+            stuDataRequest.add("student_num", student_name.split("-")[0]);
             Map map = (Map) result.getData();
             DataRequest dataRequest1 = new DataRequest();
             dataRequest1.add("id", Integer.parseInt(map.get("person_id").toString()));
@@ -185,7 +184,11 @@ public class ScoreEditController {
         List<Map> studentMap = (List<Map>) studentResult.getData();
         List<Map> courseMap = (List<Map>) courseResult.getData();
         for (Map student : studentMap) {
-            studentList.add(student.get("student_name"));
+            DataRequest dataRequest=new DataRequest();
+            dataRequest.add("id",Integer.parseInt(student.get("person_id").toString()));
+            Result result = HttpRequestUtils.request("/person/selectById", dataRequest);
+            Map map=(Map) result.getData();
+            studentList.add(map.get("person_num")+"-"+student.get("student_name"));
         }
         for (Map course : courseMap) {
             courseList.add(course.get("id").toString().split("\\.")[0] + "-" + course.get("course_name"));

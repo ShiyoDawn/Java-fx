@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="464.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseAddController">
+<AnchorPane prefHeight="533.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseAddController">
    <children>
       <Label layoutX="313.0" layoutY="29.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="课序号：" />
       <Label layoutX="313.0" layoutY="149.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="课外书" />
@@ -17,12 +17,12 @@
       <Label layoutX="24.0" layoutY="24.0" prefHeight="50.0" prefWidth="76.0" text="课程名称：" />
       <Label layoutX="24.0" layoutY="212.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="授课教师" />
       <Label layoutX="313.0" layoutY="212.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="开课班级：" />
-      <TextField fx:id="course_name" layoutX="105.0" layoutY="37.0" />
+      <TextField fx:id="course_name" layoutX="105.0" layoutY="37.0" prefHeight="23.0" prefWidth="161.0" />
       <TextField fx:id="num" layoutX="394.0" layoutY="37.0" />
-      <TextField fx:id="book" layoutX="105.0" layoutY="157.0" />
+      <TextField fx:id="book" layoutX="105.0" layoutY="157.0" prefHeight="23.0" prefWidth="161.0" />
       <TextField fx:id="extra" layoutX="394.0" layoutY="157.0" />
-      <TextField fx:id="teacher" layoutX="105.0" layoutY="220.0" />
-      <ComboBox fx:id="type" layoutX="105.0" layoutY="95.0" prefHeight="16.0" prefWidth="162.0" promptText="请选择课程种类">
+      <TextField fx:id="teacher" layoutX="105.0" layoutY="220.0" prefHeight="23.0" prefWidth="161.0" />
+      <ComboBox fx:id="type" layoutX="105.0" layoutY="95.0" prefHeight="23.0" prefWidth="161.0" promptText="请选择课程种类">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="专业基础课" />
@@ -36,7 +36,7 @@
          </items>
       </ComboBox>
       <Label layoutX="24.0" layoutY="281.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="学分：" />
-      <TextField fx:id="credit" layoutX="105.0" layoutY="289.0" />
+      <TextField fx:id="credit" layoutX="105.0" layoutY="289.0" prefHeight="23.0" prefWidth="161.0" />
       <ComboBox fx:id="terms" layoutX="394.0" layoutY="95.0" prefHeight="16.0" prefWidth="162.0" promptText="请选择学期">
          <items>
             <FXCollections fx:factory="observableArrayList">
@@ -46,8 +46,13 @@
          </items>
       </ComboBox>
       <Label layoutX="313.0" layoutY="87.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="学期：" />
-      <Button fx:id="add" layoutX="258.0" layoutY="349.0" mnemonicParsing="false" onAction="#add" prefHeight="39.0" prefWidth="82.0" text="确认添加" />
+      <Button fx:id="add" layoutX="260.0" layoutY="399.0" mnemonicParsing="false" onAction="#add" prefHeight="39.0" prefWidth="82.0" text="确认添加" />
       <TextField fx:id="classes" layoutX="394.0" layoutY="220.0" />
+      <Label layoutX="313.0" layoutY="281.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="课容量：" />
+      <TextField fx:id="capacity" layoutX="394.0" layoutY="289.0" />
+      <Label layoutX="24.0" layoutY="341.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="前序课程" />
+      <ComboBox fx:id="precourse" layoutX="105.0" layoutY="349.0" prefHeight="23.0" prefWidth="161.0" promptText="请选择前序课程">
+      </ComboBox>
    </children>
 
 </AnchorPane>

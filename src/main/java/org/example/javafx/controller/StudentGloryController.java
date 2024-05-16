@@ -146,9 +146,15 @@ public class StudentGloryController {
             for (Map gloryMap : selected) {
                 String student_name = CommonMethod.getString(gloryMap, "student_name");
                 String glory_name = CommonMethod.getString(gloryMap, "glory_name");
+                String glory_type = CommonMethod.getString(gloryMap, "glory_type");
+                String glory_level = CommonMethod.getString(gloryMap, "glory_level");
+                String student_num = CommonMethod.getString(gloryMap, "student_num");
                 DataRequest dataRequest = new DataRequest();
                 dataRequest.add("student_name", student_name);
                 dataRequest.add("glory_name", glory_name);
+                dataRequest.add("glory_type", glory_type);
+                dataRequest.add("glory_level", glory_level);
+                dataRequest.add("student_num", student_num);
                 HttpRequestUtils.request("/glory/deleteGlory", dataRequest);
             }
         }
@@ -168,21 +174,15 @@ public class StudentGloryController {
         editTabPane.setVisible(true);
         if (selected != null) {
             DataRequest dataRequest = new DataRequest();
-            String student_name = CommonMethod.getString(selected, "student_name");
+            String student_num = CommonMethod.getString(selected, "student_num");
             String glory_name = CommonMethod.getString(selected, "glory_name");
-            dataRequest.add("student_name", student_name);
-            dataRequest.add("glory_name", glory_name);
-            Result result = null;
-            System.out.println(dataRequest.getData());
-            result = HttpRequestUtils.request("/glory/selectByStudentAndGlory", dataRequest);
-            Map map = (Map) result.getData();
-            tmpResult = HttpRequestUtils.request("/glory/selectByStudentAndGlory", dataRequest);
-            studentEditComboBox.setValue(map.get("student_name"));
+            System.out.println(student_num+" "+glory_name);
+            studentEditComboBox.setValue(student_num + "-" + CommonMethod.getString(selected, "student_name"));
             studentEditComboBox.setEditable(false);
             studentEditComboBox.setDisable(true);
-            gloryUpdateTextField.setText(map.get("glory_name").toString());
-            gloryLevelUpdateTextField.setText(map.get("glory_level").toString());
-            gloryTypeEditComboBox.setValue(selected.get("glory_type"));
+            gloryUpdateTextField.setText(glory_name);
+            gloryLevelUpdateTextField.setText(CommonMethod.getString(selected, "glory_level"));
+            gloryTypeEditComboBox.setValue(CommonMethod.getString(selected, "glory_type"));
         }
 
     }
@@ -247,8 +247,8 @@ public class StudentGloryController {
             result = HttpRequestUtils.request("/glory/selectByStudentNum", dataRequest);
         } else {
             result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
-            result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
         }
+        onCancelClick();
         setTableViewData(result);
     }
 
@@ -272,6 +272,7 @@ public class StudentGloryController {
         gloryTypeEditComboBox.setValue("请选择荣誉类型");
         gloryUpdateTextField.setText("");
         gloryLevelUpdateTextField.setText("");
+        editConfirmButton.setText("增加荣誉");
         studentEditComboBox.setDisable(false);
     }
 
@@ -327,72 +328,50 @@ public class StudentGloryController {
         }
         if (student_name != null && glory_type != null) {
             System.out.println(student_name);
-            dataRequest.add("student_name", student_name);
-            result = HttpRequestUtils.request("/student/selectStudentByName", dataRequest);
-            Map map = (Map) result.getData();
-            System.out.println(map);
-            dataRequest.add("id", map.get("person_id").toString());
-            result = HttpRequestUtils.request("/person/selectById", dataRequest);
-            String student_num = ((Map) result.getData()).get("person_num").toString();
-            dataRequest.add("student_num", student_num);
-            dataRequest.add("glory_name", gloryUpdateTextField.getText());
-            dataRequest.add("glory_type", glory_type);
-            if (tmpResult != null) {
-                dataRequest.add("raw_glory_name", ((Map) tmpResult.getData()).get("glory_name"));
+            Map map=dataTableView.getSelectionModel().getSelectedItem();
+            DataRequest dataRequest1=new DataRequest();
+            if(map!=null){
+                dataRequest1.add("student_name",CommonMethod.getString(map,"student_name"));
+                dataRequest1.add("raw_glory_name",CommonMethod.getString(map,"glory_name"));
+                dataRequest1.add("raw_glory_type",CommonMethod.getString(map,"glory_type"));
+                dataRequest1.add("raw_glory_level",CommonMethod.getString(map,"glory_level"));
+                dataRequest1.add("student_num",CommonMethod.getString(map,"student_num"));
             }
-            dataRequest.add("glory_level", gloryLevelUpdateTextField.getText());
+            if(gloryUpdateTextField.getText()==null||gloryUpdateTextField.getText().equals("")||gloryTypeEditComboBox.getValue()==null||gloryTypeEditComboBox.getValue().toString().equals("请选择荣誉类型")||gloryLevelUpdateTextField.getText()==null||gloryLevelUpdateTextField.getText().equals("")){
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("请填写完整信息");
+                alert.showAndWait();
+            }
+            dataRequest1.add("glory_name", gloryUpdateTextField.getText());
+            dataRequest1.add("glory_type", gloryTypeEditComboBox.getValue());
+            dataRequest1.add("glory_level", gloryLevelUpdateTextField.getText());
             if (editConfirmButton.getText() == "修改荣誉") {
                 String msg = CommonMethod.alertButton("修改");
                 if (msg == "确认") {
-                    HttpRequestUtils.request("/glory/updateGlory", dataRequest);
+                    HttpRequestUtils.request("/glory/updateGlory", dataRequest1);
                 }
             } else if (editConfirmButton.getText() == "增加荣誉") {
                 String msg = CommonMethod.alertButton("增加");
                 if (msg == "确认") {
-                    HttpRequestUtils.request("/glory/insertGlory", dataRequest);
+                    HttpRequestUtils.request("/glory/insertGlory", dataRequest1);
                 }
             }
-            System.out.println(dataRequest.getData());
         } else if (student_name == null && glory_type != null) {
-            Stage confirmStage = new Stage();
-            confirmStage.setWidth(250);
-            confirmStage.setHeight(150);
-            //取消放大（全屏）按钮
-            confirmStage.setResizable(false);
-            Text text = new Text("请输入学生");
-            HBox hBox = new HBox(text);
-            hBox.setAlignment(Pos.CENTER);
-            Scene scene = new Scene(hBox);
-            confirmStage.setScene(scene);
-            confirmStage.show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("请选中学生");
+            alert.showAndWait();
         } else if (student_name != null && glory_type == null) {
-            Stage confirmStage = new Stage();
-            confirmStage.setWidth(250);
-            confirmStage.setHeight(150);
-            //取消放大（全屏）按钮
-            confirmStage.setResizable(false);
-            Text text = new Text("请输入荣誉类型");
-            HBox hBox = new HBox(text);
-            hBox.setAlignment(Pos.CENTER);
-            Scene scene = new Scene(hBox);
-            confirmStage.setScene(scene);
-            confirmStage.show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("请选中荣誉类型");
+            alert.showAndWait();
         } else if (student_name == null && glory_type == null) {
-            Stage confirmStage = new Stage();
-            confirmStage.setWidth(250);
-            confirmStage.setHeight(150);
-            //取消放大（全屏）按钮
-            confirmStage.setResizable(false);
-            Text text = new Text("请输入学生和荣誉类型");
-            HBox hBox = new HBox(text);
-            hBox.setAlignment(Pos.CENTER);
-            Scene scene = new Scene(hBox);
-            confirmStage.setScene(scene);
-            confirmStage.show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("请选中学生和荣誉类型");
+            alert.showAndWait();
         }
         studentComboBox.setValue("");
         studentComboBox.setPromptText("请选择学生");
-        onQueryButtonClick();
+        onResetButtonClick();
         onQueryButtonClick();
         if(!id.isVisible()&&(studentComboBox.getValue()==null||studentComboBox.getValue().toString().equals("请选择学生"))){
             id.setVisible(true);
@@ -502,14 +481,18 @@ public class StudentGloryController {
             gloryTypeList.add(map.get("" + i));
         }
         for (Map student : studentMap) {
-            studentList.add(student.get("student_name"));
+            DataRequest dataRequest1=new DataRequest();
+            dataRequest1.add("id",student.get("person_id"));
+            Result result = HttpRequestUtils.request("/person/selectById", dataRequest1);
+            Map map=(Map) result.getData();
+            studentList.add(map.get("person_num")+"-"+student.get("student_name"));
         }
         studentComboBox.getItems().addAll(studentList);
         studentEditComboBox.getItems().addAll(studentList);
         gloryTypeEditComboBox.getItems().addAll(gloryTypeList);
 
         dataTableView.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 1 && editTabPane.isVisible() && e.getButton() == MouseButton.PRIMARY) {
+            if (e.getClickCount() == 1 && e.getButton() == MouseButton.PRIMARY) {
                 Map map = dataTableView.getSelectionModel().getSelectedItem();
                 if (map != null) {
                     onEditButtonClick();

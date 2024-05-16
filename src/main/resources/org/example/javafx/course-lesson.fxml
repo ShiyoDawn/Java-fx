@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="517.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseLessonController">
+    <GridPane fx:id="gridPane" layoutX="27.0" layoutY="67.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="580.0" stylesheets="@./css/timeTable.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" prefWidth="60" />
+            <ColumnConstraints hgrow="ALWAYS" prefWidth="74" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="74" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="74" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="74" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="74" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="74" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="74" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints prefHeight="19.1" vgrow="ALWAYS" />
+            <RowConstraints prefHeight="68.7" vgrow="ALWAYS" />
+            <RowConstraints prefHeight="68.7" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="68.7" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="68.7" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="68.7" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <Label text="周/节次" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Label text="星期一" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Label text="星期二" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Label text="星期三" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Label text="星期四" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Label text="星期五" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Label text="星期六" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Label text="星期日" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Label text="第一、二节" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Label text="第三、四节" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+        <Label text="第五、六节" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+        <Label text="第七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+        <Label text="第九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+    </GridPane>
+    <Label layoutX="180.0" layoutY="491.0" prefHeight="32.0" prefWidth="415.0" text="请点击上侧课程表相应位置，选择上课时间" textFill="#ff0303">
+        <font>
+            <Font size="15.0" />
+        </font>
+    </Label>
+    <ComboBox fx:id="comboBoxWeek" editable="true" layoutX="466.0" layoutY="23.0" prefWidth="130" promptText="请选择周数">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="编辑全部" />
+                <String fx:value="第1周" />
+                <String fx:value="第2周" />
+                <String fx:value="第3周" />
+                <String fx:value="第4周" />
+                <String fx:value="第5周" />
+                <String fx:value="第6周" />
+                <String fx:value="第7周" />
+                <String fx:value="第8周" />
+                <String fx:value="第9周" />
+                <String fx:value="第10周" />
+                <String fx:value="第11周" />
+                <String fx:value="第12周" />
+                <String fx:value="第13周" />
+                <String fx:value="第14周" />
+                <String fx:value="第15周" />
+                <String fx:value="第16周" />
+                <String fx:value="第17周" />
+                <String fx:value="第18周" />
+                <String fx:value="第19周" />
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <Button fx:id="save" layoutX="252.0" layoutY="439.0" mnemonicParsing="false" onAction="#saveC" prefHeight="32.0" prefWidth="130.0" text="保存上课时间，地点" />
+</AnchorPane>

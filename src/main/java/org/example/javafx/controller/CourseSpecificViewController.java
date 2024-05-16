@@ -136,12 +136,12 @@ public class CourseSpecificViewController {
         try {
             // 加载新的FXML文件
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(MainApplication.class.getResource("course-add-view.fxml"));
+            fxmlLoader.setLocation(MainApplication.class.getResource("course-select-view.fxml"));
             Parent root = fxmlLoader.load();
             // 创建新的Stage
             Stage newStage = new Stage();
             newStage.initStyle(StageStyle.DECORATED);
-            newStage.setTitle("成绩单");
+            newStage.setTitle("选课界面");
             newStage.setScene(new Scene(root));
             newStage.show();
         } catch (IOException e) {

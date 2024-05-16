@@ -1,16 +1,27 @@
 package org.example.javafx.controller;
 
+import com.google.gson.Gson;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CourseAddController {
@@ -20,6 +31,8 @@ public class CourseAddController {
     TextField course_name;
     @FXML
     TextField num;
+    @FXML
+    ComboBox precourse;
     @FXML
     TextField credit;
     @FXML
@@ -34,7 +47,29 @@ public class CourseAddController {
     ComboBox type;
     @FXML
     ComboBox terms;
-
+    @FXML
+    TextField capacity;
+    @FXML
+    public void initialize() throws IOException, InterruptedException {
+        classes.setText("1");
+        terms.setValue("2023-2024-2");
+        type.setValue("通识选修课");
+        precourse.setValue("0-全");
+        course_name.setText("线性代数");
+        credit.setText("2");
+        book.setText("2");
+        teacher.setText("2");
+        num.setText("2");
+        capacity.setText("2");
+        extra.setText("2");
+        DataRequest dataRequest = new DataRequest();
+        Result data = HttpRequestUtils.courseField("/course/selectAll", dataRequest);
+        List<Map<String, String>> dataListType = new Gson().fromJson(data.getData().toString(), List.class);
+        precourse.getItems().add("0-无前序课程");
+        for (Map<String, String> a : dataListType) {
+            precourse.getItems().add(String.valueOf(a.get("id")) + '-' + String.valueOf(a.get("course_name")));
+        }
+    }
     public void add() throws IOException, InterruptedException {
         DataRequest dataRequest = new DataRequest();
         Map<String, String> map = new HashMap<>();
@@ -74,7 +109,22 @@ public class CourseAddController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("学期不能为空");
             alert.showAndWait();
+        } else if (capacity.getText() == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("课容量不能为空");
+            alert.showAndWait();
+        } else if (precourse.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("前序课程不能为空");
+            alert.showAndWait();
         } else {
+            if(String.valueOf(precourse.getValue()).charAt(1) == '-'){
+                map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,1));
+            } else if (String.valueOf(precourse.getValue()).charAt(3) == '-'){
+                map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,3));
+            } else if (String.valueOf(precourse.getValue()).charAt(4) == '-') {
+                map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,4));
+            }
             map.put("course_name", course_name.getText());
             map.put("credit", credit.getText());
             map.put("num", num.getText());
@@ -84,12 +134,37 @@ public class CourseAddController {
             map.put("extracurricular", extra.getText());
             map.put("classes", classes.getText());
             map.put("teacher_name", teacher.getText());
+            map.put("capacity", capacity.getText());
+            map.put("students", "0");
             dataRequest.setData(map);
             Result data = HttpRequestUtils.courseField("/course/addCourse", dataRequest);
             String data1 = data.getMsg();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(data1);
             alert.showAndWait();
+            CourseLessonController.num = num.getText();
+            if(data1.equals("添加成功")){
+                try {
+                    // 加载新的FXML文件
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(MainApplication.class.getResource("course-lesson.fxml"));
+                    Parent root = fxmlLoader.load();
+                    // 创建新的Stage
+                    Stage newStage = new Stage();
+                    newStage.initStyle(StageStyle.DECORATED);
+                    newStage.setTitle("添加课程具体信息界面");
+                    newStage.setScene(new Scene(root));
+                    newStage.setResizable(false);
+                    newStage.initModality(Modality.APPLICATION_MODAL);
+//                    Node node = add.getScene().getRoot();
+//                    Window window = node.getScene().getWindow();
+//                    window.hide(); // 关闭窗口
+                    newStage.showAndWait();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 
