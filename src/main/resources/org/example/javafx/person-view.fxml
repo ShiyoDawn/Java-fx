@@ -9,9 +9,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonTableController">
+<AnchorPane prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.PersonTableController">
    <children>
-      <ScrollPane layoutY="90.0" prefHeight="600.0" prefWidth="1080.0">
+      <ScrollPane layoutY="90.0" prefHeight="635.0" prefWidth="1100.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1800.0">
                <children>
