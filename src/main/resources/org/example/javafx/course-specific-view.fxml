@@ -22,32 +22,32 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="440.0" layoutY="64.0" prefHeight="49.0" prefWidth="104.0" text="成绩单">
+      <Label layoutX="414.0" layoutY="69.0" prefHeight="49.0" prefWidth="104.0" text="成绩单">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="598.0" layoutY="65.0" prefHeight="49.0" prefWidth="104.0" text="成员">
+      <Label layoutX="542.0" layoutY="69.0" prefHeight="49.0" prefWidth="104.0" text="成员">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="740.0" layoutY="66.0" prefHeight="49.0" prefWidth="104.0" text="分组">
+      <Label layoutX="665.0" layoutY="69.0" prefHeight="49.0" prefWidth="104.0" text="分组">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="score" fitHeight="49.0" fitWidth="38.0" layoutX="446.0" layoutY="17.0" onMouseClicked="#scoreC">
+      <ImageView fx:id="score" fitHeight="49.0" fitWidth="38.0" layoutX="420.0" layoutY="19.0" onMouseClicked="#scoreC">
          <image>
             <Image url="@css/图片3.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="member" fitHeight="49.0" fitWidth="48.0" layoutX="594.0" layoutY="18.0" onMouseClicked="#memberC">
+      <ImageView fx:id="member" fitHeight="49.0" fitWidth="48.0" layoutX="538.0" layoutY="20.0" onMouseClicked="#memberC">
          <image>
             <Image url="@css/图片4.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="team" fitHeight="49.0" fitWidth="38.0" layoutX="739.0" layoutY="18.0" onMouseClicked="#teamC">
+      <ImageView fx:id="team" fitHeight="49.0" fitWidth="38.0" layoutX="664.0" layoutY="19.0" onMouseClicked="#teamC">
          <image>
             <Image url="@css/图片5.jpg" />
          </image>
@@ -57,12 +57,22 @@
             <Image url="@css/图片6.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="updateTime" fitHeight="49.0" fitWidth="48.0" layoutX="776.0" layoutY="16.0" onMouseClicked="#timeC">
+         <image>
+            <Image url="@css/图片7.jpg" />
+         </image>
+      </ImageView>
       <ScrollPane layoutX="-1.0" layoutY="128.0" prefHeight="562.0" prefWidth="980.0">
          <content>
             <AnchorPane fx:id="lesson" prefHeight="507.0" prefWidth="975.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="280.0" layoutY="66.0" prefHeight="49.0" prefWidth="104.0" text="作业统计">
+      <Label layoutX="280.0" layoutY="69.0" prefHeight="49.0" prefWidth="104.0" text="作业统计">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="752.0" layoutY="69.0" prefHeight="49.0" prefWidth="119.0" text="添加上课时间">
          <font>
             <Font size="18.0" />
          </font>

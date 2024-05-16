@@ -63,6 +63,8 @@ public class CourseController {
     @FXML
     ComboBox type;
     @FXML
+    Label cou;
+    @FXML
     Button save;
     @FXML
     Button add;
@@ -210,14 +212,12 @@ public class CourseController {
                     credit.setText(String.valueOf(a.get("credit")));
                     capacity.setText(String.valueOf(a.get("capacity")));
                     id.setText(String.valueOf(a.get("id")));
+                    cou.setText(a.get("course_name").toString());
                 } else if (event.getClickCount() == 2) {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(MainApplication.class.getResource("course-specific-view.fxml"));
                     try {
-                        CourseSpecificViewController.id = String.valueOf(a.get("id"));
-                        pane.getChildren().removeAll(pane.getChildren());
-                        BorderPane pane1 = new BorderPane(fxmlLoader.load());
-                        pane.getChildren().add(pane1);
+                        specific(a, fxmlLoader);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -229,6 +229,13 @@ public class CourseController {
                 break;
             }
         }
+    }
+
+    protected void specific(Map<String, ?> a, FXMLLoader fxmlLoader) throws IOException {
+        CourseSpecificViewController.id = String.valueOf(a.get("id"));
+        pane.getChildren().removeAll(pane.getChildren());
+        BorderPane pane1 = new BorderPane(fxmlLoader.load());
+        pane.getChildren().add(pane1);
     }
 
     private void setPagination(List<Map<String, ? extends Object>> list) throws IOException, InterruptedException {

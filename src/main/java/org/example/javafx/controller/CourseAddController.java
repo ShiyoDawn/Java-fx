@@ -143,6 +143,7 @@ public class CourseAddController {
             alert.setHeaderText(data1);
             alert.showAndWait();
             CourseLessonController.num = num.getText();
+            CourseLessonController.source = "add";
             if(data1.equals("添加成功")){
                 try {
                     // 加载新的FXML文件

@@ -145,6 +145,9 @@ public class MainFrameController {
         });*/
 
         //初始化页面切换
+        if (vBox.getChildren().size() > 1){
+            vBox.getChildren().remove(1,vBox.getChildren().size() - 1);
+        }
         for (int i = 1; i < menuList.size(); i++) {
             Button newButton = new Button(menuList.get(i).get("name"));
             buttons.put(newButton,0);
@@ -261,6 +264,8 @@ public class MainFrameController {
             }
         });
     }
+
+//    public void changeToCourse()
 
 
 }
