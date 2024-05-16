@@ -196,6 +196,9 @@ public class FeeController {
     @FXML
     private void onResetButtonClick() {
         id.setVisible(true);
+        if(AppStore.getUser().getUser_type_id()==3){
+            id.setVisible(false);
+        }
         Result result = null;
         studentComboBox.setValue(null);
         studentComboBox.setPromptText("请选择学生");

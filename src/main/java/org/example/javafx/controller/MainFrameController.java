@@ -145,6 +145,9 @@ public class MainFrameController {
         });*/
 
         //初始化页面切换
+        if (vBox.getChildren().size() > 1){
+            vBox.getChildren().remove(1,vBox.getChildren().size() - 1);
+        }
         for (int i = 1; i < menuList.size(); i++) {
             Button newButton = new Button(menuList.get(i).get("name"));
             buttons.put(newButton,0);
@@ -195,12 +198,18 @@ public class MainFrameController {
     }
 
 
-    protected void setTabChange(Button button, String url) throws IOException {
+    protected void setTabChange(Button button, String url){
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(MainApplication.class.getResource(url));
-        BorderPane newPane = new BorderPane(fxmlLoader.load());
+
         button.setOnAction(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainApplication.class.getResource(url));
+            BorderPane newPane = null;
+            try {
+                newPane = new BorderPane(fxmlLoader.load());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             borderPane.setCenter(newPane);
         });
     }
@@ -261,6 +270,8 @@ public class MainFrameController {
             }
         });
     }
+
+//    public void changeToCourse()
 
 
 }

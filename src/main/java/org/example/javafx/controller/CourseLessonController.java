@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Lesson;
 import org.example.javafx.pojo.Result;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CourseLessonController {
+    static String source = "";
     static String num;
     static String id;
     static String name;
@@ -39,6 +41,7 @@ public class CourseLessonController {
     static int rowIndex;
     static List<String[]> list = new ArrayList<>();
     static List<double[]> list2 = new ArrayList<>();
+    private CourseSpecificViewController courseSpecificViewController = new CourseSpecificViewController();
 
     @FXML
     GridPane gridPane;
@@ -53,15 +56,20 @@ public class CourseLessonController {
             deleteNode();
             addLabelByList(newValue,list);
         });
-        DataRequest dataRequest = new DataRequest();
-        Map<String,String> map = new HashMap<>();
-        map.put("num",num);
-        dataRequest.setData(map);
-        Result data = HttpRequestUtils.courseField("/course/selectByNum2", dataRequest);
-        List<Map<String, String>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
-        id = String.valueOf(dataList.get(0).get("id"));
-        name = String.valueOf(dataList.get(0).get("course_name"));
-        addGrid();
+        if(source.equals("add")){
+            DataRequest dataRequest = new DataRequest();
+            Map<String,String> map = new HashMap<>();
+            map.put("num",num);
+            dataRequest.setData(map);
+            Result data = HttpRequestUtils.courseField("/course/selectByNum2", dataRequest);
+            List<Map<String, String>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+            id = String.valueOf(dataList.get(0).get("id"));
+            name = String.valueOf(dataList.get(0).get("course_name"));
+            addGrid();
+        } else if(source.equals("specific")){
+            addGrid();
+        }
+
     }
 
     private void deleteNode() {
@@ -211,7 +219,7 @@ public class CourseLessonController {
         DataRequest dataRequest = new DataRequest();
         List<String[]> list1 = new ArrayList<>();
         String[] b = new String[1];
-        b[0] = id ;
+        b[0] = idC(id) ;
         list1.add(b);
         Map<String,List<String[]>> map = new HashMap<>();
         map.put("lesson",list);
@@ -226,6 +234,18 @@ public class CourseLessonController {
             Node node = save.getScene().getRoot();
             Window window = node.getScene().getWindow();
             window.hide(); // 关闭窗口
+            if(source.equals("specific")){
+                CourseSpecificViewController.textField.setText("success");
+            }
         }
+    }
+    private String idC(String str){
+        int count = str.length();
+        for (int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == '.'){
+                count = i;
+            }
+        }
+        return str.substring(0,count);
     }
 }

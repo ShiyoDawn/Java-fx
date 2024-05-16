@@ -1,5 +1,5 @@
 #anchorpane {
-    -fx-background-color: #dbffed;
+    -fx-background-color: #e6fffd;
 }
 
 #gridPane {
@@ -23,6 +23,8 @@
     -fx-background-color: white;
     -fx-border-width: 3px;
     -fx-border-radius: 5px;
+    -fx-border-color: #3eb1d0;
+    -fx-border-style: dashed;
 }
 /* 修改Tab的背景颜色 */
 .tab {

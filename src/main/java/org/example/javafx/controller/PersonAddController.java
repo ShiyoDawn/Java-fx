@@ -2,11 +2,21 @@ package org.example.javafx.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
+import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Base64;
 
 public class PersonAddController {
 
@@ -54,7 +64,7 @@ public class PersonAddController {
     private TextField departmentTextField;
 
     @FXML
-    private Label infoLabel;
+    private ImageView photoView;
 
     @FXML
     public void initialize() {
@@ -75,6 +85,15 @@ public class PersonAddController {
                 maleCheckBox.setSelected(false);
             }
         });
+
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Image image = new Image(fileInputStream);
+        photoView.setImage(image);
     }
 
 
@@ -144,7 +163,22 @@ public class PersonAddController {
 
     @FXML
     void onUploadPhotoButtonClickAction() {
-
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg"));
+        File selectedFile = fileChooser.showOpenDialog(uploadPhotoButton.getScene().getWindow());
+        if (selectedFile != null) {
+            HttpRequestUtils.uploadFile("/user/uploadPhoto", selectedFile.getPath(), "photo", person_numTextField.getText());
+            person_numTextField.setDisable(true);
+            User user = AppStore.getUser();
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("person_num",person_numTextField.getText());
+            String str = HttpRequestUtils.request("/user/getPhoto", dataRequest).getData().toString();
+            byte[] data = Base64.getDecoder().decode(str);
+            if (data != null) {
+                Image image1 = new Image(new ByteArrayInputStream(data));
+                photoView.setImage(image1);
+            }
+        }
     }
 
 }

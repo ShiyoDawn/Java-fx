@@ -2,6 +2,8 @@ package org.example.javafx;
 
 
 //import org.example.javafx.controller.DashboardController;
+import org.example.javafx.controller.CourseController;
+import org.example.javafx.controller.CourseSpecificViewController;
 import org.example.javafx.controller.MainFrameController;
 import org.example.javafx.pojo.User;
 import org.example.javafx.request.JwtResponse;
@@ -15,6 +17,8 @@ public class AppStore {
 
 
     private static MainFrameController mainFrameController;
+
+    private static CourseController courseController;
 
     //未使用SpringSecurity时暂时使用的user
     //使用后将用户数据存入jwt
@@ -41,9 +45,15 @@ public class AppStore {
     public static MainFrameController getMainFrameController() {
         return mainFrameController;
     }
+    public static CourseController getCourseController() {
+        return getCourseController();
+    }
 
     public static void setMainFrameController(MainFrameController mainFrameController) {
         AppStore.mainFrameController = mainFrameController;
+    }
+    public static void setCourseController(CourseController courseController) {
+        AppStore.courseController = courseController;
     }
 
     public static String confirmType(User user) {

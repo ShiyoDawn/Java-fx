@@ -258,7 +258,7 @@ public class CourseSelectController {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("已经选择该课程");
                     alert.showAndWait();
-                } else if (dataListP.size() == 0) {
+                } else if (dataListP.isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     DataRequest dataRequest = new DataRequest();
                     Map<String,String> map = new HashMap<>();

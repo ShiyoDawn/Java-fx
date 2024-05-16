@@ -27,6 +27,7 @@
                                         <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="454.0" prefWidth="298.0">
                                                 <Label fx:id="id" visible="false" />
+                                                <Label fx:id="cou" visible="false" />
                                                 <Label layoutX="14.0" layoutY="56.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="课序号：" />
                                                 <Label layoutX="14.0" layoutY="197.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="课外书" />
                                                 <Label layoutX="14.0" layoutY="148.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="教材" />
