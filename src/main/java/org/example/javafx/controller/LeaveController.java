@@ -490,7 +490,7 @@ public class LeaveController {
 
             viewTab.setText("我的请假");
             applyTab.setText("请假申请");
-
+            idColumn.setVisible(false);
             String person_num = user.getPerson_num();
             //以下是根据学生信息来填入请假界面信息的;
             DataRequest dataRequest = new DataRequest();

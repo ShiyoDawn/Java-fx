@@ -130,6 +130,7 @@ public class FeeController {
             throw new RuntimeException(e);
         }
         onQueryButtonClick();
+        onResetButtonClick();
     }
 
     @FXML
@@ -145,17 +146,23 @@ public class FeeController {
             if (msg == "确认") {
                 for (Map feeMap : selected) {
                     DataRequest dataRequest = new DataRequest();
-                    dataRequest.add("id", feeMap.get("id"));
+                    dataRequest.add("student_num", feeMap.get("student_num"));
+                    dataRequest.add("student_name", feeMap.get("student_name"));
+                    dataRequest.add("date", feeMap.get("date"));
+                    dataRequest.add("money", feeMap.get("money"));
+                    dataRequest.add("activity", feeMap.get("activity"));
+                    dataRequest.add("activity_detail", feeMap.get("activity_detail"));
                     HttpRequestUtils.request("/fee/deleteFee", dataRequest);
                 }
                 onQueryButtonClick();
-                onQueryButtonClick();
+                onResetButtonClick();
             }
         }
     }
 
     @FXML
     private void onQueryButtonClick() {
+        id.setVisible(false);
         Result result = null;
         String student_name = null;
         Object student = studentComboBox.getValue();
@@ -167,7 +174,7 @@ public class FeeController {
             student_name = null;
         }
         if (student_name != null) {
-            List<Map> studentList = CommonMethod.filter(feeList, "student_name", student_name);
+            List<Map> studentList = CommonMethod.filter(feeList, "student_num", student_name.split("-")[0]);
             if (studentList == null || studentList.size() == 0) {
                 observableList.clear();
                 return;
@@ -188,6 +195,7 @@ public class FeeController {
 
     @FXML
     private void onResetButtonClick() {
+        id.setVisible(true);
         Result result = null;
         studentComboBox.setValue(null);
         studentComboBox.setPromptText("请选择学生");
@@ -284,7 +292,7 @@ public class FeeController {
         studentComboBox.setEditable(true);
         User user = AppStore.getUser();
         if (user.getUser_type_id() == 3) {
-
+            id.setVisible(false);
             viewTab.setText("我的生活学习消费");
 
             deleteButton.setVisible(false);
@@ -362,12 +370,13 @@ public class FeeController {
         DataRequest dataRequest = new DataRequest();
         List studentList = new ArrayList();
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", dataRequest);
-        Map cancelStudent = new HashMap();
-        cancelStudent.put("cancelStudent", "请选择学生");
-        studentList.add(cancelStudent.get("cancelStudent"));
         List<Map> studentListMap = (List<Map>) studentResult.getData();
         for (Map student : studentListMap) {
-            studentList.add(student.get("student_name"));
+            DataRequest dataRequest1=new DataRequest();
+            dataRequest1.add("id",student.get("person_id"));
+            Result result=HttpRequestUtils.request("/person/selectById",dataRequest1);
+            Map map=(Map)result.getData();
+            studentList.add(map.get("person_num")+"-"+student.get("student_name"));
         }
         studentComboBox.getItems().addAll(studentList);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
