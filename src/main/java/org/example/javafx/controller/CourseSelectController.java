@@ -216,7 +216,7 @@ public class CourseSelectController {
             label.setId("course");
             label.setTextAlignment(TextAlignment.CENTER);
             label.setWrapText(true);
-            label.setFont(new Font(15));
+            label.setFont(new Font(12));
             label.setText("      " + a.get("course_name") + "   " + a.get("classes") + " " + a.get("teacher_name") + "    "+ String.valueOf(a.get("students"))+"/"+a.get("capacity"));
             label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
             if (count <= 3) {
