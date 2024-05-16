@@ -21,64 +21,64 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentTableController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentTableController">
    <children>
-      <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="725.0" prefWidth="1100.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="学生管理">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="add"  layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="新增" >
+                        <Button fx:id="add" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#addStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="新增">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="delete" layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#deleteStudentButtonClick" prefHeight="23.0" prefWidth="83.0"  text="删除" >
+                        <Button fx:id="delete" layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#deleteStudentButtonClick" prefHeight="23.0" prefWidth="83.0" text="删除">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" onAction="#updateStudentAction" prefHeight="23.0" prefWidth="83.0" >
+                        <Button fx:id="update" layoutX="300.0" layoutY="22.0" mnemonicParsing="false" onAction="#updateStudentAction" prefHeight="23.0" prefWidth="83.0" text="修改">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：" >
+                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Label>
                         <TextField fx:id="select" layoutX="641.0" layoutY="24.0" onAction="#onSelectAction" promptText="请选择查询类别" />
-                        <SplitPane dividerPositions="0.6463490099009901" layoutY="72.0" prefHeight="585.0" prefWidth="1080.0">
+                        <SplitPane dividerPositions="0.7540222772277227" layoutY="72.0" prefHeight="585.0" prefWidth="1100.0">
                           <items>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0" stylesheets="@css/table.css">
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="848.0">
                                        <children>
-                                          <TableView fx:id="tableView" prefHeight="720.0" prefWidth="848.0">
+                                          <TableView fx:id="tableView" prefHeight="720.0" prefWidth="830.0">
                                             <columns>
-                                              <TableColumn fx:id="idColumn" prefWidth="33.333282589912415" text="序号" />
-                                              <TableColumn fx:id="person_numColumn" prefWidth="118.00006103515625" text="学号" />
-                                                <TableColumn fx:id="student_nameColumn" prefWidth="75.3333740234375" text="姓名" />
-                                                <TableColumn fx:id="departmentColumn" prefWidth="124.66668701171875" text="部门" />
-                                                <TableColumn fx:id="classesColumn" prefWidth="83.3333740234375" text="班级" />
-                                                <TableColumn fx:id="gradeColumn" prefWidth="70.6666259765625" text="年级" />
-                                                <TableColumn fx:id="majorColumn" prefWidth="138.66671752929688" text="专业" />
+                                              <TableColumn fx:id="idColumn" prefWidth="39.33334481716156" text="序号" />
+                                              <TableColumn fx:id="person_numColumn" prefWidth="124.66669082641602" text="学号" />
+                                                <TableColumn fx:id="student_nameColumn" prefWidth="85.33334350585938" text="姓名" />
+                                                <TableColumn fx:id="departmentColumn" prefWidth="120.66661071777344" text="部门" />
+                                                <TableColumn fx:id="classesColumn" prefWidth="94.0" text="班级" />
+                                                <TableColumn fx:id="gradeColumn" prefWidth="108.00003051757812" text="年级" />
+                                                <TableColumn fx:id="majorColumn" prefWidth="96.0" text="专业" />
                                             </columns>
                                           </TableView>
                                        </children>
                                     </AnchorPane>
                                 </content>
                               </ScrollPane>
-                              <VBox prefHeight="583.0" prefWidth="438.0">
+                              <VBox prefHeight="583.0" prefWidth="287.0">
                                  <children>
-                                    <FlowPane alignment="CENTER" prefHeight="159.0" prefWidth="378.0">
+                                    <FlowPane alignment="CENTER" prefHeight="124.0" prefWidth="378.0">
                                        <children>
-                                          <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="imageView" fitHeight="130.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </FlowPane>
-                                    <GridPane alignment="CENTER" hgap="10.0" prefHeight="227.0" prefWidth="378.0">
+                                    <GridPane alignment="CENTER" hgap="10.0" prefHeight="216.0" prefWidth="262.0">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.333251953125" minWidth="10.0" prefWidth="112.6666259765625" />
                                         <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="266.0000406901042" minWidth="10.0" prefWidth="266.0000406901042" />

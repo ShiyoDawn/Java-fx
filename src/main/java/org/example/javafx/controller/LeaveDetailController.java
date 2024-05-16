@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
@@ -17,7 +18,8 @@ public class LeaveDetailController {
     public void setAbsenceInfo(Map absenceInfo) {
         this.absenceInfo = absenceInfo;
     }
-    public Map getAbsenceInfo(){
+
+    public Map getAbsenceInfo() {
         return absenceInfo;
     }
 
@@ -77,32 +79,61 @@ public class LeaveDetailController {
 
     @FXML
     void onFailButtonClick() {
-        DataRequest dataRequest=new DataRequest();
-        dataRequest.add("status","不批准");
-        dataRequest.add("id",Integer.parseInt(idTextField.getText()));
-        HttpRequestUtils.request("/leave/updateStatus",dataRequest);
-        Stage stage=(Stage) passButton.getParent().getScene().getWindow();
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("status", "不批准");
+        dataRequest.add("student_num", studentIdTextField.getText());
+        dataRequest.add("student_name", studentNameTextField.getText());
+        dataRequest.add("institute", instituteTextField.getText());
+        dataRequest.add("major", majorTextField.getText());
+        dataRequest.add("instructor_name", instructorNameTextfield.getText());
+        dataRequest.add("instructor_tele", instructorTeleTextField.getText());
+        dataRequest.add("leave_detailed_reason", reasonTextField.getText());
+        dataRequest.add("start_time", goOutDatePicker.getValue().toString());
+        dataRequest.add("end_time", comeBackDatePicker.getValue().toString());
+        dataRequest.add("student_tele", studentTeleTextField.getText());
+        dataRequest.add("leave_reason", reasonComboBox.getValue());
+        dataRequest.add("leave_type", goOutTypeComboBox.getValue());
+        dataRequest.add("destination", destinationTextfield.getText());
+        HttpRequestUtils.request("/leave/updateStatus", dataRequest);
+        Stage stage = (Stage) passButton.getParent().getScene().getWindow();
         stage.close();
     }
 
     @FXML
     void onPassButtonClick() {
-        DataRequest dataRequest=new DataRequest();
-        dataRequest.add("status","已通过");
-        dataRequest.add("id",Integer.parseInt(idTextField.getText()));
-        HttpRequestUtils.request("/leave/updateStatus",dataRequest);
-        Stage stage=(Stage) passButton.getParent().getScene().getWindow();
+        DataRequest dataRequest = new DataRequest();
+        dataRequest.add("status", "已通过");
+        dataRequest.add("student_num", studentIdTextField.getText());
+        dataRequest.add("student_name", studentNameTextField.getText());
+        dataRequest.add("institute", instituteTextField.getText());
+        dataRequest.add("major", majorTextField.getText());
+        dataRequest.add("instructor_name", instructorNameTextfield.getText());
+        dataRequest.add("instructor_tele", instructorTeleTextField.getText());
+        dataRequest.add("leave_detailed_reason", reasonTextField.getText());
+        dataRequest.add("start_time", goOutDatePicker.getValue().toString());
+        dataRequest.add("end_time", comeBackDatePicker.getValue().toString());
+        dataRequest.add("student_tele", studentTeleTextField.getText());
+        dataRequest.add("leave_reason", reasonComboBox.getValue());
+        dataRequest.add("leave_type", goOutTypeComboBox.getValue());
+        dataRequest.add("destination", destinationTextfield.getText());
+        HttpRequestUtils.request("/leave/updateStatus", dataRequest);
+        Stage stage = (Stage) passButton.getParent().getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    public void initialize(Map map){
-        absenceInfo=map;
+    public void initialize(Map map) {
+        absenceInfo = map;
         System.out.println(absenceInfo);
 
-        idTextField.setVisible(false);
+        if (AppStore.getUser().getUser_type_id() == 3) {
+            passButton.setVisible(false);
+            failButton.setVisible(false);
+            passButton.setDisable(true);
+            failButton.setDisable(true);
+        }
 
-        idTextField.setText(map.get("id").toString());
+        idTextField.setVisible(false);
         studentIdTextField.setText(map.get("student_num").toString());
         studentNameTextField.setText(map.get("student_name").toString());
         ageTextField.setText(map.get("age").toString());
@@ -111,8 +142,8 @@ public class LeaveDetailController {
         instructorNameTextfield.setText(map.get("instructor_name").toString());
         instructorTeleTextField.setText(map.get("instructor_tele").toString());
         reasonTextField.setText(map.get("leave_detailed_reason").toString());
-        LocalDate start= LocalDate.parse(map.get("start_time").toString());
-        LocalDate end=LocalDate.parse(map.get("end_time").toString());
+        LocalDate start = LocalDate.parse(map.get("start_time").toString());
+        LocalDate end = LocalDate.parse(map.get("end_time").toString());
         goOutDatePicker.setValue(start);
         comeBackDatePicker.setValue(end);
         studentTeleTextField.setText(map.get("student_tele").toString());
@@ -136,5 +167,6 @@ public class LeaveDetailController {
         goOutTypeComboBox.setDisable(true);
         destinationTextfield.setDisable(true);
         finalCheckBox.setDisable(true);
+
     }
 }

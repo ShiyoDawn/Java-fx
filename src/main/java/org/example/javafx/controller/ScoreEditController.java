@@ -54,7 +54,7 @@ public class ScoreEditController {
     private BorderPane borderPane;
     //-----------------------------------------------------
 
-    public ScoreTableController scoreTableController=new ScoreTableController();
+    public ScoreTableController scoreTableController = new ScoreTableController();
 
     private List studentList;
     private List courseList;
@@ -99,10 +99,10 @@ public class ScoreEditController {
             stuDataRequest.add("student_name", student_name);
             result = HttpRequestUtils.request("/student/selectStudentByName", stuDataRequest);
             Map map = (Map) result.getData();
-            DataRequest dataRequest1=new DataRequest();
-            dataRequest1.add("id",Integer.parseInt(map.get("person_id").toString()));
-            result=HttpRequestUtils.request("/person/selectById",dataRequest1);
-            Map map1=(Map) result.getData();
+            DataRequest dataRequest1 = new DataRequest();
+            dataRequest1.add("id", Integer.parseInt(map.get("person_id").toString()));
+            result = HttpRequestUtils.request("/person/selectById", dataRequest1);
+            Map map1 = (Map) result.getData();
             String student_num = map1.get("person_num").toString();
 
             DataRequest courDataRequest = new DataRequest();
@@ -111,19 +111,19 @@ public class ScoreEditController {
             map = (Map) result.getData();
             String course_num = map.get("num").toString();
 
-            System.out.println(student_num+" "+course_num);
+            System.out.println(student_num + " " + course_num);
             dataRequest.add("student_num", student_num);
             dataRequest.add("course_num", course_num);
-            result=HttpRequestUtils.request("/score/selectByStudentAndCourse",dataRequest);
-            if(result==null){
-                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
+            if (result == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("成绩不存在,请重新选择");
                 alert.showAndWait();
                 return;
             }
-            String msg=CommonMethod.alertButton("删除");
-            if(msg=="确认"){
-                HttpRequestUtils.request("/score/deleteAllById",dataRequest);
+            String msg = CommonMethod.alertButton("删除");
+            if (msg == "确认") {
+                HttpRequestUtils.request("/score/deleteAllById", dataRequest);
             }
         } else if (student_name == null && course_name != null) {
             Stage confirmStage = new Stage();
@@ -167,7 +167,6 @@ public class ScoreEditController {
     }
 
 
-
     public void initialize() {
 
         DataRequest req = new DataRequest();
@@ -189,7 +188,7 @@ public class ScoreEditController {
             studentList.add(student.get("student_name"));
         }
         for (Map course : courseMap) {
-            courseList.add(course.get("id").toString().split("\\.")[0]+"-"+course.get("course_name"));
+            courseList.add(course.get("id").toString().split("\\.")[0] + "-" + course.get("course_name"));
         }
         studentComboBox.getItems().addAll(studentList);
         courseComboBox.getItems().addAll(courseList);

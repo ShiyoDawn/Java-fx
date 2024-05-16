@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -10,75 +11,198 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ActivityController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.ActivityController">
    <children>
-      <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="725.0" prefWidth="1110.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="创新实践">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="practiceAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="cAddButton" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCAddButtonClickAction" text="增加" />
-                        <Button fx:id="cDeleteButton" layoutX="170.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCDeleteButtonClickAction" text="删除" />
-                        <Button fx:id="cUpdateButton" layoutX="270.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCUpdateButtonClickAction" text="修改" />
-                        <ScrollPane layoutY="65.0" prefHeight="569.0" prefWidth="1080.0">
+                        <Button fx:id="practiceAddButton" layoutX="85.0" layoutY="11.0" mnemonicParsing="false" onAction="#onPracticeAddButtonClick" prefHeight="29.0" prefWidth="53.0" text="增添" />
+                        <Button fx:id="practiceDeleteButton" layoutX="164.0" layoutY="10.0" mnemonicParsing="false" onAction="#onPracticeDeleteButtonClick" prefHeight="31.0" prefWidth="51.0" text="删除" />
+                        <Button fx:id="practiceUpdateButton" layoutX="242.0" layoutY="10.0" mnemonicParsing="false" onAction="#onPracticeUpdateButtonClick" prefHeight="31.0" prefWidth="53.0" text="修改" />
+                        <ScrollPane layoutY="44.0" prefHeight="619.0" prefWidth="793.0">
                           <content>
-                            <AnchorPane layoutY="60.0" minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="1800.0">
+                            <AnchorPane layoutY="60.0" minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="793.0">
                                  <children>
-                                    <TableView fx:id="cTableView" prefHeight="900.0" prefWidth="1800.0">
+                                    <TableView fx:id="practiceTableView" layoutY="-1.0" prefHeight="900.0" prefWidth="795.0">
                                       <columns>
-                                        <TableColumn fx:id="cIdColumn" prefWidth="53.333346009254456" text="序号" />
-                                          <TableColumn fx:id="cNameColumn" prefWidth="75.99996948242188" text="姓名" />
-                                          <TableColumn fx:id="cActivity_typeColumn" prefWidth="98.6666259765625" text="活动类型" />
-                                          <TableColumn fx:id="cDateColumn" prefWidth="156.666748046875" text="日期" />
-                                          <TableColumn fx:id="cScoreColumn" prefWidth="146.66668701171875" text="评分" />
-                                          <TableColumn fx:id="cActivity_nameColumn" prefWidth="374.6666259765625" text="活动名称" />
+                                        <TableColumn fx:id="practiceIdColumn" prefWidth="70.6666818857193" text="序号" />
+                                          <TableColumn fx:id="practiceStudentNumColumn" prefWidth="127.99998474121094" text="学号" />
+                                          <TableColumn fx:id="practiceStudentNameColumn" prefWidth="112.66665649414062" text="姓名" />
+                                          <TableColumn fx:id="practiceActivityNameColumn" prefWidth="132.6666259765625" text="活动名称" />
+                                          <TableColumn fx:id="practiceActivityTypeColumn" prefWidth="114.666748046875" text="活动类型" />
+                                          <TableColumn fx:id="practiceDateColumn" prefWidth="134.6666259765625" text="日期" />
+                                          <TableColumn fx:id="practiceScoreColumn" prefWidth="84.0" text="评分" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <TextField fx:id="cTextField" layoutX="700.0" layoutY="8.0" />
-                        <CheckBox fx:id="cFuzzySearchCheckBox" layoutX="700.0" layoutY="40.0" mnemonicParsing="false" onAction="#onCFuzzySearchCheckBoxAction" prefHeight="20.0" prefWidth="100.0" text="模糊搜索" />
-                        <Button fx:id="cResetButton" layoutX="950.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCResetAction" text="重置" />
-                        <ComboBox fx:id="cComboBox" layoutX="555.0" layoutY="20.0" onAction="#onCComboBoxAction" prefHeight="27.0" prefWidth="135.0" />
-                        <Button fx:id="cSearchButton" layoutX="860.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCSearchButtonClickAction" text="搜索" />
+                        <TextField fx:id="practiceStudentInfoTextField" layoutX="690.0" layoutY="15.0" prefHeight="23.0" prefWidth="123.0" promptText="请输入学生信息" />
+                        <Button fx:id="practiceResetButton" layoutX="928.0" layoutY="14.0" mnemonicParsing="false" onAction="#onPracticeResetButtonClick" prefHeight="27.0" prefWidth="47.0" text="重置" />
+                        <Button fx:id="practiceQueryButton" layoutX="843.0" layoutY="15.0" mnemonicParsing="false" onAction="#onPracticeQueryButtonClick" prefHeight="25.0" prefWidth="49.0" text="查询" />
+                        <Label fx:id="one" layoutX="641.0" layoutY="19.0" text="学生：">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="835.0" layoutY="133.0" text="学号：">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="practiceStudentNumEditTextField" layoutX="885.0" layoutY="131.0" prefHeight="23.0" prefWidth="134.0" />
+                        <Label layoutX="835.0" layoutY="170.0" text="姓名：">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="813.0" layoutY="208.0" text="活动名称：">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="813.0" layoutY="245.0" text="活动类型：">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="814.0" layoutY="296.0" text="日期：">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="833.0" layoutY="417.0" text="评分：">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="833.0" layoutY="332.0" text="from：">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="practiceFromDatePicker" layoutX="885.0" layoutY="329.0" prefHeight="23.0" prefWidth="112.0" />
+                        <Label layoutX="840.0" layoutY="373.0" text="to：">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="practiceToDatePicker" layoutX="885.0" layoutY="370.0" prefHeight="23.0" prefWidth="112.0" />
+                        <TextField fx:id="practiceStudentNameEditTextField" layoutX="885.0" layoutY="168.0" prefHeight="23.0" prefWidth="134.0" />
+                        <TextField fx:id="practiceActivityNameEditTextField" layoutX="885.0" layoutY="206.0" prefHeight="23.0" prefWidth="134.0" />
+                        <TextField fx:id="practiceScoreEditTextField" layoutX="885.0" layoutY="415.0" prefHeight="23.0" prefWidth="134.0" />
+                        <Button fx:id="practiceConfirmButton" layoutX="840.0" layoutY="477.0" mnemonicParsing="false" onAction="#onPracticeConfirmButtonClick" prefHeight="27.0" prefWidth="59.0" text="确认">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="practiceResetEditButton" layoutX="952.0" layoutY="477.0" mnemonicParsing="false" onAction="#onPracticeResetEditButtonClick" prefHeight="27.0" prefWidth="61.0" text="重置">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <ComboBox fx:id="practiceActivityTypeComboBox" layoutX="885.0" layoutY="243.0" prefHeight="23.0" prefWidth="133.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
           <Tab text="日常活动">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="dailyAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane layoutY="65.0" prefHeight="564.0" prefWidth="1080.0">
+                         <ScrollPane layoutY="44.0" prefHeight="619.0" prefWidth="793.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1500.0">
+                              <AnchorPane layoutY="60.0" minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="793.0">
                                  <children>
-                                    <TableView prefHeight="700.0" prefWidth="1500.0">
+                                    <TableView fx:id="dailyTableView" layoutY="-3.0" prefHeight="737.0" prefWidth="794.0">
                                       <columns>
-                                        <TableColumn fx:id="dDaily_idColumn" prefWidth="50.000033020973206" text="序号" />
-                                          <TableColumn fx:id="dNameColumn" prefWidth="65.33328247070312" text="姓名" />
-                                          <TableColumn fx:id="dActivity_type" prefWidth="86.66665649414062" text="活动类型" />
-                                          <TableColumn fx:id="dDateColumn" prefWidth="146.6666259765625" text="日期" />
-                                          <TableColumn fx:id="dScoreColumn" prefWidth="96.666748046875" text="评分" />
-                                          <TableColumn fx:id="dActivityColumn" prefWidth="337.3333740234375" text="活动名称" />
+                                          <TableColumn fx:id="dailyIdColumn" prefWidth="60.666658997535706" text="序号" />
+                                          <TableColumn fx:id="dailyStudentNumColumn" prefWidth="113.3333511352539" text="学号" />
+                                          <TableColumn fx:id="dailyStudentNameColumn" prefWidth="93.33328247070312" text="姓名" />
+                                          <TableColumn fx:id="dailyActivityNameColumn" prefWidth="130.66668701171875" text="活动名称" />
+                                          <TableColumn fx:id="dailyActivityTypeColumn" prefWidth="162.66668701171875" text="活动类型" />
+                                          <TableColumn fx:id="dailyDateColumn" prefWidth="119.33331298828125" text="日期" />
+                                          <TableColumn fx:id="dailyScoreColumn" prefWidth="91.333251953125" text="评分" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <Button fx:id="dAddButton" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" text="增加" />
-                        <Button fx:id="dUpdateButton" layoutX="270.0" layoutY="15.0" mnemonicParsing="false" text="修改" />
-                        <Button fx:id="dDeleteButton" layoutX="170.0" layoutY="15.0" mnemonicParsing="false" text="删除" />
-                        <Button fx:id="dResetButton" layoutX="950.0" layoutY="15.0" mnemonicParsing="false" text="重置" />
-                        <TextField fx:id="dTextField" layoutX="700.0" layoutY="8.0" />
-                        <CheckBox fx:id="dFuzzySearchCheckBox" layoutX="700.0" layoutY="40.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="模糊搜索" />
-                        <ComboBox fx:id="dComboBox" layoutX="555.0" layoutY="20.0" prefWidth="135.0" />
-                        <Button fx:id="dSearchiButton" layoutX="860.0" layoutY="15.0" mnemonicParsing="false" text="搜索" />
+                        <Button fx:id="dailyAddButton" layoutX="88.0" layoutY="12.0" mnemonicParsing="false" onAction="#onDailyAddButtonClick" prefHeight="28.0" prefWidth="51.0" text="增加" />
+                        <Button fx:id="dailyUpdateButton" layoutX="257.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDailyUpdateButtonClick" prefHeight="31.0" prefWidth="54.0" text="修改" />
+                        <Button fx:id="dailyDeleteButton" layoutX="171.0" layoutY="12.0" mnemonicParsing="false" onAction="#onDailyDeleteButtonClick" prefHeight="29.0" prefWidth="53.0" text="删除" />
+                        <Button fx:id="dailyResetButton" layoutX="925.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDailyResetButtonClick" prefHeight="29.0" prefWidth="46.0" text="重置" />
+                        <TextField fx:id="dailyStudentInfoTextField" layoutX="684.0" layoutY="11.0" prefHeight="27.0" prefWidth="127.0" promptText="请输入学生信息" />
+                        <Button fx:id="dailyQueryButton" layoutX="831.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDailyQueryButtonClick" prefHeight="27.0" prefWidth="47.0" text="查询" />
+                        <Label fx:id="two" layoutX="644.0" layoutY="16.0" text="学生：">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                         <Label layoutX="835.0" layoutY="133.0" text="学号：">
+                             <font>
+                                 <Font name="System Bold" size="14.0" />
+                             </font>
+                         </Label>
+                         <TextField fx:id="dailyStudentNumEditTextField" layoutX="885.0" layoutY="131.0" prefHeight="23.0" prefWidth="134.0" />
+                         <Label layoutX="835.0" layoutY="170.0" text="姓名：">
+                             <font>
+                                 <Font name="System Bold" size="14.0" />
+                             </font>
+                         </Label>
+                         <Label layoutX="813.0" layoutY="208.0" text="活动名称：">
+                             <font>
+                                 <Font name="System Bold" size="14.0" />
+                             </font>
+                         </Label>
+                         <Label layoutX="813.0" layoutY="245.0" text="活动类型：">
+                             <font>
+                                 <Font name="System Bold" size="14.0" />
+                             </font>
+                         </Label>
+                         <Label layoutX="814.0" layoutY="296.0" text="日期：">
+                             <font>
+                                 <Font name="System Bold" size="14.0" />
+                             </font>
+                         </Label>
+                         <Label layoutX="833.0" layoutY="417.0" text="评分：">
+                             <font>
+                                 <Font name="System Bold" size="14.0" />
+                             </font>
+                         </Label>
+                         <Label layoutX="833.0" layoutY="332.0" text="from：">
+                             <font>
+                                 <Font name="System Bold Italic" size="13.0" />
+                             </font>
+                         </Label>
+                         <DatePicker fx:id="dailyFromDatePicker" layoutX="885.0" layoutY="329.0" prefHeight="23.0" prefWidth="112.0" />
+                         <Label layoutX="840.0" layoutY="373.0" text="to：">
+                             <font>
+                                 <Font name="System Bold Italic" size="13.0" />
+                             </font>
+                         </Label>
+                         <DatePicker fx:id="dailyToDatePicker" layoutX="885.0" layoutY="370.0" prefHeight="23.0" prefWidth="112.0" />
+                         <TextField fx:id="dailyStudentNameEditTextField" layoutX="885.0" layoutY="168.0" prefHeight="23.0" prefWidth="134.0" />
+                         <TextField fx:id="dailyActivityNameEditTextField" layoutX="885.0" layoutY="206.0" prefHeight="23.0" prefWidth="134.0" />
+                         <TextField fx:id="dailyScoreEditTextField" layoutX="885.0" layoutY="415.0" prefHeight="23.0" prefWidth="134.0" />
+                         <Button fx:id="dailyConfirmButton" layoutX="840.0" layoutY="477.0" mnemonicParsing="false" onAction="#onDailyConfirmButtonClick" prefHeight="27.0" prefWidth="59.0" text="确认">
+                             <font>
+                                 <Font name="System Bold" size="12.0" />
+                             </font>
+                         </Button>
+                         <Button fx:id="dailyResetEditButton" layoutX="952.0" layoutY="477.0" mnemonicParsing="false" onAction="#onDailyResetEditButtonClick" prefHeight="27.0" prefWidth="61.0" text="重置">
+                             <font>
+                                 <Font name="System Bold" size="12.0" />
+                             </font>
+                         </Button>
+                        <ComboBox fx:id="dailyActivityTypeComboBox" layoutX="885.0" layoutY="243.0" prefHeight="23.0" prefWidth="133.0" />
                      </children>
                   </AnchorPane>
             </content>

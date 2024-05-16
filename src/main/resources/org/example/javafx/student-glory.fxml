@@ -15,21 +15,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="gloryBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentGloryController">
+<BorderPane fx:id="gloryBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentGloryController">
     <left>
-        <AnchorPane fx:id="gloryAnchorPane" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="gloryAnchorPane" prefHeight="725.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
             <children>
-                <TabPane layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TabPane fx:id="tabpane" layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                        <Tab text="学生荣誉管理">
+                        <Tab fx:id="viewTab" text="学生荣誉管理">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
+                                <AnchorPane fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
                                     <children>
                                         <Button fx:id="addButton" layoutX="74.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="53.0" text="添加" />
                                         <Button fx:id="deleteButton" layoutX="146.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="29.0" prefWidth="51.0" text="删除" />
                                         <Button fx:id="editButton" layoutX="213.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="52.0" text="修改" />
                                         <Button fx:id="queryButton" layoutX="902.0" layoutY="14.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="32.0" prefWidth="55.0" text="查询" />
-                                        <Label layoutX="710.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
+                                        <Label fx:id="one" layoutX="710.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
                                         <ComboBox fx:id="studentComboBox" layoutX="755.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
                                         <Button fx:id="resetButton" layoutX="980.0" layoutY="13.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="33.0" prefWidth="58.0" text="刷新" />
                                         <AnchorPane layoutX="930.0" layoutY="56.0" prefHeight="609.0" prefWidth="177.0" />
@@ -47,7 +47,7 @@
                                       <items>
                                           <AnchorPane prefHeight="606.0" prefWidth="849.0">
                                               <children>
-                                                  <TableView fx:id="dataTableView" prefHeight="718.0" prefWidth="1059.0">
+                                                  <TableView fx:id="dataTableView" prefHeight="718.0" prefWidth="1077.0">
                                                       <columns>
                                                           <TableColumn fx:id="id" prefWidth="72.66665136814117" text="id" />
                                                           <TableColumn fx:id="studentNameColumn" prefWidth="129.33335876464844" text="学生姓名" />
@@ -61,7 +61,7 @@
                                                     <tabs>
                                                         <Tab text="编辑窗口">
                                                             <content>
-                                                                <AnchorPane fx:id="editAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="582.0" prefWidth="325.0">
+                                                                <AnchorPane fx:id="editAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="582.0" prefWidth="321.0">
                                                                     <children>
                                                                         <TextField fx:id="gloryUpdateTextField" layoutX="77.0" layoutY="187.0" prefHeight="23.0" prefWidth="127.0" />
                                                                         <Text layoutX="38.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" wrappingWidth="83.3333740234375" />

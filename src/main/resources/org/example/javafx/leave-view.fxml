@@ -18,19 +18,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.LeaveController">
+<AnchorPane prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.LeaveController">
    <children>
-      <TabPane prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="725.0" prefWidth="1100.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab fx:id="viewTab" text="学生请假管理">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="745.0" prefWidth="1080.0">
                      <children>
                         <ScrollPane prefHeight="661.0" prefWidth="1080.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="1067.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="763.0" prefWidth="1067.0">
                                  <children>
-                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="58.0" prefHeight="589.0" prefWidth="1128.0">
+                                    <TableView fx:id="dataTableView" layoutX="-1.0" layoutY="52.0" prefHeight="589.0" prefWidth="1128.0">
                                       <columns>
                                         <TableColumn fx:id="idColumn" prefWidth="67.33333849906921" text="序号" />
                                         <TableColumn fx:id="studentNumColumn" prefWidth="104.66667175292969" text="学号" />
@@ -38,29 +38,29 @@
                                           <TableColumn fx:id="leaveTypeColumn" prefWidth="113.99993896484375" text="请假类型" />
                                           <TableColumn fx:id="leaveReasonColumn" prefWidth="134.0001220703125" text="请假原因" />
                                           <TableColumn fx:id="destinationColumn" prefWidth="137.333251953125" text="请假去向" />
-                                          <TableColumn fx:id="timeColumn" prefWidth="143.333251953125" text="请假时间" />
-                                          <TableColumn fx:id="statusColumn" prefWidth="101.333251953125" text="状态" />
+                                          <TableColumn fx:id="timeColumn" prefWidth="167.3333740234375" text="请假时间" />
+                                          <TableColumn fx:id="statusColumn" prefWidth="98.0" text="状态" />
                                       </columns>
                                     </TableView>
                                     <Button fx:id="queryButton" layoutX="847.0" layoutY="13.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="35.0" prefWidth="55.0" text="查询" />
                                     <Button fx:id="resetViewButton" layoutX="944.0" layoutY="14.0" mnemonicParsing="false" onAction="#onResetViewButtonClick" prefHeight="35.0" prefWidth="57.0" text="重置" />
-                                    <Text layoutX="586.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" textAlignment="CENTER" wrappingWidth="52.0">
+                                    <Text fx:id="one" layoutX="586.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生：" textAlignment="CENTER" wrappingWidth="52.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
                                     <TextField fx:id="studentInfoTextField" layoutX="638.0" layoutY="17.0" prefHeight="27.0" prefWidth="151.0" />
                                     <Button fx:id="checkButton" layoutX="63.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCheckButtonClick" prefHeight="30.0" prefWidth="61.0" text="审核" />
-                                    <Text fill="#d22121" layoutX="211.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1.审核时要看清学生的相关信息." wrappingWidth="209.57357788085938">
+                                    <Text fx:id="three" fill="#d22121" layoutX="211.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1.审核时要看清学生的相关信息." wrappingWidth="209.57357788085938">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Text>
-                                    <Text fill="#d91717" layoutX="211.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2.双击某一栏可进入该学生请假详情界面">
+                                    <Text fx:id="four" fill="#d91717" layoutX="211.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2.左键双击某一栏可进入该学生请假详情界面">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="167.0" layoutY="11.0" prefHeight="15.0" prefWidth="44.0" text="提醒：" textFill="#d01c1c">
+                                    <Label fx:id="two" layoutX="167.0" layoutY="11.0" prefHeight="15.0" prefWidth="44.0" text="提醒：" textFill="#d01c1c">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
@@ -212,7 +212,7 @@
                                           </Text>
                                           <ComboBox fx:id="reasonComboBox" prefHeight="23.0" prefWidth="160.0" GridPane.columnIndex="3" />
                                           <TextField fx:id="reasonTextField" prefHeight="67.0" prefWidth="229.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField fx:id="destinationTextfield" prefHeight="45.0" prefWidth="229.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <TextField fx:id="destinationTextField" prefHeight="45.0" prefWidth="229.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="请假开始时间：" textAlignment="RIGHT" wrappingWidth="195.57355499267578" GridPane.rowIndex="2">
                                              <font>
                                                 <Font size="20.0" />

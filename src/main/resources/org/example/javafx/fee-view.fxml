@@ -12,18 +12,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="gloryBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.FeeController">
+<BorderPane fx:id="gloryBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.FeeController">
     <left>
-        <AnchorPane fx:id="gloryAnchorPane" prefHeight="717.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="gloryAnchorPane" prefHeight="725.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
             <children>
                 <TabPane layoutX="36.0" layoutY="74.0" prefHeight="690.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                        <Tab text="学生消费管理">
+                        <Tab fx:id="viewTab" text="学生消费管理">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
+                                <AnchorPane fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="689.0">
                                     <children>
                                         <Button fx:id="queryButton" layoutX="902.0" layoutY="14.0" mnemonicParsing="false" onAction="#onQueryButtonClick" prefHeight="32.0" prefWidth="55.0" text="查询" />
-                                        <Label layoutX="710.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
+                                        <Label fx:id="one" layoutX="710.0" layoutY="22.0" prefHeight="15.0" prefWidth="36.0" text="学生：" />
                                         <ComboBox fx:id="studentComboBox" layoutX="755.0" layoutY="18.0" prefHeight="23.0" prefWidth="103.0" promptText="请选择学生" />
                               <Button fx:id="addButton" layoutX="103.0" layoutY="16.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="29.0" prefWidth="57.0" text="增添" />
                               <Button fx:id="deleteButton" layoutX="195.0" layoutY="14.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="31.0" prefWidth="57.0" text="删除" />

@@ -14,20 +14,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.pojo.Student;
+import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import javafx.collections.ObservableList;
 import org.example.javafx.response.DataResponse;
 import org.example.javafx.util.CommonMethod;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +71,7 @@ public class StudentTableController {
     private TableColumn idColumn;
 
     @FXML
-    private ImageView image;
+    private ImageView imageView;
 
     @FXML
     private TableColumn majorColumn;
@@ -102,9 +109,10 @@ public class StudentTableController {
     @FXML
     private Button moreButton;
 
-    private Integer id=null;
+    private Integer id = null;
 
-    private static Boolean bool=false;
+    private static Boolean bool = false;
+
     // 原始学生数据列表
     @FXML
     public void initialize() {
@@ -117,6 +125,32 @@ public class StudentTableController {
         majorColumn.setCellValueFactory(new MapValueFactory<>("major"));
         selectChoiceComboBox.getItems().addAll("学号", "姓名", "部门", "班级", "年级", "专业");
 
+        try {
+            FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+            Image image = new Image(fileInputStream);
+            imageView.setImage(image);
+//                if (result != null) {
+//                    if (result.getCode() != -1) {
+//                        String str = result.getData().toString();
+//                        byte[] data = Base64.getDecoder().decode(str);
+//                        if (data != null) {
+//                            Image image1 = new Image(new ByteArrayInputStream(data));
+//                            photoView.setImage(image1);
+//                        }
+//                    }
+//                }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        tableView.setOnMouseClicked(e -> {
+            Map map = tableView.getSelectionModel().getSelectedItem();
+            if(map!=null){
+                updateStudentAction();
+            }
+        });
+
+
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
         List<Map> studentList = (List<Map>) studentResult.getData();
         if (studentList == null || studentList.isEmpty()) {
@@ -126,8 +160,9 @@ public class StudentTableController {
         save.setDisable(true);
         save.setOpacity(0.5);
     }
-    public void clearPanel(){
-        id=null;
+
+    public void clearPanel() {
+        id = null;
         person_numText.setText("");
         student_nameText.setText("");
         departmentText.setText("");
@@ -183,11 +218,12 @@ public class StudentTableController {
         List<Map> studentMap = (List<Map>) studentResult.getData();
         tableView.setItems(FXCollections.observableList(studentMap));
     }
+
     public void deleteStudentButtonClick() {
         Map<String, String> selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            String id=selectedItem.get("id");
-            String person_num=selectedItem.get("person_num");
+            String id = selectedItem.get("id");
+            String person_num = selectedItem.get("person_num");
             String student_name = selectedItem.get("student_name");
             DataRequest req = new DataRequest();
             req.add("id", id);
@@ -213,6 +249,7 @@ public class StudentTableController {
             alert.showAndWait();
         }
     }
+
     @FXML
     public void saveAction() {
         if (validateInput()) {
@@ -270,6 +307,30 @@ public class StudentTableController {
             majorText.setText(selectedItem.get("major"));
             save.setDisable(false);
             save.setOpacity(1.0);
+            User user = AppStore.getUser();
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("person_num", person_numText.getText());
+            Result result = HttpRequestUtils.request("/user/getPhoto", dataRequest);
+            if(result.getCode()==-1){
+                FileInputStream fileInputStream = null;
+                try {
+                    fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                Image image = new Image(fileInputStream);
+                imageView.setImage(image);
+            }
+            if (result != null) {
+                if (result.getCode() != -1) {
+                    String str = result.getData().toString();
+                    byte[] data = Base64.getDecoder().decode(str);
+                    if (data != null) {
+                        Image image1 = new Image(new ByteArrayInputStream(data));
+                        imageView.setImage(image1);
+                    }
+                }
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("警告");
@@ -279,6 +340,7 @@ public class StudentTableController {
         }
 
     }
+
     @FXML
     public void onSelectAction() {
         // 获取用户选择的搜索类型和输入的内容
@@ -292,13 +354,12 @@ public class StudentTableController {
 
         if (studentResult.getCode() == 200) {
             List<Map> studentMap = (List<Map>) studentResult.getData();
-            if(bool){
+            if (bool) {
                 // 根据选择的搜索类型和输入的内容进行过滤
                 List<Map> filteredStudents = filterStudents(studentMap, selectedOption, searchText);
                 // 更新表格显示
                 updateTableView(filteredStudents);
-            }
-            else {
+            } else {
                 // 根据选择的搜索类型和输入的内容进行筛查
                 List<Map> caughtStudents = catchStudents(studentMap, selectedOption, searchText);
                 // 更新表格显示
@@ -311,6 +372,7 @@ public class StudentTableController {
             alert.setContentText("获取学生数据失败。错误：" + studentResult.getMsg());
             alert.showAndWait();
         }
+        clearPanel();
     }
 
     private List<Map> filterStudents(List<Map> studentMap, String selectedOption, String searchText) {
@@ -324,7 +386,8 @@ public class StudentTableController {
         }
         return filteredStudents;
     }
-    private List<Map> catchStudents(List<Map> studentMap, String selectedOption, String searchText){
+
+    private List<Map> catchStudents(List<Map> studentMap, String selectedOption, String searchText) {
         List<Map> caughtStudents = new ArrayList<>();
         // 根据选择的搜索类型和输入的内容对学生数据进行过滤
         for (Map student : studentMap) {
@@ -371,25 +434,26 @@ public class StudentTableController {
         }
         return selectedOption;
     }
-    public String translate(String selectedOption){
+
+    public String translate(String selectedOption) {
         switch (selectedOption) {
             case "学号":
-                selectedOption="person_num";
+                selectedOption = "person_num";
                 break;
             case "姓名":
-                selectedOption="student_name";
+                selectedOption = "student_name";
                 break;
             case "部门":
-                selectedOption="department";
+                selectedOption = "department";
                 break;
             case "班级":
-                selectedOption="classes";
+                selectedOption = "classes";
                 break;
             case "年级":
-                selectedOption="grade";
+                selectedOption = "grade";
                 break;
             case "专业":
-                selectedOption="major";
+                selectedOption = "major";
                 break;
             default:
                 // Handle default case
@@ -397,15 +461,16 @@ public class StudentTableController {
         }
         return selectedOption;
     }
+
     @FXML
     public void onFuzzySearchStartAction() {
-        if(fuzzySearch.isSelected()) {
-            bool=true;
-        }
-        else {
-            bool=false;
+        if (fuzzySearch.isSelected()) {
+            bool = true;
+        } else {
+            bool = false;
         }
     }
+
     @FXML
     void onMoreButtonAction() {
         // 获取选中的行

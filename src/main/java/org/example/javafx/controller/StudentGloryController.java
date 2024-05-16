@@ -4,22 +4,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.javafx.AppStore;
 import org.example.javafx.pojo.Result;
+import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 import org.example.javafx.util.CommonMethod;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -100,6 +101,18 @@ public class StudentGloryController {
     @FXML
     private TextField gloryLevelUpdateTextField;
 
+    @FXML
+    private Label one;
+
+    @FXML
+    private TabPane tabpane;
+
+    @FXML
+    private AnchorPane anchor;
+
+    @FXML
+    private Tab viewTab;
+
     //-------------------------------------------------
 
     private List<Map> gloryList = new ArrayList<>(); // 学生信息列表数据
@@ -112,6 +125,9 @@ public class StudentGloryController {
         editTabPane.setVisible(true);
         editConfirmButton.setText("增加荣誉");
         onQueryButtonClick();
+        if(!id.isVisible()&&(studentComboBox.getValue()==null||studentComboBox.getValue().toString().equals("请选择学生"))){
+            id.setVisible(true);
+        }
     }
 
     @FXML
@@ -137,12 +153,15 @@ public class StudentGloryController {
             }
         }
         onQueryButtonClick();
+        if(!id.isVisible()&&(studentComboBox.getValue()==null||studentComboBox.getValue().toString().equals("请选择学生"))){
+            id.setVisible(true);
+        }
     }
 
     Result tmpResult;
 
     @FXML
-    private void onEditButtonClick(ActionEvent event) {
+    private void onEditButtonClick() {
         onCancelClick();
         Map selected = dataTableView.getSelectionModel().getSelectedItem();
         editConfirmButton.setText("修改荣誉");
@@ -170,6 +189,7 @@ public class StudentGloryController {
 
     @FXML
     private void onQueryButtonClick() {
+        id.setVisible(false);
         String student_name = null;
         Object student = studentComboBox.getSelectionModel().getSelectedItem();
         Result result = null;
@@ -184,13 +204,13 @@ public class StudentGloryController {
             //DataRequest dataRequest = new DataRequest();
             //dataRequest.add("student_name", student_name);
             //result = HttpRequestUtils.request("/glory/selectByStudentName", dataRequest);
-            List<Map> ans=CommonMethod.filter(gloryList,"student_name",student_name);
-            if (ans == null||ans.size()==0) {
+            List<Map> ans = CommonMethod.filter(gloryList, "student_name", student_name);
+            if (ans == null || ans.size() == 0) {
                 observableList.clear();
                 return;
-            }else{
+            } else {
                 observableList.clear();
-                for(Map map:ans){
+                for (Map map : ans) {
                     observableList.add(map);
                 }
                 dataTableView.setItems(observableList);
@@ -209,10 +229,26 @@ public class StudentGloryController {
     @FXML
     private void onResetButtonClick() {
         Result result = null;
+        id.setVisible(true);
         studentComboBox.setValue(null);
         studentComboBox.setPromptText("请选择学生");
-        result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
-        result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
+        User user = AppStore.getUser();
+        if (user.getUser_type_id() == 3) {
+            DataRequest dataRequest = new DataRequest();
+            String person_num = user.getPerson_num();
+            dataRequest.add("person_num", person_num);
+            result = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
+            Map map = (Map) result.getData();
+            dataRequest.add("person_id", Integer.parseInt(map.get("id").toString().split("\\.")[0]));
+            result = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
+            map = (Map) result.getData();
+            String student_name = map.get("student_name").toString();
+            dataRequest.add("student_num", person_num);
+            result = HttpRequestUtils.request("/glory/selectByStudentNum", dataRequest);
+        } else {
+            result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
+            result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
+        }
         setTableViewData(result);
     }
 
@@ -220,7 +256,6 @@ public class StudentGloryController {
         observableList.clear();
         if (result.getData() instanceof Map) {
             Map gloryMap = (Map) result.getData();
-            System.out.println(gloryMap);
             observableList.add(gloryMap);
         } else if (result.getData() instanceof ArrayList) {
             gloryList = (ArrayList<Map>) result.getData();
@@ -296,9 +331,9 @@ public class StudentGloryController {
             result = HttpRequestUtils.request("/student/selectStudentByName", dataRequest);
             Map map = (Map) result.getData();
             System.out.println(map);
-            dataRequest.add("id",map.get("person_id").toString());
-            result=HttpRequestUtils.request("/person/selectById",dataRequest);
-            String student_num = ((Map)result.getData()).get("person_num").toString();
+            dataRequest.add("id", map.get("person_id").toString());
+            result = HttpRequestUtils.request("/person/selectById", dataRequest);
+            String student_num = ((Map) result.getData()).get("person_num").toString();
             dataRequest.add("student_num", student_num);
             dataRequest.add("glory_name", gloryUpdateTextField.getText());
             dataRequest.add("glory_type", glory_type);
@@ -308,13 +343,13 @@ public class StudentGloryController {
             dataRequest.add("glory_level", gloryLevelUpdateTextField.getText());
             if (editConfirmButton.getText() == "修改荣誉") {
                 String msg = CommonMethod.alertButton("修改");
-                if(msg=="确认"){
-                    HttpRequestUtils.request("/glory/updateGlory",dataRequest);
+                if (msg == "确认") {
+                    HttpRequestUtils.request("/glory/updateGlory", dataRequest);
                 }
             } else if (editConfirmButton.getText() == "增加荣誉") {
                 String msg = CommonMethod.alertButton("增加");
-                if(msg=="确认"){
-                    HttpRequestUtils.request("/glory/insertGlory",dataRequest);
+                if (msg == "确认") {
+                    HttpRequestUtils.request("/glory/insertGlory", dataRequest);
                 }
             }
             System.out.println(dataRequest.getData());
@@ -355,7 +390,13 @@ public class StudentGloryController {
             confirmStage.setScene(scene);
             confirmStage.show();
         }
+        studentComboBox.setValue("");
+        studentComboBox.setPromptText("请选择学生");
         onQueryButtonClick();
+        onQueryButtonClick();
+        if(!id.isVisible()&&(studentComboBox.getValue()==null||studentComboBox.getValue().toString().equals("请选择学生"))){
+            id.setVisible(true);
+        }
     }
 
 
@@ -369,6 +410,78 @@ public class StudentGloryController {
         gloryLevelColumn.setCellValueFactory(new MapValueFactory<>("glory_level"));
 
         editTabPane.setVisible(false);
+
+        User user = AppStore.getUser();
+        if (user.getUser_type_id() == 3) {
+
+            viewTab.setText("我的荣誉");
+
+            addButton.setDisable(true);
+            deleteButton.setDisable(true);
+            editButton.setDisable(true);
+            addButton.setVisible(false);
+            deleteButton.setVisible(false);
+            editButton.setVisible(false);
+            one.setVisible(false);
+            studentComboBox.setVisible(false);
+            queryButton.setVisible(false);
+            id.setVisible(false);
+
+            Text text = new Text("( 提醒：若要添加/修改您所获得的荣誉，请通知联系管理员或老师进行操作 )");
+            text.setLayoutX(89.0);
+            text.setLayoutY(34.0);
+            text.setFill(javafx.scene.paint.Color.valueOf("#e21e1e"));
+            text.setFont(javafx.scene.text.Font.font("System Bold", 14.0));
+            anchor.getChildren().add(text);
+
+            Text glory = new Text("荣誉:");
+            glory.setLayoutX(710.0);
+            glory.setLayoutY(34.0);
+            text.setFont(javafx.scene.text.Font.font("System Bold", 14.0));
+            anchor.getChildren().add(glory);
+
+            TextField textField = new TextField();
+            textField.setPromptText("请输入荣誉信息");
+            textField.setLayoutX(755.0);
+            textField.setLayoutY(14.0);
+            textField.setPrefHeight(28.0);
+            textField.setPrefWidth(130.0);
+            anchor.getChildren().add(textField);
+
+
+            Button gloryButton = new Button("查询");
+            gloryButton.setLayoutX(900.0);
+            gloryButton.setLayoutY(14.0);
+            gloryButton.setPrefHeight(32.0);
+            gloryButton.setPrefWidth(55.0);
+            gloryButton.setOnAction(event -> {
+                List<Map> list = new ArrayList<>();
+                if (textField.getText() == "" || textField.getText() == null) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("请输入荣誉信息后查询");
+                    alert.showAndWait();
+                    return;
+                }
+                list = CommonMethod.filter(gloryList, "glory_name", textField.getText());
+                if (list.size() == 0) {
+                    list = CommonMethod.filter(gloryList, "glory_type", textField.getText());
+                    if (list.size() == 0) {
+                        list = CommonMethod.filter(gloryList, "glory_level", textField.getText());
+                    }
+                }
+                Result result = new Result();
+                result.setData(list);
+                setTableViewData(result);
+            });
+
+            resetButton.setOnAction(e -> {
+                textField.setPromptText("请输入活动信息");
+                textField.setText("");
+                onResetButtonClick();
+            });
+            anchor.getChildren().add(gloryButton);
+
+        }
 
         DataRequest dataRequest = new DataRequest();
         List studentList = new ArrayList();
@@ -394,9 +507,18 @@ public class StudentGloryController {
         studentComboBox.getItems().addAll(studentList);
         studentEditComboBox.getItems().addAll(studentList);
         gloryTypeEditComboBox.getItems().addAll(gloryTypeList);
+
+        dataTableView.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 1 && editTabPane.isVisible() && e.getButton() == MouseButton.PRIMARY) {
+                Map map = dataTableView.getSelectionModel().getSelectedItem();
+                if (map != null) {
+                    onEditButtonClick();
+                }
+            }
+        });
+
         studentComboBox.setEditable(true);
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         onResetButtonClick();
-
     }
 }

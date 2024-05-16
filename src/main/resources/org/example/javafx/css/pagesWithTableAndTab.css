@@ -1,0 +1,141 @@
+.table-view {
+    -fx-background-color: #dbffed;
+    -fx-border-color: #dbffed;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom, #1dbbdd44, #93f9b944);
+    -fx-background-radius: 7px 7px 0px 0px;
+    -fx-background-insets: 0 11px 0 0;
+    -fx-padding: 0 0 5px 0;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: blue;
+}
+.table-row-cell:odd{
+    -fx-background-color: #93f9b911;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: #1dbbdd11;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:selected {
+    -fx-text-background-color: blue;
+}
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+.table-view .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  linear-gradient(to bottom, #1dbbdd44, #93f9b944);
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  linear-gradient(to right, #1dbbdd44, #93f9b944);
+}
+
+/*以下为tableview所属scrollPane中滚动条的样式*/
+/*轨道样式*/
+.scroll-pane .scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius:2em;
+}
+
+/*横向滚动条增减按钮样式*/
+.scroll-pane .scroll-bar:horizontal .increment-button ,
+.scroll-pane .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+}
+
+/*竖向滚动条增减按钮样式*/
+.scroll-pane .scroll-bar:vertical .increment-button ,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 10 0 0;
+}
+
+/*增减按钮中图标样式*/
+.scroll-pane .scroll-bar .increment-arrow,
+.scroll-pane .scroll-bar .decrement-arrow
+{
+    -fx-background-color:transparent;
+    -fx-shape: " ";
+    -fx-padding:0;
+}
+
+/*滚动条滑块样式*/
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #e7e7e7;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+
+/* 修改TabPane的Pane区域背景颜色 */
+.tab-pane {
+    -fx-background-color: #e6fff8;
+    -fx-border-width: 3px;
+    -fx-border-radius: 5px;
+}
+/* 修改Tab的背景颜色 */
+.tab {
+    -fx-background-color: #e6fff8;
+}
+/* 修改顶栏的背景颜色 */
+.tab-pane>*.tab-header-area>*.tab-header-background
+{
+    -fx-background-color:#e6fff8;
+}
+/* 修改Tab中文本的颜色 */
+.tab-label {
+    -fx-text-fill: white;
+}
+
+.tab:selected {
+    -fx-background-color: #42e3a0;
+}
+
+
+
+/*.combo-box-base {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-border-width: 2px;*/
+/*    -fx-border-color: #3eb1d0;*/
+/*    -fx-border-style: dashed;*/
+/*    -fx-border-radius: 3px;*/
+/*}*/
+
+.anchorPane {
+    -fx-border-color: #000000;
+}
+
+

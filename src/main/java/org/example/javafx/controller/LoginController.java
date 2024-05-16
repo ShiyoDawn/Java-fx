@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -18,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
@@ -27,9 +29,12 @@ import org.example.javafx.request.LoginRequest;
 import org.example.javafx.util.ElementsTool;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 public class LoginController {
+
+
 
     @FXML
     VBox mainBox;
@@ -39,12 +44,18 @@ public class LoginController {
     @FXML
     public Button closeButton;
 
+    @FXML
+    public Button minButton;
 
     @FXML
     private TextField user;
 
     @FXML
     private PasswordField passwordField;
+
+    @FXML Button chooseAdmin;
+    @FXML Button chooseStu;
+    @FXML Button chooseTea;
 
 
 
@@ -59,6 +70,9 @@ public class LoginController {
             AppStore.setUser(nowUser);
         }
         catch(Exception e) {
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("用户名或密码错误");
+            alert.showAndWait();
             System.out.println("未知错误无法登录");
             return;
         }
@@ -77,8 +91,8 @@ public class LoginController {
 
 
 
-    public void initialize() {
-
+    @FXML
+    public void initialize(Stage stage) {
         //header移动初始化
         header.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent m) {
@@ -101,6 +115,50 @@ public class LoginController {
         });
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
+        tool.setMinButton(minButton);
+
+        tool.setButtonStyle01(chooseStu);
+        tool.setButtonStyle01(chooseAdmin);
+        tool.setButtonStyle01(chooseTea);
+
+        closeButton.setOnAction(e->{
+
+            stage.close();
+        });
+        minButton.setOnAction(e->{
+
+            stage.setIconified(true);
+        });
+
+        chooseAdmin.setOnAction(e -> {
+            user.setText("admin");
+            passwordField.setText("123456");
+            try {
+                onLoginButtonClick();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        chooseStu.setOnAction(e -> {
+            user.setText("202300300001");
+            passwordField.setText("22222222");
+            try {
+                onLoginButtonClick();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        chooseTea.setOnAction(e -> {
+//            user.setText("202300300001");
+//            passwordField.setText("22222222");
+            try {
+                onLoginButtonClick();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
 

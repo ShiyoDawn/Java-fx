@@ -5,6 +5,8 @@ module org.example.javafx {
 
     requires com.google.gson;
     requires static lombok;
+    requires itextpdf;
+    requires javafx.swing;
 
 
     opens org.example.javafx.request to com.google.gson,javafx.fxml;
