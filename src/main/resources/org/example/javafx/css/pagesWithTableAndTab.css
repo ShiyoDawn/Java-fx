@@ -165,7 +165,8 @@
     -fx-background-color: #e6fffd;
 }
 
-#anchorPane, #editDeleteAnchorPane ,#editDeleteBorderPane ,#pane , #lesson {
+#anchorPane, #editDeleteAnchorPane ,#editDeleteBorderPane ,#pane , #lesson
+,#paneMember {
     -fx-background-color: #e6fffd;
 }
 
