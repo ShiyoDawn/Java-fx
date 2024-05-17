@@ -227,11 +227,11 @@ public class CourseSelectController {
             label.setText("      " + a.get("course_name")  + "  " + a.get("teacher_name") + "    "+ idC(String.valueOf(a.get("students")))+"/"+idC(String.valueOf(a.get("capacity"))));
             label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
             if (count <= 3) {
-                label.setLayoutX(36);
-                label.setLayoutY(447 + 64 * (count - 1));
+                label.setLayoutX(86);
+                label.setLayoutY(477 + 64 * (count - 1));
             } else {
-                label.setLayoutX(508);
-                label.setLayoutY(447 + 64 * (count - 4));
+                label.setLayoutX(558);
+                label.setLayoutY(477 + 64 * (count - 4));
             }
             pane.getChildren().add(label);
             Button button = new Button("选中");
@@ -272,7 +272,7 @@ public class CourseSelectController {
                     map.put("id",String.valueOf(a.get("pre_course_id")));
                     dataRequest.setData(map);
                     try {
-                        Result data = HttpRequestUtils.courseField("/course/selectInfo",dataRequest);
+                        Result data = HttpRequestUtils.courseField("/course/selectInfoMe",dataRequest);
                         List<Map<String, String>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
                         alert.setHeaderText("请先选择前序课程：" + dataList.get(0).get("course_name"));
                         alert.showAndWait();
@@ -351,11 +351,11 @@ public class CourseSelectController {
                 }
             });
             if (count <= 3) {
-                button.setLayoutX(406);
-                button.setLayoutY(447 + 64 * (count - 1));
+                button.setLayoutX(456);
+                button.setLayoutY(474 + 64 * (count - 1));
             } else {
-                button.setLayoutX(878);
-                button.setLayoutY(447 + 64 * (count - 4));
+                button.setLayoutX(928);
+                button.setLayoutY(474 + 64 * (count - 4));
             }
             pane.getChildren().add(button);
             if (count % 6 == 0) {
