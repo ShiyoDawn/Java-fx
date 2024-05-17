@@ -101,12 +101,18 @@ public class CourseController {
     @FXML
     public void initialize() throws IOException, InterruptedException {
         load();
-        one.setStyle("-fx-background-color: #93f9b9;-fx-background-radius: 9px;");
-        two.setStyle("-fx-background-color: #93f9b9;-fx-background-radius: 9px;");
-        three.setStyle("-fx-background-color: #93f9b9;-fx-background-radius: 9px;");
-        four.setStyle("-fx-background-color: #93f9b9;-fx-background-radius: 9px;");
-        five.setStyle("-fx-background-color: #93f9b9;-fx-background-radius: 9px;");
-        six.setStyle("-fx-background-color: #93f9b9;-fx-background-radius: 9px;");
+        one.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        two.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        three.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        four.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        five.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        six.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
         if(AppStore.getUser().getUser_type_id() == 3){
             save.setVisible(false);
             add.setVisible(false);
@@ -123,7 +129,8 @@ public class CourseController {
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
             for (int i = 0; i < styleStatue.length; i ++){
                 if (styleStatue[i] == 1){
-                    getPane(i).setStyle("-fx-background-color: #93f9b9;-fx-background-radius: 9px;");
+                    getPane(i).setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                            "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
                     styleStatue[i] = 0;
                 }
             }
@@ -140,12 +147,19 @@ public class CourseController {
 
     private void handlePageClick(Map map, int pageNum, String url) throws IOException, InterruptedException {
         deleteNode();
+        one.setOnMouseClicked(null);
+        two.setOnMouseClicked(null);
+        three.setOnMouseClicked(null);
+        four.setOnMouseClicked(null);
+        five.setOnMouseClicked(null);
+        six.setOnMouseClicked(null);
         DataRequest dataRequest = new DataRequest();
         map.put("pageNum", pageNum);
         dataRequest.setData(map);
         Result data = HttpRequestUtils.courseField(url, dataRequest);
         List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
         addLabel(dataList);
+
     }
 
     private void deleteNode() {
@@ -167,7 +181,8 @@ public class CourseController {
         for (int i = 0; i < styleStatue.length; i++) {
             if (styleStatue[i] == 1) {
                 styleStatue[i] = 0;
-                getPane(i).setStyle("-fx-background-color: #93f9b9;-fx-background-radius: 9px;");
+                getPane(i).setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                        "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
             }
         }
         for (int i = 0; i < dataList.size(); i++) {
@@ -242,8 +257,8 @@ public class CourseController {
             label.setLayoutX(37.0);
             label.setLayoutY(102 + (count - 1) * 80);
             label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
-            setClickAction(stackPanes.get(count - 1),a);
             stackPanes.get(count - 1).getChildren().add(label);
+            setClickAction(stackPanes.get(count - 1),a);
             if (count % 6 == 0) {
                 count = 0;
                 break;

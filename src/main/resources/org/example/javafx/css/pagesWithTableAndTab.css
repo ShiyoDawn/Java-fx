@@ -158,7 +158,7 @@
 }
 
 .text-field {
-    -fx-background-color: #70dad6;
+    -fx-background-color: #64c4c0;
     -fx-text-fill: #fff;
     -fx-prompt-text-fill: #fff;
 }
@@ -175,7 +175,7 @@
 }
 
 #anchorPane, #editDeleteAnchorPane ,#editDeleteBorderPane ,#pane , #lesson
-,#paneMember {
+,#paneMember  {
     -fx-background-color: #e6fffd;
 }
 

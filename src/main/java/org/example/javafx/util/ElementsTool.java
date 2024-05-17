@@ -101,4 +101,23 @@ public class ElementsTool {
             button.setStyle("-fx-background-color:rgb(0,255,208,0.7)");
         });
     }
+
+    public static void setEventButton1(Button button) {
+        button.setStyle("-fx-pref-height: 30px; -fx-background-color: #ff6200; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;");
+        button.setOnMouseEntered(e -> button.setStyle("-fx-pref-height: 30px; -fx-background-color: #e55c04; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;"));
+        button.setOnMouseExited(e ->  button.setStyle("-fx-pref-height: 30px; -fx-background-color: #ff6200; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;"));
+    }
+
+    public static void setEventButton2(Button button) {
+        button.setStyle("-fx-pref-height: 30px; -fx-background-color: #01a42d; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;");
+        button.setOnMouseEntered(e -> button.setStyle("-fx-pref-height: 30px; -fx-background-color:#03d93c; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;"));
+        button.setOnMouseExited(e ->  button.setStyle("-fx-pref-height: 30px; -fx-background-color: #01a42d; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;"));
+    }
+
 }
