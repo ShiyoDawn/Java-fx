@@ -35,11 +35,18 @@ public class CourseSelectController {
     GridPane gridPane;
     @FXML
     AnchorPane pane;
+    @FXML
+    CheckBox noconflict;
+    @FXML
+    CheckBox nofull;
     static double credits = 0.0;
+    List<String[]> listCou = new ArrayList<>();
+    Boolean bl = true;
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
         load();
+        //根据班级显示课程
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
             int clickedPageIndex = newValue.intValue();
             Map<String, String> map = new HashMap<>();
@@ -217,7 +224,7 @@ public class CourseSelectController {
             label.setTextAlignment(TextAlignment.CENTER);
             label.setWrapText(true);
             label.setFont(new Font(12));
-            label.setText("      " + a.get("course_name") + "   " + a.get("classes") + " " + a.get("teacher_name") + "    "+ String.valueOf(a.get("students"))+"/"+a.get("capacity"));
+            label.setText("      " + a.get("course_name")  + "  " + a.get("teacher_name") + "    "+ idC(String.valueOf(a.get("students")))+"/"+idC(String.valueOf(a.get("capacity"))));
             label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
             if (count <= 3) {
                 label.setLayoutX(36);
@@ -275,31 +282,72 @@ public class CourseSelectController {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    dataRequest1.setData(map1);
-                    Result data1 = null;
+                    bl = true;
+                    DataRequest dataRequestC = new DataRequest();
+                    Map<String,String> mapC = new HashMap<>();
+                    mapC.put("course_id",String.valueOf(a.get("id")));
+                    dataRequestC.setData(mapC);
                     try {
-                        data1 = HttpRequestUtils.courseField("/course/addStudent", dataRequest1);
-                        if (data1.getCode() == 200) {
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setContentText("选课成功");
-                            alert.showAndWait();
-                            DataRequest dataRequestG = new DataRequest();
-                            Map<String, String> mapG = new HashMap<>();
-                            mapG.put("course_id", String.valueOf(a.get("id")));
-                            dataRequestG.setData(mapG);
-                            Result dataG = HttpRequestUtils.courseField("/lesson/selectByCourseId", dataRequestG);
-                            List<Map<String, ? extends Object>> dataListG = new Gson().fromJson(dataG.getData().toString(), List.class);
-                            addLabelGrid(dataListG);
-                        } else {
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setContentText("选课失败");
-                            alert.showAndWait();
+                        Result dataC = HttpRequestUtils.courseField("/lesson/selectByCourseId", dataRequestC);
+                        List<Map<String, ? extends Object>> dataListC = new Gson().fromJson(dataC.getData().toString(), List.class);
+                        for (Map<String, ? extends Object> c : dataListC) {
+                            double week = Double.valueOf(String.valueOf(c.get("week")));
+                            double week_time = Double.valueOf(String.valueOf(c.get("week_time")));
+                            double time_sort = Double.valueOf(String.valueOf( c.get("time_sort")));
+                            for (String[] strings:listCou) {
+                                if(String.valueOf(week).equals(strings[0]) && String.valueOf(week_time).equals(strings[1]) && String.valueOf(time_sort).equals(strings[2])){
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setHeaderText("与 "+strings[3]+" 课程"+"时间冲突不能选课");
+                                    alert.showAndWait();
+                                    bl = false;
+                                    break;
+                                }
+                            }
+                            if(!bl){
+                                break;
+                            }
                         }
+                        if(bl){
+                            dataRequest1.setData(map1);
+                            Result data1 = null;
+                            try {
+                                data1 = HttpRequestUtils.courseField("/course/addStudent", dataRequest1);
+                                if (data1.getCode() == 200) {
+                                    DataRequest dataRequestG = new DataRequest();
+                                    Map<String, String> mapG = new HashMap<>();
+                                    mapG.put("course_id", String.valueOf(a.get("id")));
+                                    dataRequestG.setData(mapG);
+                                    Result dataG = HttpRequestUtils.courseField("/lesson/selectByCourseId", dataRequestG);
+                                    List<Map<String, ? extends Object>> dataListG = new Gson().fromJson(dataG.getData().toString(), List.class);
+                                    addLabelGrid(dataListG);
+                                    DataRequest dataRequest = new DataRequest();
+                                    Map<String,String> map = new HashMap<>();
+                                    map.put("course_id", String.valueOf(a.get("id")));
+                                    dataRequest.setData(map);
+                                    Result data = HttpRequestUtils.courseField("/course/addCourseStudent", dataRequest);
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setContentText("选课成功");
+                                    alert.showAndWait();
+
+                                } else {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setContentText("选课失败");
+                                    alert.showAndWait();
+                                }
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+
+
                 }
             });
             if (count <= 3) {
@@ -321,13 +369,21 @@ public class CourseSelectController {
     private void addLabelGrid(List<Map<String, ? extends Object>> list) {
         for (Map<String, ? extends Object> a : list) {
             String course_name = (String) a.get("course_name");
+            double week = Double.valueOf(String.valueOf(a.get("week")));
             double week_time = Double.valueOf(String.valueOf(a.get("week_time")));
             String room = (String) a.get("room");
             double time_sort = Double.valueOf(String.valueOf( a.get("time_sort")));
+            String[] d = new String[4];
+            d[0] = String.valueOf(week);
+            d[1] = String.valueOf(week_time);
+            d[2] = String.valueOf(time_sort);
+            d[3] = String.valueOf(course_name);
+            listCou.add(d);
             Label label = new Label();
             label.setId("1");
             label.setTextAlignment(TextAlignment.CENTER);
             label.setWrapText(true);
+            label.setFont(Font.font(10.0));
             gridPane.setHgrow(label, Priority.ALWAYS);
             gridPane.setVgrow(label, Priority.ALWAYS);
             label.setStyle("-fx-background-color: #00ff33; -fx-padding: 10;");
@@ -336,5 +392,14 @@ public class CourseSelectController {
             gridPane.setValignment(label, VPos.CENTER); // 设置垂直对齐方式为居中
             gridPane.add(label, (int) week_time, (int) (time_sort));
         }
+    }
+    private String idC(String str){
+        int count = str.length();
+        for (int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == '.'){
+                count = i;
+            }
+        }
+        return str.substring(0,count);
     }
 }

@@ -40,7 +40,6 @@ public class CourseLessonController {
     static int columnIndex;
     static int rowIndex;
     static List<String[]> list = new ArrayList<>();
-    static List<double[]> list2 = new ArrayList<>();
     private CourseSpecificViewController courseSpecificViewController = new CourseSpecificViewController();
 
     @FXML
@@ -162,11 +161,6 @@ public class CourseLessonController {
                     a[1] = String.valueOf(columnIndex);
                     a[2] = String.valueOf(rowIndex);
                     list.add(a);
-                    double[] b = new double[3];
-                    b[0] = k;
-                    b[1] = columnIndex;
-                    b[2] = rowIndex;
-                    list2.add(b);
                 }
             } else if(String.valueOf(comboBoxWeek.getValue()).length() == 3){
                 String[] a = new String[3];
