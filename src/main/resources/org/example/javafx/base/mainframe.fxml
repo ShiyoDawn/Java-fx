@@ -32,7 +32,7 @@
                <Label fx:id="userLabel" prefHeight="33.0" prefWidth="150.0" text="ADMIN/admin" />
                <Label prefHeight="15.0" prefWidth="182.0" text="                                快捷跳转：" textFill="WHITE" />
                <ComboBox fx:id="searchBox" prefHeight="23.0" prefWidth="227.0" />
-               <Button fx:id="searchButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="查询页面">
+               <Button fx:id="searchTabButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="查询页面">
                   <HBox.margin>
                      <Insets left="10.0" right="10.0" />
                   </HBox.margin></Button>
@@ -64,7 +64,10 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></VBox>
-            <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="90.0" text="设置" />
+            <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="90.0" text="设置">
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin></Button>
          </children>
          <BorderPane.margin>
             <Insets />
