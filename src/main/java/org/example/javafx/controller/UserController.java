@@ -213,7 +213,7 @@ public class UserController {
         User user = AppStore.getUser();
         try {
             //设置背景图片，但是不知道为啥不能成功
-            anchor.setStyle("-fx-background-image: url('org/example/javafx/css/userBackground.png');" +
+            anchor.setStyle("-fx-background-image: url('../../../../../resources/org/example/javafx/image/userBackground.png');" +
                     "-fx-background-size: cover;" +
                     "-fx-background-position: center;");
             FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
