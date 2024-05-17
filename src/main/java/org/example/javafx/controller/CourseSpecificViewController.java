@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,8 +20,11 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -32,6 +36,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class CourseSpecificViewController {
     static String id;
@@ -60,15 +65,32 @@ public class CourseSpecificViewController {
     @FXML
     Label id1;
     static TextField textField = new TextField();
+    Integer userType;
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
+        userType = AppStore.getUser().getUser_type_id();
         textField.setText("");
+        textField.setVisible(false);
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("success")){
+                FXMLLoader fxml = new FXMLLoader();
+                fxml.setLocation(MainApplication.class.getResource("course-specific-view.fxml"));
+                try {
+                    pane.getChildren().removeAll(pane.getChildren());
+                    BorderPane pane1 = new BorderPane(fxml.load());
+                    pane.getChildren().add(pane1);
+                    textField.setText("");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
         DataRequest dataRequest = new DataRequest();
         Map<String, String> map = new HashMap<>();
         map.put("id", String.valueOf(id));
         dataRequest.setData(map);
-        Result data = HttpRequestUtils.courseField("/course/selectInfo", dataRequest);
+        Result data = HttpRequestUtils.courseField("/course/selectInfoMe", dataRequest);
         List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
         bigName.setText(String.valueOf(dataList.get(0).get("course_name")));
         bigClasses.setText(String.valueOf(dataList.get(0).get("classes")));
@@ -82,120 +104,282 @@ public class CourseSpecificViewController {
 
     }
     public void addLabel(List<Map<String, ? extends Object>> dataList1){
-        int count = 0;
-        for (Map<String, ? extends Object> a : dataList1) {
-            String time;
-            time = switch (a.get("time_sort").toString()) {
-                case "1.0" -> "8:00-9:50";
-                case "2.0" -> "10:10-12:00";
-                case "3.0" -> "14:00-15:50";
-                case "4.0" -> "16:10-18:00";
-                case "5.0" -> "19:00-20:50";
-                default -> "线上上课";
-            };
-            count++;
-            Button button = new Button();
-            button.setPrefWidth(103.0);
-            button.setPrefHeight(35.0);
-            button.setLayoutX(820);
-            button.setLayoutY(75 + (count - 1) * 150);
-            button.setText("删除本节课");
-            lesson.getChildren().add(button);
-            Button buttonHome = new Button();
-            buttonHome.setPrefWidth(113.0);
-            buttonHome.setPrefHeight(35.0);
-            buttonHome.setLayoutX(700);
-            buttonHome.setLayoutY(75 + (count - 1) * 150);
-            buttonHome.setText("添加本节作业");
-//            Font font = Font.font("Verdana", FontWeight.BOLD, 14);
-//            buttonHome.setFont(font);
-            lesson.getChildren().add(buttonHome);
+        if(dataList1.isEmpty()){
             Label label = new Label();
             label.setMaxSize(450, 30);
-            label.setId(String.valueOf(a.get("id")));
+            label.setText("暂无上课时间，请添加上课时间");
             label.setTextAlignment(TextAlignment.CENTER);
             label.setWrapText(true);
             label.setFont(new Font(25));
-            label.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1) {  // 检查是否是单击事件
-                    //可编辑操作
-                    label.setVisible(false);
-                    TextField textField = new TextField();
-                    textField.setPrefHeight(30);
-                    textField.setPrefWidth(200);
-                    textField.setMaxSize(450, 30);
-                    textField.setLayoutX(label.getLayoutX());
-                    textField.setLayoutY(label.getLayoutY());
-                    lesson.getChildren().add(textField);
-                    Button buttonLabel = new Button();
-                    buttonLabel.setText("保存");
-                    buttonLabel.setPrefWidth(60.0);
-                    buttonLabel.setPrefHeight(30.0);
-                    buttonLabel.setLayoutX(label.getLayoutX() - 100);
-                    buttonLabel.setLayoutY(label.getLayoutY());
-                    lesson.getChildren().add(buttonLabel);
-                    buttonLabel.setOnAction(event1 -> {
-                        Map<String,String> map = new HashMap<>();
-                        map.put("notes",textField.getText());
-                        map.put("course_id",id);
-                        map.put("week", String.valueOf(a.get("week")));
-                        map.put("week_time",String.valueOf(a.get("week_time")));
-                        map.put("time_sort",String.valueOf(a.get("time_sort")));
-                        label.setText(textField.getText());
-                        lesson.getChildren().remove(buttonLabel);
-                        lesson.getChildren().remove(textField);
-                        label.setVisible(true);
-                        DataRequest dataRequest = new DataRequest();
-                        dataRequest.setData(map);
-                        Result data = null;
-                        try {
-                            data = HttpRequestUtils.courseField("/lesson/updateInfo", dataRequest);
-                            if(data.getCode() != 200){
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setHeaderText(data.getMsg());
-                                alert.showAndWait();
+            label.setLayoutX(200.0);
+            label.setLayoutY(80);
+            label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
+            lesson.getChildren().add(label);
+        } else {
+            int count = 0;
+            for (Map<String, ? extends Object> a : dataList1) {
+                String time;
+                time = switch (a.get("time_sort").toString()) {
+                    case "1.0" -> "8:00-9:50";
+                    case "2.0" -> "10:10-12:00";
+                    case "3.0" -> "14:00-15:50";
+                    case "4.0" -> "16:10-18:00";
+                    case "5.0" -> "19:00-20:50";
+                    default -> "线上上课";
+                };
+                count++;
+                if(userType == 3){
+                    Button button = new Button();
+                    button.setPrefWidth(103.0);
+                    button.setPrefHeight(35.0);
+                    button.setLayoutX(820);
+                    button.setLayoutY(75 + (count - 1) * 150);
+                    button.setText("查看作业");
+                } else {
+                    Button button = new Button();
+                    button.setPrefWidth(103.0);
+                    button.setPrefHeight(35.0);
+                    button.setLayoutX(820);
+                    button.setLayoutY(75 + (count - 1) * 150);
+                    button.setText("删除本节课");
+                    button.setOnAction(event2 -> {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setContentText("您是否要删除本节课");
+                        // 设置对话框的按钮类型
+                        ButtonType buttonTypeOK = new ButtonType("确定");
+                        ButtonType buttonTypeCancel = new ButtonType("取消");
+                        alert.getButtonTypes().setAll(buttonTypeOK, buttonTypeCancel);
+                        // 显示弹窗并等待按钮点击事件
+                        Optional<ButtonType> result = alert.showAndWait();
+                        // 处理按钮点击事件
+                        if (result.isPresent() && result.get() == buttonTypeOK) {
+                            Map<String,String> map = new HashMap<>();
+                            map.put("course_id", String.valueOf(a.get("course_id")));
+                            map.put("week", String.valueOf(a.get("week")));
+                            map.put("week_time",String.valueOf(a.get("week_time")));
+                            map.put("time_sort",String.valueOf(a.get("time_sort")));
+                            DataRequest dataRequest = new DataRequest();
+                            dataRequest.setData(map);
+                            Result data = null;
+                            try {
+                                data = HttpRequestUtils.courseField("/lesson/deleteLesson", dataRequest);
+                                textField.setText("success");
+                                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                                alert1.setHeaderText(data.getMsg());
+                                alert1.showAndWait();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
                             }
 
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
+                        } else {
+                            alert.close();
                         }
-//                        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
                     });
+                    lesson.getChildren().add(button);
                 }
-            });
-            if((a.get("notes")) == null || String.valueOf(a.get("notes")).equals("")){
-                label.setText("暂无描述，请点击编辑");
-            } else {
-                label.setText((String) a.get("notes"));
+                if(userType == 3){
+
+                } else {
+                    Button buttonHome = new Button();
+                    buttonHome.setPrefWidth(113.0);
+                    buttonHome.setPrefHeight(35.0);
+                    buttonHome.setLayoutX(700);
+                    buttonHome.setLayoutY(75 + (count - 1) * 150);
+                    buttonHome.setText("编辑本节作业");
+                    buttonHome.setOnAction(event1 -> {
+                        try {
+                            CourseLessonHomeworkController.course_id = String.valueOf(a.get("course_id"));
+                            CourseLessonHomeworkController.week = String.valueOf(a.get("week"));
+                            CourseLessonHomeworkController.week_time = String.valueOf(a.get("week_time"));
+                            CourseLessonHomeworkController.time_sort = String.valueOf(a.get("time_sort"));
+                            // 加载新的FXML文件
+                            FXMLLoader fxmlLoader = new FXMLLoader();
+                            fxmlLoader.setLocation(MainApplication.class.getResource("course-lesson-homework.fxml"));
+                            Parent root = fxmlLoader.load();
+                            // 创建新的Stage
+                            Stage newStage = new Stage();
+                            newStage.initStyle(StageStyle.DECORATED);
+                            newStage.setTitle("添加/更改作业界面");
+                            newStage.setScene(new Scene(root));
+                            newStage.setResizable(false);
+                            newStage.initModality(Modality.APPLICATION_MODAL);
+                            newStage.showAndWait();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    lesson.getChildren().add(buttonHome);
+                }
+                Label label = new Label();
+                label.setMaxSize(450, 30);
+                label.setId(String.valueOf(a.get("id")));
+                label.setTextAlignment(TextAlignment.CENTER);
+                label.setWrapText(true);
+                label.setFont(new Font(25));
+                label.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 1) {  // 检查是否是单击事件
+                        //可编辑操作
+                        label.setVisible(false);
+                        TextField textField = new TextField();
+                        textField.setPrefHeight(30);
+                        textField.setPrefWidth(200);
+                        textField.setMaxSize(450, 30);
+                        textField.setLayoutX(label.getLayoutX());
+                        textField.setLayoutY(label.getLayoutY());
+                        lesson.getChildren().add(textField);
+                        Button buttonLabel = new Button();
+                        buttonLabel.setText("保存");
+                        buttonLabel.setPrefWidth(60.0);
+                        buttonLabel.setPrefHeight(30.0);
+                        buttonLabel.setLayoutX(label.getLayoutX() - 100);
+                        buttonLabel.setLayoutY(label.getLayoutY());
+                        lesson.getChildren().add(buttonLabel);
+                        Button eqit = new Button();
+                        eqit.setText("返回");
+                        eqit.setPrefWidth(60.0);
+                        eqit.setPrefHeight(30.0);
+                        eqit.setLayoutX(label.getLayoutX() + 270);
+                        eqit.setLayoutY(label.getLayoutY());
+                        lesson.getChildren().add(eqit);
+                        eqit.setOnAction(event3 ->{
+                            textField.setVisible(false);
+                            eqit.setVisible(false);
+                            buttonLabel.setVisible(false);
+                            label.setVisible(true);
+                        });
+                        buttonLabel.setOnAction(event1 -> {
+                            Map<String,String> map = new HashMap<>();
+                            map.put("notes",textField.getText());
+                            map.put("course_id",id);
+                            map.put("week", String.valueOf(a.get("week")));
+                            map.put("week_time",String.valueOf(a.get("week_time")));
+                            map.put("time_sort",String.valueOf(a.get("time_sort")));
+                            DataRequest dataRequest = new DataRequest();
+                            dataRequest.setData(map);
+                            Result data = null;
+                            try {
+                                data = HttpRequestUtils.courseField("/lesson/updateInfo", dataRequest);
+                                if(data.getCode() != 200){
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setHeaderText(data.getMsg());
+                                    alert.showAndWait();
+                                } else {
+                                    label.setText(textField.getText());
+                                    buttonLabel.setVisible(false);
+                                    textField.setVisible(false);
+                                    label.setVisible(true);
+                                }
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                    }
+                });
+                if((a.get("notes")) == null || String.valueOf(a.get("notes")).equals("")){
+                    label.setText("暂无描述，请点击编辑");
+                } else {
+                    label.setText((String) a.get("notes"));
+                }
+                label.setLayoutX(200.0);
+                label.setLayoutY(80 + (count - 1) * 150);
+                label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
+                Label label1 = new Label();
+                label1.setMaxSize(450, 30);
+                label1.setId("notes");
+                label1.setTextAlignment(TextAlignment.CENTER);
+                label1.setWrapText(true);
+                label1.setFont(new Font(15));
+                label1.setLayoutX(90.0);
+                label1.setLayoutY(30 + (count - 1) * 150);
+                label1.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
+                label1.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 1) {  // 检查是否是单击事件
+                        //可编辑操作
+                        label1.setVisible(false);
+                        TextField textField = new TextField();
+                        textField.setPrefHeight(30);
+                        textField.setPrefWidth(200);
+                        textField.setMaxSize(450, 30);
+                        textField.setLayoutX(label1.getLayoutX() + 100);
+                        textField.setLayoutY(label1.getLayoutY());
+                        lesson.getChildren().add(textField);
+                        Button buttonLabel = new Button();
+                        buttonLabel.setText("保存");
+                        buttonLabel.setPrefWidth(60.0);
+                        buttonLabel.setPrefHeight(30.0);
+                        buttonLabel.setLayoutX(label1.getLayoutX());
+                        buttonLabel.setLayoutY(label1.getLayoutY());
+                        lesson.getChildren().add(buttonLabel);
+                        Button eqit = new Button();
+                        eqit.setText("返回");
+                        eqit.setPrefWidth(60.0);
+                        eqit.setPrefHeight(30.0);
+                        eqit.setLayoutX(label1.getLayoutX() + 350);
+                        eqit.setLayoutY(label1.getLayoutY());
+                        lesson.getChildren().add(eqit);
+                        eqit.setOnAction(event3 ->{
+                            textField.setVisible(false);
+                            eqit.setVisible(false);
+                            buttonLabel.setVisible(false);
+                            label1.setVisible(true);
+                        });
+                        buttonLabel.setOnAction(event1 -> {
+                            Map<String,String> map = new HashMap<>();
+                            map.put("room",textField.getText());
+                            map.put("course_id",id);
+                            map.put("week", String.valueOf(a.get("week")));
+                            map.put("week_time",String.valueOf(a.get("week_time")));
+                            map.put("time_sort",String.valueOf(a.get("time_sort")));
+                            DataRequest dataRequest = new DataRequest();
+                            dataRequest.setData(map);
+                            Result data = null;
+                            try {
+                                data = HttpRequestUtils.courseField("/lesson/updateInfo", dataRequest);
+                                if(data.getCode() != 200){
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setHeaderText(data.getMsg());
+                                    alert.showAndWait();
+                                } else {
+                                    label1.setText(("第" + weekC(String.valueOf(a.get("week"))) + "周") + "   " + ("星期" + weekC(String.valueOf(a.get("week_time")))) + "    " + time + "    " + textField.getText());
+                                    buttonLabel.setVisible(false);
+                                    textField.setVisible(false);
+                                    label1.setVisible(true);
+                                }
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+//                        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+                        });
+                    }
+                });
+                if((a.get("room")) == null || String.valueOf(a.get("room")).equals("")){
+                    label1.setText(("第" + weekC(String.valueOf(a.get("week"))) + "周") + "   " + ("星期" + weekC(String.valueOf(a.get("week_time")))) + "    " + time + "    " + "暂无教室，请点击编辑");
+                } else {
+                    label1.setText(("第" + weekC(String.valueOf(a.get("week"))) + "周") + "   " + ("星期" + weekC(String.valueOf(a.get("week_time")))) + "    " + time + "    " + a.get("room"));
+                }
+                lesson.getChildren().add(label);
+                lesson.getChildren().add(label1);
+                Circle circle = new Circle();
+                circle.setLayoutX(50);
+                circle.setLayoutY(40 + (count - 1) * 150);
+                circle.setRadius(5);
+                circle.setFill(Color.BLUE);
+                Line line = new Line();
+                line.setLayoutX(50);
+                line.setLayoutY(40 + (count - 1) * 150);
+                line.setScaleY(150);
+                lesson.getChildren().addAll(circle, line);
             }
-            label.setLayoutX(200.0);
-            label.setLayoutY(80 + (count - 1) * 150);
-            label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
-            Label label1 = new Label();
-            label1.setMaxSize(450, 30);
-            label1.setId("notes");
-            label1.setTextAlignment(TextAlignment.CENTER);
-            label1.setWrapText(true);
-            label1.setFont(new Font(15));
-            label1.setText(("第" + weekC(String.valueOf(a.get("week"))) + "周") + "   " + ("星期" + weekC(String.valueOf(a.get("week_time")))) + "    " + time + "    " + a.get("room"));
-            label1.setLayoutX(90.0);
-            label1.setLayoutY(30 + (count - 1) * 150);
-            label1.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
-            lesson.getChildren().add(label);
-            lesson.getChildren().add(label1);
-            Circle circle = new Circle();
-            circle.setLayoutX(50);
-            circle.setLayoutY(40 + (count - 1) * 150);
-            circle.setRadius(5);
-            circle.setFill(Color.BLUE);
-            Line line = new Line();
-            line.setLayoutX(50);
-            line.setLayoutY(40 + (count - 1) * 150);
-            line.setScaleY(150);
-            lesson.getChildren().addAll(circle, line);
         }
+
     }
     private String weekC(String str){
         int count = 0;
@@ -263,12 +447,12 @@ public class CourseSpecificViewController {
         try {
             // 加载新的FXML文件
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(MainApplication.class.getResource("course-add-view.fxml"));
+            fxmlLoader.setLocation(MainApplication.class.getResource("course-homework.fxml"));
             Parent root = fxmlLoader.load();
             // 创建新的Stage
             Stage newStage = new Stage();
             newStage.initStyle(StageStyle.DECORATED);
-            newStage.setTitle("成绩单");
+            newStage.setTitle("作业统计");
             newStage.setScene(new Scene(root));
             newStage.show();
         } catch (IOException e) {
@@ -289,6 +473,7 @@ public class CourseSpecificViewController {
     }
 
     public void timeC() {
+        CourseLessonController.list.clear();
         CourseLessonController.id = id;
         CourseLessonController.name = bigName.getText();
         CourseLessonController.source = "specific";
@@ -304,20 +489,6 @@ public class CourseSpecificViewController {
             newStage.setScene(new Scene(root));
             newStage.show();
             //自动刷新->类内操作
-            textField.setVisible(false);
-            textField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(newValue.equals("success")){
-                    FXMLLoader fxml = new FXMLLoader();
-                    fxml.setLocation(MainApplication.class.getResource("course-specific-view.fxml"));
-                    try {
-                        pane.getChildren().removeAll(pane.getChildren());
-                        BorderPane pane1 = new BorderPane(fxml.load());
-                        pane.getChildren().add(pane1);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
         } catch (IOException e) {
             e.printStackTrace();
         }

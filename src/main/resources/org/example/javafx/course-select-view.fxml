@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" stylesheets="@css/pagesWithTableAndTab.css" prefHeight="690.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseSelectController">
+<AnchorPane fx:id="pane" prefHeight="690.0" prefWidth="980.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseSelectController">
     <children>
         <GridPane fx:id="gridPane" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="532.0" stylesheets="@./css/dashBoard.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
             <columnConstraints>
@@ -57,7 +57,7 @@
         </Label>
         <Pagination fx:id="pagination" layoutX="374.0" layoutY="476.0" prefHeight="200.0" prefWidth="200.0" />
         <Button fx:id="all" layoutX="10.0" layoutY="392.0" mnemonicParsing="false" onAction="#allC" prefHeight="32.0" prefWidth="67.0" text="全部课程" />
-        <CheckBox layoutX="674.0" layoutY="390.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="165.0" text="只查看无时间冲突课程" />
+        <CheckBox fx:id="noconflict" layoutX="674.0" layoutY="390.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="165.0" text="只查看无时间冲突课程" />
         <Line endX="635.0" endY="188.16665649414062" layoutX="343.0" layoutY="192.0" startX="-343.0" startY="188.16665649414062" />
         <Button fx:id="major" layoutX="77.0" layoutY="392.0" mnemonicParsing="false" onAction="#majorC" prefHeight="32.0" prefWidth="67.0" text="必修课程" />
         <Button fx:id="option" layoutX="144.0" layoutY="392.0" mnemonicParsing="false" onAction="#optionC" prefHeight="32.0" prefWidth="67.0" text="选修课程" />
@@ -94,5 +94,7 @@
             </TableView>
          </content>
       </ScrollPane>
+      <Button layoutX="831.0" layoutY="390.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="67.0" text="查询" />
+      <CheckBox fx:id="nofull" layoutX="533.0" layoutY="390.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="135.0" text="只查看未满课程" />
     </children>
 </AnchorPane>
