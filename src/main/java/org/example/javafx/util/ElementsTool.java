@@ -112,11 +112,20 @@ public class ElementsTool {
     }
 
     public static void setEventButton2(Button button) {
-        button.setStyle("-fx-pref-height: 30px; -fx-background-color: #01a42d; " +
+        button.setStyle("-fx-pref-height: 30px; -fx-background-color: #66c77e; " +
                 "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;");
-        button.setOnMouseEntered(e -> button.setStyle("-fx-pref-height: 30px; -fx-background-color:#03d93c; " +
+        button.setOnMouseEntered(e -> button.setStyle("-fx-pref-height: 30px; -fx-background-color:#53a167; " +
                 "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;"));
-        button.setOnMouseExited(e ->  button.setStyle("-fx-pref-height: 30px; -fx-background-color: #01a42d; " +
+        button.setOnMouseExited(e ->  button.setStyle("-fx-pref-height: 30px; -fx-background-color: #66c77e; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;"));
+    }
+
+    public static void setEventButton3(Button button) {
+        button.setStyle("-fx-pref-height: 30px; -fx-background-color: #cb4040; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;");
+        button.setOnMouseEntered(e -> button.setStyle("-fx-pref-height: 30px; -fx-background-color:#a15353; " +
+                "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;"));
+        button.setOnMouseExited(e ->  button.setStyle("-fx-pref-height: 30px; -fx-background-color: #cb4040; " +
                 "-fx-pref-width: 235px; -fx-text-fill: white;-fx-background-radius: 5px;"));
     }
 

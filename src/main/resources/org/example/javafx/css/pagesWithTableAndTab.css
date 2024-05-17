@@ -187,3 +187,24 @@
     -fx-border-width: 2;
 }
 
+.pagination .pagination-control .button, .pagination .toggle-button {
+    -fx-background-color: transparent;
+    -fx-border-color: darkgrey;
+}
+
+.pagination .pagination-control .toggle-button:selected {
+    -fx-background-color: #00bdb8;
+}
+
+.pagination .pagination-control .toggle-button:hover, .pagination .pagination-control .button:hover  {
+    -fx-background-color: #00bdb8;
+}
+
+.pagination .pagination-control .left-arrow, .right-arrow{
+    -fx-background-color: black;
+}
+
+.pagination .label {
+    -fx-text-fill: black;
+}
+

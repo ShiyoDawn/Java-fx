@@ -7,12 +7,16 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
@@ -44,6 +48,10 @@ public class DashboardController {
     VBox eventBox;
     @FXML
     GridPane gridPane;
+
+    @FXML Label noticeLabel;
+
+    @FXML Button newNoticeButton;
     Boolean bl = false;
     static String classes;
     static String student_id;
@@ -93,11 +101,13 @@ public class DashboardController {
                 }
             });
             setEvent(eventBox);
-        } else if(AppStore.getUser().getUser_type_id() == 1){
+        } else if(AppStore.getUser().getUser_type_id() == 1 || AppStore.getUser().getUser_type_id() == 2){
             gridPane.setVisible(false);
             comboBoxTerm.setVisible(false);
             comboBoxWeek.setVisible(false);
+            setEvent(eventBox);
         }
+        setNotice();
     }
 
     //添加课程表上的课程
@@ -277,17 +287,25 @@ public class DashboardController {
             List<Map> leaveList = CommonMethod.filter((List<Map>) result.getData(),"status","[未处理]*");
             if (leaveList.size() != 0){
                 Button leaveButton = new Button("有待审核请假");
+                tool.setEventButton1(leaveButton);
                 leaveButton.setOnAction(e -> {});
                 vBox.getChildren().add(leaveButton);
             }
         }else {
-            List<Map> leaveList = (List<Map>) result.getData();
+            List<Map> leaveList0 = (List<Map>) result.getData();
+            List<Map> leaveList = CommonMethod.filter(leaveList0,"student_name",student_name);
             for (int i = 0; i < leaveList.size() ;i++) {
                 String str = null;
                 if (leaveList.get(i).get("status").equals("[未处理]*")){
                     str = "待审核请假 " + leaveList.get(i).get("leave_reason") + leaveList.get(i).get("start_time").toString().substring(5);
                     Button leaveButton = new Button(str);
                     tool.setEventButton1(leaveButton);
+                    eventBox.getChildren().add(0,leaveButton);
+                }
+                else if (leaveList.get(i).get("status").equals("不通过")){
+                    str = "未通过审核 " + leaveList.get(i).get("leave_reason") + leaveList.get(i).get("start_time").toString().substring(5);
+                    Button leaveButton = new Button(str);
+                    tool.setEventButton3(leaveButton);
                     eventBox.getChildren().add(0,leaveButton);
                 }
                 else {
@@ -299,6 +317,29 @@ public class DashboardController {
 
             }
         }
+    }
+
+    private void setNotice(){
+        Result result =  HttpRequestUtils.request("/menu/getNotice", new DataRequest());
+        System.out.println(result.getData());
+        List<Map> notice = (List<Map>)result.getData();
+        noticeLabel.setText(notice.get(0).get("text").toString());
+        noticeLabel.setTextFill(Color.web(notice.get(0).get("color").toString()));
+
+        newNoticeButton.setOnAction(e -> {
+            try {
+                FXMLLoader messageFxml = new FXMLLoader();
+                messageFxml.setLocation(MainApplication.class.getResource("newNotice.fxml"));
+                Parent root = messageFxml.load();
+                Stage newStage = new Stage();
+                newStage.initStyle(StageStyle.DECORATED);
+                newStage.setTitle("发布公告");
+                newStage.setScene(new Scene(root));
+                newStage.show();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
 
