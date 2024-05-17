@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.example.javafx.AppStore;
@@ -60,6 +61,7 @@ public class DashboardController {
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
+        borderPane.setOnMouseEntered(e -> setNotice());
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         if(AppStore.getUser().getUser_type_id() == 3){
@@ -107,7 +109,6 @@ public class DashboardController {
             comboBoxWeek.setVisible(false);
             setEvent(eventBox);
         }
-        setNotice();
     }
 
     //添加课程表上的课程
@@ -325,7 +326,10 @@ public class DashboardController {
         List<Map> notice = (List<Map>)result.getData();
         noticeLabel.setText(notice.get(0).get("text").toString());
         noticeLabel.setTextFill(Color.web(notice.get(0).get("color").toString()));
-
+        if (AppStore.getUser().getUser_type_id() != 1){
+            newNoticeButton.setDisable(true);
+            newNoticeButton.setOpacity(0);
+        }
         newNoticeButton.setOnAction(e -> {
             try {
                 FXMLLoader messageFxml = new FXMLLoader();
@@ -335,6 +339,7 @@ public class DashboardController {
                 newStage.initStyle(StageStyle.DECORATED);
                 newStage.setTitle("发布公告");
                 newStage.setScene(new Scene(root));
+                newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.show();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

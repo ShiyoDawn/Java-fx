@@ -186,7 +186,7 @@ public class StudentTableController {
                 if(result.getCode()==-1){
                     FileInputStream fileInputStream = null;
                     try {
-                        fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+                        fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
                     } catch (FileNotFoundException error) {
                         throw new RuntimeException(error);
                     }

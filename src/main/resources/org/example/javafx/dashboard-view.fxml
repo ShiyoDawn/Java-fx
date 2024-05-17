@@ -20,18 +20,18 @@
     <left>
         <AnchorPane fx:id="anchorpane" prefHeight="690.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
             <children>
-                <TabPane layoutX="730.0" layoutY="40.0" prefHeight="122.0" prefWidth="251.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane layoutX="730.0" layoutY="40.0" prefHeight="157.0" prefWidth="251.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="公告">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="245.0">
                            <children>
-                              <Label fx:id="noticeLabel" layoutX="20.0" layoutY="6.0" prefHeight="42.0" prefWidth="209.0" text="距离项目提交只剩两天啦！" textFill="#f80505">
+                              <Label fx:id="noticeLabel" layoutX="20.0" layoutY="6.0" maxWidth="200.0" text="距离项目提交只剩两天啦！" textFill="#f80505" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="newNoticeButton" layoutX="181.0" layoutY="61.0" mnemonicParsing="false" text="发布公告" />
+                              <Button fx:id="newNoticeButton" layoutX="181.0" layoutY="95.0" mnemonicParsing="false" stylesheets="@css/pagesWithTableAndTab.css" text="发布公告" />
                            </children></AnchorPane>
                             </content>
                         </Tab>

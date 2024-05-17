@@ -216,7 +216,7 @@ public class UserController {
             anchor.setStyle("-fx-background-image: url('../../../../../resources/org/example/javafx/image/userBackground.png');" +
                     "-fx-background-size: cover;" +
                     "-fx-background-position: center;");
-            FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+            FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
             Image image = new Image(fileInputStream);
             photoView.setImage(image);
             DataRequest dataRequest = new DataRequest();
