@@ -92,12 +92,27 @@ public class CourseController {
     ComboBox selectClass;
     @FXML
     Tab tab;
-    static List<StackPane> stackPanes = new ArrayList<>(6);
+    List<Map<String, ? extends Object>> dataList;
+
+    int[] styleStatue = {0,0,0,0,0,0};
+    List<StackPane> stackPanes = new ArrayList<>(6);
 
     //分页查询，根据查询数量自适应页码数量
     @FXML
     public void initialize() throws IOException, InterruptedException {
         load();
+        one.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        two.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        three.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        four.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        five.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+        six.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
         if(AppStore.getUser().getUser_type_id() == 3){
             save.setVisible(false);
             add.setVisible(false);
@@ -112,6 +127,13 @@ public class CourseController {
             tabCenter.getChildren().add(l);
         }
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
+            for (int i = 0; i < styleStatue.length; i ++){
+                if (styleStatue[i] == 1){
+                    getPane(i).setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                            "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+                    styleStatue[i] = 0;
+                }
+            }
             int clickedPageIndex = newValue.intValue();
             try {
                 handlePageClick(new HashMap<>(), clickedPageIndex, "/course/selectAllByPage"); // 处理点击事件
@@ -125,12 +147,19 @@ public class CourseController {
 
     private void handlePageClick(Map map, int pageNum, String url) throws IOException, InterruptedException {
         deleteNode();
+        one.setOnMouseClicked(null);
+        two.setOnMouseClicked(null);
+        three.setOnMouseClicked(null);
+        four.setOnMouseClicked(null);
+        five.setOnMouseClicked(null);
+        six.setOnMouseClicked(null);
         DataRequest dataRequest = new DataRequest();
         map.put("pageNum", pageNum);
         dataRequest.setData(map);
         Result data = HttpRequestUtils.courseField(url, dataRequest);
         List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
         addLabel(dataList);
+
     }
 
     private void deleteNode() {
@@ -146,6 +175,34 @@ public class CourseController {
             for (Node b : toRemove) {
                 a.getChildren().remove(b);
             }
+        }
+    }
+    private void styleChange (String num) {
+        for (int i = 0; i < styleStatue.length; i++) {
+            if (styleStatue[i] == 1) {
+                styleStatue[i] = 0;
+                getPane(i).setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
+                        "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
+            }
+        }
+        for (int i = 0; i < dataList.size(); i++) {
+            if (dataList.get(i).get("num").equals(num)) {
+                int a = ((i + 1) % 6) - 1;
+                if (a == -1) a = 5;
+                styleStatue[a] = 1;
+                getPane(a).setStyle("-fx-background-color: #1dddc0;-fx-background-radius: 9px;");
+                break;
+            }
+        }
+    }
+    private StackPane getPane(int num) {
+        switch (num){
+            case 1 :return two;
+            case 2 :return three;
+            case 3 :return four;
+            case 4 :return five;
+            case 5 :return six;
+            default:return one;
         }
     }
 
@@ -171,7 +228,7 @@ public class CourseController {
         }
         DataRequest dataRequest1 = new DataRequest();
         Result data1 = HttpRequestUtils.courseField("/course/selectAll", dataRequest1);
-        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data1.getData().toString(), List.class);
+        dataList = new Gson().fromJson(data1.getData().toString(), List.class);
         addLabel(dataList);
         course_name.setText((String) dataList.get(0).get("course_name"));
         num.setText((String) dataList.get(0).get("num"));
@@ -200,35 +257,41 @@ public class CourseController {
             label.setLayoutX(37.0);
             label.setLayoutY(102 + (count - 1) * 80);
             label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
-            label.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1) {  // 检查是否是单击事件
-                    course_name.setText(a.get("course_name").toString());
-                    num.setText(a.get("num").toString());
-                    type.setValue(a.get("course_type_name").toString());
-                    classes.setText(a.get("classes").toString());
-                    book.setText(a.get("book").toString());
-                    extra.setText(a.get("extracurricular").toString());
-                    teacher.setText(a.get("teacher_name").toString());
-                    credit.setText(String.valueOf(a.get("credit")));
-                    capacity.setText(String.valueOf(a.get("capacity")));
-                    id.setText(String.valueOf(a.get("id")));
-                    cou.setText(a.get("course_name").toString());
-                } else if (event.getClickCount() == 2) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(MainApplication.class.getResource("course-specific-view.fxml"));
-                    try {
-                        specific(a, fxmlLoader);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
             stackPanes.get(count - 1).getChildren().add(label);
+            setClickAction(stackPanes.get(count - 1),a);
             if (count % 6 == 0) {
                 count = 0;
                 break;
             }
         }
+    }
+
+    private void setClickAction(StackPane stackPane, Map<String, ? extends Object> a) {
+        stackPane.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {  // 检查是否是单击事件
+                styleChange(a.get("num").toString());
+                course_name.setText(a.get("course_name").toString());
+                num.setText(a.get("num").toString());
+                type.setValue(a.get("course_type_name").toString());
+                classes.setText(a.get("classes").toString());
+                book.setText(a.get("book").toString());
+                extra.setText(a.get("extracurricular").toString());
+                teacher.setText(a.get("teacher_name").toString());
+                credit.setText(String.valueOf(a.get("credit")));
+                capacity.setText(String.valueOf(a.get("capacity")));
+                id.setText(String.valueOf(a.get("id")));
+                cou.setText(a.get("course_name").toString());
+            } else if (event.getClickCount() == 2) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(MainApplication.class.getResource("course-specific-view.fxml"));
+                try {
+                    specific(a, fxmlLoader);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
     }
 
     protected void specific(Map<String, ?> a, FXMLLoader fxmlLoader) throws IOException {

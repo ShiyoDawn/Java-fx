@@ -16,7 +16,7 @@
     -fx-background-color: #dbffed;
 }
 
-#searchButton ,#changeButton{
+#searchTabButton ,#changeButton{
     -fx-background-color: #e6ffef;
     -fx-text-fill: #00543c;
     -fx-border-style: none;

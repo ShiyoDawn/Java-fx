@@ -168,5 +168,21 @@ public class LeaveDetailController {
         destinationTextfield.setDisable(true);
         finalCheckBox.setDisable(true);
 
+        studentIdTextField.setOpacity(0.8);
+        studentNameTextField.setOpacity(0.8);
+        ageTextField.setOpacity(0.8);
+        instituteTextField.setOpacity(0.8);
+        majorTextField.setOpacity(0.8);
+        instructorNameTextfield.setOpacity(0.8);
+        instructorTeleTextField.setOpacity(0.8);
+        reasonTextField.setOpacity(0.8);
+        goOutDatePicker.setOpacity(0.8);
+        comeBackDatePicker.setOpacity(0.8);
+        studentTeleTextField.setOpacity(0.8);
+        reasonComboBox.setOpacity(0.8);
+        goOutTypeComboBox.setOpacity(0.8);
+        destinationTextfield.setOpacity(0.8);
+        finalCheckBox.setOpacity(0.8);
+
     }
 }

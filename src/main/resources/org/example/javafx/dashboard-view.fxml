@@ -4,6 +4,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,6 +12,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1080.0" stylesheets="@./css/dashBoard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.DashboardController">
     <left>
@@ -20,14 +23,28 @@
                     <tabs>
                         <Tab text="公告">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="20.0" layoutY="6.0" prefHeight="42.0" prefWidth="209.0" text="距离项目提交只剩两天啦！" textFill="#f80505">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
                             </content>
                         </Tab>
                     </tabs>
                 </TabPane>
                 <TabPane layoutX="730.0" layoutY="214.0" prefHeight="370.0" prefWidth="252.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                        <Tab text="事务进度" />
+                        <Tab text="事务进度">
+                     <content>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="eventBox" prefHeight="335.0" prefWidth="249.0" />
+                           </content>
+                        </ScrollPane>
+                     </content></Tab>
                     </tabs>
                 </TabPane>
                 <ComboBox fx:id="comboBoxWeek" editable="true" layoutX="493.0" layoutY="40.0" prefWidth="130" promptText="请选择周数">

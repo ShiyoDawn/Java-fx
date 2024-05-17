@@ -141,15 +141,24 @@
     -fx-background-color: #85d3d1;
 }
 
+.combo-box > drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;/*放于右方顶部*/
+    width: 50px;/*设置按钮范围宽度*/
+}
+
 .button {
     -fx-background-color: #00bda7;
     -fx-text-fill: #fff;
     -fx-border-style: none;
     -fx-border-radius: 3px;
 }
+.button:hover {
+    -fx-opacity: 0.7;
+}
 
 .text-field {
-    -fx-background-color: #70dad6;
+    -fx-background-color: #64c4c0;
     -fx-text-fill: #fff;
     -fx-prompt-text-fill: #fff;
 }
@@ -166,10 +175,15 @@
 }
 
 #anchorPane, #editDeleteAnchorPane ,#editDeleteBorderPane ,#pane , #lesson
-,#paneMember {
+,#paneMember  {
     -fx-background-color: #e6fffd;
 }
 
-
-
+.check-box {
+    -fx-background-size:16px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+}
 

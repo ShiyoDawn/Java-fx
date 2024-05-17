@@ -7,16 +7,17 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
+import org.example.javafx.util.CommonMethod;
+import org.example.javafx.util.ElementsTool;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -34,6 +35,9 @@ public class DashboardController {
     ComboBox comboBoxTerm;
     @FXML
     ComboBox comboBoxWeek;
+
+    @FXML
+    VBox eventBox;
     @FXML
     GridPane gridPane;
     Boolean bl = false;
@@ -87,6 +91,7 @@ public class DashboardController {
                 throw new RuntimeException(e);
             }
         });
+        setEvent(eventBox);
     }
 
     //添加课程表上的课程
@@ -175,7 +180,6 @@ public class DashboardController {
     }
 
     private void detailCourse() {
-
     }
 
 
@@ -257,6 +261,38 @@ public class DashboardController {
             }
         }
         return map;
+    }
+
+    private void setEvent(VBox vBox) throws IOException {
+        ElementsTool tool = new ElementsTool();
+        Result result = new Result();
+        result = HttpRequestUtils.request("/leave/getLeaveList", new DataRequest());
+        if (AppStore.getUser().getUser_type_id() != 3){
+            List<Map> leaveList = CommonMethod.filter((List<Map>) result.getData(),"status","[未处理]*");
+            if (leaveList.size() != 0){
+                Button leaveButton = new Button("有待审核请假");
+                leaveButton.setOnAction(e -> {});
+                vBox.getChildren().add(leaveButton);
+            }
+        }else {
+            List<Map> leaveList = (List<Map>) result.getData();
+            for (int i = 0; i < leaveList.size() ;i++) {
+                String str = null;
+                if (leaveList.get(i).get("status").equals("[未处理]*")){
+                    str = "待审核请假 " + leaveList.get(i).get("leave_reason") + leaveList.get(i).get("start_time").toString().substring(5);
+                    Button leaveButton = new Button(str);
+                    tool.setEventButton1(leaveButton);
+                    eventBox.getChildren().add(0,leaveButton);
+                }
+                else {
+                    str = "已通过审核请假 " + leaveList.get(i).get("leave_reason");
+                    Button leaveButton = new Button(str);
+                    tool.setEventButton2(leaveButton);
+                    eventBox.getChildren().add(leaveButton);
+                }
+
+            }
+        }
     }
 
 

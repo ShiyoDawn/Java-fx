@@ -1,29 +1,18 @@
 package org.example.javafx.controller;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Scale;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
-import org.example.javafx.StartUp;
-import org.example.javafx.pojo.Course;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
@@ -61,11 +50,13 @@ public class MainFrameController {
     @FXML
     Button dashBoardButton = new Button();
 
+    @FXML Button connectButton;
+
     @FXML
     Label statueLabel;
 
     @FXML
-    Button searchButton;
+    Button searchTabButton;
 
     @FXML Button changeButton;
 
@@ -95,12 +86,25 @@ public class MainFrameController {
         userLabel.setTextFill(Color.WHITE);
         setTabChange(dashBoardButton, "dashboard-view.fxml");
         stageMove();
-
+        connectButton.setOnAction(e -> {
+            try {
+                FXMLLoader messageFxml = new FXMLLoader();
+                messageFxml.setLocation(MainApplication.class.getResource("connect.fxml"));
+                Parent root = messageFxml.load();
+                // 创建新的Stage
+                Stage newStage = new Stage();
+                newStage.initStyle(StageStyle.DECORATED);
+                newStage.setTitle("联系我们");
+                newStage.setScene(new Scene(root));
+                newStage.show();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
         tool.setMinButton(minButton);
         /*tool.setResizeButton(resizeButton);
-
         resizeButton.setDisable(true);
         resizeButton.setTextFill(Color.WHITE);*/
         /*// 尝试实现全屏功能
@@ -166,7 +170,7 @@ public class MainFrameController {
             menuListOnlyName.add(menuList.get(i).get("name"));
         }
         searchBox.getItems().addAll(menuListOnlyName);
-        searchButton.setOnAction(e ->
+        searchTabButton.setOnAction(e ->
         {
             try {
                 setSearchBox();
