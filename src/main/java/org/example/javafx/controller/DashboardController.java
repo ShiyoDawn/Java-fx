@@ -4,21 +4,21 @@ import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
+import org.example.javafx.PieChartUtils;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
@@ -26,8 +26,6 @@ import org.example.javafx.util.CommonMethod;
 import org.example.javafx.util.ElementsTool;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -35,6 +33,11 @@ import java.util.*;
 public class DashboardController {
     @FXML
     BorderPane borderPane;
+
+    @FXML
+    AnchorPane anchorpane;
+
+    @FXML TabPane chart;
     @FXML
     MenuBar menuBar;
 //    @FXML
@@ -52,6 +55,10 @@ public class DashboardController {
     @FXML Label noticeLabel;
 
     @FXML Button newNoticeButton;
+
+    @FXML Label adminNum;
+    @FXML Label stuNum;
+    @FXML Label teaNum;
     Boolean bl = false;
     static String classes;
     static String student_id;
@@ -60,6 +67,7 @@ public class DashboardController {
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
+        borderPane.setOnMouseEntered(e -> setNotice());
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));
         if(AppStore.getUser().getUser_type_id() == 3){
@@ -101,13 +109,27 @@ public class DashboardController {
                 }
             });
             setEvent(eventBox);
+            chart.setDisable(true);
+            chart.setOpacity(0);
         } else if(AppStore.getUser().getUser_type_id() == 1 || AppStore.getUser().getUser_type_id() == 2){
             gridPane.setVisible(false);
             comboBoxTerm.setVisible(false);
             comboBoxWeek.setVisible(false);
             setEvent(eventBox);
+
+            Result personList = HttpRequestUtils.request("/person/getAll",new DataRequest());
+            List<Map> people = (List<Map>) personList.getData();
+            Map total = new HashMap<>();
+            stuNum.setText("学生数：" + CommonMethod.filter(people,"user_type","1").size());
+            adminNum.setText("管理员数：" + CommonMethod.filter(people,"user_type","1").size());
+            teaNum.setText("教师数：" + CommonMethod.filter(people,"user_type","1").size());
+            total.put("admin", CommonMethod.filter(people,"user_type","1").size() * 1.0 /people.size());
+            total.put("tea", CommonMethod.filter(people,"user_type","2").size() * 1.0 /people.size());
+            total.put("stu", CommonMethod.filter(people,"user_type","3").size() * 1.0 /people.size());
+            PieChart pieChart = (PieChart)anchorpane.lookup("#pieChart");
+            PieChartUtils pieChartUtils = new PieChartUtils(pieChart);
+            pieChartUtils.operatePieChart(total);
         }
-        setNotice();
     }
 
     //添加课程表上的课程
@@ -317,6 +339,9 @@ public class DashboardController {
 
             }
         }
+        if (vBox.getChildren().isEmpty()){
+            vBox.getChildren().add(new Label("空"));
+        }
     }
 
     private void setNotice(){
@@ -325,7 +350,10 @@ public class DashboardController {
         List<Map> notice = (List<Map>)result.getData();
         noticeLabel.setText(notice.get(0).get("text").toString());
         noticeLabel.setTextFill(Color.web(notice.get(0).get("color").toString()));
-
+        if (AppStore.getUser().getUser_type_id() != 1){
+            newNoticeButton.setDisable(true);
+            newNoticeButton.setOpacity(0);
+        }
         newNoticeButton.setOnAction(e -> {
             try {
                 FXMLLoader messageFxml = new FXMLLoader();
@@ -335,12 +363,15 @@ public class DashboardController {
                 newStage.initStyle(StageStyle.DECORATED);
                 newStage.setTitle("发布公告");
                 newStage.setScene(new Scene(root));
+                newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.show();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
     }
+
+
 
 
 }

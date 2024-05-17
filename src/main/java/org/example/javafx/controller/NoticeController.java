@@ -1,13 +1,20 @@
 package org.example.javafx.controller;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Window;
+import org.example.javafx.AppStore;
+import org.example.javafx.MainApplication;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +48,10 @@ public class NoticeController {
                 DataRequest dataRequest = new DataRequest();
                 dataRequest.setData(newNotice);
                 HttpRequestUtils.request("/menu/changeNotice", dataRequest);
+
+                Node node = anchorPane.getScene().getRoot();
+                Window window = node.getScene().getWindow();
+                window.hide(); // 关闭窗口
             }
         });
     }
