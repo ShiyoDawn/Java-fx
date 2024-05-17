@@ -3,10 +3,14 @@ package org.example.javafx.controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
@@ -46,6 +50,8 @@ public class MainFrameController {
     @FXML
     Button dashBoardButton = new Button();
 
+    @FXML Button connectButton;
+
     @FXML
     Label statueLabel;
 
@@ -80,7 +86,21 @@ public class MainFrameController {
         userLabel.setTextFill(Color.WHITE);
         setTabChange(dashBoardButton, "dashboard-view.fxml");
         stageMove();
-
+        connectButton.setOnAction(e -> {
+            try {
+                FXMLLoader messageFxml = new FXMLLoader();
+                messageFxml.setLocation(MainApplication.class.getResource("connect.fxml"));
+                Parent root = messageFxml.load();
+                // 创建新的Stage
+                Stage newStage = new Stage();
+                newStage.initStyle(StageStyle.DECORATED);
+                newStage.setTitle("联系我们");
+                newStage.setScene(new Scene(root));
+                newStage.show();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         ElementsTool tool = new ElementsTool();
         tool.setCloseButton(closeButton);
         tool.setMinButton(minButton);

@@ -64,10 +64,13 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></VBox>
-            <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="90.0" text="设置">
+            <Button fx:id="connectButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="联系我们">
                <VBox.margin>
                   <Insets top="100.0" />
-               </VBox.margin></Button>
+               </VBox.margin>
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
          </children>
          <BorderPane.margin>
             <Insets />
