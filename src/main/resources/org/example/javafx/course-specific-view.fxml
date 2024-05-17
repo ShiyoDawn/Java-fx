@@ -72,7 +72,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="752.0" layoutY="69.0" prefHeight="49.0" prefWidth="119.0" text="添加上课时间">
+      <Label fx:id="updatet" layoutX="752.0" layoutY="69.0" prefHeight="49.0" prefWidth="119.0" text="添加上课时间">
          <font>
             <Font size="18.0" />
          </font>

@@ -134,7 +134,7 @@ public class CourseController {
             tab.setText("显示窗口");
             selectClass.setVisible(false);
             Label l = new Label("班级:  " + DashboardController.classes);
-            l.setLayoutX(430);
+            l.setLayoutX(114);
             l.setLayoutY(29);
             l.setFont(Font.font(25));
             tabCenter.getChildren().add(l);
@@ -281,7 +281,6 @@ public class CourseController {
             Result data1 = HttpRequestUtils.courseField("/course/selectCourseByStudent", dataRequest1);
             List<Map<String, ? extends Object>> dataList1 = new Gson().fromJson(data1.getData().toString(), List.class);
             addLabel(dataList1);
-            System.out.println(dataList1.size());
             setPagination(dataList1);
             dataList = dataList1;
             course_name.setText((String) dataList.get(0).get("course_name"));
@@ -293,7 +292,7 @@ public class CourseController {
             teacher.setText((String) dataList.get(0).get("teacher_name"));
             credit.setText(String.valueOf(dataList.get(0).get("credit")));
             capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
-            id.setText(String.valueOf(dataList.get(0).get("id")));
+            id.setText(String.valueOf(dataList.get(0).get("course_id")));
         } else if(AppStore.getUser().getUser_type_id() == 1){
             DataRequest dataRequest1 = new DataRequest();
             Result data1 = HttpRequestUtils.courseField("/course/selectAll", dataRequest1);
@@ -350,7 +349,11 @@ public class CourseController {
                 teacher.setText(a.get("teacher_name").toString());
                 credit.setText(String.valueOf(a.get("credit")));
                 capacity.setText(String.valueOf(a.get("capacity")));
-                id.setText(String.valueOf(a.get("id")));
+                if(AppStore.getUser().getUser_type_id() == 1){
+                    id.setText(String.valueOf(a.get("id")));
+                } else {
+                    id.setText(String.valueOf(a.get("course_id")));
+                }
                 cou.setText(a.get("course_name").toString());
             } else if (event.getClickCount() == 2) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -366,7 +369,11 @@ public class CourseController {
     }
 
     protected void specific(Map<String, ?> a, FXMLLoader fxmlLoader) throws IOException {
-        CourseSpecificViewController.id = String.valueOf(a.get("id"));
+        if(AppStore.getUser().getUser_type_id()==1){
+            CourseSpecificViewController.id = String.valueOf(a.get("id"));
+        } else {
+            CourseSpecificViewController.id = String.valueOf(a.get("course_id"));
+        }
         pane.getChildren().removeAll(pane.getChildren());
         BorderPane pane1 = new BorderPane(fxmlLoader.load());
         pane.getChildren().add(pane1);

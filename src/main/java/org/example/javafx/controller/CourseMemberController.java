@@ -13,6 +13,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import org.example.javafx.AppStore;
 import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -37,6 +38,9 @@ public class CourseMemberController {
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
+        if(AppStore.getUser().getUser_type_id() == 3){
+            addStudent.setVisible(false);
+        }
         addLabel();
     }
 
@@ -112,6 +116,9 @@ public class CourseMemberController {
                         }
                     });
                     pane.getChildren().add(button);
+                    if(AppStore.getUser().getUser_type_id() == 3){
+                        button.setVisible(false);
+                    }
                     count++;
                 }
                 Label label1 = new Label();
