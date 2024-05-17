@@ -70,4 +70,15 @@ public class CourseDeliverHomeworkController {
         }
 
     }
+    public void confirmC() throws IOException, InterruptedException {
+        DataRequest dataRequest = new DataRequest();
+        Map<String, String> map = new HashMap<>();
+        map.put("course_id", course_id);
+        map.put("week",week);
+        map.put("week_time",week_time);
+        map.put("time_sort",time_sort);
+        dataRequest.setData(map);
+        Result data = HttpRequestUtils.courseField("/lesson/selectSpecific", dataRequest);
+        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+    }
 }

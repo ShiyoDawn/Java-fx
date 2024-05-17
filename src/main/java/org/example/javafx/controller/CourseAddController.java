@@ -51,17 +51,6 @@ public class CourseAddController {
     TextField capacity;
     @FXML
     public void initialize() throws IOException, InterruptedException {
-        classes.setText("1");
-        terms.setValue("2023-2024-2");
-        type.setValue("通识选修课");
-        precourse.setValue("0-全");
-        course_name.setText("线性代数");
-        credit.setText("2");
-        book.setText("2");
-        teacher.setText("2");
-        num.setText("2");
-        capacity.setText("2");
-        extra.setText("2");
         DataRequest dataRequest = new DataRequest();
         Result data = HttpRequestUtils.courseField("/course/selectAll", dataRequest);
         List<Map<String, String>> dataListType = new Gson().fromJson(data.getData().toString(), List.class);

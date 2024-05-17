@@ -127,17 +127,6 @@ public class AddStudentController {
         return filteredStudents;
     }
 
-    private List<Map> catchStudents(List<Map> studentMap, String selectedOption, String searchText) {
-        List<Map> caughtStudents = new ArrayList<>();
-        // 根据选择的搜索类型和输入的内容对学生数据进行过滤
-        for (Map student : studentMap) {
-            String value = (String) student.get(selectedOption); // 根据选择的搜索类型获取对应的值
-            if (value != null && value.equals(searchText)) { // 如果该值包含输入的内容，则加入过滤后的列表中
-                caughtStudents.add(student);
-            }
-        }
-        return caughtStudents;
-    }
 
     private void updateTableView(List<Map> students) {
         // 更新表格显示
