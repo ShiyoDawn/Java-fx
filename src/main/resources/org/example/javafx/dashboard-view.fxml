@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -20,6 +21,13 @@
     <left>
         <AnchorPane fx:id="anchorpane" prefHeight="690.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
             <children>
+                <TabPane fx:id="chart" layoutX="20.0" layoutY="40.0" prefHeight="547.0" prefWidth="673.0" stylesheets="@css/pagesWithTableAndTab.css">
+                    <Tab id="pieChartTab" closable="false" text="人数统计">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="797.0">
+                            <PieChart id="pieChart" layoutX="265.0" layoutY="15.0" prefWidth="250.0" />
+                        </AnchorPane>
+                    </Tab>
+                </TabPane>
                 <TabPane layoutX="730.0" layoutY="40.0" prefHeight="157.0" prefWidth="251.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="公告">
@@ -43,7 +51,7 @@
                      <content>
                         <ScrollPane prefHeight="200.0" prefWidth="200.0">
                            <content>
-                              <VBox fx:id="eventBox" prefHeight="335.0" prefWidth="249.0" />
+                              <VBox fx:id="eventBox" alignment="TOP_CENTER" prefHeight="335.0" prefWidth="249.0" />
                            </content>
                         </ScrollPane>
                      </content></Tab>
@@ -83,7 +91,7 @@
                     </items>
                 </ComboBox>
 <!--                <Button fx:id="selectCourseSheet" layoutX="585" layoutY="40" onAction="#select" text="查询" />-->
-                <GridPane fx:id="gridPane" layoutX="20" layoutY="80" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+                <GridPane fx:id="gridPane" layoutX="20.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" prefWidth="65" />
                         <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
@@ -116,6 +124,9 @@
                     <Label text="第七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                     <Label text="第九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                 </GridPane>
+            <Label fx:id="adminNum" layoutX="100.0" layoutY="130.0" />
+            <Label fx:id="teaNum" layoutX="100.0" layoutY="270.0" />
+            <Label fx:id="stuNum" layoutX="100.0" layoutY="410.0" />
             </children>
         </AnchorPane>
     </left>
