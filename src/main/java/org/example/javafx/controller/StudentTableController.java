@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.javafx.AppStore;
@@ -50,6 +51,10 @@ public class StudentTableController {
     private TableColumn classesColumn;
 
     @FXML
+    private Button confirm;
+
+
+    @FXML
     private Button delete;
 
     @FXML
@@ -72,6 +77,9 @@ public class StudentTableController {
 
     @FXML
     private ImageView imageView;
+
+    @FXML
+    private Label infoLabel;
 
     @FXML
     private TableColumn majorColumn;
@@ -123,30 +131,80 @@ public class StudentTableController {
         classesColumn.setCellValueFactory(new MapValueFactory<>("classes"));
         gradeColumn.setCellValueFactory(new MapValueFactory<>("grade"));
         majorColumn.setCellValueFactory(new MapValueFactory<>("major"));
-        selectChoiceComboBox.getItems().addAll("学号", "姓名", "部门", "班级", "年级", "专业");
+        if (selectChoiceComboBox.getItems().isEmpty()) {
+            selectChoiceComboBox.getItems().addAll("学号", "姓名", "部门", "班级", "年级", "专业");
+        }
+        person_numText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                person_numText.setText(oldValue);
+            } else if (newValue.length() < 12) {
+                infoLabel.setText("请在框内输入12位学号");
+                infoLabel.setTextFill(Color.RED);
+            } else if (newValue.length() == 12) {
+                infoLabel.setText("学号已满12位");
+                infoLabel.setTextFill(Color.GREEN);
+            } else {
+                person_numText.setText(oldValue);
+            }
+        });
+
 
         try {
             FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
             Image image = new Image(fileInputStream);
             imageView.setImage(image);
-//                if (result != null) {
-//                    if (result.getCode() != -1) {
-//                        String str = result.getData().toString();
-//                        byte[] data = Base64.getDecoder().decode(str);
-//                        if (data != null) {
-//                            Image image1 = new Image(new ByteArrayInputStream(data));
-//                            photoView.setImage(image1);
-//                        }
-//                    }
-//                }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         tableView.setOnMouseClicked(e -> {
-            Map map = tableView.getSelectionModel().getSelectedItem();
-            if(map!=null){
-                updateStudentAction();
+            Map<String, String> selectedItem = tableView.getSelectionModel().getSelectedItem();
+            if(selectedItem!=null){
+                id = Integer.parseInt(selectedItem.get("id"));
+                person_numText.setText(selectedItem.get("person_num"));
+                student_nameText.setText(selectedItem.get("student_name"));
+                departmentText.setText(selectedItem.get("department"));
+                classText.setText(selectedItem.get("classes"));
+                gradeText.setText(selectedItem.get("grade"));
+                majorText.setText(selectedItem.get("major"));
+                person_numText.setDisable(true);
+                person_numText.setOpacity(0.5);
+                student_nameText.setDisable(true);
+                student_nameText.setOpacity(0.5);
+                departmentText.setDisable(true);
+                departmentText.setOpacity(0.5);
+                classText.setDisable(true);
+                classText.setOpacity(0.5);
+                gradeText.setDisable(true);
+                gradeText.setOpacity(0.5);
+                majorText.setDisable(true);
+                majorText.setOpacity(0.5);
+                User user = AppStore.getUser();
+                DataRequest dataRequest = new DataRequest();
+                dataRequest.add("person_num", person_numText.getText());
+                Result result = HttpRequestUtils.request("/user/getPhoto", dataRequest);
+                if(result.getCode()==-1){
+                    FileInputStream fileInputStream = null;
+                    try {
+                        fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+                    } catch (FileNotFoundException error) {
+                        throw new RuntimeException(error);
+                    }
+                    Image image = new Image(fileInputStream);
+                    imageView.setImage(image);
+                }
+                if (result != null) {
+                    if (result.getCode() != -1) {
+                        String str = result.getData().toString();
+                        byte[] data = Base64.getDecoder().decode(str);
+                        if (data != null) {
+                            Image image1 = new Image(new ByteArrayInputStream(data));
+                            imageView.setImage(image1);
+                        }
+                    }
+                }
+                imageView.setOpacity(0.9);
+                imageView.setDisable(true);
             }
         });
 
@@ -157,8 +215,11 @@ public class StudentTableController {
             return;
         }
         tableView.setItems(FXCollections.observableList(studentList));
+        save.setVisible(false);
         save.setDisable(true);
-        save.setOpacity(0.5);
+//        save.setOpacity(0.5);
+        confirm.setVisible(false);
+        confirm.setDisable(true);
     }
 
     public void clearPanel() {
@@ -169,38 +230,32 @@ public class StudentTableController {
         classText.setText("");
         gradeText.setText("");
         majorText.setText("");
+        imageView.setImage(null);
     }
 
 
     public void addStudentButtonClick() {
-        if (validateInput()) {
-            DataRequest req = new DataRequest();
-            req.add("person_num", person_numText.getText().trim());
-            req.add("student_name", student_nameText.getText().trim());
-            req.add("department", departmentText.getText().trim());
-            req.add("classes", classText.getText().trim());
-            req.add("grade", gradeText.getText().trim());
-            req.add("major", majorText.getText().trim());
+//
+        save.setVisible(false);
+        save.setDisable(true);
+        clearPanel();
+        add.setDisable(true);
+        add.setOpacity(0.5);
+        confirm.setVisible(true);
+        confirm.setDisable(false);
+        person_numText.setDisable(false);
+        person_numText.setOpacity(1.0);
+        student_nameText.setDisable(false);
+        student_nameText.setOpacity(1.0);
+        departmentText.setDisable(false);
+        departmentText.setOpacity(1.0);
+        classText.setDisable(false);
+        classText.setOpacity(1.0);
+        gradeText.setDisable(false);
+        gradeText.setOpacity(1.0);
+        majorText.setDisable(false);
+        majorText.setOpacity(1.0);
 
-            Result addResult = HttpRequestUtils.request("/student/insertStudent", req);
-
-            if (addResult.getCode() == 200) {
-                clearPanel();
-                refreshTable();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("错误");
-                alert.setHeaderText(null);
-                alert.setContentText("添加学生失败。错误：" + addResult.getMsg());
-                alert.showAndWait();
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("错误");
-            alert.setHeaderText(null);
-            alert.setContentText("输入无效，请检查输入字段。");
-            alert.showAndWait();
-        }
     }
 
     private boolean validateInput() {
@@ -213,10 +268,7 @@ public class StudentTableController {
     }
 
     private void refreshTable() {
-        DataRequest req = new DataRequest();
-        Result studentResult = HttpRequestUtils.request("/student/getStudentList", req);
-        List<Map> studentMap = (List<Map>) studentResult.getData();
-        tableView.setItems(FXCollections.observableList(studentMap));
+        initialize();
     }
 
     public void deleteStudentButtonClick() {
@@ -271,6 +323,21 @@ public class StudentTableController {
                     refreshTable();
                     save.setDisable(true);
                     save.setOpacity(0.5);
+                    save.setVisible(false);
+                    update.setDisable(false);
+                    update.setOpacity(1.0);
+                    person_numText.setDisable(true);
+                    person_numText.setOpacity(0.5);
+                    student_nameText.setDisable(true);
+                    student_nameText.setOpacity(0.5);
+                    departmentText.setDisable(true);
+                    departmentText.setOpacity(0.5);
+                    classText.setDisable(true);
+                    classText.setOpacity(0.5);
+                    gradeText.setDisable(true);
+                    gradeText.setOpacity(0.5);
+                    majorText.setDisable(true);
+                    majorText.setOpacity(0.5);
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("错误");
@@ -296,48 +363,33 @@ public class StudentTableController {
 
     @FXML
     public void updateStudentAction() {
+        update.setDisable(true);
+        update.setOpacity(0.5);
+        confirm.setVisible(false);
+        confirm.setDisable(true);
         Map<String, String> selectedItem = tableView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            id = Integer.parseInt(selectedItem.get("id"));
-            person_numText.setText(selectedItem.get("person_num"));
-            student_nameText.setText(selectedItem.get("student_name"));
-            departmentText.setText(selectedItem.get("department"));
-            classText.setText(selectedItem.get("classes"));
-            gradeText.setText(selectedItem.get("grade"));
-            majorText.setText(selectedItem.get("major"));
-            save.setDisable(false);
-            save.setOpacity(1.0);
-            User user = AppStore.getUser();
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("person_num", person_numText.getText());
-            Result result = HttpRequestUtils.request("/user/getPhoto", dataRequest);
-            if(result.getCode()==-1){
-                FileInputStream fileInputStream = null;
-                try {
-                    fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                Image image = new Image(fileInputStream);
-                imageView.setImage(image);
-            }
-            if (result != null) {
-                if (result.getCode() != -1) {
-                    String str = result.getData().toString();
-                    byte[] data = Base64.getDecoder().decode(str);
-                    if (data != null) {
-                        Image image1 = new Image(new ByteArrayInputStream(data));
-                        imageView.setImage(image1);
-                    }
-                }
-            }
-        } else {
+        if(selectedItem == null){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("警告");
             alert.setHeaderText(null);
             alert.setContentText("请选择要修改的信息");
             alert.showAndWait();
+            return;
         }
+        save.setVisible(true);
+        save.setDisable(false);
+        save.setOpacity(1.0);
+        student_nameText.setDisable(false);
+        student_nameText.setOpacity(1.0);
+        departmentText.setDisable(false);
+        departmentText.setOpacity(1.0);
+        classText.setDisable(false);
+        classText.setOpacity(1.0);
+        gradeText.setDisable(false);
+        gradeText.setOpacity(1.0);
+        majorText.setDisable(false);
+        majorText.setOpacity(1.0);
+
 
     }
 
@@ -523,5 +575,66 @@ public class StudentTableController {
         tableView.setItems(FXCollections.observableList(studentList));
         save.setDisable(true);
         save.setOpacity(0.5);
+    }
+
+    public void confirmAction() {
+        if (validateInput()) {
+            DataRequest req = new DataRequest();
+            req.add("person_num", person_numText.getText().trim());
+            req.add("student_name", student_nameText.getText().trim());
+            req.add("department", departmentText.getText().trim());
+            req.add("classes", classText.getText().trim());
+            req.add("grade", gradeText.getText().trim());
+            req.add("major", majorText.getText().trim());
+
+            Result addResult = HttpRequestUtils.request("/student/insertStudent", req);
+            String msg = addResult.getMsg();
+            if (msg.equals("学生已存在")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("错误");
+                alert.setHeaderText(null);
+                alert.setContentText("添加学生失败。错误：" + addResult.getMsg());
+                alert.showAndWait();
+            }
+            else if (msg.equals("人员不存在")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("错误");
+                alert.setHeaderText(null);
+                alert.setContentText("添加学生失败。错误：" + "人员不存在，请先到人员管理添加人员信息。");
+                alert.showAndWait();
+            }
+            else if (msg.equals("添加成功")){
+                clearPanel();
+                refreshTable();
+                person_numText.setDisable(true);
+                person_numText.setOpacity(0.5);
+                student_nameText.setDisable(true);
+                student_nameText.setOpacity(0.5);
+                departmentText.setDisable(true);
+                departmentText.setOpacity(0.5);
+                classText.setDisable(true);
+                classText.setOpacity(0.5);
+                gradeText.setDisable(true);
+                gradeText.setOpacity(0.5);
+                majorText.setDisable(true);
+                majorText.setOpacity(0.5);
+                add.setDisable(false);
+                add.setOpacity(1.0);
+                confirm.setVisible(false);
+                confirm.setDisable(true);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("错误");
+                alert.setHeaderText(null);
+                alert.setContentText("添加学生失败。错误：" + addResult.getMsg());
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText(null);
+            alert.setContentText("输入无效，请检查输入字段。");
+            alert.showAndWait();
+        }
     }
 }
