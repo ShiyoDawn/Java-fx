@@ -15,9 +15,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="690.0" prefWidth="980.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseSelectController">
+<AnchorPane fx:id="pane" prefHeight="725.0" prefWidth="1100.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseSelectController">
     <children>
-        <GridPane fx:id="gridPane" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="532.0" stylesheets="@./css/dashBoard.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+        <GridPane fx:id="gridPane" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="614.0" stylesheets="@./css/dashBoard.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" prefWidth="65" />
                 <ColumnConstraints hgrow="SOMETIMES" prefWidth="80" />
@@ -50,39 +50,39 @@
             <Label text="七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <Label text="九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
         </GridPane>
-        <Label layoutX="690.0" layoutY="5.0" prefHeight="32.0" prefWidth="105.0" text="当前总学分：   ">
+        <Label layoutX="785.0" layoutY="8.0" prefHeight="32.0" prefWidth="105.0" text="当前总学分：   ">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
-        <Pagination fx:id="pagination" layoutX="374.0" layoutY="476.0" prefHeight="200.0" prefWidth="200.0" />
-        <Button fx:id="all" layoutX="10.0" layoutY="392.0" mnemonicParsing="false" onAction="#allC" prefHeight="32.0" prefWidth="67.0" text="全部课程" />
-        <CheckBox fx:id="noconflict" layoutX="674.0" layoutY="390.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="165.0" text="只查看无时间冲突课程" />
-        <Line endX="635.0" endY="188.16665649414062" layoutX="343.0" layoutY="192.0" startX="-343.0" startY="188.16665649414062" />
-        <Button fx:id="major" layoutX="77.0" layoutY="392.0" mnemonicParsing="false" onAction="#majorC" prefHeight="32.0" prefWidth="67.0" text="必修课程" />
-        <Button fx:id="option" layoutX="144.0" layoutY="392.0" mnemonicParsing="false" onAction="#optionC" prefHeight="32.0" prefWidth="67.0" text="选修课程" />
-        <Button fx:id="limit" layoutX="211.0" layoutY="392.0" mnemonicParsing="false" onAction="#limitC" prefHeight="32.0" prefWidth="67.0" text="限选课程" />
+        <Pagination fx:id="pagination" layoutX="436.0" layoutY="506.0" prefHeight="200.0" prefWidth="200.0" />
+        <Button fx:id="all" layoutX="96.0" layoutY="422.0" mnemonicParsing="false" onAction="#allC" prefHeight="32.0" prefWidth="67.0" text="全部课程" />
+        <CheckBox fx:id="noconflict" layoutX="736.0" layoutY="420.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="165.0" text="只查看无时间冲突课程" />
+        <Line endX="635.0" endY="188.16665649414062" layoutX="343.0" layoutY="219.0" startX="-343.0" startY="188.16665649414062" />
+        <Button fx:id="major" layoutX="163.0" layoutY="422.0" mnemonicParsing="false" onAction="#majorC" prefHeight="32.0" prefWidth="67.0" text="必修课程" />
+        <Button fx:id="option" layoutX="230.0" layoutY="422.0" mnemonicParsing="false" onAction="#optionC" prefHeight="32.0" prefWidth="67.0" text="选修课程" />
+        <Button fx:id="limit" layoutX="297.0" layoutY="422.0" mnemonicParsing="false" onAction="#limitC" prefHeight="32.0" prefWidth="67.0" text="限选课程" />
       <AnchorPane fx:id="one" layoutX="36.0" layoutY="444.0" prefHeight="49.0" prefWidth="464.0" />
       <AnchorPane fx:id="two" layoutX="508.0" layoutY="444.0" prefHeight="49.0" prefWidth="464.0" />
       <AnchorPane fx:id="three" layoutX="37.0" layoutY="508.0" prefHeight="49.0" prefWidth="464.0" />
       <AnchorPane fx:id="four" layoutX="508.0" layoutY="508.0" prefHeight="49.0" prefWidth="464.0" />
       <AnchorPane fx:id="five" layoutX="38.0" layoutY="571.0" prefHeight="49.0" prefWidth="464.0" />
       <AnchorPane fx:id="six" layoutX="511.0" layoutY="570.0" prefHeight="49.0" prefWidth="464.0" />
-        <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="32.0" layoutY="437.0" opacity="0.9" width="445.0">
+        <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="94.0" layoutY="467.0" opacity="0.9" width="445.0">
         </Rectangle>
-      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="502.0" layoutY="436.0" opacity="0.9" width="445.0" />
-      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="33.0" layoutY="501.0" opacity="0.9" width="445.0" />
-      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="34.0" layoutY="564.0" opacity="0.9" width="445.0" />
-      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="504.0" layoutY="563.0" opacity="0.9" width="445.0" />
-      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="502.0" layoutY="501.0" opacity="0.9" width="445.0" />
-      <Label layoutX="774.0" layoutY="5.0" prefHeight="32.0" prefWidth="74.0">
+      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="564.0" layoutY="466.0" opacity="0.9" width="445.0" />
+      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="95.0" layoutY="531.0" opacity="0.9" width="445.0" />
+      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="96.0" layoutY="594.0" opacity="0.9" width="445.0" />
+      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="566.0" layoutY="593.0" opacity="0.9" width="445.0" />
+      <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="564.0" layoutY="531.0" opacity="0.9" width="445.0" />
+      <Label layoutX="870.0" layoutY="8.0" prefHeight="32.0" prefWidth="74.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="550.0" layoutY="43.0" prefHeight="332.0" prefWidth="427.0">
+      <ScrollPane layoutX="651.0" layoutY="45.0" prefHeight="332.0" prefWidth="427.0">
          <content>
-            <TableView prefHeight="332.0" prefWidth="410.0">
+            <TableView prefHeight="335.0" prefWidth="410.0">
               <columns>
                 <TableColumn prefWidth="85.3333740234375" text="课程名称" />
                 <TableColumn prefWidth="72.666748046875" text="课程性质" />
@@ -94,7 +94,7 @@
             </TableView>
          </content>
       </ScrollPane>
-      <Button layoutX="831.0" layoutY="390.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="67.0" text="查询" />
-      <CheckBox fx:id="nofull" layoutX="533.0" layoutY="390.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="135.0" text="只查看未满课程" />
+      <Button layoutX="893.0" layoutY="420.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="67.0" text="查询" />
+      <CheckBox fx:id="nofull" layoutX="595.0" layoutY="420.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="135.0" text="只查看未满课程" />
     </children>
 </AnchorPane>

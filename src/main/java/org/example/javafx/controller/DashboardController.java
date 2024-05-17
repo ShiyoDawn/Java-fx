@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +22,8 @@ import org.example.javafx.util.CommonMethod;
 import org.example.javafx.util.ElementsTool;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -70,28 +74,30 @@ public class DashboardController {
             terms = "2023-2024-2";
             bl = true;
             addlabel(Integer.parseInt(getCurrentTime().get("week")), student_id, getCurrentTime().get("terms"));
-        } else {
-            addlabel(Integer.parseInt(getCurrentTime().get("week")), "1", getCurrentTime().get("terms"));
+            comboBoxTerm.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    select();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            comboBoxWeek.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    select();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            setEvent(eventBox);
+        } else if(AppStore.getUser().getUser_type_id() == 1){
+            gridPane.setVisible(false);
+            comboBoxTerm.setVisible(false);
+            comboBoxWeek.setVisible(false);
         }
-        comboBoxTerm.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                select();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        comboBoxWeek.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                select();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        setEvent(eventBox);
     }
 
     //添加课程表上的课程

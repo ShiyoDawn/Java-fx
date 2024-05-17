@@ -114,34 +114,81 @@ public class CourseController {
         six.setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
                 "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
         if(AppStore.getUser().getUser_type_id() == 3){
+            capacity.setEditable(false);
+            classes.setEditable(false);
+            credit.setEditable(false);
+            course_name.setEditable(false);
+            capacity.setEditable(false);
+            book.setEditable(false);
+            extra.setEditable(false);
+            teacher.setEditable(false);
+            num.setEditable(false);
             save.setVisible(false);
             add.setVisible(false);
             delete.setVisible(false);
+            selectCourse.setVisible(false);
+            inputName.setVisible(false);
+            selectType.setVisible(false);
+            classNum.setVisible(false);
+            selectTerms.setVisible(false);
             tab.setText("显示窗口");
             selectClass.setVisible(false);
             Label l = new Label("班级:  " + DashboardController.classes);
-            select();
-            l.setLayoutX(119);
-            l.setLayoutY(34);
-            l.setFont(Font.font(17));
+            l.setLayoutX(430);
+            l.setLayoutY(29);
+            l.setFont(Font.font(25));
             tabCenter.getChildren().add(l);
+        } else if (AppStore.getUser().getUser_type_id() == 2){
+            capacity.setEditable(false);
+            classes.setEditable(false);
+            credit.setEditable(false);
+            course_name.setEditable(false);
+            capacity.setEditable(false);
+            book.setEditable(false);
+            extra.setEditable(false);
+            teacher.setEditable(false);
+            num.setEditable(false);
+            save.setVisible(false);
+            add.setVisible(false);
+            delete.setVisible(false);
+            selectCourse.setVisible(false);
+            inputName.setVisible(false);
+            selectType.setVisible(false);
+            classNum.setVisible(false);
+            selectTerms.setVisible(false);
+            tab.setText("显示窗口");
+            selectClass.setVisible(false);
         }
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
-            for (int i = 0; i < styleStatue.length; i ++){
+            for (int i = 0; i < styleStatue.length; i++){
                 if (styleStatue[i] == 1){
                     getPane(i).setStyle("-fx-background-color: linear-gradient(to bottom,#8cfab6 ,#59ef91);" +
                             "-fx-background-radius: 9px;-fx-border-width: 0.5px; -fx-border-color: #235736; -fx-border-radius: 9px;");
                     styleStatue[i] = 0;
                 }
             }
-            int clickedPageIndex = newValue.intValue();
-            try {
-                handlePageClick(new HashMap<>(), clickedPageIndex, "/course/selectAllByPage"); // 处理点击事件
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if(AppStore.getUser().getUser_type_id() == 1){
+                int clickedPageIndex = newValue.intValue();
+                try {
+                    handlePageClick(new HashMap<>(), clickedPageIndex, "/course/selectAllByPage"); // 处理点击事件
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (AppStore.getUser().getUser_type_id() == 3){
+                int clickedPageIndex = newValue.intValue();
+                Map<String, String> map = new HashMap<>();
+                map.put("student_id", DashboardController.student_id);
+                try {
+                    handlePageClick(map, clickedPageIndex, "/course/selectCourseByStudent"); // 处理点击事件
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
+
         });
     }
 
@@ -157,9 +204,9 @@ public class CourseController {
         map.put("pageNum", pageNum);
         dataRequest.setData(map);
         Result data = HttpRequestUtils.courseField(url, dataRequest);
-        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
-        addLabel(dataList);
-
+        List<Map<String, ? extends Object>> dataList1 = new Gson().fromJson(data.getData().toString(), List.class);
+        addLabel(dataList1);
+        dataList = dataList1;
     }
 
     private void deleteNode() {
@@ -226,26 +273,50 @@ public class CourseController {
         for (Map<String, String> a : dataListType) {
             selectType.getItems().add(a.get("course_type_name"));
         }
-        DataRequest dataRequest1 = new DataRequest();
-        Result data1 = HttpRequestUtils.courseField("/course/selectAll", dataRequest1);
-        dataList = new Gson().fromJson(data1.getData().toString(), List.class);
-        addLabel(dataList);
-        course_name.setText((String) dataList.get(0).get("course_name"));
-        num.setText((String) dataList.get(0).get("num"));
-        type.setValue(dataList.get(0).get("course_type_name"));
-        classes.setText((String) dataList.get(0).get("classes"));
-        book.setText((String) dataList.get(0).get("book"));
-        extra.setText((String) dataList.get(0).get("extracurricular"));
-        teacher.setText((String) dataList.get(0).get("teacher_name"));
-        credit.setText(String.valueOf(dataList.get(0).get("credit")));
-        capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
-        id.setText(String.valueOf(dataList.get(0).get("id")));
-        setPagination(dataList);
+        if(AppStore.getUser().getUser_type_id() == 3){
+            DataRequest dataRequest1 = new DataRequest();
+            Map<String, String> map = new HashMap<>();
+            map.put("student_id",DashboardController.student_id);
+            dataRequest1.setData(map);
+            Result data1 = HttpRequestUtils.courseField("/course/selectCourseByStudent", dataRequest1);
+            List<Map<String, ? extends Object>> dataList1 = new Gson().fromJson(data1.getData().toString(), List.class);
+            addLabel(dataList1);
+            System.out.println(dataList1.size());
+            setPagination(dataList1);
+            dataList = dataList1;
+            course_name.setText((String) dataList.get(0).get("course_name"));
+            num.setText((String) dataList.get(0).get("num"));
+            type.setValue(dataList.get(0).get("course_type_name"));
+            classes.setText((String) dataList.get(0).get("classes"));
+            book.setText((String) dataList.get(0).get("book"));
+            extra.setText((String) dataList.get(0).get("extracurricular"));
+            teacher.setText((String) dataList.get(0).get("teacher_name"));
+            credit.setText(String.valueOf(dataList.get(0).get("credit")));
+            capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
+            id.setText(String.valueOf(dataList.get(0).get("id")));
+        } else if(AppStore.getUser().getUser_type_id() == 1){
+            DataRequest dataRequest1 = new DataRequest();
+            Result data1 = HttpRequestUtils.courseField("/course/selectAll", dataRequest1);
+            List<Map<String,? extends Object>> dataList1 = new Gson().fromJson(data1.getData().toString(), List.class);
+            addLabel(dataList1);
+            dataList = dataList1;
+            course_name.setText((String) dataList.get(0).get("course_name"));
+            num.setText((String) dataList.get(0).get("num"));
+            type.setValue(dataList.get(0).get("course_type_name"));
+            classes.setText((String) dataList.get(0).get("classes"));
+            book.setText((String) dataList.get(0).get("book"));
+            extra.setText((String) dataList.get(0).get("extracurricular"));
+            teacher.setText((String) dataList.get(0).get("teacher_name"));
+            credit.setText(String.valueOf(dataList.get(0).get("credit")));
+            capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
+            id.setText(String.valueOf(dataList.get(0).get("id")));
+            setPagination(dataList1);
+        }
     }
 
-    private void addLabel(List<Map<String, ? extends Object>> dataList) throws IOException {
+    private void addLabel(List<Map<String, ? extends Object>> dataList1) throws IOException {
         int count = 0;
-        for (Map<String, ? extends Object> a : dataList) {
+        for (Map<String, ? extends Object> a : dataList1) {
             count++;
             Label label = new Label();
             label.setMaxSize(450, 30);
@@ -301,7 +372,7 @@ public class CourseController {
         pane.getChildren().add(pane1);
     }
 
-    private void setPagination(List<Map<String, ? extends Object>> list) throws IOException, InterruptedException {
+    private void setPagination(List<Map<String, ? extends Object>> list){
         if (list.size() == 0) {
             pagination.setPageCount(1);
         } else {
@@ -350,8 +421,8 @@ public class CourseController {
         Map<String, ? extends Object> map = selectData();
         dataRequest.setData(map);
         Result data = HttpRequestUtils.courseField("/course/selectSpecial", dataRequest);
-        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
-        if (dataList.size() == 0) {
+        List<Map<String, ? extends Object>> dataList1 = new Gson().fromJson(data.getData().toString(), List.class);
+        if (dataList1.size() == 0) {
             Label label = new Label("暂无课程");
             label.setMaxSize(450, 30);
             label.setId("course");
@@ -366,8 +437,8 @@ public class CourseController {
         deleteNode();
         pagination.setCurrentPageIndex(0);
         deleteNode();
-        setPagination(dataList);
-        addLabel(dataList);
+        setPagination(dataList1);
+        addLabel(dataList1);
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
             int clickedPageIndex = newValue.intValue();
             try {
