@@ -37,7 +37,6 @@ public class HttpRequestUtils {
         try {
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             Result result = new Gson().fromJson(response.body(), Result.class);
-            System.out.println(result.getCode());
             if (result.getCode().equals(200) == false) {
                 throw new RuntimeException();
             }
@@ -97,7 +96,6 @@ public class HttpRequestUtils {
         HttpClient client = HttpClient.newHttpClient();
         try {
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            System.out.println("url=" + url + "    response.statusCode=" + response.statusCode());
             if (response.statusCode() == 200) {
                 //                System.out.println(response.body());
                 Result result = gson.fromJson(response.body(), Result.class);

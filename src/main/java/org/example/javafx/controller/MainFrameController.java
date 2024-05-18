@@ -106,7 +106,6 @@ public class MainFrameController {
         });
 
         menuList = new HttpRequestUtils().getMenu(AppStore.getUser().getUser_type_id());
-        System.out.println(menuList);
         //加载仪表盘界面为初始界面
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(MainApplication.class.getResource("dashboard-view.fxml"));

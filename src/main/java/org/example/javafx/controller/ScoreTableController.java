@@ -166,7 +166,6 @@ public class ScoreTableController {
     private void onDeleteButtonClick(ActionEvent event) {
         onCancelClick();
         List<Map> selected = dataTableView.getSelectionModel().getSelectedItems();
-        System.out.println(selected);
         if (selected.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("请选择要删除的数据");
@@ -606,7 +605,6 @@ public class ScoreTableController {
                 }
             } else if (editConfirmButton.getText() == "增加分数") {
                 result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);
-                System.out.println(result);
                 if(result!=null){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setResizable(false);
@@ -616,7 +614,6 @@ public class ScoreTableController {
                 }
                 String msg = CommonMethod.alertButton("增加");
                 if (msg == "确认") {
-                    System.out.println(dataRequest.getData());
                     HttpRequestUtils.request("/score/insertScore", dataRequest);
                 }
             }
