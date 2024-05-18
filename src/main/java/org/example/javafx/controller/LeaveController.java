@@ -253,7 +253,6 @@ public class LeaveController {
 
     @FXML
     private void onApplyButtonClick() {
-        System.out.println("apply");
         Integer cnt = 0;
         if (studentIdTextField.getText() == "") {
             cnt++;
@@ -288,10 +287,9 @@ public class LeaveController {
         if (goOutTypeComboBox.getSelectionModel().getSelectedItem() == null || goOutTypeComboBox.getSelectionModel().getSelectedItem().toString() == "请选择请假类型") {
             cnt++;
         }
-        if (reasonComboBox.getSelectionModel().getSelectedItem() == null || goOutTypeComboBox.getSelectionModel().getSelectedItem().toString() == "请选择请假事由") {
+        if (reasonComboBox.getSelectionModel().getSelectedItem() == null || reasonComboBox.getSelectionModel().getSelectedItem().toString() == "请选择请假事由") {
             cnt++;
         }
-        System.out.println(cnt);
         if (cnt == 0) {
             LocalDate goOutDate = goOutDatePicker.getValue();
             LocalDate comeBackDate = comeBackDatePicker.getValue();
@@ -320,7 +318,6 @@ public class LeaveController {
                 dataRequest.add("start_time", goOutDatePicker.getValue().toString());
                 dataRequest.add("end_time", comeBackDatePicker.getValue().toString());
                 dataRequest.add("student_tele", studentTeleTextField.getText());
-                System.out.println(dataRequest.getData());
                 HttpRequestUtils.request("/leave/insertLeave", dataRequest);
                 onResetButtonClick();
                 onResetViewButtonClick();
@@ -424,7 +421,35 @@ public class LeaveController {
             primaryStage.setResizable(false);
             primaryStage.showAndWait();
             DataRequest dataRequest = new DataRequest();
-            Integer id = CommonMethod.getInteger(selected.get(0), "id");
+            String student_num = CommonMethod.getString(selected.get(0), "student_num");
+            String student_name = CommonMethod.getString(selected.get(0), "student_name");
+            String leave_type = CommonMethod.getString(selected.get(0), "leave_type");
+            String leave_reason = CommonMethod.getString(selected.get(0), "leave_reason");
+            String destination = CommonMethod.getString(selected.get(0), "destination");
+            String time = CommonMethod.getString(selected.get(0), "time");
+            String start_time = CommonMethod.getString(selected.get(0), "start_time");
+            String end_time = CommonMethod.getString(selected.get(0), "end_time");
+            String institute = CommonMethod.getString(selected.get(0), "institute");
+            String major = CommonMethod.getString(selected.get(0), "major");
+            String instructor_name = CommonMethod.getString(selected.get(0), "instructor_name");
+            String instructor_tele = CommonMethod.getString(selected.get(0), "instructor_tele");
+            String leave_detailed_reason = CommonMethod.getString(selected.get(0), "leave_detailed_reason");
+            String student_tele = CommonMethod.getString(selected.get(0), "student_tele");
+
+            dataRequest.add("student_num", student_num);
+            dataRequest.add("student_name", student_name);
+            dataRequest.add("leave_type", leave_type);
+            dataRequest.add("leave_reason", leave_reason);
+            dataRequest.add("destination", destination);
+            dataRequest.add("time", time);
+            dataRequest.add("start_time", start_time);
+            dataRequest.add("end_time", end_time);
+            dataRequest.add("institute", institute);
+            dataRequest.add("major", major);
+            dataRequest.add("instructor_name", instructor_name);
+            dataRequest.add("instructor_tele", instructor_tele);
+            dataRequest.add("leave_detailed_reason", leave_detailed_reason);
+            dataRequest.add("student_tele", student_tele);
             dataRequest.add("status", msg[0]);
             HttpRequestUtils.request("/leave/updateStatus", dataRequest);
             onQueryButtonClick();
@@ -555,7 +580,6 @@ public class LeaveController {
             map.put(i + "", reason[i]);
             reasonList.add(map.get(i + ""));
         }
-        System.out.println(goOutTypeList);
         goOutTypeComboBox.getItems().addAll(goOutTypeList);
         reasonComboBox.getItems().addAll(reasonList);
         goOutDatePicker.setValue(LocalDate.now());

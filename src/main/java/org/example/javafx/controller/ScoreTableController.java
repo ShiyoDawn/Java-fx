@@ -166,6 +166,7 @@ public class ScoreTableController {
     private void onDeleteButtonClick(ActionEvent event) {
         onCancelClick();
         List<Map> selected = dataTableView.getSelectionModel().getSelectedItems();
+        System.out.println(selected);
         if (selected.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("请选择要删除的数据");
@@ -179,9 +180,13 @@ public class ScoreTableController {
             for (Map scoreMap : selected) {
                 String student_num = CommonMethod.getString(scoreMap, "student_num");
                 String course_num = CommonMethod.getString(scoreMap, "course_num");
+                String student_name = CommonMethod.getString(scoreMap, "student_name");
+                String course_name = CommonMethod.getString(scoreMap, "course_name");
                 DataRequest dataRequest = new DataRequest();
                 dataRequest.add("student_num", student_num);
                 dataRequest.add("course_num", course_num);
+                dataRequest.add("student_name", student_name);
+                dataRequest.add("course_name", course_name);
                 HttpRequestUtils.request("/score/deleteAllById", dataRequest);
             }
         }
@@ -194,7 +199,6 @@ public class ScoreTableController {
         onCancelClick();
         Map selected = dataTableView.getSelectionModel().getSelectedItem();
         editConfirmButton.setText("修改分数");
-        editTabPane.setVisible(true);
         if (selected != null) {
             DataRequest dataRequest = new DataRequest();
             String student_num = CommonMethod.getString(selected, "student_num");
@@ -640,6 +644,9 @@ public class ScoreTableController {
         courseComboBox.getItems().clear();
         studentEditComboBox.getItems().clear();
         courseEditComboBox.getItems().clear();
+        markUpdateTextField.setText("");
+        studentEditComboBox.setPromptText("请选择学生");
+        courseEditComboBox.setPromptText("请选择课程");
         editButton.setVisible(false);
         Result result = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
         List<Map> studentList = (List<Map>) result.getData();
@@ -676,27 +683,6 @@ public class ScoreTableController {
         );
         editConfirmButton.setText("添加分数");
         User user = AppStore.getUser();
-        if (user.getUser_type_id() == 3) {
-
-            viewTab.setText("我的分数");
-
-
-            one.setVisible(false);
-            studentComboBox.setVisible(false);
-            id.setVisible(false);
-            addButton.setVisible(false);
-            deleteButton.setVisible(false);
-            editButton.setVisible(false);
-            classComboBox.setVisible(false);
-            five.setVisible(false);
-
-            String person_num = user.getPerson_num();
-            DataRequest dataRequest = new DataRequest();
-            dataRequest.add("person_num", person_num);
-            Result result1 = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
-            studentComboBox.setValue(user.getPerson_num() + "-" + ((Map) result1.getData()).get("person_name"));
-            studentComboBox.setDisable(true);
-        }
 
         DataRequest req = new DataRequest();
         Result studentResult = HttpRequestUtils.request("/student/getStudentList", req); //从后台获取所有学生信息列表集合
@@ -753,27 +739,51 @@ public class ScoreTableController {
             }
         });
         dataTableView.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 1 && e.getButton() == MouseButton.PRIMARY && editTabPane.isVisible()) {
-                Map selected = dataTableView.getSelectionModel().getSelectedItem();
-                if (selected != null) {
-                    editTabPane.setVisible(true);
-                    editAnchorPane.setVisible(true);
-                    DataRequest dataRequest = new DataRequest();
-                    String student_num = CommonMethod.getString(selected, "student_num");
-                    String course_num = CommonMethod.getString(selected, "course_num");
-                    String student_name = CommonMethod.getString(selected, "student_name");
-                    String course_name = CommonMethod.getString(selected, "course_name");
-                    String mark = CommonMethod.getString(selected, "mark");
-                    studentEditComboBox.setValue(student_num + "-" + student_name);
-                    courseEditComboBox.setValue(course_num + "-" + course_name);
-                    studentEditComboBox.setDisable(true);
-                    courseEditComboBox.setDisable(true);
-                    markUpdateTextField.setText(mark);
-                    editConfirmButton.setText("修改分数");
+            if(AppStore.getUser().getUser_type_id()!=3){
+                if (e.getClickCount() == 1 && e.getButton() == MouseButton.PRIMARY && editTabPane.isVisible()) {
+                    Map selected = dataTableView.getSelectionModel().getSelectedItem();
+                    if (selected != null) {
+                        editTabPane.setVisible(true);
+                        editAnchorPane.setVisible(true);
+                        DataRequest dataRequest = new DataRequest();
+                        String student_num = CommonMethod.getString(selected, "student_num");
+                        String course_num = CommonMethod.getString(selected, "course_num");
+                        String student_name = CommonMethod.getString(selected, "student_name");
+                        String course_name = CommonMethod.getString(selected, "course_name");
+                        String mark = CommonMethod.getString(selected, "mark");
+                        studentEditComboBox.setValue(student_num + "-" + student_name);
+                        courseEditComboBox.setValue(course_num + "-" + course_name);
+                        studentEditComboBox.setDisable(true);
+                        courseEditComboBox.setDisable(true);
+                        markUpdateTextField.setText(mark);
+                        editConfirmButton.setText("修改分数");
+                    }
                 }
             }
         });
+        if (user.getUser_type_id() == 3) {
 
+            viewTab.setText("我的分数");
+
+
+            one.setVisible(false);
+            studentComboBox.setVisible(false);
+            id.setVisible(false);
+            addButton.setVisible(false);
+            deleteButton.setVisible(false);
+            editButton.setVisible(false);
+            classComboBox.setVisible(false);
+            editTabPane.setVisible(false);
+            editAnchorPane.setVisible(false);
+            five.setVisible(false);
+
+            String person_num = user.getPerson_num();
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("person_num", person_num);
+            Result result1 = HttpRequestUtils.request("/person/selectByPersonNum", dataRequest);
+            studentComboBox.setValue(user.getPerson_num() + "-" + ((Map) result1.getData()).get("person_name"));
+            studentComboBox.setDisable(true);
+        }
         result=HttpRequestUtils.request("/score/getScoreList",new DataRequest());
         scoreList=(List<Map>)result.getData();
 
