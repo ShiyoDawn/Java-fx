@@ -12,6 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import org.example.javafx.MainApplication;
 
+
+import static javafx.application.Platform.exit;
+
 public class ElementsTool {
     public void setCloseButton(Button closeButton) {
         //关闭按钮初始化
@@ -23,6 +26,7 @@ public class ElementsTool {
 
         closeButton.setOnAction(e -> {
                 MainApplication.getMainStage().close();
+                exit();
         });
 
         closeButton.setOnMouseEntered(e -> {
