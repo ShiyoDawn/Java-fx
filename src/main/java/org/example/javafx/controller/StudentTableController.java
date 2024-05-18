@@ -333,7 +333,6 @@ public class StudentTableController {
                 req.add("id", id.toString());
                 req.add("person_num", person_numText.getText().trim());
                 req.add("student_name", student_nameText.getText().trim());
-                System.out.println(student_nameText.getText().trim());
                 req.add("department", departmentText.getText().trim());
                 req.add("classes", classText.getText().trim());
                 req.add("grade", gradeText.getText().trim());

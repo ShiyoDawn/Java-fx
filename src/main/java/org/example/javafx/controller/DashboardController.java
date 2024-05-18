@@ -389,7 +389,6 @@ public class DashboardController {
                 else {
                     str = "已通过审核请假 " + leaveList.get(i).get("leave_reason");
                     Button leaveButton = new Button(str);
-                    System.out.println();
                     tool.setEventButton2(leaveButton);
                     eventBox.getChildren().add(leaveButton);
                 }
@@ -403,7 +402,6 @@ public class DashboardController {
 
     private void setNotice(){
         Result result =  HttpRequestUtils.request("/menu/getNotice", new DataRequest());
-        System.out.println(result.getData());
         List<Map> notice = (List<Map>)result.getData();
         noticeLabel.setText(notice.get(0).get("text").toString());
         noticeLabel.setTextFill(Color.web(notice.get(0).get("color").toString()));
