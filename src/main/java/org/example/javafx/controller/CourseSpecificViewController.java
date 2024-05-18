@@ -320,6 +320,10 @@ public class CourseSpecificViewController {
                     button1.setFont(Font.font(14));
                     button1.setOnAction(event1 -> {
                         try {
+                            CourseHomeworkController.course_id = String.valueOf(a.get("course_id"));
+                            CourseHomeworkController.week = String.valueOf(a.get("week"));
+                            CourseHomeworkController.week_time = String.valueOf(a.get("week_time"));
+                            CourseHomeworkController.time_sort = String.valueOf(a.get("time_sort"));
                             // 加载新的FXML文件
                             FXMLLoader fxmlLoader = new FXMLLoader();
                             fxmlLoader.setLocation(MainApplication.class.getResource("course-homework.fxml"));
@@ -328,6 +332,7 @@ public class CourseSpecificViewController {
                             Stage newStage = new Stage();
                             newStage.initStyle(StageStyle.DECORATED);
                             newStage.setTitle("查看作业/考勤");
+                            newStage.setResizable(false);
                             newStage.setScene(new Scene(root));
                             newStage.show();
                         } catch (IOException e) {
@@ -560,6 +565,7 @@ public class CourseSpecificViewController {
             newStage.initStyle(StageStyle.DECORATED);
             newStage.setTitle("选课界面");
             newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -577,6 +583,7 @@ public class CourseSpecificViewController {
             newStage.initStyle(StageStyle.DECORATED);
             newStage.setTitle("团队信息");
             newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -594,6 +601,7 @@ public class CourseSpecificViewController {
             newStage.initStyle(StageStyle.DECORATED);
             newStage.setTitle("作业统计");
             newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -626,6 +634,7 @@ public class CourseSpecificViewController {
             Stage newStage = new Stage();
             newStage.initStyle(StageStyle.DECORATED);
             newStage.setTitle("编辑上课时间");
+            newStage.setResizable(false);
             newStage.setScene(new Scene(root));
             newStage.show();
             //自动刷新->类内操作
@@ -633,10 +642,5 @@ public class CourseSpecificViewController {
             e.printStackTrace();
         }
     }
-    public void teast(){
-        Button button = new Button();
-    }
-    public TextField gettextfield(){
-        return textField;
-    }
+
 }

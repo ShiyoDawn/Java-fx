@@ -18,6 +18,8 @@ import org.example.javafx.request.HttpRequestUtils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +70,7 @@ public class CourseDeliverHomeworkController {
         }
 
     }
-    public void deliverC(){
+    public void deliverC() throws IOException, InterruptedException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(deliver.getScene().getWindow());
@@ -77,9 +79,24 @@ public class CourseDeliverHomeworkController {
             road.setText(selectedFile.getAbsolutePath());
             Result data = HttpRequestUtils.uploadFile("/user/uploadPhoto", selectedFile.getPath(), "homework", idC(DashboardController.student_id) +"a"+ idC(lesson_id) + "a"+ "1");
             if(data.getCode() == 200){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("上传成功");
-                alert.showAndWait();
+                LocalDateTime currentTime = LocalDateTime.now();
+                // 格式化时间
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String formattedTime = currentTime.format(formatter);
+                String time = formattedTime.substring(0, 10);
+                DataRequest dataRequest = new DataRequest();
+                Map<String, String> map = new HashMap<>();
+                map.put("student_id", DashboardController.student_id);
+                map.put("lesson_id",lesson_id);
+                map.put("statusHome","已提交");
+                map.put("time",time);
+                dataRequest.setData(map);
+                Result data1 = HttpRequestUtils.courseField("/lesson/updateHomework", dataRequest);
+                if(data1.getCode() == 200){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("上传成功");
+                    alert.showAndWait();
+                }
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -99,6 +116,7 @@ public class CourseDeliverHomeworkController {
             Stage newStage = new Stage();
             newStage.initStyle(StageStyle.DECORATED);
             newStage.setTitle("查看作业界面");
+            newStage.setResizable(false);
             newStage.setScene(new Scene(root));
             newStage.initModality(Modality.APPLICATION_MODAL);
 //                    Node node = add.getScene().getRoot();
