@@ -147,6 +147,17 @@ public class StudentTableController {
                 person_numText.setText(oldValue);
             }
         });
+        gradeText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!newValue.matches("大一|大二|大三|大四")) {
+                    infoLabel.setText("年级输入格式错误，请输入大一or大二or大三or大四");
+                    infoLabel.setTextFill(Color.RED);
+                } else {
+                    infoLabel.setText("年级输入格式正确");
+                    infoLabel.setTextFill(Color.GREEN);
+                }
+            }
+        });
 
 
         try {
@@ -215,6 +226,10 @@ public class StudentTableController {
             return;
         }
         tableView.setItems(FXCollections.observableList(studentList));
+        add.setDisable(false);
+        add.setOpacity(1.0);
+        update.setDisable(false);
+        update.setOpacity(1.0);
         save.setVisible(false);
         save.setDisable(true);
 //        save.setOpacity(0.5);
@@ -304,6 +319,14 @@ public class StudentTableController {
 
     @FXML
     public void saveAction() {
+        if(!gradeText.getText().matches("大一|大二|大三|大四")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText(null);
+            alert.setContentText("年级输入格式错误，请输入大一or大二or大三or大四");
+            alert.showAndWait();
+            return;
+        }
         if (validateInput()) {
             if (id != null) {
                 DataRequest req = new DataRequest();
@@ -561,23 +584,18 @@ public class StudentTableController {
     }
 
     public void onResetAction() {
-        idColumn.setCellValueFactory(new MapValueFactory<>("id"));
-        person_numColumn.setCellValueFactory(new MapValueFactory<>("person_num"));
-        student_nameColumn.setCellValueFactory(new MapValueFactory<>("student_name"));
-        departmentColumn.setCellValueFactory(new MapValueFactory<>("department"));
-        classesColumn.setCellValueFactory(new MapValueFactory<>("classes"));
-        gradeColumn.setCellValueFactory(new MapValueFactory<>("grade"));
-        majorColumn.setCellValueFactory(new MapValueFactory<>("major"));
-
-        Result studentResult = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
-        List<Map> studentList = (List<Map>) studentResult.getData();
-
-        tableView.setItems(FXCollections.observableList(studentList));
-        save.setDisable(true);
-        save.setOpacity(0.5);
+        initialize();
     }
 
     public void confirmAction() {
+        if (!gradeText.getText().equals("大一") && !gradeText.getText().equals("大二") && !gradeText.getText().equals("大三") && !gradeText.getText().equals("大四")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText(null);
+            alert.setContentText("年级输入格式错误，请输入大一or大二or大三or大四");
+            alert.showAndWait();
+            return;
+        }
         if (validateInput()) {
             DataRequest req = new DataRequest();
             req.add("person_num", person_numText.getText().trim());
@@ -635,6 +653,20 @@ public class StudentTableController {
             alert.setHeaderText(null);
             alert.setContentText("输入无效，请检查输入字段。");
             alert.showAndWait();
+        }
+    }
+
+    public void onStatisticButtonClickAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/javafx/student-classification.fxml"));
+            Parent parent = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("学生统计");
+            stage.setScene(new Scene(parent));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

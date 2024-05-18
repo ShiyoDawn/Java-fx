@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentClassificationController">
+   <children>
+      <TableView fx:id="tableView" layoutY="80.0" prefHeight="520.0" prefWidth="1000.0">
+        <columns>
+          <TableColumn fx:id="gradeColumn" prefWidth="75.0" text="年级" />
+          <TableColumn fx:id="classesColumn" prefWidth="75.0" text="班级" />
+            <TableColumn fx:id="maleColumn" prefWidth="54.666656494140625" text="男" />
+            <TableColumn fx:id="femaleColumn" prefWidth="53.33335876464844" text="女" />
+            <TableColumn fx:id="party_memberColumn" prefWidth="66.0" text="党员" />
+            <TableColumn fx:id="league_memberColumn" prefWidth="57.33331298828125" text="团员" />
+            <TableColumn fx:id="le_18Column" prefWidth="118.66668701171875" text="18岁以下（含）" />
+            <TableColumn fx:id="ge_19Column" prefWidth="104.00003051757812" text="19岁以上（含）" />
+            <TableColumn fx:id="activity_numberColumn" prefWidth="75.0" text="社会实践数" />
+            <TableColumn fx:id="glory_numberColumn" prefWidth="75.0" text="荣誉数" />
+            <TableColumn fx:id="average_scoreColumn" prefWidth="75.0" text="平均成绩" />
+            <TableColumn fx:id="highest_scoreColumn" prefWidth="87.9998779296875" text="最高分" />
+            <TableColumn fx:id="lowest_scoreColumn" prefWidth="82.666748046875" text="最低分" />
+        </columns>
+      </TableView>
+      <Label layoutX="437.0" layoutY="35.0" text="学生分类统计表">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

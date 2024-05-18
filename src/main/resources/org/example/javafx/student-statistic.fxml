@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.javafx.controller.StudentTableController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="200.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.StudentStatisticController">
+   <children>
+      <TableView fx:id="tableView" layoutY="50.0" prefHeight="150.0" prefWidth="800.0">
+        <columns>
+          <TableColumn fx:id="person_numColumn" prefWidth="75.0" text="学号" />
+          <TableColumn fx:id="student_nameColumn" prefWidth="75.0" text="姓名" />
+            <TableColumn fx:id="student_family_numberColumn" prefWidth="75.0" text="家庭成员数" />
+            <TableColumn fx:id="activity_numberColumn" prefWidth="75.0" text="社会实践数" />
+            <TableColumn fx:id="glory_numberColumn" prefWidth="75.0" text="荣誉数" />
+            <TableColumn fx:id="course_numberColumn" prefWidth="75.0" text="选课数" />
+            <TableColumn fx:id="average_scoreColumn" prefWidth="100.66671752929688" text="平均成绩" />
+            <TableColumn fx:id="max_scoreColumn" prefWidth="100.6666259765625" text="最高分" />
+            <TableColumn fx:id="min_scoreColumn" prefWidth="145.3333740234375" text="最低分" />
+        </columns>
+      </TableView>
+      <Label layoutX="357.0" layoutY="14.0" text="个人统计表" textFill="#fd0000">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>
