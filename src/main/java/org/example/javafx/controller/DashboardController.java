@@ -163,9 +163,9 @@ public class DashboardController {
             Result personList = HttpRequestUtils.request("/person/getAll",new DataRequest());
             List<Map> people = (List<Map>) personList.getData();
             Map total = new HashMap<>();
-            stuNum.setText("学生数：" + CommonMethod.filter(people,"user_type","1").size());
+            stuNum.setText("学生数：" + CommonMethod.filter(people,"user_type","3").size());
             adminNum.setText("管理员数：" + CommonMethod.filter(people,"user_type","1").size());
-            teaNum.setText("教师数：" + CommonMethod.filter(people,"user_type","1").size());
+            teaNum.setText("教师数：" + CommonMethod.filter(people,"user_type","2").size());
             total.put("admin", CommonMethod.filter(people,"user_type","1").size() * 1.0 /people.size());
             total.put("tea", CommonMethod.filter(people,"user_type","2").size() * 1.0 /people.size());
             total.put("stu", CommonMethod.filter(people,"user_type","3").size() * 1.0 /people.size());

@@ -32,8 +32,8 @@ public class CourseDeliverHomeworkController {
     Button deliver;
     @FXML
     Button look;
-    @FXML
-    ComboBox combobox;
+//    @FXML
+//    ComboBox combobox;
     static String course_id;
     static String week;
     static String week_time;
@@ -41,7 +41,7 @@ public class CourseDeliverHomeworkController {
     static String lesson_id;
     @FXML
     public void initialize() throws IOException, InterruptedException {
-        combobox.setValue("第1页");
+//        combobox.setValue("第1页");
         road.setEditable(false);
         DataRequest dataRequest = new DataRequest();
         Map<String, String> map = new HashMap<>();
@@ -75,7 +75,7 @@ public class CourseDeliverHomeworkController {
         if (selectedFile != null) {
             // 在这里处理上传选定文件的逻辑
             road.setText(selectedFile.getAbsolutePath());
-            Result data = HttpRequestUtils.uploadFile("/user/uploadPhoto", selectedFile.getPath(), "homework", idC(DashboardController.student_id) +"a"+ idC(lesson_id) + "a"+ String.valueOf(combobox.getValue()).charAt(1));
+            Result data = HttpRequestUtils.uploadFile("/user/uploadPhoto", selectedFile.getPath(), "homework", idC(DashboardController.student_id) +"a"+ idC(lesson_id) + "a"+ "1");
             if(data.getCode() == 200){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("上传成功");

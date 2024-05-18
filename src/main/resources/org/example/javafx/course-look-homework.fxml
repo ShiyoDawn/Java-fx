@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<?import javafx.scene.image.Image?>
 <AnchorPane fx:id="anchorPane" prefHeight="686.0" prefWidth="600.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseLookHomeworkController">
    <children>
       <ScrollPane layoutY="1.0" prefHeight="686.0" prefWidth="600.0">
          <content>
-            <ImageView fx:id="image11" fitHeight="463.0" fitWidth="592.0" pickOnBounds="true" preserveRatio="true" >
+            <ImageView fx:id="image11" fitHeight="463.0" fitWidth="592.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </content>
       </ScrollPane>
+      <Label fx:id="rank" layoutX="168.0" layoutY="527.0" prefHeight="47.0" prefWidth="319.0" text="作业评级：">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,27 +18,27 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="road" layoutX="194.0" layoutY="142.0" prefHeight="39.0" prefWidth="364.0" />
-      <Button fx:id="deliver" layoutX="226.0" layoutY="198.0" mnemonicParsing="false" onAction="#deliverC" text="点击上传作业">
+      <TextField fx:id="road" layoutX="41.0" layoutY="158.0" prefHeight="39.0" prefWidth="364.0" />
+      <Button fx:id="deliver" layoutX="426.0" layoutY="160.0" mnemonicParsing="false" onAction="#deliverC" text="点击上传作业">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="172.0" layoutY="246.0" prefHeight="39.0" prefWidth="269.0" text="提示：只能上传JPG图片，最多传三页" textFill="#f40202">
+      <Label layoutX="223.0" layoutY="216.0" prefHeight="39.0" prefWidth="269.0" text="提示：只能上传JPG图片" textFill="#f40202">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="combobox" layoutX="22.0" layoutY="148.0" prefWidth="150.0" promptText="请选择页数">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="第1页" />
-               <String fx:value="第2页" />
-               <String fx:value="第3页" />
-            </FXCollections>
-         </items>
-      </ComboBox>
-      <Button fx:id="look" onAction="#lookC" layoutX="226.0" layoutY="287.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="132.0" text="查看我的提交">
+<!--      <ComboBox fx:id="combobox" layoutX="22.0" layoutY="148.0" prefWidth="150.0" promptText="请选择页数">-->
+<!--         <items>-->
+<!--            <FXCollections fx:factory="observableArrayList">-->
+<!--               <String fx:value="第1页" />-->
+<!--               <String fx:value="第2页" />-->
+<!--               <String fx:value="第3页" />-->
+<!--            </FXCollections>-->
+<!--         </items>-->
+<!--      </ComboBox>-->
+      <Button fx:id="look" layoutX="226.0" layoutY="287.0" mnemonicParsing="false" onAction="#lookC" prefHeight="36.0" prefWidth="132.0" text="查看我的提交">
          <font>
             <Font size="18.0" />
          </font>
