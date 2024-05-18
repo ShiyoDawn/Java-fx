@@ -6,7 +6,7 @@
     -fx-background-color: #13b49d;
 }
 #vBox {
-    -fx-background-image: url(VBOX.jpg);
+    -fx-background-image: url(../image/VBOX.jpg);
 }
 
 #centerPane {

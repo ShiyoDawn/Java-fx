@@ -155,7 +155,7 @@ public class StudentInformationController {
 //                e.printStackTrace();
 //            }
             try {
-                FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+                FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
                 Image image = new Image(fileInputStream);
                 personImage.setImage(image);
                 //System.out.println(studentInfo.get("image"));

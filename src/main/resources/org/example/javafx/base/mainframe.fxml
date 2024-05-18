@@ -37,6 +37,11 @@
                      <Insets left="10.0" right="10.0" />
                   </HBox.margin></Button>
                <Button fx:id="changeButton" mnemonicParsing="false" text="跳转" />
+               <Button fx:id="change" mnemonicParsing="false" prefHeight="23.0" prefWidth="355.0" text="切换用户类型（学生/教师/管理员）">
+                  <HBox.margin>
+                     <Insets left="50.0" />
+                  </HBox.margin>
+               </Button>
             </children>
             <padding>
                <Insets top="1.0" />

@@ -120,6 +120,33 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!-- <mainClass>入口类，main 方法所在位置</mainClass> -->
+                            <!-- 注意！此类不可继承 javafx 的 Application -->
+                            <!-- 请独立 main 方法为一个类，并使用 Application.launch() 启动 JavaFX -->
+                            <mainClass>org.example.javafx.StartUp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <!-- jar 携带依赖 -->
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

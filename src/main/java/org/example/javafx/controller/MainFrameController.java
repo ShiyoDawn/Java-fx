@@ -16,9 +16,12 @@ import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
+import org.example.javafx.util.CommonMethod;
 import org.example.javafx.util.ElementsTool;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,9 +69,39 @@ public class MainFrameController {
 
     Map<Button,Integer> buttons = new HashMap<>();
 
+    @FXML
+    Button change;
+
+    public Stage mainStage=new Stage();
+
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
+        change.setOnAction(e -> {
+            String msg= CommonMethod.alertButton("退出登录");
+            Stage stage=(Stage) borderPane.getScene().getWindow();
+            if(stage.isShowing()){
+                mainStage.close();
+                mainStage=new Stage();
+            }
+            if(msg=="确认"){
+                stage.close();
+                var fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
+                try {
+                    Scene scene = new Scene(fxmlLoader.load(), 670, 440);
+                    scene.setFill(Color.TRANSPARENT);
+                    mainStage.setScene(scene);
+                    mainStage.setTitle("登录");
+                    LoginController loginController=fxmlLoader.getController();
+                    loginController.initialize(mainStage);
+
+                    mainStage.initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
+                    mainStage.show();
+                } catch (IOException E) {
+                    throw new RuntimeException(E);
+                }
+            }
+        });
 
         menuList = new HttpRequestUtils().getMenu(AppStore.getUser().getUser_type_id());
         System.out.println(menuList);
@@ -274,8 +307,6 @@ public class MainFrameController {
             }
         });
     }
-
-//    public void changeToCourse()
 
 
 }

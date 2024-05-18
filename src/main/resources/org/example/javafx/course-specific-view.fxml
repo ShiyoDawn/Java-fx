@@ -39,27 +39,27 @@
       </Label>
       <ImageView fx:id="score" fitHeight="49.0" fitWidth="38.0" layoutX="420.0" layoutY="19.0" onMouseClicked="#scoreC">
          <image>
-            <Image url="@css/图片3.jpg" />
+            <Image url="@image/图片3.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="member" fitHeight="49.0" fitWidth="48.0" layoutX="538.0" layoutY="20.0" onMouseClicked="#memberC">
          <image>
-            <Image url="@css/图片4.jpg" />
+            <Image url="@image/图片4.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="team" fitHeight="49.0" fitWidth="38.0" layoutX="664.0" layoutY="19.0" onMouseClicked="#teamC">
          <image>
-            <Image url="@css/图片5.jpg" />
+            <Image url="@image/图片5.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="homework" fitHeight="49.0" fitWidth="48.0" layoutX="288.0" layoutY="16.0" onMouseClicked="#homeworkC">
          <image>
-            <Image url="@css/图片6.png" />
+            <Image url="@image/图片6.png" />
          </image>
       </ImageView>
       <ImageView fx:id="updateTime" fitHeight="49.0" fitWidth="48.0" layoutX="776.0" layoutY="16.0" onMouseClicked="#timeC">
          <image>
-            <Image url="@css/图片7.jpg" />
+            <Image url="@image/图片7.jpg" />
          </image>
       </ImageView>
       <ScrollPane layoutX="-1.0" layoutY="128.0" prefHeight="562.0" prefWidth="980.0">
@@ -67,12 +67,12 @@
             <AnchorPane fx:id="lesson" prefHeight="556.0" prefWidth="975.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="280.0" layoutY="69.0" prefHeight="49.0" prefWidth="104.0" text="作业统计">
+      <Label layoutX="254.0" layoutY="69.0" prefHeight="49.0" prefWidth="119.0" text="作业/考勤统计">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="752.0" layoutY="69.0" prefHeight="49.0" prefWidth="119.0" text="添加上课时间">
+      <Label fx:id="updatet" layoutX="752.0" layoutY="69.0" prefHeight="49.0" prefWidth="119.0" text="添加上课时间">
          <font>
             <Font size="18.0" />
          </font>

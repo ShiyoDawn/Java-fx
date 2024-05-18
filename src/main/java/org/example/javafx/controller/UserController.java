@@ -212,11 +212,7 @@ public class UserController {
     public void initialize() {
         User user = AppStore.getUser();
         try {
-            //设置背景图片，但是不知道为啥不能成功
-            anchor.setStyle("-fx-background-image: url('org/example/javafx/css/userBackground.png');" +
-                    "-fx-background-size: cover;" +
-                    "-fx-background-position: center;");
-            FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\css\\nobodyPhoto.png");
+            FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
             Image image = new Image(fileInputStream);
             photoView.setImage(image);
             DataRequest dataRequest = new DataRequest();
@@ -258,7 +254,6 @@ public class UserController {
             dataRequest.add("person_id", map.get("id"));
             result = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
             map = (Map) result.getData();
-            System.out.println(map);
             nameLabel.setText(map.get("student_name").toString());
         } else if (user.getUser_type_id() == 1) {
             nameLabel.setText("admin");

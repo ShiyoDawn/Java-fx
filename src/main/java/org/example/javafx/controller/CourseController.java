@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -64,6 +65,8 @@ public class CourseController {
     ComboBox type;
     @FXML
     Label cou;
+    @FXML
+    Line line;
     @FXML
     Button save;
     @FXML
@@ -133,8 +136,9 @@ public class CourseController {
             selectTerms.setVisible(false);
             tab.setText("显示窗口");
             selectClass.setVisible(false);
+            line.setVisible(false);
             Label l = new Label("班级:  " + DashboardController.classes);
-            l.setLayoutX(430);
+            l.setLayoutX(114);
             l.setLayoutY(29);
             l.setFont(Font.font(25));
             tabCenter.getChildren().add(l);
@@ -281,19 +285,22 @@ public class CourseController {
             Result data1 = HttpRequestUtils.courseField("/course/selectCourseByStudent", dataRequest1);
             List<Map<String, ? extends Object>> dataList1 = new Gson().fromJson(data1.getData().toString(), List.class);
             addLabel(dataList1);
-            System.out.println(dataList1.size());
             setPagination(dataList1);
             dataList = dataList1;
-            course_name.setText((String) dataList.get(0).get("course_name"));
-            num.setText((String) dataList.get(0).get("num"));
-            type.setValue(dataList.get(0).get("course_type_name"));
-            classes.setText((String) dataList.get(0).get("classes"));
-            book.setText((String) dataList.get(0).get("book"));
-            extra.setText((String) dataList.get(0).get("extracurricular"));
-            teacher.setText((String) dataList.get(0).get("teacher_name"));
-            credit.setText(String.valueOf(dataList.get(0).get("credit")));
-            capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
-            id.setText(String.valueOf(dataList.get(0).get("id")));
+            if(dataList1.isEmpty()){
+
+            } else {
+                course_name.setText((String) dataList.get(0).get("course_name"));
+                num.setText((String) dataList.get(0).get("num"));
+                type.setValue(dataList.get(0).get("course_type_name"));
+                classes.setText((String) dataList.get(0).get("classes"));
+                book.setText((String) dataList.get(0).get("book"));
+                extra.setText((String) dataList.get(0).get("extracurricular"));
+                teacher.setText((String) dataList.get(0).get("teacher_name"));
+                credit.setText(String.valueOf(dataList.get(0).get("credit")));
+                capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
+                id.setText(String.valueOf(dataList.get(0).get("course_id")));
+            }
         } else if(AppStore.getUser().getUser_type_id() == 1){
             DataRequest dataRequest1 = new DataRequest();
             Result data1 = HttpRequestUtils.courseField("/course/selectAll", dataRequest1);
@@ -350,7 +357,11 @@ public class CourseController {
                 teacher.setText(a.get("teacher_name").toString());
                 credit.setText(String.valueOf(a.get("credit")));
                 capacity.setText(String.valueOf(a.get("capacity")));
-                id.setText(String.valueOf(a.get("id")));
+                if(AppStore.getUser().getUser_type_id() == 1){
+                    id.setText(String.valueOf(a.get("id")));
+                } else {
+                    id.setText(String.valueOf(a.get("course_id")));
+                }
                 cou.setText(a.get("course_name").toString());
             } else if (event.getClickCount() == 2) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -366,7 +377,11 @@ public class CourseController {
     }
 
     protected void specific(Map<String, ?> a, FXMLLoader fxmlLoader) throws IOException {
-        CourseSpecificViewController.id = String.valueOf(a.get("id"));
+        if(AppStore.getUser().getUser_type_id()==1){
+            CourseSpecificViewController.id = String.valueOf(a.get("id"));
+        } else {
+            CourseSpecificViewController.id = String.valueOf(a.get("course_id"));
+        }
         pane.getChildren().removeAll(pane.getChildren());
         BorderPane pane1 = new BorderPane(fxmlLoader.load());
         pane.getChildren().add(pane1);

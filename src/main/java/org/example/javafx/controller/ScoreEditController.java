@@ -110,7 +110,6 @@ public class ScoreEditController {
             map = (Map) result.getData();
             String course_num = map.get("num").toString();
 
-            System.out.println(student_num + " " + course_num);
             dataRequest.add("student_num", student_num);
             dataRequest.add("course_num", course_num);
             result = HttpRequestUtils.request("/score/selectByStudentAndCourse", dataRequest);

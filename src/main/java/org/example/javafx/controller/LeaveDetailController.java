@@ -124,7 +124,6 @@ public class LeaveDetailController {
     @FXML
     public void initialize(Map map) {
         absenceInfo = map;
-        System.out.println(absenceInfo);
 
         if (AppStore.getUser().getUser_type_id() == 3) {
             passButton.setVisible(false);

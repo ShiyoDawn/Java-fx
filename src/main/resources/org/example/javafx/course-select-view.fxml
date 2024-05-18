@@ -50,14 +50,13 @@
             <Label text="七、八节" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <Label text="九、十节" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
         </GridPane>
-        <Label layoutX="785.0" layoutY="8.0" prefHeight="32.0" prefWidth="105.0" text="当前总学分：   ">
+        <Label layoutX="661.0" layoutY="7.0" prefHeight="32.0" prefWidth="105.0" text="当前总学分：   ">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
         <Pagination fx:id="pagination" layoutX="436.0" layoutY="506.0" prefHeight="200.0" prefWidth="200.0" />
         <Button fx:id="all" layoutX="96.0" layoutY="422.0" mnemonicParsing="false" onAction="#allC" prefHeight="32.0" prefWidth="67.0" text="全部课程" />
-        <CheckBox fx:id="noconflict" layoutX="736.0" layoutY="420.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="165.0" text="只查看无时间冲突课程" />
         <Line endX="635.0" endY="188.16665649414062" layoutX="343.0" layoutY="219.0" startX="-343.0" startY="188.16665649414062" />
         <Button fx:id="major" layoutX="163.0" layoutY="422.0" mnemonicParsing="false" onAction="#majorC" prefHeight="32.0" prefWidth="67.0" text="必修课程" />
         <Button fx:id="option" layoutX="230.0" layoutY="422.0" mnemonicParsing="false" onAction="#optionC" prefHeight="32.0" prefWidth="67.0" text="选修课程" />
@@ -75,26 +74,25 @@
       <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="96.0" layoutY="594.0" opacity="0.9" width="445.0" />
       <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="566.0" layoutY="593.0" opacity="0.9" width="445.0" />
       <Rectangle arcHeight="20" arcWidth="20" fill="lightgray" height="40.0" layoutX="564.0" layoutY="531.0" opacity="0.9" width="445.0" />
-      <Label layoutX="870.0" layoutY="8.0" prefHeight="32.0" prefWidth="74.0">
+      <Label fx:id="credit" layoutX="746.0" layoutY="7.0" prefHeight="32.0" prefWidth="74.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
       <ScrollPane layoutX="651.0" layoutY="45.0" prefHeight="332.0" prefWidth="427.0">
          <content>
-            <TableView prefHeight="335.0" prefWidth="410.0">
+            <TableView fx:id="tableView" prefHeight="335.0" prefWidth="410.0">
               <columns>
-                <TableColumn prefWidth="85.3333740234375" text="课程名称" />
-                <TableColumn prefWidth="72.666748046875" text="课程性质" />
-                  <TableColumn prefWidth="40.0" text="学分" />
-                  <TableColumn prefWidth="65.333251953125" text="教师" />
-                  <TableColumn minWidth="0.0" prefWidth="78.666748046875" text="班级" />
-                  <TableColumn prefWidth="68.666748046875" text="状态" />
+                <TableColumn fx:id="idCC" prefWidth="85.3333740234375" text="序号" />
+                <TableColumn fx:id="course_name" prefWidth="85.3333740234375" text="课程名称" />
+                <TableColumn fx:id="type" prefWidth="72.666748046875" text="课程性质" />
+                  <TableColumn fx:id="cre" prefWidth="40.0" text="学分" />
+                  <TableColumn fx:id="teacher" prefWidth="65.333251953125" text="教师" />
+                  <TableColumn fx:id="classes" minWidth="0.0" prefWidth="78.666748046875" text="班级" />
               </columns>
             </TableView>
          </content>
       </ScrollPane>
-      <Button layoutX="893.0" layoutY="420.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="67.0" text="查询" />
-      <CheckBox fx:id="nofull" layoutX="595.0" layoutY="420.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="135.0" text="只查看未满课程" />
+      <Button fx:id="delete" layoutX="990.0" layoutY="11.0" mnemonicParsing="false" onAction="#deleteC" text="删除所选课程" />
     </children>
 </AnchorPane>

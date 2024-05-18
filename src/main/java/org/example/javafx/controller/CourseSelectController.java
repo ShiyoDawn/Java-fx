@@ -1,17 +1,27 @@
 package org.example.javafx.controller;
 
 import com.google.gson.Gson;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import org.example.javafx.AppStore;
+import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
@@ -36,16 +46,68 @@ public class CourseSelectController {
     @FXML
     AnchorPane pane;
     @FXML
-    CheckBox noconflict;
+    Label credit;
     @FXML
-    CheckBox nofull;
-    static double credits = 0.0;
+    TableView tableView;
+    @FXML
+    TableColumn idCC;
+    @FXML
+    TableColumn course_name;
+    @FXML
+    TableColumn type;
+    @FXML
+    TableColumn cre;
+    @FXML
+    TableColumn teacher;
+    @FXML
+    TableColumn classes;
+    @FXML
+    Button delete;
     List<String[]> listCou = new ArrayList<>();
+    static TextField textField = new TextField();
     Boolean bl = true;
+    static double creditss;
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
+        creditss = 0;
+        textField.setText("");
+        textField.setText("su");
+        textField.setText("");
+        textField.setVisible(false);
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("success")){
+                FXMLLoader fxml = new FXMLLoader();
+                fxml.setLocation(MainApplication.class.getResource("course-select-view.fxml"));
+                try {
+                    pane.getChildren().removeAll(pane.getChildren());
+                    BorderPane pane1 = new BorderPane(fxml.load());
+                    pane.getChildren().add(pane1);
+                    textField.setText("");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
         load();
+        idCC.setCellValueFactory(new MapValueFactory<>("course_id"));
+        course_name.setCellValueFactory(new MapValueFactory<>("course_name"));
+        type.setCellValueFactory(new MapValueFactory<>("course_type_name"));
+        cre.setCellValueFactory(new MapValueFactory<>("credit"));
+        teacher.setCellValueFactory(new MapValueFactory<>("teacher_name"));
+        classes.setCellValueFactory(new MapValueFactory<>("classes"));
+        DataRequest dataRequest1 = new DataRequest();
+        Map<String,String> map1 = new HashMap<>();
+        map1.put("student_id",DashboardController.student_id);
+        map1.put("terms",DashboardController.terms);
+        dataRequest1.setData(map1);
+        Result data = HttpRequestUtils.courseField("/course/selectCourseByStudent", dataRequest1);
+        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+        tableView.setItems(FXCollections.observableList(dataList));
+        for (Map<String,? extends Object> a : dataList) {
+            creditss += Double.valueOf(String.valueOf(a.get("credit")));
+        }
+        credit.setText(String.valueOf(creditss));
         //根据班级显示课程
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
             int clickedPageIndex = newValue.intValue();
@@ -66,9 +128,9 @@ public class CourseSelectController {
         map.put("student_id",DashboardController.student_id);
         map.put("terms",DashboardController.terms);
         dataRequest.setData(map);
-        Result data = HttpRequestUtils.courseField("/course/selectLessonStudent", dataRequest);
-        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
-        addLabelGrid(dataList);
+        Result data1 = HttpRequestUtils.courseField("/course/selectLessonStudent", dataRequest);
+        List<Map<String, ? extends Object>> dataList1 = new Gson().fromJson(data1.getData().toString(), List.class);
+        addLabelGrid(dataList1);
     }
 
     private void handlePageClick(Map map, int pageNum, String url) throws IOException, InterruptedException {
@@ -328,7 +390,7 @@ public class CourseSelectController {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setContentText("选课成功");
                                     alert.showAndWait();
-
+                                    textField.setText("success");
                                 } else {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setContentText("选课失败");
@@ -391,6 +453,29 @@ public class CourseSelectController {
             gridPane.setHalignment(label, HPos.CENTER); // 设置水平对齐方式为居中
             gridPane.setValignment(label, VPos.CENTER); // 设置垂直对齐方式为居中
             gridPane.add(label, (int) week_time, (int) (time_sort));
+        }
+    }
+    public void deleteC() throws IOException, InterruptedException {
+        Map<String,String> map = new HashMap<>();
+        Map<String, String> selectedItem = (Map<String, String>) tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            map.put("course_id",String.valueOf(selectedItem.get("course_id")));
+            map.put("student_id",DashboardController.student_id);
+            DataRequest dataRequest1 = new DataRequest();
+            dataRequest1.setData(map);
+            Result data1 = HttpRequestUtils.courseField("/course/deleteStudent", dataRequest1);
+            if(data1.getMsg().equals("删除成功")){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("删除成功");
+                alert.showAndWait();
+                textField.setText("success");
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("警告");
+            alert.setHeaderText(null);
+            alert.setContentText("请选择要删除的课程");
+            alert.showAndWait();
         }
     }
     private String idC(String str){
