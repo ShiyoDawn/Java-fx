@@ -254,7 +254,6 @@ public class UserController {
             dataRequest.add("person_id", map.get("id"));
             result = HttpRequestUtils.request("/student/selectStudentByPid", dataRequest);
             map = (Map) result.getData();
-            System.out.println(map);
             nameLabel.setText(map.get("student_name").toString());
         } else if (user.getUser_type_id() == 1) {
             nameLabel.setText("admin");

@@ -134,7 +134,6 @@ public class StudentGloryController {
     private void onDeleteButtonClick(ActionEvent event) {
         onCancelClick();
         List<Map> selected = dataTableView.getSelectionModel().getSelectedItems();
-        System.out.println(selected);
         if (selected.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("请选择要删除的荣誉！");
@@ -170,13 +169,18 @@ public class StudentGloryController {
     private void onEditButtonClick() {
         onCancelClick();
         Map selected = dataTableView.getSelectionModel().getSelectedItem();
+        if(selected==null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("请选择要修改的荣誉！");
+            alert.showAndWait();
+            return;
+        }
         editConfirmButton.setText("修改荣誉");
         editTabPane.setVisible(true);
         if (selected != null) {
             DataRequest dataRequest = new DataRequest();
             String student_num = CommonMethod.getString(selected, "student_num");
             String glory_name = CommonMethod.getString(selected, "glory_name");
-            System.out.println(student_num+" "+glory_name);
             studentEditComboBox.setValue(student_num + "-" + CommonMethod.getString(selected, "student_name"));
             studentEditComboBox.setEditable(false);
             studentEditComboBox.setDisable(true);
@@ -204,7 +208,7 @@ public class StudentGloryController {
             //DataRequest dataRequest = new DataRequest();
             //dataRequest.add("student_name", student_name);
             //result = HttpRequestUtils.request("/glory/selectByStudentName", dataRequest);
-            List<Map> ans = CommonMethod.filter(gloryList, "student_name", student_name);
+            List<Map> ans = CommonMethod.filter(gloryList, "student_num", student_name.split("-")[0]);
             if (ans == null || ans.size() == 0) {
                 observableList.clear();
                 return;
@@ -217,7 +221,6 @@ public class StudentGloryController {
                 return;
             }
         } else if (student_name == null) {
-            result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
             result = HttpRequestUtils.request("/glory/getGloryList", new DataRequest());
         }
         if (result == null) {
@@ -311,7 +314,6 @@ public class StudentGloryController {
             return;
         }
         if (student_name != null && glory_type != null) {
-            System.out.println(student_name);
             Map map=dataTableView.getSelectionModel().getSelectedItem();
             DataRequest dataRequest1=new DataRequest();
             if(map!=null){
