@@ -94,6 +94,9 @@ public class StudentTableController {
     private TextField person_numText;
 
     @FXML
+    private Button resetButton;
+
+    @FXML
     private Button save;
 
     @FXML
@@ -106,6 +109,9 @@ public class StudentTableController {
     private TextField student_nameText;
 
     @FXML
+    private Button statisticButton;
+
+    @FXML
     private TableView<Map> tableView;
 
     @FXML
@@ -116,6 +122,9 @@ public class StudentTableController {
 
     @FXML
     private Button moreButton;
+
+    @FXML
+    private Label label;
 
     private Integer id = null;
 
@@ -161,7 +170,7 @@ public class StudentTableController {
 
 
         try {
-            FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
+            FileInputStream fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
             Image image = new Image(fileInputStream);
             imageView.setImage(image);
         } catch (FileNotFoundException e) {
@@ -197,7 +206,7 @@ public class StudentTableController {
                 if(result.getCode()==-1){
                     FileInputStream fileInputStream = null;
                     try {
-                        fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
+                        fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
                     } catch (FileNotFoundException error) {
                         throw new RuntimeException(error);
                     }
@@ -218,14 +227,42 @@ public class StudentTableController {
                 imageView.setDisable(true);
             }
         });
-
-
-        Result studentResult = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
-        List<Map> studentList = (List<Map>) studentResult.getData();
-        if (studentList == null || studentList.isEmpty()) {
-            return;
+        List<Map> studentList = null;
+        Map<String,String> map=null;
+        if (AppStore.getUser().getUser_type_id() == 1) {
+            Result studentResult = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
+            studentList = (List<Map>) studentResult.getData();
+            if (studentList == null || studentList.isEmpty()) {
+                return;
+            }
+            tableView.setItems(FXCollections.observableList(studentList));
         }
-        tableView.setItems(FXCollections.observableList(studentList));
+        else if (AppStore.getUser().getUser_type_id() == 3) {
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.add("person_num", AppStore.getUser().getPerson_num());
+            Result studentResult = HttpRequestUtils.request("/student/getStudentList", dataRequest);
+            studentList = (List<Map>) studentResult.getData();
+            if (studentList == null || studentList.isEmpty()) {
+                return;
+            }
+            for (Map<String, String> student : studentList) {
+                if (student.get("person_num").equals(AppStore.getUser().getPerson_num())) {
+                    map = student;
+                }
+                List<Map> list = new ArrayList<>();
+                list.add(map);
+                tableView.setItems(FXCollections.observableList(list));
+            }
+            add.setVisible(false);
+            add.setDisable(true);
+            selectChoiceComboBox.setVisible(false);
+            select.setVisible(false);
+            fuzzySearch.setVisible(false);
+            delete.setVisible(false);
+            resetButton.setVisible(false);
+            statisticButton.setVisible(false);
+            label.setVisible(false);
+        }
         add.setDisable(false);
         add.setOpacity(1.0);
         update.setDisable(false);
@@ -333,7 +370,6 @@ public class StudentTableController {
                 req.add("id", id.toString());
                 req.add("person_num", person_numText.getText().trim());
                 req.add("student_name", student_nameText.getText().trim());
-                System.out.println(student_nameText.getText().trim());
                 req.add("department", departmentText.getText().trim());
                 req.add("classes", classText.getText().trim());
                 req.add("grade", gradeText.getText().trim());
@@ -361,6 +397,18 @@ public class StudentTableController {
                     gradeText.setOpacity(0.5);
                     majorText.setDisable(true);
                     majorText.setOpacity(0.5);
+                    if (AppStore.getUser().getUser_type_id() == 3) {
+                        add.setVisible(false);
+                        add.setDisable(true);
+                        selectChoiceComboBox.setVisible(false);
+                        select.setVisible(false);
+                        fuzzySearch.setVisible(false);
+                        delete.setVisible(false);
+                        resetButton.setVisible(false);
+                        statisticButton.setVisible(false);
+                        label.setVisible(false);
+                        initialize();
+                    }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("错误");
@@ -397,6 +445,8 @@ public class StudentTableController {
             alert.setHeaderText(null);
             alert.setContentText("请选择要修改的信息");
             alert.showAndWait();
+            update.setDisable(false);
+            update.setOpacity(1.0);
             return;
         }
         save.setVisible(true);

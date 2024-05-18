@@ -44,7 +44,7 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Label alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：">
+                        <Label fx:id="label" alignment="CENTER" layoutX="486.0" layoutY="22.0" prefHeight="27.0" prefWidth="54.0" text="查询：">
                            <font>
                               <Font size="17.0" />
                            </font>

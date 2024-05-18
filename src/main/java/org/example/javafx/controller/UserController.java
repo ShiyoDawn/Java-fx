@@ -212,7 +212,7 @@ public class UserController {
     public void initialize() {
         User user = AppStore.getUser();
         try {
-            FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
+            FileInputStream fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
             Image image = new Image(fileInputStream);
             photoView.setImage(image);
             DataRequest dataRequest = new DataRequest();

@@ -133,7 +133,7 @@ public class PersonAddController {
 
         FileInputStream fileInputStream = null;
         try {
-            fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
+            fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
