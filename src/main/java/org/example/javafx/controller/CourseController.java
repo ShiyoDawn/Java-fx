@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -64,6 +65,8 @@ public class CourseController {
     ComboBox type;
     @FXML
     Label cou;
+    @FXML
+    Line line;
     @FXML
     Button save;
     @FXML
@@ -133,6 +136,7 @@ public class CourseController {
             selectTerms.setVisible(false);
             tab.setText("显示窗口");
             selectClass.setVisible(false);
+            line.setVisible(false);
             Label l = new Label("班级:  " + DashboardController.classes);
             l.setLayoutX(114);
             l.setLayoutY(29);

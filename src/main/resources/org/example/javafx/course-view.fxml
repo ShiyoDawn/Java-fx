@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" prefHeight="690.0" prefWidth="980.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseController">
@@ -34,12 +35,30 @@
                                                 <Label layoutX="23.0" layoutY="8.0" prefHeight="50.0" prefWidth="76.0" text="课程名称：" />
                                                 <Label layoutX="21.0" layoutY="267.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="授课教师" />
                                                 <Label layoutX="23.0" layoutY="314.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="开课班级：" />
-                                                <TextField fx:id="course_name" layoutX="112.0" layoutY="18.0" prefHeight="29.0" prefWidth="161.0" />
-                                                <TextField fx:id="num" layoutX="112.0" layoutY="71.0" prefHeight="29.0" prefWidth="161.0" />
-                                                <TextField fx:id="book" layoutX="112.0" layoutY="172.0" prefHeight="29.0" prefWidth="161.0" />
-                                                <TextField fx:id="extra" layoutX="112.0" layoutY="224.0" prefHeight="29.0" prefWidth="161.0" />
-                                                <TextField fx:id="teacher" layoutX="112.0" layoutY="272.0" prefHeight="29.0" prefWidth="161.0" />
-                                                <TextField fx:id="classes" layoutX="112.0" layoutY="319.0" prefHeight="29.0" prefWidth="161.0" />
+                                                <TextField fx:id="course_name" layoutX="112.0" layoutY="18.0" prefHeight="29.0" prefWidth="161.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
+                                                <TextField fx:id="num" layoutX="112.0" layoutY="71.0" prefHeight="29.0" prefWidth="161.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
+                                                <TextField fx:id="book" layoutX="112.0" layoutY="172.0" prefHeight="29.0" prefWidth="161.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
+                                                <TextField fx:id="extra" layoutX="112.0" layoutY="224.0" prefHeight="29.0" prefWidth="161.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
+                                                <TextField fx:id="teacher" layoutX="112.0" layoutY="272.0" prefHeight="29.0" prefWidth="161.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
+                                                <TextField fx:id="classes" layoutX="112.0" layoutY="319.0" prefHeight="29.0" prefWidth="161.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
 
                                                 <Button fx:id="save" layoutX="54.0" layoutY="479.0" mnemonicParsing="false" onAction="#saveInfo" prefHeight="30.0" prefWidth="71.0" text="保存更改">
                                                 </Button>
@@ -57,11 +76,17 @@
                                                     </items>
                                                 </ComboBox>
                                                 <Label layoutX="23.0" layoutY="365.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="学分：" />
-                                                <TextField fx:id="credit" layoutX="112.0" layoutY="370.0" prefHeight="29.0" prefWidth="161.0" />
+                                                <TextField fx:id="credit" layoutX="112.0" layoutY="370.0" prefHeight="29.0" prefWidth="161.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
                                                 <Button fx:id="delete" layoutX="169.0" layoutY="479.0" mnemonicParsing="false" onAction="#deleteCourse" prefHeight="30.0" prefWidth="78.0" text="删除该课程">
                                                 </Button>
                                     <Label layoutX="23.0" layoutY="419.0" prefHeight="39.0" prefWidth="62.0" style="-fx-text-alignment: CENTER;" text="课容量：" />
-                                    <TextField fx:id="capacity" layoutX="112.0" layoutY="424.0" prefHeight="29.0" prefWidth="161.0" promptText="请输入课容量" />
+                                    <TextField fx:id="capacity" layoutX="112.0" layoutY="424.0" prefHeight="29.0" prefWidth="161.0" promptText="请输入课容量">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
                                             </AnchorPane>
                                         </content>
                                     </Tab>
@@ -101,12 +126,10 @@
                                     </FXCollections>
                                 </items>
                             </ComboBox>
-                                 <Button fx:id="add" layoutX="25.0" layoutY="18.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="56.0" prefWidth="71.0" text="增添课程">
-                                                </Button>
-                     <Label layoutX="205.0" layoutY="643.0" prefHeight="67.0" prefWidth="467.0" text="双击课程可查看课程相关的详细信息" textFill="hotpink">
+                                 <Button fx:id="add" layoutX="19.0" layoutY="18.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="56.0" prefWidth="103.0" text="增添课程">
                         <font>
-                           <Font size="25.0" />
-                        </font></Label>
+                           <Font size="18.0" />
+                        </font></Button>
                       <Button fx:id="selectCourse" layoutX="968.0" layoutY="29.0" mnemonicParsing="false" onAction="#select" prefHeight="30.0" prefWidth="62.0" text="查询" />
                       <Pagination fx:id="pagination" layoutX="78.0" layoutY="606.0" prefHeight="50.0" prefWidth="629.0" />
                       <StackPane fx:id="six" layoutX="71.0" layoutY="507.0" prefHeight="70.0" prefWidth="630.0" />
@@ -115,11 +138,17 @@
                       <StackPane fx:id="three" layoutX="71.0" layoutY="267.0" prefHeight="70.0" prefWidth="630.0" />
                       <StackPane fx:id="two" layoutX="71.0" layoutY="187.0" prefHeight="70.0" prefWidth="630.0" />
                       <StackPane fx:id="one" layoutX="71.0" layoutY="107.0" prefHeight="70.0" prefWidth="630.0" AnchorPane.topAnchor="107.0" />
+                     <Line fx:id="line" endX="134.00001525878906" endY="85.66666412353516" layoutX="-2.0" layoutY="-25.0" startX="134.00001525878906" startY="56.33333969116211" stroke="#1ac992" strokeWidth="2.0" />
                         </children>
                     </AnchorPane>
                 </content>
             </Tab>
         </tabs>
     </TabPane>
+   <Label layoutX="300.0" layoutY="-11.0" prefHeight="67.0" prefWidth="467.0" text="双击课程可查看课程相关的详细信息" textFill="hotpink">
+      <font>
+         <Font size="25.0" />
+      </font>
+   </Label>
 
 </AnchorPane>
