@@ -36,7 +36,7 @@ public class CourseAddController {
     @FXML
     TextField credit;
     @FXML
-    TextField teacher;
+    ComboBox teacher;
     @FXML
     TextField book;
     @FXML
@@ -51,6 +51,12 @@ public class CourseAddController {
     TextField capacity;
     @FXML
     public void initialize() throws IOException, InterruptedException {
+        DataRequest dataRequest1 = new DataRequest();
+        Result data1 = HttpRequestUtils.courseField("/course/selectAllTeacher", dataRequest1);
+        List<Map<String, String>> dataListT = new Gson().fromJson(data1.getData().toString(), List.class);
+        for (Map<String, String> a : dataListT) {
+            teacher.getItems().add(String.valueOf(a.get("id")) + '-' + String.valueOf(a.get("teacher_name")));
+        }
         DataRequest dataRequest = new DataRequest();
         Result data = HttpRequestUtils.courseField("/course/selectAll", dataRequest);
         List<Map<String, String>> dataListType = new Gson().fromJson(data.getData().toString(), List.class);
@@ -82,7 +88,7 @@ public class CourseAddController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("课外书不能为空");
             alert.showAndWait();
-        } else if (teacher.getText() == null || teacher.getText() == "") {
+        } else if (teacher.getValue() == null || teacher.getValue() == "") {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("老师不能为空");
             alert.showAndWait();
@@ -122,7 +128,7 @@ public class CourseAddController {
             map.put("terms", (String) terms.getValue());
             map.put("extracurricular", extra.getText());
             map.put("classes", classes.getText());
-            map.put("teacher_name", teacher.getText());
+            map.put("teacher_name", idC(String.valueOf(teacher.getValue())));
             map.put("capacity", capacity.getText());
             map.put("students", "0");
             dataRequest.setData(map);
@@ -135,6 +141,18 @@ public class CourseAddController {
             CourseLessonController.source = "add";
             if(data1.equals("添加成功")){
                 try {
+                    DataRequest dataRequest2 = new DataRequest();
+                    Map<String,String> map2 = new HashMap<>();
+                    map2.put("num",num.getText());
+                    dataRequest2.setData(map2);
+                    Result data2 = HttpRequestUtils.courseField("/course/selectByNum2", dataRequest2);
+                    List<Map<String, String>> dataList2 = new Gson().fromJson(data2.getData().toString(), List.class);
+                    DataRequest dataRequest1 = new DataRequest();
+                    Map<String,String> map1 = new HashMap<>();
+                    map1.put("teacher_id",idC2(String.valueOf(teacher.getValue())));
+                    map1.put("course_id",String.valueOf(dataList2.get(0).get("id")));
+                    dataRequest1.setData(map1);
+                    HttpRequestUtils.courseField("/course/addTeacherCourse", dataRequest1);
                     // 加载新的FXML文件
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(MainApplication.class.getResource("course-lesson.fxml"));
@@ -156,6 +174,24 @@ public class CourseAddController {
             }
 
         }
+    }
+    private String idC(String str){
+        int count = str.length();
+        for (int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == '-'){
+                count = i;
+            }
+        }
+        return str.substring(count+1,str.length());
+    }
+    private String idC2(String str){
+        int count = str.length();
+        for (int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == '-'){
+                count = i;
+            }
+        }
+        return str.substring(0,count);
     }
 
 }

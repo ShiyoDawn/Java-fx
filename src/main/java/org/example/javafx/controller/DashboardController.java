@@ -37,7 +37,8 @@ public class DashboardController {
     @FXML
     AnchorPane anchorpane;
 
-    @FXML TabPane chart;
+    @FXML
+    TabPane chart;
     @FXML
     MenuBar menuBar;
 //    @FXML
@@ -59,11 +60,13 @@ public class DashboardController {
     @FXML Label adminNum;
     @FXML Label stuNum;
     @FXML Label teaNum;
+    @FXML Label te;
     Boolean bl = false;
     static String classes;
     static String student_id;
     static String student_name;
     static String terms;
+    static String teacher_id;
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
@@ -111,7 +114,47 @@ public class DashboardController {
             setEvent(eventBox);
             chart.setDisable(true);
             chart.setOpacity(0);
-        } else if(AppStore.getUser().getUser_type_id() == 1 || AppStore.getUser().getUser_type_id() == 2){
+        }else if(AppStore.getUser().getUser_type_id() == 2){
+            te.setVisible(true);
+            DataRequest dataRequestS = new DataRequest();
+            Map<String, String> mapS = new HashMap<>();
+            mapS.put("id", String.valueOf(AppStore.getUser().getPerson_id()));
+            dataRequestS.setData(mapS);
+            Result da = null;
+            try {
+                da = HttpRequestUtils.courseField("/course/selectClassesT", dataRequestS);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            List<Map<String, ? extends Object>> dataListS = new Gson().fromJson(da.getData().toString(), List.class);
+            teacher_id = String.valueOf(dataListS.get(0).get("id"));
+            terms = "2023-2024-2";
+            bl = true;
+            addlabel(Integer.parseInt(getCurrentTime().get("week")), teacher_id, getCurrentTime().get("terms"));
+            comboBoxTerm.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    select();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            comboBoxWeek.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    select();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            setEvent(eventBox);
+            chart.setDisable(true);
+            chart.setOpacity(0);
+        } else if(AppStore.getUser().getUser_type_id() == 1){
             gridPane.setVisible(false);
             comboBoxTerm.setVisible(false);
             comboBoxWeek.setVisible(false);
@@ -134,18 +177,31 @@ public class DashboardController {
 
     //添加课程表上的课程
     private void addlabel(int week, String student_id, String terms) throws IOException, InterruptedException {
-        Map<String, String> student = new HashMap();
-        student.put("student_id", student_id);
-        student.put("week", String.valueOf(week));
-        student.put("terms", terms);
-        DataRequest dataRequest = new DataRequest();
-        dataRequest.setData(student);
-        Result data = HttpRequestUtils.courseField("/course/selectLessonByStudent", dataRequest);
-        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+        List<Map<String, ? extends Object>> dataList = null;
+        if(AppStore.getUser().getUser_type_id() == 3){
+            Map<String, String> student = new HashMap();
+            student.put("student_id", student_id);
+            student.put("week", String.valueOf(week));
+            student.put("terms", terms);
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.setData(student);
+            Result data = HttpRequestUtils.courseField("/course/selectLessonByStudent", dataRequest);
+            dataList = new Gson().fromJson(data.getData().toString(), List.class);
+        } else if(AppStore.getUser().getUser_type_id() == 2){
+            Map<String, String> teacher = new HashMap();
+            teacher.put("teacher_id", teacher_id);
+            teacher.put("week", String.valueOf(week));
+            teacher.put("terms", terms);
+            DataRequest dataRequest = new DataRequest();
+            dataRequest.setData(teacher);
+            Result data = HttpRequestUtils.courseField("/course/selectLessonByTeacher", dataRequest);
+            dataList = new Gson().fromJson(data.getData().toString(), List.class);
+        }
+
         for (Map<String, ? extends Object> a : dataList) {
-            String course_name = (String) a.get("course_name");
+            String course_name = String.valueOf(a.get("course_name"));
             double week_time = (double) a.get("week_time");
-            String room = (String) a.get("room");
+            String room = String.valueOf(a.get("room"));
             double time_sort = (double) a.get("time_sort");
             Label label = new Label();
             label.setId("1");

@@ -12,10 +12,6 @@
          <content>
             <ImageView fx:id="image11" fitHeight="463.0" fitWidth="592.0" pickOnBounds="true" preserveRatio="true" >
             </ImageView>
-             <ImageView fx:id="image12" fitHeight="463.0" fitWidth="592.0" pickOnBounds="true" preserveRatio="true" >
-             </ImageView>
-             <ImageView fx:id="image13" fitHeight="463.0" fitWidth="592.0" pickOnBounds="true" preserveRatio="true" >
-             </ImageView>
          </content>
       </ScrollPane>
    </children>

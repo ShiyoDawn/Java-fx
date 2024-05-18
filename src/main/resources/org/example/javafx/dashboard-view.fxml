@@ -127,6 +127,11 @@
             <Label fx:id="adminNum" layoutX="100.0" layoutY="130.0" />
             <Label fx:id="teaNum" layoutX="100.0" layoutY="270.0" />
             <Label fx:id="stuNum" layoutX="100.0" layoutY="410.0" />
+            <Label visible="false" fx:id="te" layoutX="53.0" layoutY="15.0" prefHeight="49.0" prefWidth="105.0" text="我教的课：">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </left>

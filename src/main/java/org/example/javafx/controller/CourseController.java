@@ -95,6 +95,8 @@ public class CourseController {
     ComboBox selectClass;
     @FXML
     Tab tab;
+    @FXML
+    Label te;
     List<Map<String, ? extends Object>> dataList;
 
     int[] styleStatue = {0,0,0,0,0,0};
@@ -143,6 +145,7 @@ public class CourseController {
             l.setFont(Font.font(25));
             tabCenter.getChildren().add(l);
         } else if (AppStore.getUser().getUser_type_id() == 2){
+            te.setVisible(true);
             capacity.setEditable(false);
             classes.setEditable(false);
             credit.setEditable(false);
@@ -162,6 +165,7 @@ public class CourseController {
             selectTerms.setVisible(false);
             tab.setText("显示窗口");
             selectClass.setVisible(false);
+            line.setVisible(false);
         }
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
             for (int i = 0; i < styleStatue.length; i++){
@@ -186,6 +190,17 @@ public class CourseController {
                 map.put("student_id", DashboardController.student_id);
                 try {
                     handlePageClick(map, clickedPageIndex, "/course/selectCourseByStudent"); // 处理点击事件
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if(AppStore.getUser().getUser_type_id() == 2) {
+                int clickedPageIndex = newValue.intValue();
+                Map<String, String> map = new HashMap<>();
+                map.put("teacher_id", DashboardController.teacher_id);
+                try {
+                    handlePageClick(map, clickedPageIndex, "/course/selectCourseByTeacher"); // 处理点击事件
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (InterruptedException e) {
@@ -318,6 +333,30 @@ public class CourseController {
             capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
             id.setText(String.valueOf(dataList.get(0).get("id")));
             setPagination(dataList1);
+        } else if(AppStore.getUser().getUser_type_id() == 2){
+            DataRequest dataRequest1 = new DataRequest();
+            Map<String, String> map = new HashMap<>();
+            map.put("teacher_id",DashboardController.teacher_id);
+            dataRequest1.setData(map);
+            Result data1 = HttpRequestUtils.courseField("/course/selectCourseByTeacher", dataRequest1);
+            List<Map<String, ? extends Object>> dataList1 = new Gson().fromJson(data1.getData().toString(), List.class);
+            addLabel(dataList1);
+            setPagination(dataList1);
+            dataList = dataList1;
+            if(dataList1.isEmpty()){
+
+            } else {
+                course_name.setText((String) dataList.get(0).get("course_name"));
+                num.setText((String) dataList.get(0).get("num"));
+                type.setValue(dataList.get(0).get("course_type_name"));
+                classes.setText((String) dataList.get(0).get("classes"));
+                book.setText((String) dataList.get(0).get("book"));
+                extra.setText((String) dataList.get(0).get("extracurricular"));
+                teacher.setText((String) dataList.get(0).get("teacher_name"));
+                credit.setText(String.valueOf(dataList.get(0).get("credit")));
+                capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
+                id.setText(String.valueOf(dataList.get(0).get("course_id")));
+            }
         }
     }
 

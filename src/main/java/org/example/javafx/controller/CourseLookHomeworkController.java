@@ -15,10 +15,7 @@ public class CourseLookHomeworkController {
     static String lesson_id;
     @FXML
     ImageView image11;
-    @FXML
-    ImageView image12;
-    @FXML
-    ImageView image13;
+
     @FXML
     public void initialize(){
         DataRequest dataRequest = new DataRequest();

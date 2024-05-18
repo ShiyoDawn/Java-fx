@@ -139,6 +139,11 @@
                       <StackPane fx:id="two" layoutX="71.0" layoutY="187.0" prefHeight="70.0" prefWidth="630.0" />
                       <StackPane fx:id="one" layoutX="71.0" layoutY="107.0" prefHeight="70.0" prefWidth="630.0" AnchorPane.topAnchor="107.0" />
                      <Line fx:id="line" endX="134.00001525878906" endY="85.66666412353516" layoutX="-2.0" layoutY="-25.0" startX="134.00001525878906" startY="56.33333969116211" stroke="#1ac992" strokeWidth="2.0" />
+                     <Label visible="false" fx:id="te" layoutX="171.0" layoutY="15.0" prefHeight="57.0" prefWidth="157.0" text="我教的课：">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </Label>
                         </children>
                     </AnchorPane>
                 </content>
