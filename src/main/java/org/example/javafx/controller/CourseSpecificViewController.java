@@ -181,11 +181,11 @@ public class CourseSpecificViewController {
                         });
                     } else {
                         Button button = new Button();
-                        button.setPrefWidth(103.0);
+                        button.setPrefWidth(153.0);
                         button.setPrefHeight(35.0);
-                        button.setLayoutX(820);
+                        button.setLayoutX(780);
                         button.setLayoutY(75 + (count - 1) * 150);
-                        button.setText("提交作业");
+                        button.setText("查看/提交作业");
                         button.setFont(Font.font(18));
                         lesson.getChildren().add(button);
                         button.setOnAction(event1 -> {
@@ -219,6 +219,7 @@ public class CourseSpecificViewController {
                     button.setLayoutX(820);
                     button.setLayoutY(75 + (count - 1) * 150);
                     button.setText("删除本节课");
+                    button.setFont(Font.font(14));
                     button.setOnAction(event2 -> {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setContentText("您是否要删除本节课");
@@ -265,6 +266,7 @@ public class CourseSpecificViewController {
                     buttonHome.setLayoutX(700);
                     buttonHome.setLayoutY(75 + (count - 1) * 150);
                     buttonHome.setText("编辑本节作业");
+                    buttonHome.setFont(Font.font(14));
                     buttonHome.setOnAction(event1 -> {
                         try {
                             CourseLessonHomeworkController.course_id = String.valueOf(a.get("course_id"));
@@ -288,6 +290,32 @@ public class CourseSpecificViewController {
                         }
                     });
                     lesson.getChildren().add(buttonHome);
+                }
+                if(userType != 3){
+                    Button button1 = new Button();
+                    button1.setPrefWidth(133.0);
+                    button1.setPrefHeight(35.0);
+                    button1.setLayoutX(560);
+                    button1.setLayoutY(75 + (count - 1) * 150);
+                    button1.setText("查看作业/考勤");
+                    button1.setFont(Font.font(14));
+                    button1.setOnAction(event1 -> {
+                        try {
+                            // 加载新的FXML文件
+                            FXMLLoader fxmlLoader = new FXMLLoader();
+                            fxmlLoader.setLocation(MainApplication.class.getResource("course-homework.fxml"));
+                            Parent root = fxmlLoader.load();
+                            // 创建新的Stage
+                            Stage newStage = new Stage();
+                            newStage.initStyle(StageStyle.DECORATED);
+                            newStage.setTitle("查看作业/考勤");
+                            newStage.setScene(new Scene(root));
+                            newStage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    lesson.getChildren().add(button1);
                 }
                 Label label = new Label();
                 label.setMaxSize(450, 30);

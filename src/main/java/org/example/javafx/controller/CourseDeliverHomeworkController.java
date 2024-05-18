@@ -2,17 +2,23 @@ package org.example.javafx.controller;
 
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
-import javafx.stage.Window;
+import javafx.scene.image.Image;
+import javafx.stage.*;
 import org.example.javafx.AppStore;
+import org.example.javafx.MainApplication;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,15 +89,25 @@ public class CourseDeliverHomeworkController {
 
     }
     public void lookC() throws IOException, InterruptedException {
-        DataRequest dataRequest = new DataRequest();
-        Map<String, String> map = new HashMap<>();
-        map.put("course_id", course_id);
-        map.put("week",week);
-        map.put("week_time",week_time);
-        map.put("time_sort",time_sort);
-        dataRequest.setData(map);
-        Result data = HttpRequestUtils.courseField("/lesson/selectSpecific", dataRequest);
-        List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+        CourseLookHomeworkController.lesson_id = lesson_id;
+        try {
+            // 加载新的FXML文件
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainApplication.class.getResource("course-look-homework.fxml"));
+            Parent root = fxmlLoader.load();
+            // 创建新的Stage
+            Stage newStage = new Stage();
+            newStage.initStyle(StageStyle.DECORATED);
+            newStage.setTitle("查看作业界面");
+            newStage.setScene(new Scene(root));
+            newStage.initModality(Modality.APPLICATION_MODAL);
+//                    Node node = add.getScene().getRoot();
+//                    Window window = node.getScene().getWindow();
+//                    window.hide(); // 关闭窗口
+            newStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private String idC(String str){
         int count = str.length();

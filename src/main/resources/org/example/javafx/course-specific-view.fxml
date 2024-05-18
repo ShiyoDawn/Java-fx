@@ -67,7 +67,7 @@
             <AnchorPane fx:id="lesson" prefHeight="556.0" prefWidth="975.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="280.0" layoutY="69.0" prefHeight="49.0" prefWidth="104.0" text="作业统计">
+      <Label layoutX="254.0" layoutY="69.0" prefHeight="49.0" prefWidth="119.0" text="作业/考勤统计">
          <font>
             <Font size="18.0" />
          </font>
