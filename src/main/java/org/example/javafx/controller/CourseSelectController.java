@@ -72,6 +72,8 @@ public class CourseSelectController {
     public void initialize() throws IOException, InterruptedException {
         creditss = 0;
         textField.setText("");
+        textField.setText("su");
+        textField.setText("");
         textField.setVisible(false);
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("success")){

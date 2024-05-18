@@ -193,7 +193,7 @@ public class ScoreTableController {
     private void onEditButtonClick() {
         onCancelClick();
         Map selected = dataTableView.getSelectionModel().getSelectedItem();
-        editConfirmButton.setText("增加分数");
+        editConfirmButton.setText("修改分数");
         editTabPane.setVisible(true);
         if (selected != null) {
             DataRequest dataRequest = new DataRequest();
@@ -235,7 +235,7 @@ public class ScoreTableController {
                 score.put("class", map.get("classes"));
             }
             result = new Result();
-            List<Map> ans = CommonMethod.filter(scoreList, "class", classComboBox.getSelectionModel().getSelectedItem().toString().split("班")[0]);
+            List<Map> ans = CommonMethod.filter(scoreList, "class", classComboBox.getValue().toString());
             result.setData(ans);
             setTableViewData(result);
             return;
@@ -640,6 +640,7 @@ public class ScoreTableController {
         courseComboBox.getItems().clear();
         studentEditComboBox.getItems().clear();
         courseEditComboBox.getItems().clear();
+        editButton.setVisible(false);
         Result result = HttpRequestUtils.request("/student/getStudentList", new DataRequest());
         List<Map> studentList = (List<Map>) result.getData();
         result = HttpRequestUtils.request("/person/getPersonList", new DataRequest());
@@ -673,8 +674,7 @@ public class ScoreTableController {
                     return new SimpleStringProperty(gradePoint + "");
                 }
         );
-        editTabPane.setVisible(false);
-
+        editConfirmButton.setText("添加分数");
         User user = AppStore.getUser();
         if (user.getUser_type_id() == 3) {
 
@@ -720,7 +720,7 @@ public class ScoreTableController {
         List<Map> courseMap = (List<Map>) courseResult.getData();
         for (Integer i = 1; i <= 8; i++) {
             Map map = new HashMap();
-            map.put("class", i + "班");
+            map.put("class", "23."+i);
             classList.add(map.get("class"));
         }
         for (Map student : studentMap) {

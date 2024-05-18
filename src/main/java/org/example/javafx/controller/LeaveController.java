@@ -357,17 +357,9 @@ public class LeaveController {
     private void onCheckButtonClick() {
         List<Map> selected = dataTableView.getSelectionModel().getSelectedItems();
         if (selected.size() == 0) {
-            Stage confirmStage = new Stage();
-            confirmStage.setWidth(250);
-            confirmStage.setHeight(150);
-            //取消放大（全屏）按钮
-            confirmStage.setResizable(false);
-            Text text = new Text("请选中某行再进行审核");
-            HBox hBox = new HBox(text);
-            hBox.setAlignment(Pos.CENTER);
-            Scene scene = new Scene(hBox);
-            confirmStage.setScene(scene);
-            confirmStage.show();
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("请选中某行");
+            alert.showAndWait();
             return;
         } else if (selected.size() == 1) {
             final String[] msg = new String[1];
@@ -433,7 +425,6 @@ public class LeaveController {
             primaryStage.showAndWait();
             DataRequest dataRequest = new DataRequest();
             Integer id = CommonMethod.getInteger(selected.get(0), "id");
-            dataRequest.add("id", id);
             dataRequest.add("status", msg[0]);
             HttpRequestUtils.request("/leave/updateStatus", dataRequest);
             onQueryButtonClick();

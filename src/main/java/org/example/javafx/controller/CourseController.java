@@ -287,16 +287,20 @@ public class CourseController {
             addLabel(dataList1);
             setPagination(dataList1);
             dataList = dataList1;
-            course_name.setText((String) dataList.get(0).get("course_name"));
-            num.setText((String) dataList.get(0).get("num"));
-            type.setValue(dataList.get(0).get("course_type_name"));
-            classes.setText((String) dataList.get(0).get("classes"));
-            book.setText((String) dataList.get(0).get("book"));
-            extra.setText((String) dataList.get(0).get("extracurricular"));
-            teacher.setText((String) dataList.get(0).get("teacher_name"));
-            credit.setText(String.valueOf(dataList.get(0).get("credit")));
-            capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
-            id.setText(String.valueOf(dataList.get(0).get("course_id")));
+            if(dataList1.isEmpty()){
+
+            } else {
+                course_name.setText((String) dataList.get(0).get("course_name"));
+                num.setText((String) dataList.get(0).get("num"));
+                type.setValue(dataList.get(0).get("course_type_name"));
+                classes.setText((String) dataList.get(0).get("classes"));
+                book.setText((String) dataList.get(0).get("book"));
+                extra.setText((String) dataList.get(0).get("extracurricular"));
+                teacher.setText((String) dataList.get(0).get("teacher_name"));
+                credit.setText(String.valueOf(dataList.get(0).get("credit")));
+                capacity.setText(String.valueOf(dataList.get(0).get("capacity")));
+                id.setText(String.valueOf(dataList.get(0).get("course_id")));
+            }
         } else if(AppStore.getUser().getUser_type_id() == 1){
             DataRequest dataRequest1 = new DataRequest();
             Result data1 = HttpRequestUtils.courseField("/course/selectAll", dataRequest1);

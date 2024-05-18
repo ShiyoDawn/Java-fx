@@ -77,6 +77,8 @@ public class CourseSpecificViewController {
         }
         userType = AppStore.getUser().getUser_type_id();
         textField.setText("");
+        textField.setText("su");
+        textField.setText("");
         textField.setVisible(false);
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("success")){
@@ -122,6 +124,18 @@ public class CourseSpecificViewController {
             label.setStyle("-fx-text-overrun: ellipsis; -fx-ellipsis-string: '...'");
             lesson.getChildren().add(label);
         } else {
+            if(userType != 3){
+                Label label3 = new Label();
+                label3.setMaxSize(450, 30);
+                label3.setText("可点击上课地点和课堂描述进行编辑");
+                label3.setTextAlignment(TextAlignment.CENTER);
+                label3.setWrapText(true);
+                label3.setFont(new Font(15));
+                label3.setLayoutX(350.0);
+                label3.setLayoutY(7);
+                label3.setTextFill(Color.PINK);
+                lesson.getChildren().add(label3);
+            }
             int count = 0;
             for (Map<String, ? extends Object> a : dataList1) {
                 String time;
