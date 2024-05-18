@@ -11,6 +11,7 @@ import javafx.scene.control.cell.MapValueFactory;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
+import org.example.javafx.util.CommonMethod;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -53,7 +54,7 @@ public class CourseHomeworkController {
         map.put("id", String.valueOf(CourseSpecificViewController.id));
         dataRequest.setData(map);
         Result data = HttpRequestUtils.courseField("/course/selectStudentCourse2", dataRequest);
-        List<Map<String, String>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+        List<Map> dataList = new Gson().fromJson(data.getData().toString(), List.class);
         //改科学计数法
         for (Map<String,String> a : dataList) {
             BigDecimal bigDecimal = new BigDecimal(String.valueOf(a.get("person_num")));
@@ -61,6 +62,12 @@ public class CourseHomeworkController {
             a.put("person_num",originalNumber);
         }
         tableView.setItems(FXCollections.observableList(dataList));
+//        only.setOnAction(e->{
+//            if(only.isSelected()){
+//                dataList=CommonMethod.filter(dataList,"diliver","已提交");
+//                tableView.setItems(FXCollections.observableList(dataList));
+//            }
+//        });
     }
     public void selectC(){
 
