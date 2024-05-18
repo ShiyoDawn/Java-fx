@@ -153,8 +153,8 @@ public class LoginController {
         });
 
         chooseTea.setOnAction(e -> {
-//            user.setText("202300300001");
-//            passwordField.setText("22222222");
+            user.setText("202300310000");
+            passwordField.setText("111111");
             try {
                 onLoginButtonClick();
             } catch (IOException ex) {

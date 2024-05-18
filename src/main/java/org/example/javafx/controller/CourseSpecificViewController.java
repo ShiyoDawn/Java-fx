@@ -40,6 +40,7 @@ import java.util.Optional;
 
 public class CourseSpecificViewController {
     static String id;
+    static String lesson_id;
     static String week;
 //    static String week_time;
 //    static String time_sort;
@@ -111,7 +112,7 @@ public class CourseSpecificViewController {
         addLabel(dataList1);
 
     }
-    public void addLabel(List<Map<String, ? extends Object>> dataList1){
+    public void addLabel(List<Map<String, ? extends Object>> dataList1) throws IOException, InterruptedException {
         if(dataList1.isEmpty()){
             Label label = new Label();
             label.setMaxSize(450, 30);
@@ -149,35 +150,68 @@ public class CourseSpecificViewController {
                 };
                 count++;
                 if(userType == 3){
-                    Button button = new Button();
-                    button.setPrefWidth(103.0);
-                    button.setPrefHeight(35.0);
-                    button.setLayoutX(820);
-                    button.setLayoutY(75 + (count - 1) * 150);
-                    button.setText("提交作业");
-                    lesson.getChildren().add(button);
-                    button.setOnAction(event1 -> {
-                        try {
-                            CourseDeliverHomeworkController.course_id = String.valueOf(a.get("course_id"));
-                            CourseDeliverHomeworkController.week = String.valueOf(a.get("week"));
-                            CourseDeliverHomeworkController.week_time = String.valueOf(a.get("week_time"));
-                            CourseDeliverHomeworkController.time_sort = String.valueOf(a.get("time_sort"));
-                            // 加载新的FXML文件
-                            FXMLLoader fxmlLoader = new FXMLLoader();
-                            fxmlLoader.setLocation(MainApplication.class.getResource("course-deliver-homework.fxml"));
-                            Parent root = fxmlLoader.load();
-                            // 创建新的Stage
-                            Stage newStage = new Stage();
-                            newStage.initStyle(StageStyle.DECORATED);
-                            newStage.setTitle("提交作业界面");
-                            newStage.setScene(new Scene(root));
-                            newStage.setResizable(false);
-                            newStage.initModality(Modality.APPLICATION_MODAL);
-                            newStage.showAndWait();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                    lesson_id = String.valueOf(a.get("id"));
+                    DataRequest dataRequest = new DataRequest();
+                    Map<String, String> map = new HashMap<>();
+                    map.put("lesson_id", lesson_id);
+                    map.put("student_id",DashboardController.student_id);
+                    dataRequest.setData(map);
+                    Result data = HttpRequestUtils.courseField("/lesson/selectStudentLesson", dataRequest);
+                    List<Map<String, ? extends Object>> dataList = new Gson().fromJson(data.getData().toString(), List.class);
+                    if(dataList.isEmpty()){
+                        Button button = new Button();
+                        button.setPrefWidth(103.0);
+                        button.setPrefHeight(35.0);
+                        button.setLayoutX(820);
+                        button.setLayoutY(75 + (count - 1) * 150);
+                        button.setText("进入课堂");
+                        button.setFont(Font.font(18));
+                        lesson.getChildren().add(button);
+                        button.setOnAction(event1 -> {
+                            try {
+                                Result data1 = HttpRequestUtils.courseField("/lesson/addStudentLesson", dataRequest);
+                                if(data1.getCode() == 200){
+                                    textField.setText("success");
+                                }
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                    } else {
+                        Button button = new Button();
+                        button.setPrefWidth(103.0);
+                        button.setPrefHeight(35.0);
+                        button.setLayoutX(820);
+                        button.setLayoutY(75 + (count - 1) * 150);
+                        button.setText("提交作业");
+                        button.setFont(Font.font(18));
+                        lesson.getChildren().add(button);
+                        button.setOnAction(event1 -> {
+                            try {
+                                CourseDeliverHomeworkController.course_id = String.valueOf(a.get("course_id"));
+                                CourseDeliverHomeworkController.week = String.valueOf(a.get("week"));
+                                CourseDeliverHomeworkController.week_time = String.valueOf(a.get("week_time"));
+                                CourseDeliverHomeworkController.time_sort = String.valueOf(a.get("time_sort"));
+                                // 加载新的FXML文件
+                                FXMLLoader fxmlLoader = new FXMLLoader();
+                                fxmlLoader.setLocation(MainApplication.class.getResource("course-deliver-homework.fxml"));
+                                Parent root = fxmlLoader.load();
+                                // 创建新的Stage
+                                Stage newStage = new Stage();
+                                newStage.initStyle(StageStyle.DECORATED);
+                                newStage.setTitle("提交作业界面");
+                                newStage.setScene(new Scene(root));
+                                newStage.setResizable(false);
+                                newStage.initModality(Modality.APPLICATION_MODAL);
+                                newStage.showAndWait();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+
                 } else {
                     Button button = new Button();
                     button.setPrefWidth(103.0);
@@ -551,5 +585,8 @@ public class CourseSpecificViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void teast(){
+        Button button = new Button();
     }
 }
