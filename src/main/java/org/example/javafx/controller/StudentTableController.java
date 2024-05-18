@@ -170,7 +170,7 @@ public class StudentTableController {
 
 
         try {
-            FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
+            FileInputStream fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
             Image image = new Image(fileInputStream);
             imageView.setImage(image);
         } catch (FileNotFoundException e) {
@@ -206,7 +206,7 @@ public class StudentTableController {
                 if(result.getCode()==-1){
                     FileInputStream fileInputStream = null;
                     try {
-                        fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
+                        fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
                     } catch (FileNotFoundException error) {
                         throw new RuntimeException(error);
                     }
