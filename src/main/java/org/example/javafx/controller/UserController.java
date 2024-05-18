@@ -266,5 +266,4 @@ public class UserController {
         onResetButtonClick();
 
     }
-
 }

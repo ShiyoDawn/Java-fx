@@ -155,12 +155,15 @@
                                     </FlowPane>
                                     <TextFlow fx:id="textFlow" prefHeight="16.0" prefWidth="378.0" textAlignment="CENTER">
                                        <children>
-                                          <Label alignment="CENTER" text="请按正确格式输入，“保存”只能用于修改" textFill="#f60000" />
+                                          <Label alignment="CENTER" prefHeight="50.0" prefWidth="269.0" text="请按正确格式输入，“保存”只能用于修改" textFill="#f60000">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font></Label>
                                        </children>
                                     </TextFlow>
-                                    <AnchorPane prefHeight="101.0" prefWidth="267.0">
+                                    <AnchorPane prefHeight="100.0" prefWidth="267.0">
                                        <children>
-                                          <Label fx:id="infoLabel" layoutX="40.0" layoutY="40.0" prefWidth="180.0">
+                                          <Label fx:id="infoLabel" alignment="CENTER" layoutX="1.0" prefHeight="41.0" prefWidth="265.0" textFill="#fd0000">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
@@ -173,7 +176,15 @@
                         </SplitPane>
                         <CheckBox fx:id="fuzzySearch" layoutX="810.0" layoutY="28.0" mnemonicParsing="false" onAction="#onFuzzySearchStartAction" text="模糊搜索" />
                         <ComboBox fx:id="selectChoiceComboBox" layoutX="543.0" layoutY="24.0" onAction="#onSelectChoiceComboBoxAction" prefHeight="23.0" prefWidth="91.0" promptText="查询类别" />
-                        <Button fx:id="resetButton" layoutX="938.0" layoutY="24.0" mnemonicParsing="false" onAction="#onResetAction" text="重置" />
+                        <Button fx:id="resetButton" layoutX="938.0" layoutY="24.0" mnemonicParsing="false" onAction="#onResetAction" text="重置">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Button>
+                        <Button fx:id="statisticButton" layoutX="1015.0" layoutY="24.0" mnemonicParsing="false" onAction="#onStatisticButtonClickAction" text="统计">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
             </content>

@@ -4,6 +4,9 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.javafx.pojo.Result;
 import org.example.javafx.request.DataRequest;
@@ -349,6 +353,22 @@ public class StudentInformationController {
             alert.setHeaderText(null);
             alert.setContentText("导出PDF文件时发生错误。");
             alert.showAndWait();
+            e.printStackTrace();
+        }
+    }
+
+    public void onStatisticButtonClickAction(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/javafx/student-statistic.fxml"));
+            Parent parent = loader.load();
+            StudentStatisticController controller = loader.getController();
+            controller.initialize(person_idLabel.getText());
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("学生统计");
+            stage.setScene(new Scene(parent));
+            stage.showAndWait();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
