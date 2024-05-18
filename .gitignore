@@ -36,3 +36,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+.idea/artifacts/Java_fx_jar.xml
+.idea/artifacts/Java_fx_jar.xml
