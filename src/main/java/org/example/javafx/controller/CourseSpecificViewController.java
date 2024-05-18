@@ -68,6 +68,7 @@ public class CourseSpecificViewController {
     @FXML
     Label updatet;
     static TextField textField = new TextField();
+    TextField textField1 = new TextField();
     Integer userType;
 
     @FXML
@@ -78,10 +79,28 @@ public class CourseSpecificViewController {
         }
         userType = AppStore.getUser().getUser_type_id();
         textField.setText("");
+        textField1.setText("");
+        textField1.setText("su");
+        textField1.setText("");
+        textField1.setVisible(false);
         textField.setText("su");
         textField.setText("");
         textField.setVisible(false);
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("success")){
+                FXMLLoader fxml = new FXMLLoader();
+                fxml.setLocation(MainApplication.class.getResource("course-specific-view.fxml"));
+                try {
+                    pane.getChildren().removeAll(pane.getChildren());
+                    BorderPane pane1 = new BorderPane(fxml.load());
+                    pane.getChildren().add(pane1);
+                    textField.setText("su");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        textField1.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("success")){
                 FXMLLoader fxml = new FXMLLoader();
                 fxml.setLocation(MainApplication.class.getResource("course-specific-view.fxml"));
@@ -171,7 +190,7 @@ public class CourseSpecificViewController {
                             try {
                                 Result data1 = HttpRequestUtils.courseField("/lesson/addStudentLesson", dataRequest);
                                 if(data1.getCode() == 200){
-                                    textField.setText("success");
+                                    textField1.setText("success");
                                 }
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
@@ -241,7 +260,7 @@ public class CourseSpecificViewController {
                             Result data = null;
                             try {
                                 data = HttpRequestUtils.courseField("/lesson/deleteLesson", dataRequest);
-                                textField.setText("success");
+                                textField1.setText("success");
                                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                                 alert1.setHeaderText(data.getMsg());
                                 alert1.showAndWait();
@@ -616,5 +635,8 @@ public class CourseSpecificViewController {
     }
     public void teast(){
         Button button = new Button();
+    }
+    public TextField gettextfield(){
+        return textField;
     }
 }

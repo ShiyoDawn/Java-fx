@@ -380,7 +380,7 @@ public class DashboardController {
                     tool.setEventButton1(leaveButton);
                     eventBox.getChildren().add(0,leaveButton);
                 }
-                else if (leaveList.get(i).get("status").equals("不通过")){
+                else if (leaveList.get(i).get("status").equals("不批准")){
                     str = "未通过审核 " + leaveList.get(i).get("leave_reason") + leaveList.get(i).get("start_time").toString().substring(5);
                     Button leaveButton = new Button(str);
                     tool.setEventButton3(leaveButton);
@@ -389,6 +389,7 @@ public class DashboardController {
                 else {
                     str = "已通过审核请假 " + leaveList.get(i).get("leave_reason");
                     Button leaveButton = new Button(str);
+                    System.out.println();
                     tool.setEventButton2(leaveButton);
                     eventBox.getChildren().add(leaveButton);
                 }

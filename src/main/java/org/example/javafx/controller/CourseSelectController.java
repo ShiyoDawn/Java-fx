@@ -64,7 +64,7 @@ public class CourseSelectController {
     @FXML
     Button delete;
     List<String[]> listCou = new ArrayList<>();
-    static TextField textField = new TextField();
+    TextField textField = new TextField();
     Boolean bl = true;
     static double creditss;
 

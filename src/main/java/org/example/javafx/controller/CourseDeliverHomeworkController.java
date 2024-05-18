@@ -76,7 +76,7 @@ public class CourseDeliverHomeworkController {
             // 在这里处理上传选定文件的逻辑
             road.setText(selectedFile.getAbsolutePath());
             Result data = HttpRequestUtils.uploadFile("/user/uploadPhoto", selectedFile.getPath(), "homework", idC(DashboardController.student_id) +"a"+ idC(lesson_id) + "a"+ String.valueOf(combobox.getValue()).charAt(1));
-            if(data.getMsg().equals("上传成功")){
+            if(data.getCode() == 200){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("上传成功");
                 alert.showAndWait();

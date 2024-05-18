@@ -3,6 +3,7 @@ package org.example.javafx.controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainFrameController {
+    Node center;
 
     @FXML
     BorderPane borderPane;
@@ -307,6 +309,9 @@ public class MainFrameController {
             }
         });
     }
-
+    public Node getCenter(){
+        center = borderPane.getCenter();
+        return center;
+    }
 
 }

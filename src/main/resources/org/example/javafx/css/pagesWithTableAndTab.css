@@ -117,7 +117,7 @@
 }
 /* 修改Tab中文本的颜色 */
 .tab-label {
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #052505;
 }
 
 .tab:selected {
