@@ -13,10 +13,7 @@ import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Base64;
 
 public class PersonAddController {
@@ -133,12 +130,15 @@ public class PersonAddController {
 
         FileInputStream fileInputStream = null;
         try {
-            fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
-        } catch (FileNotFoundException e) {
+            InputStream in = getClass().
+                    getResourceAsStream("/org/example/javafx/image/nobodyPhoto.png");
+            Image image = new Image(in);
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        Image image = new Image(fileInputStream);
-        photoView.setImage(image);
+
+
     }
 
 

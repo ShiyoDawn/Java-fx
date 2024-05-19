@@ -29,10 +29,7 @@ import javafx.collections.ObservableList;
 import org.example.javafx.response.DataResponse;
 import org.example.javafx.util.CommonMethod;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -169,13 +166,11 @@ public class StudentTableController {
         });
 
 
-        try {
-            FileInputStream fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
-            Image image = new Image(fileInputStream);
-            imageView.setImage(image);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        InputStream in = getClass().
+                getResourceAsStream("/org/example/javafx/image/nobodyPhoto.png");
+        System.out.println(in);
+        Image image = new Image(in);
+        imageView.setImage(image);
 
         tableView.setOnMouseClicked(e -> {
             Map<String, String> selectedItem = tableView.getSelectionModel().getSelectedItem();
@@ -204,14 +199,10 @@ public class StudentTableController {
                 dataRequest.add("person_num", person_numText.getText());
                 Result result = HttpRequestUtils.request("/user/getPhoto", dataRequest);
                 if(result.getCode()==-1){
-                    FileInputStream fileInputStream = null;
-                    try {
-                        fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
-                    } catch (FileNotFoundException error) {
-                        throw new RuntimeException(error);
-                    }
-                    Image image = new Image(fileInputStream);
-                    imageView.setImage(image);
+                    InputStream in1 = getClass().
+                            getResourceAsStream("/org/example/javafx/image/nobodyPhoto.png");
+                    Image image0 = new Image(in1);
+                    imageView.setImage(image0);
                 }
                 if (result != null) {
                     if (result.getCode() != -1) {

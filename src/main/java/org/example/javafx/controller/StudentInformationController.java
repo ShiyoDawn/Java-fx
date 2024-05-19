@@ -154,19 +154,19 @@ public class StudentInformationController {
 //                alert.showAndWait();
 //                e.printStackTrace();
 //            }
-            try {
-                FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\org\\example\\javafx\\image\\nobodyPhoto.png");
-                Image image = new Image(fileInputStream);
-                personImage.setImage(image);
-                //System.out.println(studentInfo.get("image"));
-                if(studentInfo.get("image") != null) {
-                    String str = (String) studentInfo.get("image");
-                    byte[] data = Base64.getDecoder().decode(str);
-                    if (data != null) {
-                        Image image1 = new Image(new ByteArrayInputStream(data));
-                        personImage.setImage(image1);
-                    }
+            InputStream in = getClass().
+                    getResourceAsStream("/org/example/javafx/image/nobodyPhoto.png");
+            Image image = new Image(in);
+            personImage.setImage(image);
+            //System.out.println(studentInfo.get("image"));
+            if(studentInfo.get("image") != null) {
+                String str = (String) studentInfo.get("image");
+                byte[] data = Base64.getDecoder().decode(str);
+                if (data != null) {
+                    Image image1 = new Image(new ByteArrayInputStream(data));
+                    personImage.setImage(image1);
                 }
+            }
 //                if (result != null) {
 //                    if (result.getCode() != -1) {
 //                        String str = result.getData().toString();
@@ -177,9 +177,6 @@ public class StudentInformationController {
 //                        }
 //                    }
 //                }
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
             //GPALabel.setText("");
             List<Map<String, String>> studentFamilies = (List<Map<String, String>>) studentInfo.get("studentFamilies");
             if (studentFamilies != null && !studentFamilies.isEmpty()) {
