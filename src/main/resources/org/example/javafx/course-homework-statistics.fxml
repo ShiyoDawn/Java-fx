@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="588.0" prefWidth="633.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseHomeworkStatisticsController">
+    <ScrollPane prefHeight="583.0" prefWidth="679.0">
+        <content>
+            <TableView fx:id="tableView" prefHeight="720.0" prefWidth="671.0">
+                <columns>
+                    <TableColumn fx:id="idColumn" prefWidth="61.33334243297577" text="序号" />
+                    <TableColumn fx:id="person_numColumn" prefWidth="124.66664123535156" text="学号" />
+                    <TableColumn fx:id="student_nameColumn" prefWidth="81.33334350585938" text="姓名" />
+                    <TableColumn fx:id="classes" prefWidth="88.0" text="班级" />
+                    <TableColumn fx:id="countH" prefWidth="83.3333740234375" text="提交占比" />
+                    <TableColumn fx:id="count1" prefWidth="25" text="A+" />
+                    <TableColumn fx:id="count2" prefWidth="25" text="A" />
+                    <TableColumn fx:id="count3" prefWidth="25" text="B" />
+                    <TableColumn fx:id="count4" prefWidth="25" text="C" />
+                    <TableColumn fx:id="count5" prefWidth="25" text="D" />
+                    <TableColumn fx:id="attend" prefWidth="90.0" text="到课占比" />
+                </columns>
+            </TableView>
+        </content>
+    </ScrollPane>
+</AnchorPane>

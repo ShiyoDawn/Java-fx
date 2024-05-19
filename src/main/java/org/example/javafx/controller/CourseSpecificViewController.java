@@ -54,8 +54,6 @@ public class CourseSpecificViewController {
     @FXML
     ImageView member;
     @FXML
-    ImageView team;
-    @FXML
     ImageView updateTime;
     @FXML
     Label bigName;
@@ -558,12 +556,14 @@ public class CourseSpecificViewController {
         try {
             // 加载新的FXML文件
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(MainApplication.class.getResource("course-select-view.fxml"));
+            fxmlLoader.setLocation(MainApplication.class.getResource("score-view.fxml"));
             Parent root = fxmlLoader.load();
             // 创建新的Stage
             Stage newStage = new Stage();
             newStage.initStyle(StageStyle.DECORATED);
-            newStage.setTitle("选课界面");
+            newStage.setTitle("成绩界面");
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.setResizable(false);
             newStage.setScene(new Scene(root));
             newStage.setResizable(false);
             newStage.show();
@@ -572,29 +572,12 @@ public class CourseSpecificViewController {
         }
     }
 
-    public void teamC() {
-        try {
-            // 加载新的FXML文件
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(MainApplication.class.getResource("course-add-view.fxml"));
-            Parent root = fxmlLoader.load();
-            // 创建新的Stage
-            Stage newStage = new Stage();
-            newStage.initStyle(StageStyle.DECORATED);
-            newStage.setTitle("团队信息");
-            newStage.setScene(new Scene(root));
-            newStage.setResizable(false);
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void homeworkC() {
         try {
             // 加载新的FXML文件
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(MainApplication.class.getResource("course-homework.fxml"));
+            fxmlLoader.setLocation(MainApplication.class.getResource("course-homework-statistics.fxml"));
             Parent root = fxmlLoader.load();
             // 创建新的Stage
             Stage newStage = new Stage();

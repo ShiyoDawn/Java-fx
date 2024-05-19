@@ -73,7 +73,7 @@ public class CourseHomeworkController {
         diliver.setCellValueFactory(new MapValueFactory<>("diliver"));
         time.setCellValueFactory(new MapValueFactory<>("time"));
         rank.setCellValueFactory(new MapValueFactory<>("rank"));
-        attend.setCellValueFactory(new MapValueFactory<>("attend"));
+//        attend.setCellValueFactory(new MapValueFactory<>("attend"));
         DataRequest dataRequest = new DataRequest();
         Map<String, String> map = new HashMap<>();
         map.put("id", String.valueOf(CourseSpecificViewController.id));

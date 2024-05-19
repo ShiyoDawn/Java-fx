@@ -113,65 +113,82 @@ public class CourseAddController {
             alert.setHeaderText("前序课程不能为空");
             alert.showAndWait();
         } else {
-            if(String.valueOf(precourse.getValue()).charAt(1) == '-'){
-                map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,1));
-            } else if (String.valueOf(precourse.getValue()).charAt(3) == '-'){
-                map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,3));
-            } else if (String.valueOf(precourse.getValue()).charAt(4) == '-') {
-                map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,4));
-            }
-            map.put("course_name", course_name.getText());
-            map.put("credit", credit.getText());
-            map.put("num", num.getText());
-            map.put("course_type", (String) type.getValue());
-            map.put("book", book.getText());
-            map.put("terms", (String) terms.getValue());
-            map.put("extracurricular", extra.getText());
-            map.put("classes", classes.getText());
-            map.put("teacher_name", idC(String.valueOf(teacher.getValue())));
-            map.put("capacity", capacity.getText());
-            map.put("students", "0");
-            dataRequest.setData(map);
-            Result data = HttpRequestUtils.courseField("/course/addCourse", dataRequest);
-            String data1 = data.getMsg();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(data1);
-            alert.showAndWait();
-            CourseLessonController.num = num.getText();
-            CourseLessonController.source = "add";
-            if(data1.equals("添加成功")){
-                try {
-                    DataRequest dataRequest2 = new DataRequest();
-                    Map<String,String> map2 = new HashMap<>();
-                    map2.put("num",num.getText());
-                    dataRequest2.setData(map2);
-                    Result data2 = HttpRequestUtils.courseField("/course/selectByNum2", dataRequest2);
-                    List<Map<String, String>> dataList2 = new Gson().fromJson(data2.getData().toString(), List.class);
-                    DataRequest dataRequest1 = new DataRequest();
-                    Map<String,String> map1 = new HashMap<>();
-                    map1.put("teacher_id",idC2(String.valueOf(teacher.getValue())));
-                    map1.put("course_id",String.valueOf(dataList2.get(0).get("id")));
-                    dataRequest1.setData(map1);
-                    HttpRequestUtils.courseField("/course/addTeacherCourse", dataRequest1);
-                    // 加载新的FXML文件
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(MainApplication.class.getResource("course-lesson.fxml"));
-                    Parent root = fxmlLoader.load();
-                    // 创建新的Stage
-                    Stage newStage = new Stage();
-                    newStage.initStyle(StageStyle.DECORATED);
-                    newStage.setTitle("添加课程具体信息界面");
-                    newStage.setScene(new Scene(root));
-                    newStage.setResizable(false);
-                    newStage.initModality(Modality.APPLICATION_MODAL);
+            if(String.valueOf(capacity.getText()).length()>6){
+                map.put("capacity", "10");
+            }else if(!(testC(String.valueOf(capacity.getText())))){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("请输入正确的课容量");
+                alert.showAndWait();
+            } else if (!(test(course_name.getText()) && test(credit.getText()) && test(num.getText()) && test(book.getText())&&test(extra.getText())&&test(classes.getText())&&test(capacity.getText()))){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("不能含有空格");
+                alert.showAndWait();
+            }else {
+                if(String.valueOf(precourse.getValue()).charAt(1) == '-'){
+                    map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,1));
+                } else if (String.valueOf(precourse.getValue()).charAt(3) == '-'){
+                    map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,3));
+                } else if (String.valueOf(precourse.getValue()).charAt(4) == '-') {
+                    map.put("pre_course_id", String.valueOf(precourse.getValue()).substring(0,4));
+                }
+                map.put("course_name", course_name.getText());
+                if(String.valueOf(credit.getText()).length() > 6){
+                    map.put("credit","");
+                }else {
+                    map.put("credit", credit.getText());
+                }
+                map.put("num", num.getText());
+                map.put("course_type", (String) type.getValue());
+                map.put("book", book.getText());
+                map.put("terms", (String) terms.getValue());
+                map.put("extracurricular", extra.getText());
+                map.put("classes", classes.getText());
+                map.put("teacher_name", idC(String.valueOf(teacher.getValue())));
+                map.put("capacity", capacity.getText());
+                map.put("students", "0");
+                dataRequest.setData(map);
+                Result data = HttpRequestUtils.courseField("/course/addCourse", dataRequest);
+                String data1 = data.getMsg();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(data1);
+                alert.showAndWait();
+                CourseLessonController.num = num.getText();
+                CourseLessonController.source = "add";
+                if(data1.equals("添加成功")){
+                    try {
+                        DataRequest dataRequest2 = new DataRequest();
+                        Map<String,String> map2 = new HashMap<>();
+                        map2.put("num",num.getText());
+                        dataRequest2.setData(map2);
+                        Result data2 = HttpRequestUtils.courseField("/course/selectByNum2", dataRequest2);
+                        List<Map<String, String>> dataList2 = new Gson().fromJson(data2.getData().toString(), List.class);
+                        DataRequest dataRequest1 = new DataRequest();
+                        Map<String,String> map1 = new HashMap<>();
+                        map1.put("teacher_id",idC2(String.valueOf(teacher.getValue())));
+                        map1.put("course_id",String.valueOf(dataList2.get(0).get("id")));
+                        dataRequest1.setData(map1);
+                        HttpRequestUtils.courseField("/course/addTeacherCourse", dataRequest1);
+                        // 加载新的FXML文件
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(MainApplication.class.getResource("course-lesson.fxml"));
+                        Parent root = fxmlLoader.load();
+                        // 创建新的Stage
+                        Stage newStage = new Stage();
+                        newStage.initStyle(StageStyle.DECORATED);
+                        newStage.setTitle("添加课程具体信息界面");
+                        newStage.setScene(new Scene(root));
+                        newStage.setResizable(false);
+                        newStage.initModality(Modality.APPLICATION_MODAL);
 //                    Node node = add.getScene().getRoot();
 //                    Window window = node.getScene().getWindow();
 //                    window.hide(); // 关闭窗口
-                    newStage.showAndWait();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        newStage.showAndWait();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+
 
         }
     }
@@ -193,5 +210,20 @@ public class CourseAddController {
         }
         return str.substring(0,count);
     }
-
+    private Boolean test(String s){
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ' ') {
+                return false;
+            }
+        }
+        return true;
+    }
+    private Boolean testC(String s){
+        for (int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) > '9' || s.charAt(i) < '0'){
+                return false;
+            }
+        }
+        return true;
+    }
 }
