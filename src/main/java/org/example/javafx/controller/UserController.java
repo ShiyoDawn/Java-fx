@@ -29,6 +29,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
+import java.security.spec.ECField;
 import java.sql.SQLOutput;
 import java.util.Base64;
 import java.util.HashMap;
@@ -212,8 +213,8 @@ public class UserController {
     public void initialize() {
         User user = AppStore.getUser();
         try {
-            FileInputStream fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
-            Image image = new Image(fileInputStream);
+            InputStream inputStream = getClass().getResourceAsStream("/org/example/javafx/image/nobodyPhoto.png");
+            Image image = new Image(inputStream);
             photoView.setImage(image);
             DataRequest dataRequest = new DataRequest();
             dataRequest.add("person_num", user.getPerson_num());
@@ -228,7 +229,7 @@ public class UserController {
                     }
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         numLabel.setText(user.getPerson_num());

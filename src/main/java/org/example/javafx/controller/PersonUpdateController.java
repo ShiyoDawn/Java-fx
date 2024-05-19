@@ -14,10 +14,7 @@ import org.example.javafx.pojo.User;
 import org.example.javafx.request.DataRequest;
 import org.example.javafx.request.HttpRequestUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Base64;
 import java.util.Map;
 
@@ -164,12 +161,14 @@ public class PersonUpdateController {
         }
         FileInputStream fileInputStream = null;
         try {
-            fileInputStream = new FileInputStream("src\\main\\org\\example\\javafx\\image\\nobodyPhoto.png");
-        } catch (FileNotFoundException e) {
+            InputStream in = getClass().
+                    getResourceAsStream("/org/example/javafx/image/nobodyPhoto.png");
+            Image image = new Image(in);
+            imageView.setImage(image);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        Image image = new Image(fileInputStream);
-        imageView.setImage(image);
+
         DataRequest dataRequest = new DataRequest();
         dataRequest.add("person_num", person_numTextField.getText());
         Result result = HttpRequestUtils.request("/user/getPhoto", dataRequest);
