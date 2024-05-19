@@ -11,34 +11,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseHomeworkController">
+<AnchorPane fx:id="anchorPane" prefHeight="690.0" prefWidth="826.0" stylesheets="@css/pagesWithTableAndTab.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx.controller.CourseHomeworkController">
     <children>
-        <TabPane prefHeight="690.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane prefHeight="690.0" prefWidth="822.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="查看作业界面">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="661.0" prefWidth="769.0">
                             <children>
-                                <SplitPane layoutY="72.0" prefHeight="585.0" prefWidth="700.0">
+                                <SplitPane layoutY="72.0" prefHeight="585.0" prefWidth="1099.0">
                                     <items>
-                                        <ScrollPane prefHeight="583.0" prefWidth="443.0">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="700.0">
-                                                    <children>
-                                                        <TableView fx:id="tableView" prefHeight="720.0" prefWidth="700.0">
-                                                            <columns>
-                                                                <TableColumn fx:id="idColumn" prefWidth="61.33334243297577" text="序号" />
-                                                                <TableColumn fx:id="person_numColumn" prefWidth="124.66664123535156" text="学号" />
-                                                                <TableColumn fx:id="student_nameColumn" prefWidth="81.33334350585938" text="姓名" />
-                                                                <TableColumn fx:id="classes" prefWidth="88.0" text="班级" />
-                                                                <TableColumn fx:id="diliver" prefWidth="83.3333740234375" text="是否提交" />
-                                                                <TableColumn fx:id="time" prefWidth="120.0001220703125" text="提交时间" />
-                                                                <TableColumn fx:id="rank" prefWidth="90.0" text="作业评级" />
-                                                            </columns>
-                                                        </TableView>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
+                                        <ScrollPane prefHeight="583.0" prefWidth="1017.0">
+                                 <content>
+                                                  <TableView fx:id="tableView" prefHeight="720.0" prefWidth="834.0">
+                                                      <columns>
+                                                          <TableColumn fx:id="idColumn" prefWidth="61.33334243297577" text="序号" />
+                                                          <TableColumn fx:id="person_numColumn" prefWidth="124.66664123535156" text="学号" />
+                                                          <TableColumn fx:id="student_nameColumn" prefWidth="81.33334350585938" text="姓名" />
+                                                          <TableColumn fx:id="classes" prefWidth="88.0" text="班级" />
+                                                          <TableColumn fx:id="diliver" prefWidth="83.3333740234375" text="是否提交" />
+                                                          <TableColumn fx:id="time" prefWidth="120.0001220703125" text="提交时间" />
+                                                          <TableColumn fx:id="rank" prefWidth="90.0" text="作业评级" />
+                                                          <TableColumn fx:id="attend" prefWidth="90.0" text="是否签到" />
+                                                      </columns>
+                                                  </TableView>
+                                 </content>
                                         </ScrollPane>
                                     </items>
                                 </SplitPane>
