@@ -163,11 +163,12 @@ public class PersonUpdateController {
         try {
             InputStream in = getClass().
                     getResourceAsStream("/org/example/javafx/image/nobodyPhoto.png");
+            Image image = new Image(in);
+            imageView.setImage(image);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        Image image = new Image(fileInputStream);
-        imageView.setImage(image);
+
         DataRequest dataRequest = new DataRequest();
         dataRequest.add("person_num", person_numTextField.getText());
         Result result = HttpRequestUtils.request("/user/getPhoto", dataRequest);
